@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore the event services offered by AR event and wedding planner, delivering unforgettable corporate, private, and cultural events."
+    />
+    <meta
+      name="keywords"
+      content="Event Management Services, Corporate Events, Wedding Planning, Birthday Parties, Cultural Events, Private Celebrations"
+    />
+    <meta name="author" content="AR event and wedding planner" />
+    <meta
+      property="og:title"
+      content="Our Services | AR event and wedding planner"
+    />
+    <meta
+      property="og:description"
+      content="Discover how AR event and wedding planner crafts extraordinary events across weddings, corporates, festivals, and more."
+    />
+    <meta property="og:type" content="website" />
+    <title>Our Services | AR event and wedding planner</title>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="shortcut icon" href="./assets/logo2.svg" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        padding: 4vw;
+      }
+      /* Add animation for service cards */
+      @keyframes fadeInUp {
+        0% {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .service-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background: linear-gradient(
+          45deg,
+          #f4b86f 0%,
+          #a27158 50%,
+          #5c0469 100%
+        );
+        color: #fff;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: left;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        min-height: 380px;
+        box-sizing: border-box;
+        animation: fadeInUp 1s ease-out forwards; /* Add this animation */
+        opacity: 0; /* Start as invisible */
+      }
+
+      /* Delay the animation based on the index of the card to create a staggered effect */
+      .service-card:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .service-card:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .service-card:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      .service-card:nth-child(4) {
+        animation-delay: 0.6s;
+      }
+
+      .service-card:nth-child(5) {
+        animation-delay: 0.8s;
+      }
+
+      .service-card:nth-child(6) {
+        animation-delay: 1s;
+      }
+
+      .service-card:nth-child(7) {
+        animation-delay: 1.2s;
+      }
+
+      .service-card:nth-child(8) {
+        animation-delay: 1.4s;
+      }
+
+      .service-card:nth-child(9) {
+        animation-delay: 1.6s;
+      }
+
+      /* Hover effects */
+      .service-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .service-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+      .service-card i {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .learn-more {
+        margin-top: auto;
+        align-self: flex-end;
+        text-align: right;
+        color: #fff;
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      @media (max-width: 768px) {
+        .services-grid {
+          grid-template-columns: 1fr;
+          padding: 2vw;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="hero-section-services">
+      <div class="nav-component">
+        <div class="nav-logo"></div>
+        <div class="nav-links">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="eventcard.html">Services</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact us</a></li>
+          </ul>
+        </div>
+        <a href="book.html" class="book-now-btn">Book Now</a>
+        <div class="hamburger-menu" onclick="toggleMobileNav()">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <div class="photo-card card-top-left">
+        <img src="./assets/images/Wedding/475159695_1097850219043563_871709032766323656_n.jpg" alt="Event 1" />
+      </div>
+  
+      <div class="photo-card card-top-right">
+        <img src="./assets/images/1.jpg" alt="Event 2" />
+      </div>
+  
+      <div class="photo-card card-bottom-left">
+        <img src="./assets/images/Stage/465692651_8953257021380443_8109159992700779700_n.jpg" alt="Event 3" />
+      </div>
+  
+      <div class="photo-card card-bottom-right">
+        <img src="./assets/images/3.jpg" alt="Event 4" />
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1>Services</h1>
+        <p>
+          We organize spectacular events that are unforgettable, creative, and
+          flawless.
+        </p>
+        <a href="./book.html" class="hero-btn">Plan Your Event</a>
+      </div>
+    </section>
+
+    <section>
+      <h1 style="text-align: center; margin: 2rem 0">Our Services</h1>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fas fa-building"></i>
+          <h3>Corporate Events</h3>
+          <p>
+            Professional management for conferences, seminars, team-building
+            retreats, corporate parties, and executive meetings tailored to your
+            business goals.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-heart"></i>
+          <h3>Wedding Planning</h3>
+          <p>
+            Turning your dream wedding into a beautifully orchestrated
+            celebration with complete venue decoration, catering, entertainment,
+            and guest management.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-birthday-cake"></i>
+          <h3>Birthday Parties</h3>
+          <p>
+            Planning unique birthday experiences for all age groups with theme
+            decoration, entertainment, custom cakes, and memorable party
+            activities.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h3>College Festivals</h3>
+          <p>
+            Creative planning and execution for vibrant college festivals,
+            cultural nights, inter-college competitions, and student
+            exhibitions.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-trophy"></i>
+          <h3>Award Ceremonies</h3>
+          <p>
+            Organizing award ceremonies that honor talent and achievements with
+            grandeur — including red carpets, stage setup, and PR coverage.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-bullhorn"></i>
+          <h3>Product Launches</h3>
+          <p>
+            Comprehensive product launch solutions including stage setup, brand
+            activation, media coordination, and celebrity appearances to build
+            brand awareness.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-magic"></i>
+          <h3>Fashion Shows</h3>
+          <p>
+            Expert management of fashion shows with curated runway setups,
+            lighting, music, model coordination, and backstage handling for a
+            seamless show experience.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-theater-masks"></i>
+          <h3>Cultural Events</h3>
+          <p>
+            Celebrating global and local cultures through expertly curated
+            performances, exhibitions, food fests, parades, and traditional
+            showcases.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-glass-cheers"></i>
+          <h3>Private Parties</h3>
+          <p>
+            Hosting intimate private gatherings, premium dinners, and
+            celebration parties with bespoke themes, entertainment, gourmet
+            menus, and full event concierge services.
+          </p>
+          <a href="#" class="learn-more">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div class="footer-info">
+        <div class="footer-icon-flex">
+          <div class="icon-1"></div>
+          <span class="line">|</span>
+          <div class="icon-2"></div>
+        </div>
+        <div class="footer-uni">
+          Christ University, Kengeri Campus — nurturing excellence through
+          creativity, innovation, and service.
+        </div>
+      </div>
+      <ul class="footer-links">
+        <li class="header">Links</li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="eventcard.html">Events</a></li>
+        <li><a href="schedule.html">Schedule</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+      <div class="footer-event-info">
+        <div class="footer-para">
+          AR event and wedding planner – crafting unforgettable celebrations
+          with passion, creativity, and precision.<br /><br />
+          Developed by
+          <a
+            href="https://pixelatenest.com"
+            target="_blank"
+            style="text-decoration: none; color: rgba(0, 0, 0, 0.7)"
+            >Pixelate Nest</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function toggleMobileNav() {
+        document.querySelector(".nav-links").classList.toggle("active");
+      }
+    </script>
+    <script>
+      const links = document.querySelectorAll(".nav-links ul li a");
+      const currentPage = window.location.pathname.split("/").pop();
+
+      links.forEach((link) => {
+        if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active");
+        }
+      });
+    </script>
+  </body>
+</html>

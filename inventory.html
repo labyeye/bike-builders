@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Inventory | Dan Electo Bicycle</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="hero-section inventory-hero">
+      <div class="overlay">
+        <div class="rectangle"></div>
+        <div class="gradient"></div>
+      </div>
+
+      <nav class="navbar">
+        <div class="logo">
+          <img src="./assets/logo2.svg" style="width: 80px" alt="" />
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html" class="active">Inventory</a></li>
+          <li><a href="sell.html">Sell Your Bike</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="login-btn">
+          <button>Get the Quote</button>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <h1>Our Collection</h1>
+      </div>
+      <div class="bicycle-text">Bike</div>
+      <div class="bike-slider">
+        <div class="bike-slides">
+          <img
+            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
+            alt="Bike 1"
+          />
+          <img
+            src="https://cdn.bajajauto.com/-/media/assets/bajajauto/360degreeimages/bikes/pulsar/pulsar-150/single-disc/black-red/00.png"
+            alt="Bike 2"
+          />
+          <img
+            src="https://torrentbajaj.com/wp-content/themes/rvtheme/bikes/360-10152-1.png"
+            alt="Bike 3"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/0X0/n/cw/ec/97549/apache-rtr-160-4v-right-side-view-8.png?isig=0&q=80"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
+            alt="Bike 2"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
+            alt="Bike 3"
+          />
+          <img
+            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/95229/ninja-h2r-right-side-view-2.png?isig=0&q=80"
+            alt="Bike 2"
+          />
+          <img
+            src="https://kaydeeauto.in/cdn/shop/files/BajajPulsarRS200BS61.png?v=1709297338"
+            alt="Bike 3"
+          />
+          <img
+            src="https://awtobazar.in/wp-content/uploads/2024/05/Bajaj-Pulsar-NS400Z.png"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
+            alt="Bike 2"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
+            alt="Bike 3"
+          />
+        </div>
+      </div>
+    </div>
+
+    <section class="inventory-section full-inventory">
+      <div class="filters-container">
+        <div class="filter-buttons">
+          <button class="filter-btn active" data-filter="all">All Bikes</button>
+          <button class="filter-btn" data-filter="price">
+            Price <i class="fas fa-chevron-down"></i>
+          </button>
+          <button class="filter-btn" data-filter="brand">
+            Brand <i class="fas fa-chevron-down"></i>
+          </button>
+          <button class="filter-btn" data-filter="year">
+            Year <i class="fas fa-chevron-down"></i>
+          </button>
+          <button class="filter-btn" data-filter="km">
+            KM Driven <i class="fas fa-chevron-down"></i>
+          </button>
+          <button class="filter-btn" data-filter="owner">
+            Ownership <i class="fas fa-chevron-down"></i>
+          </button>
+          <button class="filter-btn" data-filter="fuel">
+            Fuel Type <i class="fas fa-chevron-down"></i>
+          </button>
+        </div>
+
+        <!-- Filter dropdowns (hidden by default) -->
+        <div class="filter-dropdown" id="price-dropdown">
+          <div class="price-range">
+            <div class="range-inputs">
+              <input type="number" id="min-price" placeholder="Min" min="0" />
+              <span>to</span>
+              <input type="number" id="max-price" placeholder="Max" min="0" />
+            </div>
+            <div class="price-presets">
+              <button class="price-preset" data-min="0" data-max="50000">
+                Under 50K
+              </button>
+              <button class="price-preset" data-min="50000" data-max="100000">
+                50K-1L
+              </button>
+              <button class="price-preset" data-min="100000" data-max="200000">
+                1L-2L
+              </button>
+              <button class="price-preset" data-min="200000" data-max="500000">
+                2L-5L
+              </button>
+              <button class="price-preset" data-min="500000">5L+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-dropdown" id="brand-dropdown">
+          <div class="filter-options brand-options">
+            <button class="filter-option" data-brand="KTM">KTM</button>
+            <button class="filter-option" data-brand="Suzuki">Suzuki</button>
+            <button class="filter-option" data-brand="Royal Enfield">
+              Royal Enfield
+            </button>
+            <button class="filter-option" data-brand="Kawasaki">
+              Kawasaki
+            </button>
+            <button class="filter-option" data-brand="Ducati">Ducati</button>
+            <button class="filter-option" data-brand="Bajaj">Bajaj</button>
+            <button class="filter-option" data-brand="Harley-Davidson">
+              Harley-Davidson
+            </button>
+            <button class="filter-option" data-brand="Yamaha">Yamaha</button>
+          </div>
+        </div>
+
+        <div class="filter-dropdown" id="year-dropdown">
+          <div class="year-slider">
+            <div class="slider-container">
+              <input
+                type="range"
+                id="year-min"
+                min="2015"
+                max="2024"
+                value="2015"
+                step="1"
+              />
+              <input
+                type="range"
+                id="year-max"
+                min="2015"
+                max="2024"
+                value="2024"
+                step="1"
+              />
+            </div>
+            <div class="year-values">
+              <span id="year-min-value">2015</span>
+              <span>to</span>
+              <span id="year-max-value">2024</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-dropdown" id="km-dropdown">
+          <div class="km-slider">
+            <div class="slider-container">
+              <input
+                type="range"
+                id="km-min"
+                min="0"
+                max="50000"
+                value="0"
+                step="500"
+              />
+              <input
+                type="range"
+                id="km-max"
+                min="0"
+                max="50000"
+                value="50000"
+                step="500"
+              />
+            </div>
+            <div class="km-values">
+              <span id="km-min-value">0</span>
+              <span>to</span>
+              <span id="km-max-value">50,000</span>
+              <span>km</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-dropdown" id="owner-dropdown">
+          <div class="filter-options ownership-options">
+            <button class="filter-option" data-owner="1">1st Owner</button>
+            <button class="filter-option" data-owner="2">2nd Owner</button>
+            <button class="filter-option" data-owner="3">3+ Owner</button>
+          </div>
+        </div>
+
+        <div class="filter-dropdown" id="fuel-dropdown">
+          <div class="filter-options fuel-options">
+            <button class="filter-option" data-fuel="Petrol">Petrol</button>
+            <button class="filter-option" data-fuel="Diesel">Diesel</button>
+            <button class="filter-option" data-fuel="Electric">Electric</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <h2 id="filtered-count">8 Bikes Available</h2>
+      </div>
+      <div class="bike-grid">
+        <!-- Bike 1 -->
+        <div
+          class="bike-card"
+          data-brand="KTM"
+          data-price="349900"
+          data-year="2023"
+          data-km="2500"
+          data-owner="1"
+          data-fuel="Petrol"
+        >
+          <img
+            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
+            alt="KTM Duke 390"
+          />
+          <div class="card-content">
+            <h3>KTM Duke 390</h3>
+            <span class="model">2023 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>2,500 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>6 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹3,49,900</div>
+              <div class="emi">EMI: ₹8,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 2 -->
+        <div class="bike-card">
+          <img
+            src="https://images.tractorjunction.com/6_Hayabusa_a5e71b9068.png?format=webp&quality=40"
+            alt="Suzuki Hayabusa"
+          />
+          <div class="card-content">
+            <h3>Suzuki Hayabusa</h3>
+            <span class="model">2023 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>500 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>6 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹22,49,900</div>
+              <div class="emi">EMI: ₹8,999/month</div>
+              <button>Sold Out</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 3 -->
+        <div class="bike-card">
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
+            alt="Royal Enfield GT 650"
+          />
+          <div class="card-content">
+            <h3>Royal Enfield GT 650</h3>
+            <span class="model">2021 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>1,500 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>2 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <!-- <div class="price">₹5,49,900</div>
+              <div class="emi">EMI: ₹8,999/month</div> -->
+              <button>Coming Soon</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 4 -->
+        <div class="bike-card">
+          <img
+            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/95229/ninja-h2r-right-side-view-2.png?isig=0&q=80"
+            alt="Kawasaki Ninja H2R"
+          />
+          <div class="card-content">
+            <h3>Kawasaki Ninja H2R</h3>
+            <span class="model">2022 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>800 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>4 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹79,90,000</div>
+              <div class="emi">EMI: ₹1,49,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 5 -->
+        <div class="bike-card">
+          <img
+            src="https://images.tractorjunction.com/ducati_panigale_v2_3_0f62d9704b.webp?format=webp&quality=40"
+            alt="Ducati Panigale V2"
+          />
+          <div class="card-content">
+            <h3>Ducati Panigale V2</h3>
+            <span class="model">2023 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>1,200 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>3 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹18,99,000</div>
+              <div class="emi">EMI: ₹38,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 6 -->
+        <div class="bike-card">
+          <img
+            src="https://awtobazar.in/wp-content/uploads/2024/05/Bajaj-Pulsar-NS400Z.png"
+            alt="Bajaj Pulsar NS400Z"
+          />
+          <div class="card-content">
+            <h3>Bajaj Pulsar NS400Z</h3>
+            <span class="model">2024 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>300 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>1 month old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹2,49,900</div>
+              <div class="emi">EMI: ₹5,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 7 -->
+        <div class="bike-card">
+          <img
+            src="https://images.tractorjunction.com/harley_davidson_sportster_s_standard_1_cd60460379.png?format=webp&quality=40"
+            alt="Harley-Davidson Sportster S"
+          />
+          <div class="card-content">
+            <h3>Harley-Davidson Sportster S</h3>
+            <span class="model">2023 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>1,800 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>8 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹15,49,000</div>
+              <div class="emi">EMI: ₹31,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bike 8 -->
+        <div class="bike-card">
+          <img
+            src="https://imgd.aeplcdn.com/370x208/n/cw/ec/115871/mt-15-right-side-view-3.png?isig=0&q=80"
+            alt="Yamaha MT-15 V2"
+          />
+          <div class="card-content">
+            <h3>Yamaha MT-15 V2</h3>
+            <span class="model">2023 Model</span>
+            <div class="details">
+              <div class="detail-item">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>3,200 km</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-user"></i>
+                <span>1st Owner</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-gas-pump"></i>
+                <span>Petrol</span>
+              </div>
+              <div class="detail-item">
+                <i class="fas fa-calendar-alt"></i>
+                <span>10 months old</span>
+              </div>
+            </div>
+            <div class="price-container">
+              <div class="price">₹1,79,900</div>
+              <div class="emi">EMI: ₹4,999/month</div>
+              <button>View Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>Next <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Dan Electo Logo"
+            />
+          </div>
+          <p>Bringing the future of cycling to you today.</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/share/1Ao18FYX8e/"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://wa.me/918210283582"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="inventory.html">Buy Bike</a></li>
+            <li><a href="sell.html">Sell Your Bike</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Kanhauli Naka-2, Musahri,
+            Muzaffarpur, Bihar 842001
+          </p>
+          <p><i class="fas fa-phone"></i>+91 8210283582</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Dan Electo Bicycle. All rights reserved.</p>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Year slider functionality
+        const yearMin = document.getElementById("year-min");
+        const yearMax = document.getElementById("year-max");
+        const yearMinValue = document.getElementById("year-min-value");
+        const yearMaxValue = document.getElementById("year-max-value");
+
+        yearMin.addEventListener("input", function () {
+          if (parseInt(yearMin.value) > parseInt(yearMax.value)) {
+            yearMax.value = yearMin.value;
+            yearMaxValue.textContent = yearMin.value;
+          }
+          yearMinValue.textContent = yearMin.value;
+          filterBikes();
+        });
+
+        yearMax.addEventListener("input", function () {
+          if (parseInt(yearMax.value) < parseInt(yearMin.value)) {
+            yearMin.value = yearMax.value;
+            yearMinValue.textContent = yearMax.value;
+          }
+          yearMaxValue.textContent = yearMax.value;
+          filterBikes();
+        });
+
+        // KM slider functionality
+        const kmMin = document.getElementById("km-min");
+        const kmMax = document.getElementById("km-max");
+        const kmMinValue = document.getElementById("km-min-value");
+        const kmMaxValue = document.getElementById("km-max-value");
+
+        kmMin.addEventListener("input", function () {
+          if (parseInt(kmMin.value) > parseInt(kmMax.value)) {
+            kmMax.value = kmMin.value;
+            kmMaxValue.textContent = kmMin.value.toLocaleString();
+          }
+          kmMinValue.textContent = kmMin.value.toLocaleString();
+          filterBikes();
+        });
+
+        kmMax.addEventListener("input", function () {
+          if (parseInt(kmMax.value) < parseInt(kmMin.value)) {
+            kmMin.value = kmMax.value;
+            kmMinValue.textContent = kmMax.value.toLocaleString();
+          }
+          kmMaxValue.textContent = kmMax.value.toLocaleString();
+          filterBikes();
+        });
+
+        // Price presets
+        const pricePresets = document.querySelectorAll(".price-preset");
+        const minPriceInput = document.getElementById("min-price");
+        const maxPriceInput = document.getElementById("max-price");
+
+        pricePresets.forEach((preset) => {
+          preset.addEventListener("click", function () {
+            const min = this.dataset.min;
+            const max = this.dataset.max || "";
+
+            minPriceInput.value = min;
+            maxPriceInput.value = max;
+
+            // Remove active class from all presets
+            pricePresets.forEach((p) => p.classList.remove("active"));
+            // Add active class to clicked preset
+            this.classList.add("active");
+
+            filterBikes();
+          });
+        });
+
+        // Price inputs
+        minPriceInput.addEventListener("change", filterBikes);
+        maxPriceInput.addEventListener("change", filterBikes);
+
+        // Checkbox filters
+        const checkboxes = document.querySelectorAll(
+          '.filter-option input[type="checkbox"]'
+        );
+        checkboxes.forEach((checkbox) => {
+          checkbox.addEventListener("change", filterBikes);
+        });
+
+        // Sort options
+        const sortSelect = document.getElementById("sort-by");
+        sortSelect.addEventListener("change", sortBikes);
+
+        // Reset filters
+        const resetBtn = document.querySelector(".reset-filters");
+        resetBtn.addEventListener("click", resetFilters);
+
+        function filterBikes() {
+          const bikeCards = document.querySelectorAll(".bike-card");
+          let visibleCount = 0;
+
+          // Get filter values
+          const selectedBrands = getSelectedValues("brand");
+          const minPrice = minPriceInput.value
+            ? parseInt(minPriceInput.value)
+            : 0;
+          const maxPrice = maxPriceInput.value
+            ? parseInt(maxPriceInput.value)
+            : Infinity;
+          const minYear = parseInt(yearMin.value);
+          const maxYear = parseInt(yearMax.value);
+          const minKm = parseInt(kmMin.value);
+          const maxKm = parseInt(kmMax.value);
+          const selectedOwners = getSelectedValues("owner");
+          const selectedFuels = getSelectedValues("fuel");
+
+          bikeCards.forEach((card) => {
+            const brand = card.dataset.brand;
+            const price = parseInt(card.dataset.price);
+            const year = parseInt(card.dataset.year);
+            const km = parseInt(card.dataset.km);
+            const owner = card.dataset.owner;
+            const fuel = card.dataset.fuel;
+
+            // Apply filters
+            const brandMatch =
+              selectedBrands.length === 0 || selectedBrands.includes(brand);
+            const priceMatch = price >= minPrice && price <= maxPrice;
+            const yearMatch = year >= minYear && year <= maxYear;
+            const kmMatch = km >= minKm && km <= maxKm;
+            const ownerMatch =
+              selectedOwners.length === 0 || selectedOwners.includes(owner);
+            const fuelMatch =
+              selectedFuels.length === 0 || selectedFuels.includes(fuel);
+
+            if (
+              brandMatch &&
+              priceMatch &&
+              yearMatch &&
+              kmMatch &&
+              ownerMatch &&
+              fuelMatch
+            ) {
+              card.style.display = "block";
+              visibleCount++;
+            } else {
+              card.style.display = "none";
+            }
+          });
+
+          // Update filtered count
+          document.getElementById(
+            "filtered-count"
+          ).textContent = `${visibleCount} Bikes Available`;
+        }
+
+        function getSelectedValues(name) {
+          const checkboxes = document.querySelectorAll(
+            `input[name="${name}"]:checked`
+          );
+          return Array.from(checkboxes).map((cb) => cb.value);
+        }
+
+        function sortBikes() {
+          const sortValue = sortSelect.value;
+          const bikeGrid = document.querySelector(".bike-grid");
+          const bikeCards = Array.from(document.querySelectorAll(".bike-card"));
+
+          bikeCards.sort((a, b) => {
+            const aPrice = parseInt(a.dataset.price);
+            const bPrice = parseInt(b.dataset.price);
+            const aYear = parseInt(a.dataset.year);
+            const bYear = parseInt(b.dataset.year);
+            const aKm = parseInt(a.dataset.km);
+            const bKm = parseInt(b.dataset.km);
+
+            switch (sortValue) {
+              case "price-asc":
+                return aPrice - bPrice;
+              case "price-desc":
+                return bPrice - aPrice;
+              case "year-desc":
+                return bYear - aYear;
+              case "year-asc":
+                return aYear - bYear;
+              case "km-asc":
+                return aKm - bKm;
+              case "km-desc":
+                return bKm - aKm;
+              default:
+                return 0;
+            }
+          });
+
+          // Re-append sorted cards
+          bikeCards.forEach((card) => bikeGrid.appendChild(card));
+        }
+
+        function resetFilters() {
+          // Reset checkboxes
+          document
+            .querySelectorAll('.filter-option input[type="checkbox"]')
+            .forEach((cb) => {
+              cb.checked = false;
+            });
+
+          // Reset price inputs
+          minPriceInput.value = "";
+          maxPriceInput.value = "";
+          document
+            .querySelectorAll(".price-preset")
+            .forEach((p) => p.classList.remove("active"));
+
+          // Reset year slider
+          yearMin.value = 2015;
+          yearMax.value = 2024;
+          yearMinValue.textContent = "2015";
+          yearMaxValue.textContent = "2024";
+
+          // Reset km slider
+          kmMin.value = 0;
+          kmMax.value = 50000;
+          kmMinValue.textContent = "0";
+          kmMaxValue.textContent = "50,000";
+
+          // Reset sort
+          sortSelect.value = "price-asc";
+
+          // Apply filters
+          filterBikes();
+          sortBikes();
+        }
+      });
+    </script>
+  </body>
+</html>

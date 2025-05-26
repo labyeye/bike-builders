@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Sell Your Bike | Dan Electo Bicycle</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="hero-section sell-hero">
+      <div class="overlay">
+        <div class="rectangle"></div>
+        <div class="gradient"></div>
+      </div>
+
+      <nav class="navbar">
+        <div class="logo">
+          <img src="./assets/logo2.svg" style="width: 80px" alt="" />
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Buy Bike</a></li>
+          <li><a href="sell.html" class="active">Sell Your Bike</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="login-btn">
+          <button>Get the Quote</button>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <h1>Sell Your</h1>
+      </div>
+      <div class="bicycle-text">Bike</div>
+      <div class="bike-slider">
+        <div class="bike-slides">
+          <img
+            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
+            alt="Bike 1"
+          />
+          <img
+            src="https://cdn.bajajauto.com/-/media/assets/bajajauto/360degreeimages/bikes/pulsar/pulsar-150/single-disc/black-red/00.png"
+            alt="Bike 2"
+          />
+          <img
+            src="https://torrentbajaj.com/wp-content/themes/rvtheme/bikes/360-10152-1.png"
+            alt="Bike 3"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/0X0/n/cw/ec/97549/apache-rtr-160-4v-right-side-view-8.png?isig=0&q=80"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
+            alt="Bike 2"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
+            alt="Bike 3"
+          />
+          <img
+            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/95229/ninja-h2r-right-side-view-2.png?isig=0&q=80"
+            alt="Bike 2"
+          />
+          <img
+            src="https://kaydeeauto.in/cdn/shop/files/BajajPulsarRS200BS61.png?v=1709297338"
+            alt="Bike 3"
+          />
+          <img
+            src="https://awtobazar.in/wp-content/uploads/2024/05/Bajaj-Pulsar-NS400Z.png"
+            alt="Bike 1"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
+            alt="Bike 2"
+          />
+          <img
+            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
+            alt="Bike 3"
+          />
+        </div>
+      </div>
+    </div>
+
+    <section class="sell-section">
+      <div class="sell-content">
+        <h2>Sell Your Bike in 3 Easy Steps</h2>
+        <p>We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.</p>
+        
+        <div class="sell-steps">
+          <div class="sell-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Enter Your Bike Details</h4>
+              <p>Fill out the form with your bike's specifications and condition.</p>
+            </div>
+          </div>
+          <div class="sell-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Get Instant Valuation</h4>
+              <p>Receive a fair market price based on current demand and condition.</p>
+            </div>
+          </div>
+          <div class="sell-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Schedule Pickup & Get Paid</h4>
+              <p>We handle all the paperwork and payment on the spot.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="sell-cta">
+          <button class="cta-button">Get Started Now</button>
+        </div>
+      </div>
+      
+      <div class="sell-form-container">
+        <form id="sell-bike-form" class="sell-form">
+          <h3>Bike Details</h3>
+          
+          <div class="form-group">
+            <label for="bike-brand">Brand*</label>
+            <select id="bike-brand" name="brand" required>
+              <option value="">Select Brand</option>
+              <option value="KTM">KTM</option>
+              <option value="Suzuki">Suzuki</option>
+              <option value="Royal Enfield">Royal Enfield</option>
+              <option value="Kawasaki">Kawasaki</option>
+              <option value="Ducati">Ducati</option>
+              <option value="Bajaj">Bajaj</option>
+              <option value="Harley-Davidson">Harley-Davidson</option>
+              <option value="Yamaha">Yamaha</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-model">Model*</label>
+            <input type="text" id="bike-model" name="model" placeholder="e.g. Duke 390" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-year">Year of Manufacture*</label>
+            <select id="bike-year" name="year" required>
+              <option value="">Select Year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-km">Kilometers Driven*</label>
+            <input type="number" id="bike-km" name="kilometers" placeholder="e.g. 15000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-owners">Number of Previous Owners*</label>
+            <select id="bike-owners" name="owners" required>
+              <option value="">Select</option>
+              <option value="1">1st Owner</option>
+              <option value="2">2nd Owner</option>
+              <option value="3">3+ Owners</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-fuel">Fuel Type*</label>
+            <select id="bike-fuel" name="fuel" required>
+              <option value="">Select Fuel Type</option>
+              <option value="Petrol">Petrol</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Electric">Electric</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-condition">Condition*</label>
+            <select id="bike-condition" name="condition" required>
+              <option value="">Select Condition</option>
+              <option value="Excellent">Excellent (Like New)</option>
+              <option value="Good">Good (Minor Wear)</option>
+              <option value="Fair">Fair (Needs Some Work)</option>
+              <option value="Poor">Poor (Needs Significant Work)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-price">Expected Price (₹)*</label>
+            <input type="number" id="bike-price" name="price" placeholder="e.g. 150000" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-location">Location*</label>
+            <input type="text" id="bike-location" name="location" placeholder="City" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-images">Upload Images (Max 5)*</label>
+            <div class="image-upload-container">
+              <label for="bike-images" class="image-upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span>Click to upload images</span>
+                <input type="file" id="bike-images" name="images" accept="image/*" multiple style="display: none;">
+              </label>
+              <div class="image-preview" id="image-preview"></div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="bike-description">Additional Details</label>
+            <textarea id="bike-description" name="description" placeholder="Any modifications, service history, or other details"></textarea>
+          </div>
+          
+          <div class="form-group">
+            <h3>Your Contact Information</h3>
+          </div>
+          
+          <div class="form-group">
+            <label for="seller-name">Full Name*</label>
+            <input type="text" id="seller-name" name="name" placeholder="Your name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="seller-email">Email*</label>
+            <input type="email" id="seller-email" name="email" placeholder="Your email" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="seller-phone">Phone Number*</label>
+            <input type="tel" id="seller-phone" name="phone" placeholder="Your phone number" required>
+          </div>
+          
+          <div class="form-group checkbox-group">
+            <input type="checkbox" id="agree-terms" name="agree-terms" required>
+            <label for="agree-terms">I agree to the terms and conditions and privacy policy*</label>
+          </div>
+          
+          <button type="submit" class="submit-btn">Get Instant Valuation</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+      <h2>What Our Sellers Say</h2>
+      <div class="testimonials-container">
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Sharma" class="user-avatar">
+            <div class="user-info">
+              <h4 class="user-name">Rahul Sharma</h4>
+              <p class="user-location">Muzaffarpur, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">Sold my KTM Duke 390 through Dan Electo. The process was smooth and transparent. Got a fair price and payment was instant. Highly recommended!</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">15 May 2023</span>
+            <span class="social-proof">Verified Seller</span>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Patel" class="user-avatar">
+            <div class="user-info">
+              <h4 class="user-name">Priya Patel</h4>
+              <p class="user-location">Patna, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">I was skeptical about selling my bike online, but Dan Electo made it so easy. Their team was professional and the valuation was accurate. Will use again!</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">22 April 2023</span>
+            <span class="social-proof">Verified Seller</span>
+          </div>
+        </div>
+        
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Vikram Singh" class="user-avatar">
+            <div class="user-info">
+              <h4 class="user-name">Vikram Singh</h4>
+              <p class="user-location">Darbhanga, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">Best platform to sell your bike. No middlemen, no hidden charges. Got 15% more than what local dealers were offering. Excellent service!</p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">10 March 2023</span>
+            <span class="social-proof">Verified Seller</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="testimonial-nav">
+        <div class="testimonial-dot active"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>How do you determine the value of my bike?</h4>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Our valuation is based on multiple factors including current market demand, your bike's make/model, year of manufacture, kilometers driven, condition, service history, and location. We use real-time market data to ensure you get the best possible price.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>How long does the selling process take?</h4>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>Once you submit your details, you'll receive an instant valuation. If you accept our offer, we can typically complete the pickup and payment within 24-48 hours, depending on your location.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>What documents do I need to sell my bike?</h4>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>You'll need the original RC book, insurance documents, PUC certificate, and your ID proof. Our team will guide you through the transfer process and handle all the paperwork.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>Is there any fee or commission?</h4>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>No, there are no hidden fees or commissions. The price we offer is the amount you receive. We make our profit when we resell the bike to our network of buyers.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <div class="faq-question">
+            <h4>What if my bike needs repairs?</h4>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+          <div class="faq-answer">
+            <p>We buy bikes in all conditions - from excellent to needing significant work. Our valuation will account for any repairs needed, so you don't have to spend money fixing the bike before selling.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Dan Electo Logo"
+            />
+          </div>
+          <p>Bringing the future of cycling to you today.</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/share/1Ao18FYX8e/"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://wa.me/918210283582"
+              ><i class="fab fa-whatsapp"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="inventory.html">Buy Bike</a></li>
+            <li><a href="sell.html">Sell Your Bike</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p>
+            <i class="fas fa-map-marker-alt"></i> Kanhauli Naka-2, Musahri,
+            Muzaffarpur, Bihar 842001
+          </p>
+          <p><i class="fas fa-phone"></i>+91 8210283582</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 Dan Electo Bicycle. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        // Image upload preview
+        const imageUpload = document.getElementById('bike-images');
+        const imagePreview = document.getElementById('image-preview');
+        
+        imageUpload.addEventListener('change', function() {
+          imagePreview.innerHTML = '';
+          const files = this.files;
+          
+          if (files.length > 5) {
+            alert('You can upload a maximum of 5 images');
+            this.value = '';
+            return;
+          }
+          
+          for (let i = 0; i < Math.min(files.length, 5); i++) {
+            const file = files[i];
+            if (!file.type.match('image.*')) {
+              continue;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const imgContainer = document.createElement('div');
+              imgContainer.className = 'preview-image';
+              imgContainer.innerHTML = `
+                <img src="${e.target.result}" alt="Preview">
+                <span class="remove-image" data-index="${i}">&times;</span>
+              `;
+              imagePreview.appendChild(imgContainer);
+              
+              // Add remove functionality
+              imgContainer.querySelector('.remove-image').addEventListener('click', function() {
+                imgContainer.remove();
+                // Create new file list without the removed image
+                const newFiles = Array.from(imageUpload.files);
+                newFiles.splice(parseInt(this.dataset.index), 1);
+                
+                const newFileList = new DataTransfer();
+                newFiles.forEach(file => newFileList.items.add(file));
+                imageUpload.files = newFileList.files;
+              });
+            }
+            reader.readAsDataURL(file);
+          }
+        });
+        
+        // FAQ accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        faqQuestions.forEach(question => {
+          question.addEventListener('click', () => {
+            const answer = question.nextElementSibling;
+            const isOpen = answer.style.maxHeight;
+            
+            // Close all answers first
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+              ans.style.maxHeight = null;
+              ans.previousElementSibling.querySelector('i').className = 'fas fa-chevron-down';
+            });
+            
+            // Open current if it was closed
+            if (!isOpen) {
+              answer.style.maxHeight = answer.scrollHeight + 'px';
+              question.querySelector('i').className = 'fas fa-chevron-up';
+            }
+          });
+        });
+        
+        // Form submission
+        const sellForm = document.getElementById('sell-bike-form');
+        sellForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          // Here you would typically send the form data to your server
+          alert('Thank you for your submission! We will contact you shortly with your valuation.');
+          this.reset();
+          imagePreview.innerHTML = '';
+        });
+        
+        // Testimonial slider
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial');
+        const dots = document.querySelectorAll('.testimonial-dot');
+        
+        function showTestimonial(index) {
+          testimonials.forEach((testimonial, i) => {
+            testimonial.style.display = i === index ? 'block' : 'none';
+          });
+          
+          dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+          });
+          
+          currentTestimonial = index;
+        }
+        
+        dots.forEach((dot, i) => {
+          dot.addEventListener('click', () => showTestimonial(i));
+        });
+        
+        // Auto-rotate testimonials
+        setInterval(() => {
+          currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+          showTestimonial(currentTestimonial);
+        }, 5000);
+        
+        // Initialize
+        showTestimonial(0);
+      });
+    </script>
+  </body>
+</html>

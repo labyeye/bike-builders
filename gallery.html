@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="AR event and wedding planner specializes in organizing unforgettable events, celebrations, and sports tournaments at Christ University, Kengeri." />
+  <meta name="keywords"
+    content="Event Management, AR Events, Christ University Events, Sports Events, Devadan Cup, Event Planning, Bangalore Events,Wedding Planner, Event Organizer, College Events, Corporate Events" />
+  <meta name="author" content="AR event and wedding planner" />
+  <meta property="og:title" content="AR event and wedding planner | Making Your Events Memorable" />
+  <meta property="og:description"
+    content="Creating unforgettable celebrations and sports events at Christ University." />
+  <meta property="og:image" content="https://yourwebsite.com/assets/preview-image.jpg" />
+  <meta property="og:url" content="https://yourwebsite.com/" />
+  <meta property="og:type" content="website" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <title>AR event and wedding planner | Making Your Events Memorable</title>
+  <link rel="icon" href="./assets/logo2.svg" type="image/x-icon" />
+  <link rel="stylesheet" href="./index.css" />
+  <style>
+    .container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+
+    .lightbox-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .image:hover {
+      transform: scale(1.05);
+    }
+
+    .image img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    /* Existing lightbox styles remain the same */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+    }
+
+    .lightbox.show {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .lightbox-content img {
+      max-width: 100%;
+      max-height: 80vh;
+    }
+
+    .lightbox-content p {
+      color: white;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .svg1 {
+      position: absolute;
+      transform: scale(0.8) translate(-55vw, -75vw);
+      z-index: -1;
+    }
+
+    .svg2 {
+      position: absolute;
+      transform: scale(0.8) translate(25vw, -85vw);
+      z-index: -1;
+    }
+
+    .svg3 {
+      position: absolute;
+      transform: scale(0.6) translate(55vw, -25vw);
+      z-index: -1;
+    }
+
+    .svg4 {
+      position: absolute;
+      transform: scale(0.6) translate(-125vw, -25vw);
+      z-index: -1;
+    }
+
+    @media only screen and (max-width: 768px) {
+
+      .svg1,
+      .svg2,
+      .svg3,
+      .svg4 {
+        display: none;
+      }
+
+      .section-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero-section-gallery">
+    <div class="nav-component">
+      <div class="nav-logo"></div>
+      <div class="nav-links">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="eventcard.html">Services</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="contact.html">Contact us</a></li>
+        </ul>
+      </div>
+      <a href="book.html" class="book-now-btn">Book Now</a>
+      <div class="hamburger-menu" onclick="toggleMobileNav()">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <div class="photo-card card-top-left">
+      <img src="./assets/images/Wedding/90156374_3077445212295016_7878033746824265728_n.jpg" alt="Event 1" />
+    </div>
+
+    <div class="photo-card card-top-right">
+      <img src="./assets/images/Stage/486772887_1145953890899862_7609681149727219778_n.jpg" alt="Event 2" />
+    </div>
+
+    <div class="photo-card card-bottom-left">
+      <img src="./assets/images/Stage/84181483_2991883077517897_7046372587617648640_n.jpg" alt="Event 3" />
+    </div>
+
+    <div class="photo-card card-bottom-right">
+      <img src="./assets/images/God/57010183_2371554919550719_7907866649791823872_n.jpg" alt="Event 4" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Gallery</h1>
+      <p>
+        We organize spectacular events that are unforgettable, creative, and
+        flawless.
+      </p>
+      <a href="book.html" class="hero-btn">Plan Your Event</a>
+    </div>
+  </section>
+  <div class="container">
+    <section class="gallery">
+
+      <div class="max-w-screen-2xl mx-auto px-4 py-16 lg:py-24 relative">
+        <div class="flex flex-col md:flex-row gap-2">
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="flex flex-1 flex-col">
+              <!-- img_01 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Wedding/118958618_3530372193668980_3318342923828697794_n.jpg">
+            </div>
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_02 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/185321688_4231331373573055_8647493694388779079_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_03 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/32498159_1885028064870076_946938712791449600_n.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/465692651_8953257021380443_8109159992700779700_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/465714034_8945358075503671_3940784904431931487_n.jpg">
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Stage/474806743_1095391505956101_3419456468550177706_n.jpg">
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/God/56980816_2371553836217494_5694451152104456192_n.jpg">
+            </div>
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/God/56980837_2371553636217514_4391083063447126016_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/God/57010183_2371554919550719_7907866649791823872_n.jpg">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="flex flex-col md:flex-row gap-2">
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/481163172_1116055323889719_8763299536514351356_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/483526635_9690206867685451_2791282982852180630_n.jpg">
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Stage/486682912_1145335430961708_6042175302137290138_n.jpg">
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Corporate/34203674_1904152946290921_4467074722974138368_n.jpg">
+            </div>
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Corporate/34288813_1904153009624248_5643938054621102080_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Corporate/44255900_2107307602642120_1140240660910047232_n.jpg">
+              </div>
+            </div>
+
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_02 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/474704237_1095392699289315_5300054725633379556_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_03 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/475159695_1097850219043563_871709032766323656_n.jpg">
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col">
+              <!-- img_01 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Wedding/474687434_1095392799289305_5414725815205043615_n.jpg">
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-2">
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="flex flex-1 flex-col">
+              <!-- img_01 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Wedding/475371625_1097849975710254_5933682938701390008_n.jpg">
+            </div>
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_02 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/475378087_1097857172376201_3599659323653489381_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_03 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Wedding/90156374_3077445212295016_7878033746824265728_n.jpg">
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/90223328_3068980579808146_5352626258477842432_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/Stage/86657351_3000657213307150_7170818758213107712_n.jpg">
+              </div>
+            </div>
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/Stage/84181483_2991883077517897_7046372587617648640_n.jpg">
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col gap-2">
+            <div class="flex flex-1 flex-col">
+              <!-- img_06 -->
+              <img class="object-cover h-full"
+                src="./assets/images/God/57649304_2371554386217439_2945118023293337600_n.jpg">
+            </div>
+            <div class="hidden md:flex flex-1 flex-row gap-2">
+              <div class="flex flex-1 flex-col">
+                <!-- img_04 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/God/57072593_2371555546217323_1907736164060626944_n.jpg">
+              </div>
+              <div class="hidden md:flex flex-1 flex-col">
+                <!-- img_05 -->
+                <img class="object-cover h-full"
+                  src="./assets/images/God/56997563_2371555822883962_5152140449275707392_n.jpg">
+              </div>
+            </div>
+
+          </div>
+        </div>
+        
+      </div>
+  </div>
+
+  <div id="lightbox" class="lightbox">
+    <div class="lightbox-content">
+      <img id="lightbox-image" src="" alt="" />
+      <p id="lightbox-caption"></p>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-info">
+      <div class="footer-icon-flex">
+        <div class="icon-1"></div>
+        <span class="line">|</span>
+        <div class="icon-2"></div>
+      </div>
+      <div class="footer-uni">
+        <br />
+        A Pioneer in the Event Management & Wedding Planner Field From
+        Muzaffarpur, Bihar in Creative.
+      </div>
+    </div>
+
+    <ul class="footer-links">
+      <li class="header">Links</li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="eventcard.html">Events</a></li>
+      <li><a href="schedule.html">Schedule</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul>
+
+    <div class="footer-event-info">
+      <div class="footer-para">
+        <a href="#" target="_blank" style="text-decoration: none; color: rgb(0, 0, 0)">
+          © 2025 AR event and wedding planner. All rights reserved.
+        </a>
+      </div>
+      <div class="footer-para">
+        <br />
+        - developed by
+        <a href="https://pixelatenest.com" target="_blank" style="text-decoration: none; color: rgb(0, 0, 0)">
+          Pixelate Nest
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function openLightbox(src, caption) {
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImage = document.getElementById("lightbox-image");
+      const lightboxCaption = document.getElementById("lightbox-caption");
+
+      lightboxImage.src = src;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.add("show");
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.remove("show");
+    }
+
+    document
+      .getElementById("lightbox")
+      .addEventListener("click", closeLightbox);
+    document
+      .querySelector(".lightbox-content")
+      .addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
+  </script>
+  <script src="./scripts.js"></script>
+  <script>
+    const links = document.querySelectorAll(".nav-links ul li a");
+    const currentPage = window.location.pathname.split("/").pop();
+
+    links.forEach((link) => {
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+      }
+    });
+  </script>
+</body>
+
+</html>
