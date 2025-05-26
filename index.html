@@ -19,7 +19,11 @@
 
       <nav class="navbar">
         <div class="logo">
-          <img src="./assets/logo2.svg" style="width: 80px" alt="" />
+          <img
+            src="./assets/logo2.svg"
+            class="logo-img"
+            alt=""
+          />
         </div>
         <ul class="nav-links">
           <li><a href="index.html" class="active">Home</a></li>
@@ -373,7 +377,7 @@
             <span class="testimonial-date">Purchased: 6 months ago</span>
             <span class="social-proof">Verified Owner</span>
           </div>
-        </div>  
+        </div>
 
         <div class="testimonial">
           <div class="quote-icon"><i class="fas fa-quote-right"></i></div>
@@ -461,5 +465,43 @@
         <p>&copy; 2023 Dan Electo Bicycle. All rights reserved.</p>
       </div>
     </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const toggleBtn = document.createElement("button");
+        toggleBtn.className = "mobile-menu-toggle";
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+
+        const navbar = document.querySelector(".navbar");
+        navbar.appendChild(toggleBtn);
+
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className = "mobile-menu";
+        mobileMenu.innerHTML = `
+      <button class="close-btn"><i class="fas fa-times"></i></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="inventory.html">Buy Bike</a></li>
+        <li><a href="sell.html">Sell Your Bike</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="login-btn">
+        <button>Get the Quote</button>
+      </div>
+    `;
+
+        document.body.appendChild(mobileMenu);
+
+        toggleBtn.addEventListener("click", function () {
+          mobileMenu.classList.add("active");
+        });
+
+        mobileMenu
+          .querySelector(".close-btn")
+          .addEventListener("click", function () {
+            mobileMenu.classList.remove("active");
+          });
+      });
+    </script>
   </body>
 </html>

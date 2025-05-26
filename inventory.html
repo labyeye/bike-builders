@@ -20,7 +20,11 @@
 
       <nav class="navbar">
         <div class="logo">
-          <img src="./assets/logo2.svg" style="width: 80px" alt="" />
+          <img
+            src="./assets/logo2.svg"
+            class="logo-img"
+            alt=""
+          />
         </div>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -585,232 +589,140 @@
       </div>
     </footer>
     <script>
+      // Mobile filter dropdown functionality
+document.addEventListener("DOMContentLoaded", function() {
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const filterType = this.dataset.filter;
+      const dropdown = document.getElementById(`${filterType}-dropdown`);
+      
+      // Close all other dropdowns first
+      document.querySelectorAll('.filter-dropdown').forEach(d => {
+        if (d !== dropdown) {
+          d.classList.remove('active');
+        }
+      });
+      
+      // Toggle active class on clicked button
+      if (this.classList.contains('active')) {
+        this.classList.remove('active');
+        dropdown.classList.remove('active');
+      } else {
+        // Remove active from all buttons
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        // Add active to clicked button
+        this.classList.add('active');
+        dropdown.classList.add('active');
+      }
+    });
+  });
+  
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.filters-container')) {
+      document.querySelectorAll('.filter-dropdown').forEach(d => {
+        d.classList.remove('active');
+      });
+      filterButtons.forEach(btn => {
+        btn.classList.remove('active');
+      });
+    }
+  });
+  
+  // Filter option selection
+  document.querySelectorAll('.filter-option').forEach(option => {
+    option.addEventListener('click', function() {
+      this.classList.toggle('active');
+      filterBikes();
+    });
+  });
+  
+  // Update existing filterBikes function to work with new mobile classes
+  function filterBikes() {
+    const bikeCards = document.querySelectorAll('.bike-card');
+    let visibleCount = 0;
+
+    // Get filter values
+    const selectedBrands = Array.from(document.querySelectorAll('.brand-options .filter-option.active'))
+      .map(el => el.dataset.brand);
+    const minPrice = document.getElementById('min-price').value ? parseInt(document.getElementById('min-price').value) : 0;
+    const maxPrice = document.getElementById('max-price').value ? parseInt(document.getElementById('max-price').value) : Infinity;
+    const minYear = parseInt(document.getElementById('year-min').value);
+    const maxYear = parseInt(document.getElementById('year-max').value);
+    const minKm = parseInt(document.getElementById('km-min').value);
+    const maxKm = parseInt(document.getElementById('km-max').value);
+    const selectedOwners = Array.from(document.querySelectorAll('.ownership-options .filter-option.active'))
+      .map(el => el.dataset.owner);
+    const selectedFuels = Array.from(document.querySelectorAll('.fuel-options .filter-option.active'))
+      .map(el => el.dataset.fuel);
+
+    bikeCards.forEach((card) => {
+      const brand = card.dataset.brand;
+      const price = parseInt(card.dataset.price);
+      const year = parseInt(card.dataset.year);
+      const km = parseInt(card.dataset.km);
+      const owner = card.dataset.owner;
+      const fuel = card.dataset.fuel;
+
+      // Apply filters
+      const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
+      const priceMatch = price >= minPrice && price <= maxPrice;
+      const yearMatch = year >= minYear && year <= maxYear;
+      const kmMatch = km >= minKm && km <= maxKm;
+      const ownerMatch = selectedOwners.length === 0 || selectedOwners.includes(owner);
+      const fuelMatch = selectedFuels.length === 0 || selectedFuels.includes(fuel);
+
+      if (brandMatch && priceMatch && yearMatch && kmMatch && ownerMatch && fuelMatch) {
+        card.style.display = "block";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    // Update filtered count
+    document.getElementById('filtered-count').textContent = `${visibleCount} Bikes Available`;
+  }
+});
+    </script>
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Year slider functionality
-        const yearMin = document.getElementById("year-min");
-        const yearMax = document.getElementById("year-max");
-        const yearMinValue = document.getElementById("year-min-value");
-        const yearMaxValue = document.getElementById("year-max-value");
+        const toggleBtn = document.createElement("button");
+        toggleBtn.className = "mobile-menu-toggle";
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
 
-        yearMin.addEventListener("input", function () {
-          if (parseInt(yearMin.value) > parseInt(yearMax.value)) {
-            yearMax.value = yearMin.value;
-            yearMaxValue.textContent = yearMin.value;
-          }
-          yearMinValue.textContent = yearMin.value;
-          filterBikes();
+        const navbar = document.querySelector(".navbar");
+        navbar.appendChild(toggleBtn);
+
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className = "mobile-menu";
+        mobileMenu.innerHTML = `
+      <button class="close-btn"><i class="fas fa-times"></i></button>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="inventory.html">Buy Bike</a></li>
+        <li><a href="sell.html">Sell Your Bike</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="login-btn">
+        <button>Get the Quote</button>
+      </div>
+    `;
+
+        document.body.appendChild(mobileMenu);
+
+        toggleBtn.addEventListener("click", function () {
+          mobileMenu.classList.add("active");
         });
 
-        yearMax.addEventListener("input", function () {
-          if (parseInt(yearMax.value) < parseInt(yearMin.value)) {
-            yearMin.value = yearMax.value;
-            yearMinValue.textContent = yearMax.value;
-          }
-          yearMaxValue.textContent = yearMax.value;
-          filterBikes();
-        });
-
-        // KM slider functionality
-        const kmMin = document.getElementById("km-min");
-        const kmMax = document.getElementById("km-max");
-        const kmMinValue = document.getElementById("km-min-value");
-        const kmMaxValue = document.getElementById("km-max-value");
-
-        kmMin.addEventListener("input", function () {
-          if (parseInt(kmMin.value) > parseInt(kmMax.value)) {
-            kmMax.value = kmMin.value;
-            kmMaxValue.textContent = kmMin.value.toLocaleString();
-          }
-          kmMinValue.textContent = kmMin.value.toLocaleString();
-          filterBikes();
-        });
-
-        kmMax.addEventListener("input", function () {
-          if (parseInt(kmMax.value) < parseInt(kmMin.value)) {
-            kmMin.value = kmMax.value;
-            kmMinValue.textContent = kmMax.value.toLocaleString();
-          }
-          kmMaxValue.textContent = kmMax.value.toLocaleString();
-          filterBikes();
-        });
-
-        // Price presets
-        const pricePresets = document.querySelectorAll(".price-preset");
-        const minPriceInput = document.getElementById("min-price");
-        const maxPriceInput = document.getElementById("max-price");
-
-        pricePresets.forEach((preset) => {
-          preset.addEventListener("click", function () {
-            const min = this.dataset.min;
-            const max = this.dataset.max || "";
-
-            minPriceInput.value = min;
-            maxPriceInput.value = max;
-
-            // Remove active class from all presets
-            pricePresets.forEach((p) => p.classList.remove("active"));
-            // Add active class to clicked preset
-            this.classList.add("active");
-
-            filterBikes();
+        mobileMenu
+          .querySelector(".close-btn")
+          .addEventListener("click", function () {
+            mobileMenu.classList.remove("active");
           });
-        });
-
-        // Price inputs
-        minPriceInput.addEventListener("change", filterBikes);
-        maxPriceInput.addEventListener("change", filterBikes);
-
-        // Checkbox filters
-        const checkboxes = document.querySelectorAll(
-          '.filter-option input[type="checkbox"]'
-        );
-        checkboxes.forEach((checkbox) => {
-          checkbox.addEventListener("change", filterBikes);
-        });
-
-        // Sort options
-        const sortSelect = document.getElementById("sort-by");
-        sortSelect.addEventListener("change", sortBikes);
-
-        // Reset filters
-        const resetBtn = document.querySelector(".reset-filters");
-        resetBtn.addEventListener("click", resetFilters);
-
-        function filterBikes() {
-          const bikeCards = document.querySelectorAll(".bike-card");
-          let visibleCount = 0;
-
-          // Get filter values
-          const selectedBrands = getSelectedValues("brand");
-          const minPrice = minPriceInput.value
-            ? parseInt(minPriceInput.value)
-            : 0;
-          const maxPrice = maxPriceInput.value
-            ? parseInt(maxPriceInput.value)
-            : Infinity;
-          const minYear = parseInt(yearMin.value);
-          const maxYear = parseInt(yearMax.value);
-          const minKm = parseInt(kmMin.value);
-          const maxKm = parseInt(kmMax.value);
-          const selectedOwners = getSelectedValues("owner");
-          const selectedFuels = getSelectedValues("fuel");
-
-          bikeCards.forEach((card) => {
-            const brand = card.dataset.brand;
-            const price = parseInt(card.dataset.price);
-            const year = parseInt(card.dataset.year);
-            const km = parseInt(card.dataset.km);
-            const owner = card.dataset.owner;
-            const fuel = card.dataset.fuel;
-
-            // Apply filters
-            const brandMatch =
-              selectedBrands.length === 0 || selectedBrands.includes(brand);
-            const priceMatch = price >= minPrice && price <= maxPrice;
-            const yearMatch = year >= minYear && year <= maxYear;
-            const kmMatch = km >= minKm && km <= maxKm;
-            const ownerMatch =
-              selectedOwners.length === 0 || selectedOwners.includes(owner);
-            const fuelMatch =
-              selectedFuels.length === 0 || selectedFuels.includes(fuel);
-
-            if (
-              brandMatch &&
-              priceMatch &&
-              yearMatch &&
-              kmMatch &&
-              ownerMatch &&
-              fuelMatch
-            ) {
-              card.style.display = "block";
-              visibleCount++;
-            } else {
-              card.style.display = "none";
-            }
-          });
-
-          // Update filtered count
-          document.getElementById(
-            "filtered-count"
-          ).textContent = `${visibleCount} Bikes Available`;
-        }
-
-        function getSelectedValues(name) {
-          const checkboxes = document.querySelectorAll(
-            `input[name="${name}"]:checked`
-          );
-          return Array.from(checkboxes).map((cb) => cb.value);
-        }
-
-        function sortBikes() {
-          const sortValue = sortSelect.value;
-          const bikeGrid = document.querySelector(".bike-grid");
-          const bikeCards = Array.from(document.querySelectorAll(".bike-card"));
-
-          bikeCards.sort((a, b) => {
-            const aPrice = parseInt(a.dataset.price);
-            const bPrice = parseInt(b.dataset.price);
-            const aYear = parseInt(a.dataset.year);
-            const bYear = parseInt(b.dataset.year);
-            const aKm = parseInt(a.dataset.km);
-            const bKm = parseInt(b.dataset.km);
-
-            switch (sortValue) {
-              case "price-asc":
-                return aPrice - bPrice;
-              case "price-desc":
-                return bPrice - aPrice;
-              case "year-desc":
-                return bYear - aYear;
-              case "year-asc":
-                return aYear - bYear;
-              case "km-asc":
-                return aKm - bKm;
-              case "km-desc":
-                return bKm - aKm;
-              default:
-                return 0;
-            }
-          });
-
-          // Re-append sorted cards
-          bikeCards.forEach((card) => bikeGrid.appendChild(card));
-        }
-
-        function resetFilters() {
-          // Reset checkboxes
-          document
-            .querySelectorAll('.filter-option input[type="checkbox"]')
-            .forEach((cb) => {
-              cb.checked = false;
-            });
-
-          // Reset price inputs
-          minPriceInput.value = "";
-          maxPriceInput.value = "";
-          document
-            .querySelectorAll(".price-preset")
-            .forEach((p) => p.classList.remove("active"));
-
-          // Reset year slider
-          yearMin.value = 2015;
-          yearMax.value = 2024;
-          yearMinValue.textContent = "2015";
-          yearMaxValue.textContent = "2024";
-
-          // Reset km slider
-          kmMin.value = 0;
-          kmMax.value = 50000;
-          kmMinValue.textContent = "0";
-          kmMaxValue.textContent = "50,000";
-
-          // Reset sort
-          sortSelect.value = "price-asc";
-
-          // Apply filters
-          filterBikes();
-          sortBikes();
-        }
       });
     </script>
   </body>
