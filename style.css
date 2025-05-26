@@ -268,7 +268,7 @@ h2 {
   justify-content: center;
   flex-wrap: wrap;
   gap: 30px;
-  max-width: 1400px;
+width: 90%;
   margin: 0 auto;
   position: relative;
   z-index: 1;

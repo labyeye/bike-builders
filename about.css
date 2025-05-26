@@ -190,11 +190,12 @@
 }
 
 .timeline-item:nth-child(odd) .timeline-content {
-    margin-left: 50%;
+    margin-left: 500px;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
-    margin-right: 50%;
+    margin-right: 500px;
+    transform: translateX(-25%);
 }
 
 .timeline-content h3 {
