@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+  <title>Staff Management - Bike Inventory</title>
+</head>
+<body>
+  <div class="app-container">
+    <%- include('partials/sidebar', {activePage: 'staff'}) %>
+    
+    <div class="main-content">
+      <%- include('partials/topbar') %>
+      
+      <div class="content-wrapper">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h1 class="h3 mb-0 text-gray-800">Staff Management</h1>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#addStaffModal">
+            <i class="material-icons">person_add</i>
+            Add Staff
+          </button>
+        </div>
+        
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Staff Members</h2>
+            <div class="card-actions">
+              <input type="text" class="form-control" placeholder="Search staff..." id="searchStaff">
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% staff.forEach(member => { %>
+                  <tr>
+                    <td><%= member.name %></td>
+                    <td><%= member.email %></td>
+                    <td><%= member.role %></td>
+                    <td>
+                      <span class="badge <%= member.status === 'Active' ? 'badge-available' : 'badge-coming-soon' %>">
+                        <%= member.status %>
+                      </span>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <button class="btn btn-warning btn-sm edit-staff" data-id="<%= member._id %>">
+                          <i class="material-icons">edit</i>
+                        </button>
+                        <% if (user.role === 'admin') { %>
+                          <form action="/admin/staff/delete/<%= member._id %>" method="POST" class="ml-2">
+                            <button type="submit" class="btn btn-error btn-sm" onclick="return confirm('Are you sure?')">
+                              <i class="material-icons">delete</i>
+                            </button>
+                          </form>
+                        <% } %>
+                      </div>
+                    </td>
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/staff-modal') %>
+  <%- include('partials/scripts') %>
+</body>
+</html>

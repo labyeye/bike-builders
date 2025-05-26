@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bike Inventory Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary-color: #4e73df;
+      --secondary-color: #f8f9fc;
+      --accent-color: #f4b86f;
+      --text-dark: #5a5c69;
+      --text-light: #858796;
+    }
+    
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+    
+    .sidebar {
+      background: linear-gradient(180deg, var(--primary-color) 10%, #224abe 100%);
+      min-height: 100vh;
+      width: 250px;
+      position: fixed;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+    
+    .sidebar-brand {
+      height: 4.375rem;
+      text-decoration: none;
+      font-size: 1.2rem;
+      font-weight: 800;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      letter-spacing: 0.05rem;
+      z-index: 1;
+      color: white;
+      display: block;
+    }
+    
+    .sidebar-divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      margin: 0 1rem 1rem;
+    }
+    
+    .nav-item {
+      position: relative;
+    }
+    
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8);
+      padding: 0.75rem 1rem;
+      font-weight: 700;
+      font-size: 0.85rem;
+    }
+    
+    .nav-link:hover {
+      color: white;
+    }
+    
+    .nav-link i {
+      margin-right: 0.25rem;
+    }
+    
+    .nav-link.active {
+      color: white;
+    }
+    
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      min-height: 100vh;
+      transition: all 0.3s;
+    }
+    
+    .card {
+      border: none;
+      border-radius: 0.35rem;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    }
+    
+    .card-header {
+      background-color: #f8f9fc;
+      border-bottom: 1px solid #e3e6f0;
+    }
+    
+    .badge-available {
+      background-color: #1cc88a;
+      color: white;
+    }
+    
+    .badge-coming-soon {
+      background-color: #f6c23e;
+      color: white;
+    }
+    
+    .badge-sold {
+      background-color: #e74a3b;
+      color: white;
+    }
+    
+    .topbar {
+      height: 4.375rem;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      background-color: white;
+      position: fixed;
+      width: calc(100% - 250px);
+      z-index: 100;
+      margin-left: 250px;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    
+    .topbar .dropdown-menu {
+      position: absolute;
+    }
+    
+    .content-wrapper {
+      padding-top: 4.375rem;
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        margin-left: -250px;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+      .topbar {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/dashboard">
+      <div class="sidebar-brand-icon">
+        <i class="fas fa-motorcycle"></i>
+      </div>
+      <div class="sidebar-brand-text mx-3">Bike Inventory</div>
+    </a>
+    
+    <hr class="sidebar-divider" />
+    
+    <div class="nav-item">
+      <a class="nav-link" href="/admin/dashboard">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+    </div>
+    
+    <hr class="sidebar-divider" />
+    
+    <div class="sidebar-heading">
+      Inventory
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-link active" href="/admin/dashboard">
+        <i class="fas fa-fw fa-bicycle"></i>
+        <span>All Bikes</span>
+      </a>
+    </div>
+    
+    <div class="nav-item">
+      <a class="nav-link" href="/admin/bike/add">
+        <i class="fas fa-fw fa-plus-circle"></i>
+        <span>Add Bike</span>
+      </a>
+    </div>
+    
+    <hr class="sidebar-divider" />
+    
+    <div class="sidebar-heading">
+      Admin
+    </div>
+    
+    <% if (user.role === 'admin') { %>
+    <div class="nav-item">
+      <a class="nav-link" href="staff">
+        <i class="fas fa-fw fa-users"></i>
+        <span>Manage Users</span>
+      </a>
+    </div>
+    <% } %>
+    
+    <div class="nav-item">
+      <a class="nav-link" href="/admin/logout">
+        <i class="fas fa-fw fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Topbar -->
+  <nav class="topbar navbar navbar-expand navbar-light bg-white">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item dropdown no-arrow">
+        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+          <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= user.username %></span>
+          <i class="fas fa-user-circle fa-fw"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right shadow">
+          <a class="dropdown-item" href="#">
+            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+            Profile
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/admin/logout">
+            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+            Logout
+          </a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="content-wrapper">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Bike Inventory Dashboard</h1>
+        <div class="download-buttons">
+          <a href="/admin/bike/add" class="btn btn-primary btn-download">
+            <i class="fas fa-plus"></i> Add Bike
+          </a>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="row">
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    Total Bikes</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.total %></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-bicycle fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                    Available</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.available %></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-xl-4 col-md-6 mb-4">
+          <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+              <div class="row no-gutters align-items-center">
+                <div class="col mr-2">
+                  <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                    Sold</div>
+                  <div class="h5 mb-0 font-weight-bold text-gray-800"><%= stats.sold %></div>
+                </div>
+                <div class="col-auto">
+                  <i class="fas fa-times-circle fa-2x text-gray-300"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bike Table -->
+      <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+          <h6 class="m-0 font-weight-bold text-primary">All Bikes</h6>
+          <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right shadow">
+              <a class="dropdown-item" href="/admin/bike/add">Add New Bike</a>
+              <a class="dropdown-item" href="#">Export Data</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Brand</th>
+                  <th>Model</th>
+                  <th>Year</th>
+                  <th>KM Driven</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if (bikes.length > 0) { %> 
+                  <% bikes.forEach(bike => { %>
+                  <tr>
+                    <td><%= bike.brand %></td>
+                    <td><%= bike.model %></td>
+                    <td><%= bike.modelYear %></td>
+                    <td><%= bike.kmDriven.toLocaleString() %> km</td>
+                    <td>₹<%= bike.price.toLocaleString() %></td>
+                    <td>
+                      <span class="badge <%= bike.status === 'Available' ? 'badge-available' : bike.status === 'Coming Soon' ? 'badge-coming-soon' : 'badge-sold' %>">
+                        <%= bike.status %>
+                      </span>
+                    </td>
+                    <td>
+                      <a href="/admin/bike/edit/<%= bike._id %>" class="btn btn-warning btn-sm" title="Edit">
+                        <i class="fas fa-edit"></i>
+                      </a>
+                      <% if (user.role === 'admin') { %>
+                        <form action="/admin/bike/delete/<%= bike._id %>" method="POST" class="d-inline"
+                          onsubmit="return confirm('Are you sure you want to delete this bike?')">
+                          <button type="submit" class="btn btn-danger btn-sm" title="Delete">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </form>
+                      <% } %>
+                    </td>
+                  </tr>
+                  <% }) %> 
+                <% } else { %>
+                  <tr>
+                    <td colspan="7" class="text-center py-4">No bikes found. <a href="/admin/bike/add">Add a bike</a></td>
+                  </tr>
+                <% } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

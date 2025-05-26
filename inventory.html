@@ -20,11 +20,7 @@
 
       <nav class="navbar">
         <div class="logo">
-          <img
-            src="./assets/logo2.svg"
-            class="logo-img"
-            alt=""
-          />
+          <img src="./assets/logo2.svg" class="logo-img" alt="" />
         </div>
         <ul class="nav-links">
           <li><a href="index.html">Home</a></li>
@@ -589,103 +585,219 @@
       </div>
     </footer>
     <script>
-      // Mobile filter dropdown functionality
-document.addEventListener("DOMContentLoaded", function() {
-  const filterButtons = document.querySelectorAll('.filter-btn');
-  
-  filterButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      const filterType = this.dataset.filter;
-      const dropdown = document.getElementById(`${filterType}-dropdown`);
-      
-      // Close all other dropdowns first
-      document.querySelectorAll('.filter-dropdown').forEach(d => {
-        if (d !== dropdown) {
-          d.classList.remove('active');
+      document.addEventListener("DOMContentLoaded", function () {
+        // Fetch bikes from your API
+        fetch("http://localhost:3000/api/bikes")
+          .then((response) => response.json())
+          .then((bikes) => {
+            const bikeGrid = document.querySelector(".bike-grid");
+            bikeGrid.innerHTML = ""; // Clear existing content
+
+            // Update bike count
+            document.getElementById("filtered-count").textContent = `${
+              bikes.length
+            } ${bikes.length === 1 ? "Bike" : "Bikes"} Available`;
+
+            // Create bike cards for each bike
+            bikes.forEach((bike) => {
+              const bikeCard = document.createElement("div");
+              bikeCard.className = "bike-card";
+              bikeCard.dataset.brand = bike.brand;
+              bikeCard.dataset.price = bike.price;
+              bikeCard.dataset.year = new Date(bike.createdAt).getFullYear();
+              bikeCard.dataset.km = bike.mileage;
+              bikeCard.dataset.owner = "1"; // Default to 1st owner
+              bikeCard.dataset.fuel = "Petrol"; // Default fuel type
+
+              // Calculate bike age
+              const bikeAge =
+                new Date().getFullYear() -
+                new Date(bike.createdAt).getFullYear();
+              const ageText =
+                bikeAge === 0
+                  ? "New"
+                  : `${bikeAge} ${bikeAge === 1 ? "year" : "years"} old`;
+
+              // In the fetch bikes section, update the bikeCard.innerHTML to:
+              bikeCard.innerHTML = `
+  <img src="${bike.imageUrl || "https://via.placeholder.com/300"}" alt="${
+                bike.brand
+              } ${bike.model}" />
+  <div class="card-content">
+    <h3>${bike.brand} ${bike.model}</h3>
+    <span class="model">${bike.modelYear} Model</span>
+    <div class="details">
+      <div class="detail-item">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>${bike.kmDriven.toLocaleString()} km</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-user"></i>
+        <span>${bike.ownership}</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-gas-pump"></i>
+        <span>${bike.fuelType}</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span>${bike.daysOld} days old</span>
+      </div>
+    </div>
+    <div class="price-container">
+      <div class="price">₹${bike.price.toLocaleString()}</div>
+      <div class="emi">EMI: ₹${Math.round(
+        bike.price / 36
+      ).toLocaleString()}/month</div>
+      <button class="${
+        bike.status === "Sold Out"
+          ? "sold-out"
+          : bike.status === "Coming Soon"
+          ? "coming-soon"
+          : ""
+      }">
+        ${bike.status === "Available" ? "View Details" : bike.status}
+      </button>
+    </div>
+  </div>
+`;
+
+              bikeGrid.appendChild(bikeCard);
+            });
+
+            // Initialize filter functionality
+            initFilters();
+          })
+          .catch((error) => {
+            console.error("Error fetching bikes:", error);
+            document.querySelector(".bike-grid").innerHTML = `
+          <div class="error-message">
+            <p>Failed to load bikes. Please try again later.</p>
+          </div>
+        `;
+          });
+
+        // Filter functionality
+        function initFilters() {
+          const filterButtons = document.querySelectorAll(".filter-btn");
+          const filterDropdowns = document.querySelectorAll(".filter-dropdown");
+
+          // Toggle filter dropdowns
+          filterButtons.forEach((button) => {
+            button.addEventListener("click", function () {
+              const filterType = this.dataset.filter;
+
+              // Hide all dropdowns first
+              filterDropdowns.forEach((dropdown) => {
+                dropdown.style.display = "none";
+              });
+
+              // Toggle active state on buttons
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
+              this.classList.add("active");
+
+              // Show the corresponding dropdown
+              if (filterType !== "all") {
+                const dropdown = document.getElementById(
+                  `${filterType}-dropdown`
+                );
+                if (dropdown) {
+                  dropdown.style.display = "block";
+                }
+              } else {
+                // Show all bikes when "All Bikes" is selected
+                document.querySelectorAll(".bike-card").forEach((card) => {
+                  card.style.display = "block";
+                });
+                updateBikeCount();
+              }
+            });
+          });
+
+          // Close dropdowns when clicking outside
+          document.addEventListener("click", function (e) {
+            if (
+              !e.target.closest(".filter-buttons") &&
+              !e.target.closest(".filter-dropdown")
+            ) {
+              filterDropdowns.forEach((dropdown) => {
+                dropdown.style.display = "none";
+              });
+              filterButtons.forEach((btn) => {
+                if (btn.dataset.filter !== "all") {
+                  btn.classList.remove("active");
+                }
+              });
+            }
+          });
+
+          // Initialize price filter
+          const minPriceInput = document.getElementById("min-price");
+          const maxPriceInput = document.getElementById("max-price");
+
+          if (minPriceInput && maxPriceInput) {
+            minPriceInput.addEventListener("change", applyPriceFilter);
+            maxPriceInput.addEventListener("change", applyPriceFilter);
+
+            document.querySelectorAll(".price-preset").forEach((preset) => {
+              preset.addEventListener("click", function () {
+                minPriceInput.value = this.dataset.min;
+                maxPriceInput.value = this.dataset.max || "";
+                applyPriceFilter();
+              });
+            });
+          }
+
+          function applyPriceFilter() {
+            const minPrice = parseInt(minPriceInput.value) || 0;
+            const maxPrice = parseInt(maxPriceInput.value) || Infinity;
+
+            document.querySelectorAll(".bike-card").forEach((card) => {
+              const price = parseInt(card.dataset.price);
+              if (price >= minPrice && price <= maxPrice) {
+                card.style.display = "block";
+              } else {
+                card.style.display = "none";
+              }
+            });
+
+            updateBikeCount();
+          }
+
+          // Initialize brand filter
+          document
+            .querySelectorAll(".brand-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const brand = this.dataset.brand;
+
+                document.querySelectorAll(".bike-card").forEach((card) => {
+                  if (card.dataset.brand === brand) {
+                    card.style.display = "block";
+                  } else {
+                    card.style.display = "none";
+                  }
+                });
+
+                updateBikeCount();
+              });
+            });
+
+          // Update visible bike count
+          function updateBikeCount() {
+            const visibleCount = document.querySelectorAll(
+              '.bike-card[style="display: block"]'
+            ).length;
+            document.getElementById(
+              "filtered-count"
+            ).textContent = `${visibleCount} ${
+              visibleCount === 1 ? "Bike" : "Bikes"
+            } Available`;
+          }
         }
       });
-      
-      // Toggle active class on clicked button
-      if (this.classList.contains('active')) {
-        this.classList.remove('active');
-        dropdown.classList.remove('active');
-      } else {
-        // Remove active from all buttons
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        // Add active to clicked button
-        this.classList.add('active');
-        dropdown.classList.add('active');
-      }
-    });
-  });
-  
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.filters-container')) {
-      document.querySelectorAll('.filter-dropdown').forEach(d => {
-        d.classList.remove('active');
-      });
-      filterButtons.forEach(btn => {
-        btn.classList.remove('active');
-      });
-    }
-  });
-  
-  // Filter option selection
-  document.querySelectorAll('.filter-option').forEach(option => {
-    option.addEventListener('click', function() {
-      this.classList.toggle('active');
-      filterBikes();
-    });
-  });
-  
-  // Update existing filterBikes function to work with new mobile classes
-  function filterBikes() {
-    const bikeCards = document.querySelectorAll('.bike-card');
-    let visibleCount = 0;
-
-    // Get filter values
-    const selectedBrands = Array.from(document.querySelectorAll('.brand-options .filter-option.active'))
-      .map(el => el.dataset.brand);
-    const minPrice = document.getElementById('min-price').value ? parseInt(document.getElementById('min-price').value) : 0;
-    const maxPrice = document.getElementById('max-price').value ? parseInt(document.getElementById('max-price').value) : Infinity;
-    const minYear = parseInt(document.getElementById('year-min').value);
-    const maxYear = parseInt(document.getElementById('year-max').value);
-    const minKm = parseInt(document.getElementById('km-min').value);
-    const maxKm = parseInt(document.getElementById('km-max').value);
-    const selectedOwners = Array.from(document.querySelectorAll('.ownership-options .filter-option.active'))
-      .map(el => el.dataset.owner);
-    const selectedFuels = Array.from(document.querySelectorAll('.fuel-options .filter-option.active'))
-      .map(el => el.dataset.fuel);
-
-    bikeCards.forEach((card) => {
-      const brand = card.dataset.brand;
-      const price = parseInt(card.dataset.price);
-      const year = parseInt(card.dataset.year);
-      const km = parseInt(card.dataset.km);
-      const owner = card.dataset.owner;
-      const fuel = card.dataset.fuel;
-
-      // Apply filters
-      const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
-      const priceMatch = price >= minPrice && price <= maxPrice;
-      const yearMatch = year >= minYear && year <= maxYear;
-      const kmMatch = km >= minKm && km <= maxKm;
-      const ownerMatch = selectedOwners.length === 0 || selectedOwners.includes(owner);
-      const fuelMatch = selectedFuels.length === 0 || selectedFuels.includes(fuel);
-
-      if (brandMatch && priceMatch && yearMatch && kmMatch && ownerMatch && fuelMatch) {
-        card.style.display = "block";
-        visibleCount++;
-      } else {
-        card.style.display = "none";
-      }
-    });
-
-    // Update filtered count
-    document.getElementById('filtered-count').textContent = `${visibleCount} Bikes Available`;
-  }
-});
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
