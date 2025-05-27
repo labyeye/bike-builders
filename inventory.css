@@ -251,6 +251,8 @@
   background: #ff6b00;
   border-color: #ff6b00;
   color: white;
+    padding: 12px 20px;
+
 }
 
 .filter-btn:hover {
