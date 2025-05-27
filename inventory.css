@@ -204,7 +204,7 @@
 /* Sidebar Filters - Improved */
 .sidebar-filters {
   width: 300px;
-  padding-left: 40px;
+  padding-left: 20px;
   box-sizing: border-box;
 }
 
@@ -508,16 +508,6 @@
 
 .card-content .view-details-btn:hover {
   background: #e05d00;
-}
-
-.card-content .view-details-btn.sold-out {
-  background: #666;
-  cursor: not-allowed;
-}
-
-.card-content .view-details-btn.coming-soon {
-  background: #444;
-  cursor: not-allowed;
 }
 
 /* Responsive Styles */
