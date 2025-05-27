@@ -450,7 +450,41 @@ h2 {
 
 .process-step h3 {
   color: white;
-  font-size:
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.process-step p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .process-sections {
+    padding: 60px 5%;
+  }
+  
+  .process-section {
+    margin-bottom: 60px;
+  }
+  
+  .process-header h2 {
+    font-size: 1.6rem;
+  }
+  
+  .process-content p {
+    font-size: 1rem;
+    margin-bottom: 40px;
+  }
+  
+  .process-step {
+    min-width: 100%;
+    padding: 25px;
+  }
+}
 .process-step {
   display: flex;
   align-items: flex-start;
