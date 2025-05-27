@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>Get a Quote | Dan Electo Bicycle</title>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="quote.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="hero-section quote-hero">
+      <div class="overlay">
+        <div class="rectangle"></div>
+        <div class="gradient"></div>
+      </div>
+
+      <nav class="navbar">
+        <div class="logo">
+          <img src="./assets/logo2.svg" class="logo-img" alt="" />
+        </div>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="inventory.html">Buy Bike</a></li>
+          <li><a href="sell.html">Sell Your Bike</a></li>
+          <li><a href="getquote.html" class="active">Get a Quote</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="login-btn">
+          <button>Get the Quote</button>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <h1>Get a</h1>
+      </div>
+      <div class="bicycle-text">Quote</div>
+    </div>
+
+    <section class="quote-section">
+      <div class="quote-content">
+        <h2>Get Your Perfect Bike Quote</h2>
+        <p>
+          Tell us what you're looking for and we'll match you with the best
+          options in your budget. Our experts will contact you with personalized
+          recommendations.
+        </p>
+
+        <div class="quote-steps">
+          <div class="quote-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4>Fill the Quote Form</h4>
+              <p>
+                Provide details about the bike you're interested in and your
+                budget.
+              </p>
+            </div>
+          </div>
+          <div class="quote-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4>Get Expert Recommendations</h4>
+              <p>
+                Our team will analyze your requirements and find the best
+                matches.
+              </p>
+            </div>
+          </div>
+          <div class="quote-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4>Receive Your Quote</h4>
+              <p>
+                We'll contact you with detailed options and pricing information.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote-cta">
+          <button
+            class="cta-button"
+            onclick="document.getElementById('quote-form').scrollIntoView({ behavior: 'smooth' })"
+          >
+            Get Your Quote Now
+          </button>
+        </div>
+      </div>
+
+      <div class="quote-form-container" id="quote-form">
+        <form id="quote-request-form" class="quote-form">
+          <h3>Quote Request</h3>
+
+          <div class="form-group">
+            <label for="quote-name">Full Name*</label>
+            <input
+              type="text"
+              id="quote-name"
+              name="name"
+              placeholder="Your name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="quote-email">Email*</label>
+            <input
+              type="email"
+              id="quote-email"
+              name="email"
+              placeholder="Your email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="quote-phone">Phone Number*</label>
+            <input
+              type="tel"
+              id="quote-phone"
+              name="phone"
+              placeholder="Your phone number"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="quote-brand">Preferred Brand*</label>
+            <select id="quote-brand" name="brand" required>
+              <option value="">Select Brand</option>
+              <option value="KTM">KTM</option>
+              <option value="Suzuki">Suzuki</option>
+              <option value="Royal Enfield">Royal Enfield</option>
+              <option value="Kawasaki">Kawasaki</option>
+              <option value="Ducati">Ducati</option>
+              <option value="Bajaj">Bajaj</option>
+              <option value="Harley-Davidson">Harley-Davidson</option>
+              <option value="Yamaha">Yamaha</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quote-model">Preferred Model</label>
+            <input
+              type="text"
+              id="quote-model"
+              name="model"
+              placeholder="e.g. Duke 390"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="quote-year">Preferred Year*</label>
+            <select id="quote-year" name="year" required>
+              <option value="">Select Year</option>
+              <option value="2024">2024</option>
+              <option value="2023">2023</option>
+              <option value="2022">2022</option>
+              <option value="2021">2021</option>
+              <option value="2020">2020</option>
+              <option value="2019">2019</option>
+              <option value="2018">2018</option>
+              <option value="2017">2017</option>
+              <option value="2016">2016</option>
+              <option value="2015">2015</option>
+              <option value="2014">2014</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quote-budget">Price Budget (₹)*</label>
+            <input
+              type="number"
+              id="quote-budget"
+              name="budget"
+              placeholder="e.g. 150000"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="quote-notes">Additional Requirements</label>
+            <textarea
+              id="quote-notes"
+              name="notes"
+              placeholder="Any specific features, colors, or other preferences"
+            ></textarea>
+          </div>
+
+          <div class="form-group checkbox-group">
+            <input
+              type="checkbox"
+              id="agree-terms-quote"
+              name="agree-terms"
+              required
+            />
+            <label for="agree-terms-quote"
+              >I agree to the terms and conditions and privacy policy*</label
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">Request Quote</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+      <h2>What Our Customers Say</h2>
+      <div class="testimonials-container">
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img
+              src="https://randomuser.me/api/portraits/men/32.jpg"
+              alt="Rahul Sharma"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <h4 class="user-name">Rahul Sharma</h4>
+              <p class="user-location">Muzaffarpur, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">
+            Got an excellent quote for my dream bike through Dan Electo. The
+            team understood my requirements perfectly and found me a great deal
+            within my budget.
+          </p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">15 May 2023</span>
+            <span class="social-proof">Verified Customer</span>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img
+              src="https://randomuser.me/api/portraits/women/44.jpg"
+              alt="Priya Patel"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <h4 class="user-name">Priya Patel</h4>
+              <p class="user-location">Patna, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">
+            The quote service saved me so much time! Instead of visiting
+            multiple dealers, I got 3 perfect options delivered to my email
+            within 24 hours.
+          </p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">22 April 2023</span>
+            <span class="social-proof">Verified Customer</span>
+          </div>
+        </div>
+
+        <div class="testimonial">
+          <div class="testimonial-header">
+            <img
+              src="https://randomuser.me/api/portraits/men/75.jpg"
+              alt="Vikram Singh"
+              class="user-avatar"
+            />
+            <div class="user-info">
+              <h4 class="user-name">Vikram Singh</h4>
+              <p class="user-location">Darbhanga, Bihar</p>
+              <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <div class="quote-icon">
+            <i class="fas fa-quote-right"></i>
+          </div>
+          <p class="quote">
+            Professional service with transparent pricing. They found me a bike
+            that was exactly what I wanted at a price 15% below market value.
+            Highly recommended!
+          </p>
+          <div class="testimonial-footer">
+            <span class="testimonial-date">10 March 2023</span>
+            <span class="social-proof">Verified Customer</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-nav">
+        <div class="testimonial-dot active"></div>
+        <div class="testimonial-dot"></div>
+        <div class="testimonial-dot"></div>
+      </div>
+    </section>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Form submission
+        const quoteForm = document.getElementById("quote-request-form");
+        quoteForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          // Show loading state
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const originalBtnText = submitBtn.textContent;
+          submitBtn.disabled = true;
+          submitBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+          try {
+            // Get form data
+            const formData = new FormData(this);
+            const jsonData = {};
+            formData.forEach((value, key) => {
+              jsonData[key] = value;
+            });
+
+            // Send data to server
+            const response = await fetch(
+              "https://bike-builders.onrender.com/api/quote-request",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(jsonData),
+              }
+            );
+
+            const result = await response.json();
+
+            if (response.ok) {
+              // Show success message
+              alert(
+                "Thank you for your quote request! We will contact you shortly with your personalized options."
+              );
+              this.reset();
+            } else {
+              // Show error message
+              alert(
+                result.error || "Failed to submit request. Please try again."
+              );
+            }
+          } catch (err) {
+            console.error("Error submitting form:", err);
+            alert("An error occurred. Please try again.");
+          } finally {
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalBtnText;
+          }
+        });
+
+        // Testimonial slider (same as sell.html)
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll(".testimonial");
+        const dots = document.querySelectorAll(".testimonial-dot");
+
+        function showTestimonial(index) {
+          testimonials.forEach((testimonial, i) => {
+            testimonial.style.display = i === index ? "block" : "none";
+          });
+
+          dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === index);
+          });
+
+          currentTestimonial = index;
+        }
+
+        dots.forEach((dot, i) => {
+          dot.addEventListener("click", () => showTestimonial(i));
+        });
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+          currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+          showTestimonial(currentTestimonial);
+        }, 5000);
+
+        // Initialize
+        showTestimonial(0);
+      });
+    </script>
+  </body>
+</html>

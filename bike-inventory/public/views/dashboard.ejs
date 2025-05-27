@@ -437,6 +437,11 @@
             <span>Add Bike</span>
           </a>
         </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-heading">Requests</div>
+        
         <div class="nav-item">
           <a class="nav-link" href="/admin/sell-requests">
             <i class="material-icons">sell</i>
@@ -444,11 +449,18 @@
           </a>
         </div>
         
+        <div class="nav-item">
+          <a class="nav-link " href="/admin/quote-requests">
+            <i class="material-icons">request_quote</i>
+            <span>Buy Requests</span>
+          </a>
+        </div>
+        
+        <% if (user.role === 'admin') { %>
         <div class="sidebar-divider"></div>
         
         <div class="sidebar-heading">Admin</div>
         
-        <% if (user.role === 'admin') { %>
         <div class="nav-item">
           <a class="nav-link" href="/admin/staff">
             <i class="material-icons">people</i>

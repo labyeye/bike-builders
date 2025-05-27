@@ -77,9 +77,28 @@ const sellRequestSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
+
+// Quote Request Schema
+const quoteRequestSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  phone: String,
+  brand: String,
+  model: String,
+  year: Number,
+  budget: Number,
+  notes: String,
+  status: { type: String, enum: ["Pending", "Contacted", "Completed"], default: "Pending" },
+  createdAt: { type: Date, default: Date.now }
+});
+
+
+
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
 const SellRequest = mongoose.model('SellRequest', sellRequestSchema);
+const QuoteRequest = mongoose.model('QuoteRequest', quoteRequestSchema);
+
 
 (async function () {
   const existing = await User.findOne({ username: "admin" });
@@ -350,6 +369,63 @@ app.post('/admin/sell-request/update-status/:id', isAuthenticated, async (req, r
   } catch (err) {
     console.error('Error updating sell request:', err);
     res.status(500).send('Error updating sell request');
+  }
+});
+
+// Handle quote requests
+app.post('/api/quote-request', async (req, res) => {
+  try {
+    const { name, email, phone, brand, model, year, budget, notes } = req.body;
+
+    // Basic validation
+    if (!name || !email || !phone || !brand || !year || !budget) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    const quoteRequest = new QuoteRequest({
+      name,
+      email,
+      phone,
+      brand,
+      model,
+      year,
+      budget,
+      notes
+    });
+
+    await quoteRequest.save();
+
+    // Here you would typically send a confirmation email
+    res.status(201).json({ message: 'Quote request submitted successfully! We will contact you shortly.' });
+  } catch (err) {
+    console.error('Error submitting quote request:', err);
+    res.status(500).json({ error: 'Failed to submit quote request. Please try again.' });
+  }
+});
+
+// Admin route to view quote requests
+app.get('/admin/quote-requests', isAuthenticated, async (req, res) => {
+  try {
+    const requests = await QuoteRequest.find().sort({ createdAt: -1 });
+    res.render('buy-requests', { 
+      requests,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error('Error fetching quote requests:', err);
+    res.status(500).send('Error loading quote requests');
+  }
+});
+
+// Update quote request status
+app.post('/admin/quote-request/update-status/:id', isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await QuoteRequest.findByIdAndUpdate(req.params.id, { status });
+    res.redirect('/admin/quote-requests');
+  } catch (err) {
+    console.error('Error updating quote request:', err);
+    res.status(500).send('Error updating quote request');
   }
 });
 
