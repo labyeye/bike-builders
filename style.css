@@ -304,12 +304,8 @@ h2 {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: brightness(0) invert(1);
-  transition: all 0.3s ease;
-}
-
-.brand-card:hover .brand-logo img {
   filter: brightness(1) invert(0);
+  transition: all 0.3s ease;
 }
 
 .brand-card h3 {
@@ -351,6 +347,154 @@ h2 {
     font-size: 0.85rem;
   }
 }
+
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+/* Process Sections */
+.process-sections {
+  background-color: var(--secondary-color);
+  padding: 80px 5%;
+}
+
+.process-section {
+  max-width: 1200px;
+  margin: 0 auto 80px;
+}
+
+.process-section:last-child {
+  margin-bottom: 0;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.process-header h2 {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.divider {
+  width: 80px;
+  height: 3px;
+  background: var(--primary-color);
+  margin: 0 auto;
+}
+
+.process-content {
+  width: 100%;
+}
+
+.process-content p {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 50px;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.process-steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.process-step {
+  flex: 1;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.process-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: var(--primary-color);
+}
+
+.step-image {
+  width: 80px;
+  height: 80px;
+  background: rgba(163, 41, 25, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.step-image img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) invert(1);
+}
+
+.process-step h3 {
+  color: white;
+  font-size:
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.process-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.process-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.process-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.4s ease;
+}
+
+.process-step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+
 /* Inventory Section */
 .inventory-section {
   background-color: var(--secondary-color);
