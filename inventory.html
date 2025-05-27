@@ -96,152 +96,130 @@
     </div>
 
     <section class="inventory-section full-inventory">
+  <div class="inventory-content">
+    <!-- Left sidebar filters -->
+    <div class="sidebar-filters">
       <div class="filters-container">
-        <div class="filter-buttons">
-          <button class="filter-btn active" data-filter="all">All Bikes</button>
+        <h3>Filters</h3>
+        
+        <button class="filter-btn active" data-filter="all">All Bikes</button>
+        
+        <div class="filter-group">
           <button class="filter-btn" data-filter="price">
             Price <i class="fas fa-chevron-down"></i>
           </button>
+          <div class="filter-dropdown" id="price-dropdown">
+            <div class="price-range">
+              <div class="range-inputs">
+                <input type="number" id="min-price" placeholder="Min" min="0" />
+                <span>to</span>
+                <input type="number" id="max-price" placeholder="Max" min="0" />
+              </div>
+              <div class="price-presets">
+                <button class="price-preset" data-min="0" data-max="50000">Under 50K</button>
+                <button class="price-preset" data-min="50000" data-max="100000">50K-1L</button>
+                <button class="price-preset" data-min="100000" data-max="200000">1L-2L</button>
+                <button class="price-preset" data-min="200000" data-max="500000">2L-5L</button>
+                <button class="price-preset" data-min="500000">5L+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
           <button class="filter-btn" data-filter="brand">
             Brand <i class="fas fa-chevron-down"></i>
           </button>
+          <div class="filter-dropdown" id="brand-dropdown">
+            <div class="filter-options brand-options">
+              <button class="filter-option" data-brand="KTM">KTM</button>
+              <button class="filter-option" data-brand="Suzuki">Suzuki</button>
+              <button class="filter-option" data-brand="Royal Enfield">Royal Enfield</button>
+              <button class="filter-option" data-brand="Kawasaki">Kawasaki</button>
+              <button class="filter-option" data-brand="Ducati">Ducati</button>
+              <button class="filter-option" data-brand="Bajaj">Bajaj</button>
+              <button class="filter-option" data-brand="Harley-Davidson">Harley-Davidson</button>
+              <button class="filter-option" data-brand="Yamaha">Yamaha</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Add other filter groups similarly -->
+        <div class="filter-group">
           <button class="filter-btn" data-filter="year">
             Year <i class="fas fa-chevron-down"></i>
           </button>
+          <div class="filter-dropdown" id="year-dropdown">
+            <div class="year-slider">
+              <div class="slider-container">
+                <input type="range" id="year-min" min="2015" max="2024" value="2015" step="1" />
+                <input type="range" id="year-max" min="2015" max="2024" value="2024" step="1" />
+              </div>
+              <div class="year-values">
+                <span id="year-min-value">2015</span>
+                <span>to</span>
+                <span id="year-max-value">2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
           <button class="filter-btn" data-filter="km">
             KM Driven <i class="fas fa-chevron-down"></i>
           </button>
+          <div class="filter-dropdown" id="km-dropdown">
+            <div class="km-slider">
+              <div class="slider-container">
+                <input type="range" id="km-min" min="0" max="50000" value="0" step="500" />
+                <input type="range" id="km-max" min="0" max="50000" value="50000" step="500" />
+              </div>
+              <div class="km-values">
+                <span id="km-min-value">0</span>
+                <span>to</span>
+                <span id="km-max-value">50,000</span>
+                <span>km</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
           <button class="filter-btn" data-filter="owner">
             Ownership <i class="fas fa-chevron-down"></i>
           </button>
+          <div class="filter-dropdown" id="owner-dropdown">
+            <div class="filter-options ownership-options">
+              <button class="filter-option" data-owner="1">1st Owner</button>
+              <button class="filter-option" data-owner="2">2nd Owner</button>
+              <button class="filter-option" data-owner="3">3+ Owner</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="filter-group">
           <button class="filter-btn" data-filter="fuel">
             Fuel Type <i class="fas fa-chevron-down"></i>
           </button>
-        </div>
-
-        <!-- Filter dropdowns (hidden by default) -->
-        <div class="filter-dropdown" id="price-dropdown">
-          <div class="price-range">
-            <div class="range-inputs">
-              <input type="number" id="min-price" placeholder="Min" min="0" />
-              <span>to</span>
-              <input type="number" id="max-price" placeholder="Max" min="0" />
+          <div class="filter-dropdown" id="fuel-dropdown">
+            <div class="filter-options fuel-options">
+              <button class="filter-option" data-fuel="Petrol">Petrol</button>
+              <button class="filter-option" data-fuel="Electric">Electric</button>
             </div>
-            <div class="price-presets">
-              <button class="price-preset" data-min="0" data-max="50000">
-                Under 50K
-              </button>
-              <button class="price-preset" data-min="50000" data-max="100000">
-                50K-1L
-              </button>
-              <button class="price-preset" data-min="100000" data-max="200000">
-                1L-2L
-              </button>
-              <button class="price-preset" data-min="200000" data-max="500000">
-                2L-5L
-              </button>
-              <button class="price-preset" data-min="500000">5L+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter-dropdown" id="brand-dropdown">
-          <div class="filter-options brand-options">
-            <button class="filter-option" data-brand="KTM">KTM</button>
-            <button class="filter-option" data-brand="Suzuki">Suzuki</button>
-            <button class="filter-option" data-brand="Royal Enfield">
-              Royal Enfield
-            </button>
-            <button class="filter-option" data-brand="Kawasaki">
-              Kawasaki
-            </button>
-            <button class="filter-option" data-brand="Ducati">Ducati</button>
-            <button class="filter-option" data-brand="Bajaj">Bajaj</button>
-            <button class="filter-option" data-brand="Harley-Davidson">
-              Harley-Davidson
-            </button>
-            <button class="filter-option" data-brand="Yamaha">Yamaha</button>
-          </div>
-        </div>
-
-        <div class="filter-dropdown" id="year-dropdown">
-          <div class="year-slider">
-            <div class="slider-container">
-              <input
-                type="range"
-                id="year-min"
-                min="2015"
-                max="2024"
-                value="2015"
-                step="1"
-              />
-              <input
-                type="range"
-                id="year-max"
-                min="2015"
-                max="2024"
-                value="2024"
-                step="1"
-              />
-            </div>
-            <div class="year-values">
-              <span id="year-min-value">2015</span>
-              <span>to</span>
-              <span id="year-max-value">2024</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter-dropdown" id="km-dropdown">
-          <div class="km-slider">
-            <div class="slider-container">
-              <input
-                type="range"
-                id="km-min"
-                min="0"
-                max="50000"
-                value="0"
-                step="500"
-              />
-              <input
-                type="range"
-                id="km-max"
-                min="0"
-                max="50000"
-                value="50000"
-                step="500"
-              />
-            </div>
-            <div class="km-values">
-              <span id="km-min-value">0</span>
-              <span>to</span>
-              <span id="km-max-value">50,000</span>
-              <span>km</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="filter-dropdown" id="owner-dropdown">
-          <div class="filter-options ownership-options">
-            <button class="filter-option" data-owner="1">1st Owner</button>
-            <button class="filter-option" data-owner="2">2nd Owner</button>
-            <button class="filter-option" data-owner="3">3+ Owner</button>
-          </div>
-        </div>
-
-        <div class="filter-dropdown" id="fuel-dropdown">
-          <div class="filter-options fuel-options">
-            <button class="filter-option" data-fuel="Petrol">Petrol</button>
-            <button class="filter-option" data-fuel="Electric">Electric</button>
           </div>
         </div>
       </div>
+    </div>
 
+    <!-- Right side bike grid -->
+    <div class="bike-grid-container">
       <div class="section-header">
         <h2 id="filtered-count">0 Bikes Available</h2>
       </div>
       <div class="bike-grid"></div>
-    </section>
+    </div>
+  </div>
+</section>
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
