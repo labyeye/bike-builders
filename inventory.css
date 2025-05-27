@@ -421,17 +421,6 @@
   background: #e05d00;
 }
 
-.card-content .view-details-btn.sold-out {
-  background: #333;
-  color: #777;
-  cursor: not-allowed;
-}
-
-.card-content .view-details-btn.coming-soon {
-  background: #2a2a2a;
-  color: #ff6b00;
-  cursor: not-allowed;
-}
 
 /* Responsive styles */
 @media (max-width: 768px) {
@@ -442,18 +431,64 @@
   .sidebar-filters {
     width: 100%;
   }
-  
-  .filter-buttons {
-    overflow-x: auto;
-    padding-bottom: 10px;
+}
+/* Add these at the bottom of your CSS file */
+
+/* Mobile responsiveness improvements */
+@media (max-width: 576px) {
+  .popup-content {
+    padding: 15px !important;
   }
   
-  .filter-buttons::-webkit-scrollbar {
-    height: 5px;
+  .popup-details h2 {
+    font-size: 22px !important;
   }
   
-  .filter-buttons::-webkit-scrollbar-thumb {
-    background: #ff6b00;
-    border-radius: 5px;
+  .popup-details .details {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .filter-group {
+    width: 100%;
+  }
+  
+  .filter-dropdown {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  .price-presets {
+    justify-content: center;
+  }
+  
+  .bike-card {
+    width: 100%;
+  }
+  
+  .sidebar-filters {
+    padding: 0 15px;
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 577px) and (max-width: 991px) {
+  .bike-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .sidebar-filters {
+    padding-right: 20px;
+  }
+}
+
+.sidebar-filters {
+  margin-left: auto;
+  padding-right: 40px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-filters {
+    padding-right: 15px;
+    margin-left: 0;
   }
 }
