@@ -1,0 +1,210 @@
+/* Bike Popup Styles - Enhanced */
+.bike-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #100f0f; /* Slightly darker for better contrast */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px); /* Adds a nice blur effect to the background */
+}
+
+.bike-popup-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.bike-popup {
+  background-color: #100f0f;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  background-clip: padding-box;
+}
+
+.close-popup {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  z-index: 10;
+  transition: all 0.2s ease;
+}
+
+.close-popup:hover {
+  background: rgba(255, 107, 0, 0.9);
+  color: white;
+  transform: rotate(90deg);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+}
+
+.popup-image-container {
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.popup-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.popup-image-container:hover img {
+  transform: scale(1.03);
+}
+
+.popup-details {
+  width: 100%;
+}
+
+.popup-details h2 {
+  margin-bottom: 5px;
+  color: white;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.popup-details .model {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.popup-details .details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.popup-details .detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  color: #555;
+}
+
+.popup-details .detail-item i {
+  color: #ff6b00;
+  font-size: 18px;
+}
+
+.additional-details {
+  margin: 25px 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #ff6b00;
+}
+
+.additional-details h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.additional-details p {
+  margin: 8px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.additional-details strong {
+  color: #333;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.price-container .price {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff6b00;
+}
+
+.price-container .emi {
+  font-size: 14px;
+  color: #666;
+}
+
+.contact-btn {
+  background-color: #ff6b00;
+  color: white;
+  border: none;
+  padding: 14px 25px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-btn:hover {
+  background-color: #e05d00;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 107, 0, 0.3);
+}
+
+@media (min-width: 768px) {
+  .popup-content {
+    flex-direction: row;
+  }
+  
+  .popup-image-container {
+    width: 50%;
+    height: 400px;
+    margin-bottom: 0;
+    margin-right: 30px;
+  }
+  
+  .popup-details {
+    width: 50%;
+  }
+  
+  .additional-details {
+    margin: 30px 0;
+  }
+}
