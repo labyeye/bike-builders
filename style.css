@@ -475,8 +475,8 @@ width: 90%;
 
 .service-card {
   flex: 1;
-  min-width: 250px;
-  max-width: 280px;
+  min-width: 210px;
+  max-width: 220px;
   padding: 40px 25px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
