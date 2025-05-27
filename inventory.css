@@ -5,7 +5,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #100f0f; /* Slightly darker for better contrast */
+  background-color: #100f0f;
+  /* Slightly darker for better contrast */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,7 +14,8 @@
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px); /* Adds a nice blur effect to the background */
+  backdrop-filter: blur(5px);
+  /* Adds a nice blur effect to the background */
 }
 
 .bike-popup-overlay.active {
@@ -30,7 +32,8 @@
   overflow-y: auto;
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Subtle border */
   background-clip: padding-box;
 }
 
@@ -169,19 +172,20 @@
   .popup-content {
     flex-direction: row;
   }
-  
+
   .popup-image-container {
     width: 50%;
     height: 400px;
     margin-bottom: 0;
     margin-right: 30px;
   }
-  
+
   .popup-details {
     width: 50%;
   }
 
 }
+
 /* Add these to your inventory.css file */
 
 /* New layout styles */
@@ -303,7 +307,8 @@
   margin: 15px 0;
 }
 
-.year-values, .km-values {
+.year-values,
+.km-values {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -315,11 +320,6 @@
 .inventory-content {
   display: flex;
   gap: 30px;
-}
-
-.sidebar-filters {
-  width: 280px;
-  flex-shrink: 0;
 }
 
 .bike-grid-container {
@@ -427,11 +427,12 @@
   .inventory-content {
     flex-direction: column;
   }
-  
+
   .sidebar-filters {
     width: 100%;
   }
 }
+
 /* Add these at the bottom of your CSS file */
 
 /* Mobile responsiveness improvements */
@@ -439,32 +440,32 @@
   .popup-content {
     padding: 15px !important;
   }
-  
+
   .popup-details h2 {
     font-size: 22px !important;
   }
-  
+
   .popup-details .details {
     grid-template-columns: 1fr !important;
   }
-  
+
   .filter-group {
     width: 100%;
   }
-  
+
   .filter-dropdown {
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .price-presets {
     justify-content: center;
   }
-  
+
   .bike-card {
     width: 100%;
   }
-  
+
   .sidebar-filters {
     padding: 0 15px;
   }
@@ -475,7 +476,7 @@
   .bike-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .sidebar-filters {
     padding-right: 20px;
   }
@@ -483,7 +484,7 @@
 
 .sidebar-filters {
   margin-left: auto;
-  padding-right: 40px;
+  padding-right: 80px;
 }
 
 @media (max-width: 768px) {

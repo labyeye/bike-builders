@@ -62,14 +62,8 @@ const sellRequestSchema = new mongoose.Schema({
   brand: String,
   model: String,
   year: Number,
-  kilometers: Number,
-  owners: String,
-  fuelType: String,
-  condition: String,
   expectedPrice: Number,
-  location: String,
   images: [String],
-  description: String,
   sellerName: String,
   sellerEmail: String,
   sellerPhone: String,
@@ -307,19 +301,13 @@ app.post('/api/sell-request', async (req, res) => {
       brand,
       model,
       year,
-      kilometers,
-      owners,
-      fuel,
-      condition,
       price,
-      location,
-      description,
       name,
       email,
       phone
     } = req.body;
 
-    if (!brand || !model || !year || !kilometers || !owners || !fuel || !condition || !price || !location || !name || !email || !phone) {
+    if (!brand || !model || !year || !price || !name || !email || !phone) {
       return res.status(400).json({ error: 'Please fill all required fields' });
     }
 
@@ -329,12 +317,7 @@ app.post('/api/sell-request', async (req, res) => {
       brand,
       model,
       year,
-      kilometers,
-      owners,
-      fuelType: fuel,
-      condition,
       expectedPrice: price,
-      location,
       images,
       description,
       sellerName: name,
