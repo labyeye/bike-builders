@@ -3,126 +3,573 @@
 <head>
   <meta charset="UTF-8" />
   <title>Add New Bike</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Material UI CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
   <style>
-    body {
-      background-color: #f8f9fa;
+    :root {
+      --primary-color: #1976d2;
+      --primary-light: #e3f2fd;
+      --secondary-color: #9e9e9e;
+      --error-color: #d32f2f;
+      --success-color: #388e3c;
+      --text-primary: rgba(0, 0, 0, 0.87);
+      --text-secondary: rgba(0, 0, 0, 0.6);
+      --divider-color: rgba(0, 0, 0, 0.12);
     }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+      color: var(--text-primary);
+    }
+    
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+    
+    /* Sidebar Styles */
+    .sidebar {
+      width: 260px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidebar-brand {
+      padding: 20px 16px;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-size: 1.25rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--divider-color);
+    }
+    
+    .sidebar-brand-icon {
+      margin-right: 12px;
+      color: var(--primary-color);
+    }
+    
+    .nav-item {
+      margin: 8px 0;
+    }
+    
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text-primary);
+      border-radius: 4px;
+      margin: 0 8px;
+      transition: all 0.3s;
+    }
+    
+    .nav-link:hover {
+      background-color: rgba(25, 118, 210, 0.08);
+    }
+    
+    .nav-link.active {
+      background-color: rgba(25, 118, 210, 0.16);
+      color: var(--primary-color);
+      font-weight: 500;
+    }
+    
+    .nav-link i {
+      margin-right: 16px;
+      font-size: 20px;
+    }
+    
+    .sidebar-divider {
+      height: 1px;
+      background-color: var(--divider-color);
+      margin: 16px 0;
+    }
+    
+    .sidebar-heading {
+      padding: 8px 24px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+    
+    .topbar {
+      height: 64px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 24px;
+      z-index: 100;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 16px;
+      cursor: pointer;
+    }
+    
+    .content-wrapper {
+      padding: 24px;
+      flex: 1;
+    }
+    
+    /* Form Styles */
     .form-container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
       background: white;
       border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .form-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--divider-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .form-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin: 0;
+      color: var(--primary-color);
+    }
+    
+    .form-body {
+      padding: 24px;
+    }
+    
+    .form-footer {
+      padding: 16px 24px;
+      border-top: 1px solid var(--divider-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .form-group {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+    
+    .form-label.required:after {
+      content: " *";
+      color: var(--error-color);
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--divider-color);
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: 'Roboto', sans-serif;
+      transition: all 0.3s;
+      background-color: white;
+    }
+    
+    .form-control:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.2);
+    }
+    
+    .form-control.select {
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23999%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px;
+      padding-right: 36px;
+    }
+    
+    .btn {
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.02857em;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 64px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+    }
+    
+    .btn-primary:hover {
+      background-color: #1565c0;
+    }
+    
+    .btn-outlined {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    
+    .btn-outlined:hover {
+      background-color: rgba(25, 118, 210, 0.04);
+    }
+    
+    .btn-icon {
+      font-size: 18px;
+    }
+    
+    /* Alert Styles */
+    .alert {
+      padding: 12px 16px;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      font-size: 0.875rem;
+    }
+    
+    .alert.error {
+      background-color: #ffebee;
+      color: #c62828;
+      border-left: 4px solid #c62828;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 960px) {
+      .sidebar {
+        width: 72px;
+        overflow: hidden;
+      }
+      
+      .sidebar-brand-text,
+      .nav-link span,
+      .sidebar-heading {
+        display: none;
+      }
+      
+      .nav-link {
+        justify-content: center;
+        margin: 0;
+        padding: 16px;
+      }
+      
+      .nav-link i {
+        margin-right: 0;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .content-wrapper {
+        padding: 16px;
+      }
+      
+      .form-body {
+        padding: 16px;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      .form-footer {
+        padding: 12px 16px;
+      }
+    }
+    
+    @media (max-width: 400px) {
+      .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: auto;
+        width: 100%;
+        height: 56px;
+        flex-direction: row;
+        z-index: 1000;
+      }
+      
+      .sidebar-brand {
+        display: none;
+      }
+      
+      .nav-items {
+        display: flex;
+        width: 100%;
+      }
+      
+      .nav-item {
+        flex: 1;
+        margin: 0;
+      }
+      
+      .sidebar-divider,
+      .sidebar-heading {
+        display: none;
+      }
+      
+      .main-content {
+        margin-bottom: 56px;
+      }
+      
+      .topbar {
+        height: 56px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="modal" id="addBikeModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add New Bike</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a class="sidebar-brand" href="/admin/dashboard">
+        <i class="material-icons sidebar-brand-icon">two_wheeler</i>
+        <span class="sidebar-brand-text">Bike Inventory</span>
+      </a>
+      
+      <div class="nav-items">
+        <div class="nav-item">
+          <a class="nav-link" href="/admin/dashboard">
+            <i class="material-icons">dashboard</i>
+            <span>Dashboard</span>
+          </a>
         </div>
-        <div class="modal-body">
-          <form id="addBikeForm">
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Brand*</label>
-                  <input type="text" name="brand" class="form-control" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Model*</label>
-                  <input type="text" name="model" class="form-control" required />
-                </div>
-              </div>
-            </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-heading">Inventory</div>
+        
+        <div class="nav-item">
+          <a class="nav-link" href="/admin/dashboard">
+            <i class="material-icons">directions_bike</i>
+            <span>All Bikes</span>
+          </a>
+        </div>
+        
+        <div class="nav-item">
+          <a class="nav-link active" href="/admin/bike/add">
+            <i class="material-icons">add_circle</i>
+            <span>Add Bike</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-divider"></div>
+        
+        <div class="sidebar-heading">Admin</div>
+        
+        <% if (user.role === 'admin') { %>
+        <div class="nav-item">
+          <a class="nav-link" href="/admin/staff">
+            <i class="material-icons">people</i>
+            <span>Manage Users</span>
+          </a>
+        </div>
+        <% } %>
+        
+        <div class="nav-item">
+          <a class="nav-link" href="/admin/logout">
+            <i class="material-icons">logout</i>
+            <span>Logout</span>
+          </a>
+        </div>
+      </div>
+    </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Model Year*</label>
-                  <input type="number" name="modelYear" class="form-control" min="2000" max="2024" required />
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">KM Driven*</label>
-                  <input type="number" name="kmDriven" class="form-control" min="0" required />
-                </div>
-              </div>
-            </div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Topbar -->
+      <div class="topbar">
+        <div class="user-menu">
+          <span class="user-name"><%= user.username %></span>
+          <div class="user-avatar">
+            <i class="material-icons">person</i>
+          </div>
+        </div>
+      </div>
 
-            <div class="row">
-              <div class="col-md-6">
+      <!-- Content Wrapper -->
+      <div class="content-wrapper">
+        <div class="form-container">
+          <div class="form-header">
+            <h1 class="form-title">Add New Bike</h1>
+            <button type="button" class="btn btn-outlined" onclick="window.location.href='/admin/dashboard'">
+              <i class="material-icons btn-icon">close</i>
+              <span>Cancel</span>
+            </button>
+          </div>
+          
+          <div class="form-body">
+            <% if (error) { %>
+              <div class="alert error">
+                <i class="material-icons" style="vertical-align: middle; margin-right: 8px;">error</i>
+                <%= error %>
+              </div>
+            <% } %>
+            
+            <form id="addBikeForm" action="/admin/bike/add" method="POST">
+              <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">Ownership*</label>
-                  <select name="ownership" class="form-select" required>
-                    <option value="1st Owner">1st Owner</option>
-                    <option value="2nd Owner">2nd Owner</option>
-                    <option value="3rd Owner">3rd Owner</option>
-                    <option value="4th Owner or more">4th Owner or more</option>
+                  <label class="form-label required">Brand</label>
+                  <input type="text" name="brand" class="form-control" required value="<%= formData && formData.brand || '' %>">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label required">Model</label>
+                  <input type="text" name="model" class="form-control" required value="<%= formData && formData.model || '' %>">
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label required">Model Year</label>
+                  <input type="number" name="modelYear" min="2000" max="2024" class="form-control" required value="<%= formData && formData.modelYear || '' %>">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label required">KM Driven</label>
+                  <input type="number" name="kmDriven" min="0" class="form-control" required value="<%= formData && formData.kmDriven || '' %>">
+                </div>
+              </div>
+
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label required">Ownership</label>
+                  <select name="ownership" class="form-control select" required>
+                    <option value="">Select Ownership</option>
+                    <option value="1st Owner" <%= formData && formData.ownership === '1st Owner' ? 'selected' : '' %>>1st Owner</option>
+                    <option value="2nd Owner" <%= formData && formData.ownership === '2nd Owner' ? 'selected' : '' %>>2nd Owner</option>
+                    <option value="3rd Owner" <%= formData && formData.ownership === '3rd Owner' ? 'selected' : '' %>>3rd Owner</option>
+                    <option value="4th Owner or more" <%= formData && formData.ownership === '4th Owner or more' ? 'selected' : '' %>>4th Owner or more</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label required">Fuel Type</label>
+                  <select name="fuelType" class="form-control select" required>
+                    <option value="">Select Fuel Type</option>
+                    <option value="Petrol" <%= formData && formData.fuelType === 'Petrol' ? 'selected' : '' %>>Petrol</option>
+                    <option value="Diesel" <%= formData && formData.fuelType === 'Diesel' ? 'selected' : '' %>>Diesel</option>
+                    <option value="EV" <%= formData && formData.fuelType === 'EV' ? 'selected' : '' %>>Electric</option>
                   </select>
                 </div>
               </div>
-              <div class="col-md-6">
+
+              <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">Fuel Type*</label>
-                  <select name="fuelType" class="form-select" required>
-                    <option value="Petrol">Petrol</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="EV">Electric</option>
-                  </select>
+                  <label class="form-label required">Days Old</label>
+                  <input type="number" name="daysOld" min="0" class="form-control" required value="<%= formData && formData.daysOld || '' %>">
+                </div>
+                
+                <div class="form-group">
+                  <label class="form-label required">Price (₹)</label>
+                  <input type="number" name="price" min="0" class="form-control" required value="<%= formData && formData.price || '' %>">
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Days Old*</label>
-                  <input type="number" name="daysOld" class="form-control" min="0" required />
-                </div>
+              <div class="form-group">
+                <label class="form-label">Image URL</label>
+                <input type="text" name="imageUrl" placeholder="https://example.com/bike-image.jpg" class="form-control" value="<%= formData && formData.imageUrl || '' %>">
+                <small style="display: block; margin-top: 4px; color: var(--text-secondary); font-size: 0.75rem;">
+                  Optional field for bike image
+                </small>
               </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label class="form-label">Price (₹)*</label>
-                  <input type="number" name="price" class="form-control" min="0" required />
-                </div>
+
+              <div class="form-group">
+                <label class="form-label required">Status</label>
+                <select name="status" class="form-control select" required>
+                  <option value="">Select Status</option>
+                  <option value="Available" <%= formData && formData.status === 'Available' ? 'selected' : '' %>>Available</option>
+                  <option value="Coming Soon" <%= formData && formData.status === 'Coming Soon' ? 'selected' : '' %>>Coming Soon</option>
+                  <option value="Sold Out" <%= formData && formData.status === 'Sold Out' ? 'selected' : '' %>>Sold Out</option>
+                </select>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Image URL</label>
-              <input type="text" name="imageUrl" class="form-control" placeholder="https://example.com/bike-image.jpg" />
-            </div>
-
-            <div class="form-group">
-              <label class="form-label">Status*</label>
-              <select name="status" class="form-select" required>
-                <option value="Available">Available</option>
-                <option value="Coming Soon">Coming Soon</option>
-                <option value="Sold Out">Sold Out</option>
-              </select>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="submit" form="addBikeForm" class="btn btn-primary">Add Bike</button>
+            </form>
+          </div>
+          
+          <div class="form-footer">
+            <button type="button" class="btn btn-outlined" onclick="window.location.href='/admin/dashboard'">
+              <i class="material-icons btn-icon">cancel</i>
+              <span>Cancel</span>
+            </button>
+            <button type="submit" form="addBikeForm" class="btn btn-primary">
+              <i class="material-icons btn-icon">add_circle</i>
+              <span>Add Bike</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('addBikeForm');
+      const requiredFields = form.querySelectorAll('[required]');
+      
+      requiredFields.forEach(field => {
+        field.addEventListener('invalid', function(e) {
+          e.preventDefault();
+          this.style.borderColor = 'var(--error-color)';
+          this.style.boxShadow = '0 0 0 2px rgba(211, 47, 47, 0.2)';
+        });
+        
+        field.addEventListener('input', function() {
+          if (this.checkValidity()) {
+            this.style.borderColor = 'var(--divider-color)';
+            this.style.boxShadow = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </body>
 </html>

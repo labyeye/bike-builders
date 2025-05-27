@@ -587,7 +587,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Fetch bikes from your API
-        fetch("http://localhost:3000/api/bikes")
+        fetch("https://bike-builders.onrender.com/api/bikes")
           .then((response) => response.json())
           .then((bikes) => {
             const bikeGrid = document.querySelector(".bike-grid");

@@ -26,7 +26,7 @@ app.set("views", path.join(__dirname, "public", "views"));
 
 app.use(
   session({
-    secret: "rgesda543",
+    secret: process.env.SESSION_SECRET || "rgesda543",
     resave: false,
     saveUninitialized: true,
     cookie: { maxAge: 3600000 },
@@ -50,9 +50,13 @@ const bikeSchema = new mongoose.Schema({
 });
 
 const userSchema = new mongoose.Schema({
-  username: String,
-  password: String,
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  email: { type: String, unique: true },
   role: { type: String, enum: ["admin", "staff"], default: "staff" },
+  status: { type: String, enum: ["Active", "Inactive"], default: "Active" },
+  createdAt: { type: Date, default: Date.now },
+  lastLogin: Date
 });
 
 const Bike = mongoose.model("Bike", bikeSchema);
@@ -162,7 +166,11 @@ app.post("/admin/bike/delete/:id", isAuthenticated, isAdmin, async (req, res) =>
 });
 
 app.get("/admin/bike/add", isAuthenticated, (req, res) => {
-  res.render("add-bike", { error: null, formData: null });
+  res.render("add-bike", { 
+    error: null, 
+    formData: null,
+    user: req.session.user 
+  });
 });
 
 app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
@@ -185,7 +193,8 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
         isNaN(bikeData.daysOld) || isNaN(bikeData.price) || !bikeData.status) {
       return res.render("add-bike", {
         error: "Please fill all required fields with valid data",
-        formData: req.body
+        formData: req.body,
+        user: req.session.user
       });
     }
 
@@ -195,8 +204,60 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
   } catch (err) {
     res.render("add-bike", {
       error: "Failed to add bike. Please try again.",
-      formData: req.body
+      formData: req.body,
+      user: req.session.user
     });
+  }
+});
+
+app.get("/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const staff = await User.find().sort({ role: 1 });
+    res.render('staff', { 
+      title: 'Staff Management',
+      staff,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+app.get("/admin/staff/add", isAuthenticated, isAdmin, (req, res) => {
+  res.render("add-staff", { 
+    error: null,
+    user: req.session.user 
+  });
+});
+
+app.post("/admin/staff/add", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    await User.create({
+      username: req.body.username,
+      password: hashedPassword,
+      role: req.body.role
+    });
+    res.redirect("/admin/staff");
+  } catch (err) {
+    res.render("add-staff", { 
+      error: "Failed to add staff member",
+      formData: req.body,
+      user: req.session.user
+    });
+  }
+});
+
+app.post("/admin/staff/delete/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    if (req.params.id === req.session.user._id) {
+      return res.status(400).send("Cannot delete your own account");
+    }
+    await User.findByIdAndDelete(req.params.id);
+    res.redirect("/admin/staff");
+  } catch (err) {
+    res.status(500).send("Error deleting staff member");
   }
 });
 
