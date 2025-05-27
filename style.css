@@ -243,136 +243,92 @@ h2 {
   margin-bottom: 50px;
   color: var(--text-color);
 }
-
-/* Features Section */
-.features-section {
-  background-color: var(--secondary-color);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.features-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at 20% 50%, rgba(163, 41, 25, 0.1) 0%, transparent 50%);
-  z-index: 0;
-}
-
-.features-container {
+/* How It Works with Icons */
+.step-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
   display: flex;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 30px;
-width: 90%;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+  transition: all 0.3s ease;
+  padding: 15px;
 }
 
-.feature {
-  flex: 1;
-  min-width: 250px;
-  max-width: 280px;
-  padding: 40px 25px;
+.step-icon img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.step p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* Brands with Logos */
+.brand {
+  padding: 20px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  aspect-ratio: 2/1;
 }
 
-.feature::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 50%);
-  z-index: -1;
+.brand img {
+  max-width: 100%;
+  max-height: 50px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(2);
+  transition: filter 0.3s ease;
 }
 
-.feature::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), #ff6b4a);
-  transform: scaleX(0);
-  transform-origin: right;
-  transition: transform 0.4s ease;
+.brand:hover img {
+  filter: grayscale(0) brightness(1);
 }
 
-.feature:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  background: rgba(255, 255, 255, 0.1);
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .step-icon {
+    width: 60px;
+    height: 60px;
+    padding: 10px;
+  }
+  
+  .brand {
+    padding: 15px;
+  }
+  
+  .brand img {
+    max-height: 40px;
+  }
 }
 
-.feature:hover::after {
-  transform: scaleX(1);
-  transform-origin: left;
-}
-
-.feature i {
-  font-size: 2.5rem;
-  background: linear-gradient(135deg, var(--primary-color), #ff6b4a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 20px;
-  transition: transform 0.4s;
-}
-
-.feature:hover i {
-  transform: rotate(15deg) scale(1.2);
-}
-
-.feature h3 {
-  font-size: 1.4rem;
-  margin: 20px 0 15px;
-  color: white;
-  position: relative;
-  display: inline-block;
-}
-
-.feature h3::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--primary-color), #ff6b4a);
-  transition: width 0.4s;
-}
-
-.feature:hover h3::after {
-  width: 80px;
-}
-
-.feature p {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
-  font-size: 0.95rem;
-  transition: color 0.4s;
-}
-
-.feature:hover p {
-  color: white;
+@media (max-width: 576px) {
+  .step-icon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .brand {
+    padding: 10px;
+  }
+  
+  .brand img {
+    max-height: 30px;
+  }
 }
 
 /* Inventory Section */
