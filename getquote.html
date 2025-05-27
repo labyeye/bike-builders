@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Get a Quote | Dan Electo Bicycle</title>
+    <title>Get a Quote | Bike Builders</title>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="quote.css" />
@@ -33,8 +33,11 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="login-btn">
-          <button>Get the Quote</button>
-        </div>
+  <a href="/getquote.html">
+    <button>Get the Quote</button>
+  </a>
+</div>
+
       </nav>
 
       <div class="hero-content">
@@ -347,7 +350,7 @@
 
             // Send data to server
             const response = await fetch(
-              "https://bike-builders.onrender.com/api/quote-request",
+              "https://bike-builders.onrender.com//api/quote-request",
               {
                 method: "POST",
                 headers: {

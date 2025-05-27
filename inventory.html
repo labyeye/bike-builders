@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Inventory | Dan Electo Bicycle</title>
+    <title>Inventory | Bike Builders</title>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="inventory.css" />
@@ -31,8 +31,11 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="login-btn">
-          <button>Get the Quote</button>
-        </div>
+  <a href="/getquote.html">
+    <button>Get the Quote</button>
+  </a>
+</div>
+
       </nav>
 
       <div class="hero-content">
@@ -230,7 +233,6 @@
         <div class="filter-dropdown" id="fuel-dropdown">
           <div class="filter-options fuel-options">
             <button class="filter-option" data-fuel="Petrol">Petrol</button>
-            <button class="filter-option" data-fuel="Diesel">Diesel</button>
             <button class="filter-option" data-fuel="Electric">Electric</button>
           </div>
         </div>
@@ -240,16 +242,7 @@
         <h2 id="filtered-count">0 Bikes Available</h2>
       </div>
       <div class="bike-grid"></div>
-
-      <!-- <div class="pagination">
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>Next <i class="fas fa-chevron-right"></i></button>
-      </div> -->
     </section>
-
-    <!-- Footer -->
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
@@ -294,7 +287,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 Dan Electo Bicycle. All rights reserved.</p>
+        <p>&copy; 2023 Bike Builders. All rights reserved.</p>
+        <a href="www.pixelatenest.com" style="color: #a9a9a9;" >Designed By Pixelate Nest</a>
       </div>
     </footer>
     <script>
@@ -314,7 +308,7 @@
 
         // Fetch bikes from API
         function loadBikes() {
-          fetch("https://bike-builders.onrender.com/api/bikes")
+          fetch("https://bike-builders.onrender.com//api/bikes")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -374,47 +368,49 @@
               ? "coming-soon"
               : "";
 
+          // In the createBikeCard function, update the price container HTML:
           bikeCard.innerHTML = `
-      <img src="${
-        bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
-      }" 
-           alt="${bike.brand} ${bike.model}" 
-           onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'" />
-      <div class="card-content">
-        <h3>${bike.brand} ${bike.model}</h3>
-        <span class="model">${bike.modelYear} Model</span>
-        <div class="details">
-          <div class="detail-item">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-user"></i>
-            <span>${bike.ownership || "1st Owner"}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-gas-pump"></i>
-            <span>${bike.fuelType || "Petrol"}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>${bike.daysOld || 0} days old</span>
-          </div>
-        </div>
-        <div class="price-container">
-          <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
-          <div class="emi">EMI: ₹${Math.round(
-            (bike.price || 0) / 36
+  <img src="${
+    bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
+  }" 
+       alt="${bike.brand} ${bike.model}" 
+       onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'" />
+  <div class="card-content">
+    <h3>${bike.brand} ${bike.model}</h3>
+    <span class="model">${bike.modelYear} Model</span>
+    <div class="details">
+      <div class="detail-item">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-user"></i>
+        <span>${bike.ownership || "1st Owner"}</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-gas-pump"></i>
+        <span>${bike.fuelType || "Petrol"}</span>
+      </div>
+      <div class="detail-item">
+        <i class="fas fa-calendar-alt"></i>
+        <span id="bike-age">${formatAge(bike.daysOld || 0)}</span>
+      </div>
+    </div>
+    <div class="price-container">
+      <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
+      <div class="emi">Down: ₹${(
+        bike.downPayment || 0
+      ).toLocaleString()} | EMI: ₹${Math.round(
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month</div>
-          <button class="view-details-btn ${buttonClass}" ${
+      <button class="view-details-btn ${buttonClass}" ${
             !isAvailable ? "disabled" : ""
           }>
-            ${bike.status || "View Details"}
-          </button>
-        </div>
-      </div>
-    `;
-
+        ${bike.status || "View Details"}
+      </button>
+    </div>
+  </div>
+`;
           return bikeCard;
         }
 
@@ -453,18 +449,19 @@
             bike.ownership || "1st Owner";
           document.getElementById("popup-bike-fuel").textContent =
             bike.fuelType || "Petrol";
-          document.getElementById("popup-bike-age").textContent = `${
+          // In the showBikePopup function, update these lines:
+          document.getElementById("popup-bike-age").textContent = formatAge(
             bike.daysOld || 0
-          } days old`;
+          );
+          // In the showBikePopup function, update these lines:
           document.getElementById("popup-bike-price").textContent = `₹${(
             bike.price || 0
           ).toLocaleString()}`;
-          document.getElementById(
-            "popup-bike-emi"
-          ).textContent = `EMI: ₹${Math.round(
-            (bike.price || 0) / 36
+          document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
+            bike.downPayment || 0
+          ).toLocaleString()} | EMI: ₹${Math.round(
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month`;
-          
 
           // Show popup
           popup.classList.add("active");
@@ -847,6 +844,18 @@
             mobileMenu.classList.remove("active");
           });
       });
+      // Add this function near the top of your script section
+      function formatAge(days) {
+        if (days >= 365) {
+          const years = Math.floor(days / 365);
+          return `${years} year${years > 1 ? "s" : ""}`;
+        } else if (days >= 30) {
+          const months = Math.floor(days / 30);
+          return `${months} month${months > 1 ? "s" : ""}`;
+        } else {
+          return `${days} day${days !== 1 ? "s" : ""}`;
+        }
+      }
     </script>
     <!-- Bike Details Popup -->
     <div class="bike-popup-overlay">
@@ -881,7 +890,7 @@
               <div class="price" id="popup-bike-price"></div>
               <div class="emi" id="popup-bike-emi"></div>
             </div>
-            
+
             <button class="contact-btn">Contact Seller</button>
           </div>
         </div>

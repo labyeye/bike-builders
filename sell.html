@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Sell Your Bike | Dan Electo Bicycle</title>
+    <title>Sell Your Bike | Bike Builders</title>
     <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="sell.css" />
@@ -31,8 +31,11 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="login-btn">
-          <button>Get the Quote</button>
-        </div>
+  <a href="/getquote.html">
+    <button>Get the Quote</button>
+  </a>
+</div>
+
       </nav>
 
       <div class="hero-content">
@@ -159,7 +162,6 @@
             <select id="bike-fuel" name="fuel" required>
               <option value="">Select Fuel Type</option>
               <option value="Petrol">Petrol</option>
-              <option value="Diesel">Diesel</option>
               <option value="Electric">Electric</option>
             </select>
           </div>
@@ -516,7 +518,8 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 Dan Electo Bicycle. All rights reserved.</p>
+        <p>&copy; 2023 Bike Builders. All rights reserved.</p>
+        <a href="www.pixelatenest.com" style="color: #a9a9a9;" >Designed By Pixelate Nest</a>
       </div>
     </footer>
 
@@ -656,7 +659,7 @@
           }
 
           // Send data to server
-          const response = await fetch("https://bike-builders.onrender.com/api/sell-request", {
+          const response = await fetch("https://bike-builders.onrender.com//api/sell-request", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

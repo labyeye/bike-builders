@@ -515,7 +515,6 @@
                   <select name="fuelType" class="form-control select" required>
                     <option value="">Select Fuel Type</option>
                     <option value="Petrol" <%= formData && formData.fuelType === 'Petrol' ? 'selected' : '' %>>Petrol</option>
-                    <option value="Diesel" <%= formData && formData.fuelType === 'Diesel' ? 'selected' : '' %>>Diesel</option>
                     <option value="EV" <%= formData && formData.fuelType === 'EV' ? 'selected' : '' %>>Electric</option>
                   </select>
                 </div>
@@ -526,12 +525,18 @@
                   <label class="form-label required">Days Old</label>
                   <input type="number" name="daysOld" min="0" class="form-control" required value="<%= formData && formData.daysOld || '' %>">
                 </div>
-                
-                <div class="form-group">
-                  <label class="form-label required">Price (₹)</label>
-                  <input type="number" name="price" min="0" class="form-control" required value="<%= formData && formData.price || '' %>">
-                </div>
               </div>
+              <div class="form-grid">
+  <div class="form-group">
+    <label class="form-label required">Price (₹)</label>
+    <input type="number" name="price" min="0" class="form-control" required value="<%= formData && formData.price || '' %>">
+  </div>
+  
+  <div class="form-group">
+    <label class="form-label required">Down Payment (₹)</label>
+    <input type="number" name="downPayment" min="0" class="form-control" required value="<%= formData && formData.downPayment || '' %>">
+  </div>
+</div>
 
               <div class="form-group">
                 <label class="form-label">Image URL</label>

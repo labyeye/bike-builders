@@ -41,14 +41,14 @@ const bikeSchema = new mongoose.Schema({
   modelYear: Number,
   kmDriven: Number,
   ownership: String,
-  fuelType: { type: String, enum: ["Petrol", "Diesel", "EV"] },
+  fuelType: { type: String, enum: ["Petrol", "EV"] },
   daysOld: Number,
   price: Number,
+  downPayment: Number, // Add this line
   imageUrl: String,
   status: { type: String, enum: ["Available", "Coming Soon", "Sold Out"], default: "Available" },
   createdAt: { type: Date, default: Date.now },
 });
-
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -210,7 +210,6 @@ app.get("/admin/bike/add", isAuthenticated, (req, res) => {
     user: req.session.user 
   });
 });
-
 app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
   try {
     const bikeData = {
@@ -222,13 +221,15 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
       fuelType: req.body.fuelType,
       daysOld: Number(req.body.daysOld),
       price: Number(req.body.price),
+      downPayment: Number(req.body.downPayment), // Add this line
       imageUrl: req.body.imageUrl || 'https://via.placeholder.com/300',
       status: req.body.status
     };
 
     if (!bikeData.brand || !bikeData.model || isNaN(bikeData.modelYear) || 
         isNaN(bikeData.kmDriven) || !bikeData.ownership || !bikeData.fuelType || 
-        isNaN(bikeData.daysOld) || isNaN(bikeData.price) || !bikeData.status) {
+        isNaN(bikeData.daysOld) || isNaN(bikeData.price) || isNaN(bikeData.downPayment) || // Add downPayment check
+        !bikeData.status) {
       return res.render("add-bike", {
         error: "Please fill all required fields with valid data",
         formData: req.body,

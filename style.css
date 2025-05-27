@@ -1353,13 +1353,18 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .footer-bottom {
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; /* optional, vertically centers the text */
   margin-top: 50px;
   padding-top: 20px;
+  width: 100%;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--light-gray);
   font-size: 0.9rem;
 }
+
 
 /* Mobile Menu Styles */
 .mobile-menu-toggle {

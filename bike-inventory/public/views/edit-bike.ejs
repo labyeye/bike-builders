@@ -75,9 +75,15 @@
           </div>
         </div>
 
-        <div class="mb-3">
-          <label class="form-label">Image URL</label>
-          <input type="text" name="imageUrl" value="<%= bike.imageUrl %>" class="form-control" placeholder="https://example.com/bike-image.jpg" />
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Downpayment (₹)*</label>
+            <input type="number" name="downPayment" value="<%= bike.downPayment %>" class="form-control" min="0" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Image URL</label>
+            <input type="text" name="imageUrl" value="<%= bike.imageUrl %>" class="form-control" placeholder="https://example.com/bike-image.jpg" />
+          </div>
         </div>
 
         <div class="mb-3">
