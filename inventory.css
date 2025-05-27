@@ -31,6 +31,7 @@
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 20px;
 }
 
 .close-popup {
@@ -94,6 +95,7 @@
   color: white;
   font-size: 28px;
   font-weight: 700;
+  word-break: break-word;
 }
 
 .popup-details .model {
@@ -185,6 +187,8 @@
   display: flex;
   flex-direction: column;
   padding: 30px 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .inventory-content {
@@ -200,7 +204,8 @@
 /* Sidebar Filters - Improved */
 .sidebar-filters {
   width: 300px;
-  padding-left: 40px; /* Increased left margin as requested */
+  padding-left: 40px;
+  box-sizing: border-box;
 }
 
 .filters-container {
@@ -239,6 +244,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .filter-btn.active {
@@ -267,6 +273,7 @@
   margin-top: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   border: 1px solid #444;
+  box-sizing: border-box;
 }
 
 .filter-options {
@@ -285,6 +292,7 @@
   text-align: left;
   transition: all 0.2s ease;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .filter-option:hover, .filter-option.active {
@@ -312,6 +320,7 @@
   border-radius: 6px;
   width: 100%;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .range-inputs input:focus {
@@ -335,6 +344,7 @@
   cursor: pointer;
   font-size: 13px;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .price-preset:hover, .price-preset.active {
@@ -377,6 +387,8 @@
 .bike-grid-container {
   flex-grow: 1;
   padding-right: 20px;
+  box-sizing: border-box;
+  width: calc(100% - 330px);
 }
 
 .section-header {
@@ -394,6 +406,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
+  width: 100%;
 }
 
 /* Bike Card */
@@ -403,6 +416,8 @@
   overflow: hidden;
   transition: all 0.3s ease;
   border: 1px solid #333;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .bike-card:hover {
@@ -423,12 +438,14 @@
 
 .card-content {
   padding: 20px;
+  box-sizing: border-box;
 }
 
 .card-content h3 {
   color: white;
   margin: 0 0 5px 0;
   font-size: 18px;
+  word-break: break-word;
 }
 
 .card-content .model {
@@ -451,6 +468,7 @@
   gap: 6px;
   font-size: 13px;
   color: #777;
+  word-break: break-word;
 }
 
 .card-content .detail-item i {
@@ -485,6 +503,7 @@
   font-weight: bold;
   transition: all 0.2s ease;
   margin-top: 10px;
+  box-sizing: border-box;
 }
 
 .card-content .view-details-btn:hover {
@@ -511,6 +530,10 @@
     width: 280px;
     padding-left: 30px;
   }
+  
+  .bike-grid-container {
+    width: calc(100% - 310px);
+  }
 }
 
 @media (max-width: 992px) {
@@ -536,6 +559,7 @@
   }
   
   .bike-grid-container {
+    width: 100%;
     padding-right: 0;
   }
   
@@ -612,13 +636,12 @@
 .filter-dropdown {
   animation: fadeIn 0.2s ease-out forwards;
 }
-/* Add this to your inventory.css file */
 
 /* Brand filter specific styles */
 #brand-dropdown {
-  max-height: 300px; /* Fixed height for the dropdown */
-  overflow-y: auto; /* Enable vertical scrolling */
-  padding-right: 8px; /* Add space for scrollbar */
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 8px;
 }
 
 /* Custom scrollbar for brand dropdown */
@@ -653,7 +676,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  padding-right: 30px; /* Space for chevron */
+  padding-right: 30px;
 }
 
 /* Responsive adjustments */
@@ -671,4 +694,17 @@
   .brand-options {
     grid-template-columns: 1fr;
   }
+}
+
+/* Prevent horizontal overflow */
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+/* Ensure all elements respect box-sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
