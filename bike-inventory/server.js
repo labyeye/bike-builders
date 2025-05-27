@@ -58,9 +58,28 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   lastLogin: Date
 });
+const sellRequestSchema = new mongoose.Schema({
+  brand: String,
+  model: String,
+  year: Number,
+  kilometers: Number,
+  owners: String,
+  fuelType: String,
+  condition: String,
+  expectedPrice: Number,
+  location: String,
+  images: [String],
+  description: String,
+  sellerName: String,
+  sellerEmail: String,
+  sellerPhone: String,
+  status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
+  createdAt: { type: Date, default: Date.now }
+});
 
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
+const SellRequest = mongoose.model('SellRequest', sellRequestSchema);
 
 (async function () {
   const existing = await User.findOne({ username: "admin" });
@@ -258,6 +277,79 @@ app.post("/admin/staff/delete/:id", isAuthenticated, isAdmin, async (req, res) =
     res.redirect("/admin/staff");
   } catch (err) {
     res.status(500).send("Error deleting staff member");
+  }
+});
+
+
+app.post('/api/sell-request', async (req, res) => {
+  try {
+    const {
+      brand,
+      model,
+      year,
+      kilometers,
+      owners,
+      fuel,
+      condition,
+      price,
+      location,
+      description,
+      name,
+      email,
+      phone
+    } = req.body;
+
+    if (!brand || !model || !year || !kilometers || !owners || !fuel || !condition || !price || !location || !name || !email || !phone) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    const images = []; 
+
+    const sellRequest = new SellRequest({
+      brand,
+      model,
+      year,
+      kilometers,
+      owners,
+      fuelType: fuel,
+      condition,
+      expectedPrice: price,
+      location,
+      images,
+      description,
+      sellerName: name,
+      sellerEmail: email,
+      sellerPhone: phone
+    });
+    await sellRequest.save();
+    res.status(201).json({ message: 'Sell request submitted successfully! We will contact you shortly.' });
+  } catch (err) {
+    console.error('Error submitting sell request:', err);
+    res.status(500).json({ error: 'Failed to submit sell request. Please try again.' });
+  }
+});
+
+app.get('/admin/sell-requests', isAuthenticated, async (req, res) => {
+  try {
+    const requests = await SellRequest.find().sort({ createdAt: -1 });
+    res.render('sell-requests', { 
+      requests,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error('Error fetching sell requests:', err);
+    res.status(500).send('Error loading sell requests');
+  }
+});
+
+app.post('/admin/sell-request/update-status/:id', isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await SellRequest.findByIdAndUpdate(req.params.id, { status });
+    res.redirect('/admin/sell-requests');
+  } catch (err) {
+    console.error('Error updating sell request:', err);
+    res.status(500).send('Error updating sell request');
   }
 });
 
