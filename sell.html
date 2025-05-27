@@ -31,18 +31,16 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
         <div class="login-btn">
-  <a href="/getquote.html">
-    <button>Get the Quote</button>
-  </a>
-</div>
-
+          <a href="/getquote.html">
+            <button>Get the Quote</button>
+          </a>
+        </div>
       </nav>
 
       <div class="hero-content">
         <h1>Sell Your</h1>
       </div>
       <div class="bicycle-text">Bike</div>
-      
     </div>
 
     <section class="sell-section">
@@ -91,62 +89,68 @@
         <form id="sell-bike-form" class="sell-form">
           <h3>Bike Details</h3>
 
-          <div class="form-group">
-            <label for="bike-brand">Brand*</label>
-            <select id="bike-brand" name="brand" required>
-              <option value="">Select Brand</option>
-              <option value="KTM">KTM</option>
-              <option value="Suzuki">Suzuki</option>
-              <option value="Royal Enfield">Royal Enfield</option>
-              <option value="Kawasaki">Kawasaki</option>
-              <option value="Ducati">Ducati</option>
-              <option value="Bajaj">Bajaj</option>
-              <option value="Harley-Davidson">Harley-Davidson</option>
-              <option value="Yamaha">Yamaha</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
+          <div
+            style="
+              display: flex;
+              gap: 40px;
+              justify-content: space-between;
+              flex-direction: row;
+            "
+          >
+            <div class="form-group">
+              <label for="bike-brand">Brand*</label>
+              <select id="bike-brand" name="brand" required>
+                <option value="">Select Brand</option>
+                <option value="KTM">KTM</option>
+                <option value="Suzuki">Suzuki</option>
+                <option value="Royal Enfield">Royal Enfield</option>
+                <option value="Kawasaki">Kawasaki</option>
+                <option value="Ducati">Ducati</option>
+                <option value="Bajaj">Bajaj</option>
+                <option value="Harley-Davidson">Harley-Davidson</option>
+                <option value="Yamaha">Yamaha</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
 
-          <div class="form-group">
-            <label for="bike-model">Model*</label>
-            <input
-              type="text"
-              id="bike-model"
-              name="model"
-              placeholder="e.g. Duke 390"
-              required
-            />
+            <div class="form-group">
+              <label for="bike-model">Model*</label>
+              <input
+                type="text"
+                id="bike-model"
+                name="model"
+                placeholder="e.g. Duke 390"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="bike-year">Year*</label>
+              <select id="bike-year" name="year" required>
+                <option value="">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bike-price">Expected Price (₹)*</label>
+              <input
+                type="number"
+                id="bike-price"
+                name="price"
+                placeholder="e.g. 150000"
+                required
+              />
+            </div>
           </div>
-
-          <div class="form-group">
-            <label for="bike-year">Year of Manufacture*</label>
-            <select id="bike-year" name="year" required>
-              <option value="">Select Year</option>
-              <option value="2024">2024</option>
-              <option value="2023">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="bike-price">Expected Price (₹)*</label>
-            <input
-              type="number"
-              id="bike-price"
-              name="price"
-              placeholder="e.g. 150000"
-              required
-            />
-          </div>
-
 
           <div class="form-group">
             <label for="bike-images">Upload Images (Max 5)*</label>
@@ -459,7 +463,9 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2023 Bike Builders. All rights reserved.</p>
-        <a href="www.pixelatenest.com" style="color: #a9a9a9;" >Designed By Pixelate Nest</a>
+        <a href="www.pixelatenest.com" style="color: #a9a9a9"
+          >Designed By Pixelate Nest</a
+        >
       </div>
     </footer>
 
@@ -599,13 +605,16 @@
           }
 
           // Send data to server
-          const response = await fetch("https://bike-builders.onrender.com/api/sell-request", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(jsonData),
-          });
+          const response = await fetch(
+            "https://bike-builders.onrender.com/api/sell-request",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(jsonData),
+            }
+          );
 
           const result = await response.json();
 

@@ -46,7 +46,11 @@ const bikeSchema = new mongoose.Schema({
   price: Number,
   downPayment: Number, // Add this line
   imageUrl: String,
-  status: { type: String, enum: ["Available", "Coming Soon", "Sold Out"], default: "Available" },
+  status: {
+    type: String,
+    enum: ["Available", "Coming Soon", "Sold Out"],
+    default: "Available",
+  },
   createdAt: { type: Date, default: Date.now },
 });
 const userSchema = new mongoose.Schema({
@@ -56,7 +60,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ["admin", "staff"], default: "staff" },
   status: { type: String, enum: ["Active", "Inactive"], default: "Active" },
   createdAt: { type: Date, default: Date.now },
-  lastLogin: Date
+  lastLogin: Date,
 });
 const sellRequestSchema = new mongoose.Schema({
   brand: String,
@@ -67,10 +71,13 @@ const sellRequestSchema = new mongoose.Schema({
   sellerName: String,
   sellerEmail: String,
   sellerPhone: String,
-  status: { type: String, enum: ["Pending", "Approved", "Rejected"], default: "Pending" },
-  createdAt: { type: Date, default: Date.now }
+  status: {
+    type: String,
+    enum: ["Pending", "Approved", "Rejected"],
+    default: "Pending",
+  },
+  createdAt: { type: Date, default: Date.now },
 });
-
 
 // Quote Request Schema
 const quoteRequestSchema = new mongoose.Schema({
@@ -82,17 +89,18 @@ const quoteRequestSchema = new mongoose.Schema({
   year: Number,
   budget: Number,
   notes: String,
-  status: { type: String, enum: ["Pending", "Contacted", "Completed"], default: "Pending" },
-  createdAt: { type: Date, default: Date.now }
+  status: {
+    type: String,
+    enum: ["Pending", "Contacted", "Completed"],
+    default: "Pending",
+  },
+  createdAt: { type: Date, default: Date.now },
 });
-
-
 
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
-const SellRequest = mongoose.model('SellRequest', sellRequestSchema);
-const QuoteRequest = mongoose.model('QuoteRequest', quoteRequestSchema);
-
+const SellRequest = mongoose.model("SellRequest", sellRequestSchema);
+const QuoteRequest = mongoose.model("QuoteRequest", quoteRequestSchema);
 
 (async function () {
   const existing = await User.findOne({ username: "admin" });
@@ -123,16 +131,17 @@ app.get("/admin/login", (req, res) => {
 
 app.post("/admin/login", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
-  const valid = user && (await bcrypt.compare(req.body.password, user.password));
-  
+  const valid =
+    user && (await bcrypt.compare(req.body.password, user.password));
+
   if (!valid) return res.render("login", { error: "Invalid credentials" });
-  
+
   req.session.isAuthenticated = true;
   req.session.user = {
     username: user.username,
-    role: user.role
+    role: user.role,
   };
-  
+
   res.redirect("/admin/dashboard");
 });
 
@@ -157,13 +166,13 @@ app.get("/admin/dashboard", isAuthenticated, async (req, res) => {
       total: await Bike.countDocuments(),
       available: await Bike.countDocuments({ status: "Available" }),
       comingSoon: await Bike.countDocuments({ status: "Coming Soon" }),
-      sold: await Bike.countDocuments({ status: "Sold Out" })
+      sold: await Bike.countDocuments({ status: "Sold Out" }),
     };
-    
-    res.render("dashboard", { 
+
+    res.render("dashboard", {
       bikes,
       stats,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
     res.status(500).send("Error loading dashboard");
@@ -188,20 +197,25 @@ app.post("/admin/bike/edit/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-app.post("/admin/bike/delete/:id", isAuthenticated, isAdmin, async (req, res) => {
-  try {
-    await Bike.findByIdAndDelete(req.params.id);
-    res.redirect("/admin/dashboard");
-  } catch (err) {
-    res.status(500).send("Error deleting bike");
+app.post(
+  "/admin/bike/delete/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      await Bike.findByIdAndDelete(req.params.id);
+      res.redirect("/admin/dashboard");
+    } catch (err) {
+      res.status(500).send("Error deleting bike");
+    }
   }
-});
+);
 
 app.get("/admin/bike/add", isAuthenticated, (req, res) => {
-  res.render("add-bike", { 
-    error: null, 
+  res.render("add-bike", {
+    error: null,
     formData: null,
-    user: req.session.user 
+    user: req.session.user,
   });
 });
 app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
@@ -216,18 +230,26 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
       daysOld: Number(req.body.daysOld),
       price: Number(req.body.price),
       downPayment: Number(req.body.downPayment), // Add this line
-      imageUrl: req.body.imageUrl || 'https://via.placeholder.com/300',
-      status: req.body.status
+      imageUrl: req.body.imageUrl || "https://via.placeholder.com/300",
+      status: req.body.status,
     };
 
-    if (!bikeData.brand || !bikeData.model || isNaN(bikeData.modelYear) || 
-        isNaN(bikeData.kmDriven) || !bikeData.ownership || !bikeData.fuelType || 
-        isNaN(bikeData.daysOld) || isNaN(bikeData.price) || isNaN(bikeData.downPayment) || // Add downPayment check
-        !bikeData.status) {
+    if (
+      !bikeData.brand ||
+      !bikeData.model ||
+      isNaN(bikeData.modelYear) ||
+      isNaN(bikeData.kmDriven) ||
+      !bikeData.ownership ||
+      !bikeData.fuelType ||
+      isNaN(bikeData.daysOld) ||
+      isNaN(bikeData.price) ||
+      isNaN(bikeData.downPayment) || // Add downPayment check
+      !bikeData.status
+    ) {
       return res.render("add-bike", {
         error: "Please fill all required fields with valid data",
         formData: req.body,
-        user: req.session.user
+        user: req.session.user,
       });
     }
 
@@ -238,7 +260,7 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
     res.render("add-bike", {
       error: "Failed to add bike. Please try again.",
       formData: req.body,
-      user: req.session.user
+      user: req.session.user,
     });
   }
 });
@@ -246,21 +268,21 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
 app.get("/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
   try {
     const staff = await User.find().sort({ role: 1 });
-    res.render('staff', { 
-      title: 'Staff Management',
+    res.render("staff", {
+      title: "Staff Management",
       staff,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).send('Server Error');
+    res.status(500).send("Server Error");
   }
 });
 
 app.get("/admin/staff/add", isAuthenticated, isAdmin, (req, res) => {
-  res.render("add-staff", { 
+  res.render("add-staff", {
     error: null,
-    user: req.session.user 
+    user: req.session.user,
   });
 });
 
@@ -270,31 +292,34 @@ app.post("/admin/staff/add", isAuthenticated, isAdmin, async (req, res) => {
     await User.create({
       username: req.body.username,
       password: hashedPassword,
-      role: req.body.role
+      role: req.body.role,
     });
     res.redirect("/admin/staff");
   } catch (err) {
-    res.render("add-staff", { 
+    res.render("add-staff", {
       error: "Failed to add staff member",
       formData: req.body,
-      user: req.session.user
+      user: req.session.user,
     });
   }
 });
 
-app.post("/admin/staff/delete/:id", isAuthenticated, isAdmin, async (req, res) => {
-  try {
-    if (req.params.id === req.session.user._id) {
-      return res.status(400).send("Cannot delete your own account");
+app.post(
+  "/admin/staff/delete/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      if (req.params.id === req.session.user._id) {
+        return res.status(400).send("Cannot delete your own account");
+      }
+      await User.findByIdAndDelete(req.params.id);
+      res.redirect("/admin/staff");
+    } catch (err) {
+      res.status(500).send("Error deleting staff member");
     }
-    await User.findByIdAndDelete(req.params.id);
-    res.redirect("/admin/staff");
-  } catch (err) {
-    res.status(500).send("Error deleting staff member");
   }
-});
-
-
+);
 app.post('/api/sell-request', async (req, res) => {
   try {
     const {
@@ -311,19 +336,17 @@ app.post('/api/sell-request', async (req, res) => {
       return res.status(400).json({ error: 'Please fill all required fields' });
     }
 
-    const images = []; 
-
     const sellRequest = new SellRequest({
       brand,
       model,
       year,
       expectedPrice: price,
-      images,
-      description,
+      images: [], // You can implement image upload separately
       sellerName: name,
       sellerEmail: email,
       sellerPhone: phone
     });
+
     await sellRequest.save();
     res.status(201).json({ message: 'Sell request submitted successfully! We will contact you shortly.' });
   } catch (err) {
@@ -331,39 +354,42 @@ app.post('/api/sell-request', async (req, res) => {
     res.status(500).json({ error: 'Failed to submit sell request. Please try again.' });
   }
 });
-
-app.get('/admin/sell-requests', isAuthenticated, async (req, res) => {
+app.get("/admin/sell-requests", isAuthenticated, async (req, res) => {
   try {
     const requests = await SellRequest.find().sort({ createdAt: -1 });
-    res.render('sell-requests', { 
+    res.render("sell-requests", {
       requests,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
-    console.error('Error fetching sell requests:', err);
-    res.status(500).send('Error loading sell requests');
+    console.error("Error fetching sell requests:", err);
+    res.status(500).send("Error loading sell requests");
   }
 });
 
-app.post('/admin/sell-request/update-status/:id', isAuthenticated, async (req, res) => {
-  try {
-    const { status } = req.body;
-    await SellRequest.findByIdAndUpdate(req.params.id, { status });
-    res.redirect('/admin/sell-requests');
-  } catch (err) {
-    console.error('Error updating sell request:', err);
-    res.status(500).send('Error updating sell request');
+app.post(
+  "/admin/sell-request/update-status/:id",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { status } = req.body;
+      await SellRequest.findByIdAndUpdate(req.params.id, { status });
+      res.redirect("/admin/sell-requests");
+    } catch (err) {
+      console.error("Error updating sell request:", err);
+      res.status(500).send("Error updating sell request");
+    }
   }
-});
+);
 
 // Handle quote requests
-app.post('/api/quote-request', async (req, res) => {
+app.post("/api/quote-request", async (req, res) => {
   try {
     const { name, email, phone, brand, model, year, budget, notes } = req.body;
 
     // Basic validation
     if (!name || !email || !phone || !brand || !year || !budget) {
-      return res.status(400).json({ error: 'Please fill all required fields' });
+      return res.status(400).json({ error: "Please fill all required fields" });
     }
 
     const quoteRequest = new QuoteRequest({
@@ -374,44 +400,55 @@ app.post('/api/quote-request', async (req, res) => {
       model,
       year,
       budget,
-      notes
+      notes,
     });
 
     await quoteRequest.save();
 
     // Here you would typically send a confirmation email
-    res.status(201).json({ message: 'Quote request submitted successfully! We will contact you shortly.' });
+    res
+      .status(201)
+      .json({
+        message:
+          "Quote request submitted successfully! We will contact you shortly.",
+      });
   } catch (err) {
-    console.error('Error submitting quote request:', err);
-    res.status(500).json({ error: 'Failed to submit quote request. Please try again.' });
+    console.error("Error submitting quote request:", err);
+    res
+      .status(500)
+      .json({ error: "Failed to submit quote request. Please try again." });
   }
 });
 
 // Admin route to view quote requests
-app.get('/admin/quote-requests', isAuthenticated, async (req, res) => {
+app.get("/admin/quote-requests", isAuthenticated, async (req, res) => {
   try {
     const requests = await QuoteRequest.find().sort({ createdAt: -1 });
-    res.render('buy-requests', { 
+    res.render("buy-requests", {
       requests,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
-    console.error('Error fetching quote requests:', err);
-    res.status(500).send('Error loading quote requests');
+    console.error("Error fetching quote requests:", err);
+    res.status(500).send("Error loading quote requests");
   }
 });
 
 // Update quote request status
-app.post('/admin/quote-request/update-status/:id', isAuthenticated, async (req, res) => {
-  try {
-    const { status } = req.body;
-    await QuoteRequest.findByIdAndUpdate(req.params.id, { status });
-    res.redirect('/admin/quote-requests');
-  } catch (err) {
-    console.error('Error updating quote request:', err);
-    res.status(500).send('Error updating quote request');
+app.post(
+  "/admin/quote-request/update-status/:id",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { status } = req.body;
+      await QuoteRequest.findByIdAndUpdate(req.params.id, { status });
+      res.redirect("/admin/quote-requests");
+    } catch (err) {
+      console.error("Error updating quote request:", err);
+      res.status(500).send("Error updating quote request");
+    }
   }
-});
+);
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
