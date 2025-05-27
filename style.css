@@ -505,7 +505,7 @@ h2 {
 }
 .process-steps {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 25px;
 }
 
