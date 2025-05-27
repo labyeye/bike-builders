@@ -1,7 +1,12 @@
-/* Quote Form Styles */
+:root {
+  --primary-color: #a32919;
+  --secondary-color: #100f0f;
+  --text-color: #ffffff;
+  --light-gray: #a9a9a9;
+  --dark-gray: #464646;
+}
 .quote-form-container {
-  flex: 1;
-  min-width: 300px;
+  width: 700px;
   position: relative;
   z-index: 1;
   background: rgba(255, 255, 255, 0.05);
@@ -50,6 +55,7 @@
 .form-group label span {
   color: var(--primary-color);
 }
+
 
 .form-group input,
 .form-group select,
@@ -130,9 +136,9 @@
 .quote-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  min-height: 100vh;
+  min-height: auto;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 50px;
 }
@@ -344,6 +350,7 @@
 @media (max-width: 768px) {
   .quote-section {
     padding: 60px 20px;
+    flex-direction:column;
   }
   
   .quote-content h2 {
