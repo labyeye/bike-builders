@@ -446,7 +446,6 @@
               <thead>
                 <tr>
                   <th>Bike</th>
-                  <th>Details</th>
                   <th>Seller</th>
                   <th>Price</th>
                   <th>Status</th>
@@ -459,11 +458,6 @@
                   <td>
                     <strong><%= request.brand %></strong><br>
                     <%= request.model %>
-                  </td>
-                  <td>
-                    Year: <%= request.year %><br>
-                    KM: <%= request.kilometers.toLocaleString() %><br>
-                    Condition: <%= request.condition %>
                   </td>
                   <td>
                     <%= request.sellerName %><br>
