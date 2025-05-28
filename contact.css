@@ -110,7 +110,7 @@
 .contact-card p {
   color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   font-size: 1rem;
   transition: color 0.4s;
 }
