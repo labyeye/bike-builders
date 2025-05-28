@@ -259,10 +259,55 @@
             </div>
             <div class="brand-logos-container">
               <div class="brand-logos">
+                <div class="brand-logo" data-brand="Royal Enfield">
+                  <img src="./assets/images/relogo.png" alt="Royal Enfield" />
+                </div>
                 <div class="brand-logo" data-brand="Bajaj">
                   <img
                     src="https://static.vecteezy.com/system/resources/previews/019/766/250/non_2x/bajaj-logo-bajaj-icon-transparent-free-png.png"
                     alt="Bajaj"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Hero">
+                  <img
+                    src="https://brandeps.com/logo-download/H/Hero-MotoCorp-logo-01.png"
+                    alt="Hero"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Yamaha">
+                  <img
+                    src="https://brandlogos.net/wp-content/uploads/2014/10/yamaha_3d-logo_brandlogos.net_iwtkb.png"
+                    alt="Yamaha"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="KTM">
+                  <img
+                    src="https://download.logo.wine/logo/KTM/KTM-Logo.wine.png"
+                    alt="KTM"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="TVS Motor Company">
+                  <img
+                    src="https://download.logo.wine/logo/TVS_Motor_Company/TVS_Motor_Company-Logo.wine.png"
+                    alt="TVS"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Honda">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg"
+                    alt="Honda"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Suzuki">
+                  <img
+                    src="https://images.seeklogo.com/logo-png/13/2/suzuki-logo-png_seeklogo-134277.png"
+                    alt="Suzuki"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Jawa">
+                  <img
+                    src="https://1000logos.net/wp-content/uploads/2021/04/Jawa-logo.png"
+                    alt="Jawa"
                   />
                 </div>
                 <div class="brand-logo" data-brand="BMW Motorrad">
@@ -277,58 +322,11 @@
                     alt="Harley"
                   />
                 </div>
-                <div class="brand-logo" data-brand="Hero">
-                  <img
-                    src="https://brandeps.com/logo-download/H/Hero-MotoCorp-logo-01.png"
-                    alt="Hero"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Honda">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg"
-                    alt="Honda"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Jawa">
-                  <img
-                    src="https://1000logos.net/wp-content/uploads/2021/04/Jawa-logo.png"
-                    alt="Jawa"
-                  />
-                </div>
+
                 <div class="brand-logo" data-brand="Kawasaki">
                   <img
                     src="https://animationvisarts.com/wp-content/uploads/2023/11/image-16-1030x521.png"
                     alt="Kawasaki"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="KTM">
-                  <img
-                    src="https://download.logo.wine/logo/KTM/KTM-Logo.wine.png"
-                    alt="KTM"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Royal Enfield">
-                  <img
-                    src="https://logos-download.com/wp-content/uploads/2019/06/Royal_Enfield_Logo_full_red.png"
-                    alt="Royal Enfield"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Suzuki">
-                  <img
-                    src="https://images.seeklogo.com/logo-png/13/2/suzuki-logo-png_seeklogo-134277.png"
-                    alt="Suzuki"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="TVS Motor Company">
-                  <img
-                    src="https://download.logo.wine/logo/TVS_Motor_Company/TVS_Motor_Company-Logo.wine.png"
-                    alt="TVS"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Yamaha">
-                  <img
-                    src="https://brandlogos.net/wp-content/uploads/2014/10/yamaha_3d-logo_brandlogos.net_iwtkb.png"
-                    alt="Yamaha"
                   />
                 </div>
               </div>
@@ -376,7 +374,9 @@
         <div class="footer-section">
           <h3>Contact Us</h3>
           <p>
-            <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002
+            <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
+            Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
+            842002
           </p>
           <p><i class="fas fa-phone"></i>+91 8210283582</p>
         </div>
@@ -390,88 +390,88 @@
     </footer>
     <script>
       // Replace your existing script with this updated version
-document.addEventListener("DOMContentLoaded", function () {
-  let allBikes = [];
-  let currentFilters = {
-    brand: null,
-    minPrice: 0,
-    maxPrice: Infinity,
-    minYear: 2015,
-    maxYear: 2024,
-    minKm: 0,
-    maxKm: 50000,
-    owner: null,
-    fuel: null,
-  };
+      document.addEventListener("DOMContentLoaded", function () {
+        let allBikes = [];
+        let currentFilters = {
+          brand: null,
+          minPrice: 0,
+          maxPrice: Infinity,
+          minYear: 2015,
+          maxYear: 2024,
+          minKm: 0,
+          maxKm: 50000,
+          owner: null,
+          fuel: null,
+        };
 
-  // Fetch bikes from API
-  function loadBikes() {
-    fetch("https://bike-builders.onrender.com/api/bikes")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+        // Fetch bikes from API
+        function loadBikes() {
+          fetch("https://bike-builders.onrender.com/api/bikes")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((bikes) => {
+              allBikes = bikes;
+              if (bikes.length === 0) {
+                showNoBikesMessage();
+              } else {
+                displayBikes(bikes);
+              }
+              updateBikeCount(bikes.length);
+            })
+            .catch((error) => {
+              console.error("Error fetching bikes:", error);
+              showErrorMessage();
+            });
         }
-        return response.json();
-      })
-      .then((bikes) => {
-        allBikes = bikes;
-        if (bikes.length === 0) {
-          showNoBikesMessage();
-        } else {
-          displayBikes(bikes);
+
+        // Display bikes in grid
+        function displayBikes(bikes) {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = "";
+
+          if (bikes.length === 0) {
+            showNoBikesMessage();
+            return;
+          }
+
+          bikes.forEach((bike) => {
+            const bikeCard = createBikeCard(bike);
+            bikeGrid.appendChild(bikeCard);
+          });
+
+          // Add click event listeners to bike cards for popup
+          addBikeCardClickListeners();
         }
-        updateBikeCount(bikes.length);
-      })
-      .catch((error) => {
-        console.error("Error fetching bikes:", error);
-        showErrorMessage();
-      });
-  }
 
-  // Display bikes in grid
-  function displayBikes(bikes) {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = "";
+        // Create individual bike card
+        function createBikeCard(bike) {
+          const bikeCard = document.createElement("div");
+          bikeCard.className = "bike-card";
 
-    if (bikes.length === 0) {
-      showNoBikesMessage();
-      return;
-    }
+          // Set data attributes for filtering
+          bikeCard.dataset.brand = bike.brand || "";
+          bikeCard.dataset.price = bike.price || 0;
+          bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
+          bikeCard.dataset.km = bike.kmDriven || 0;
+          bikeCard.dataset.owner = bike.ownership || "1";
+          bikeCard.dataset.fuel = bike.fuelType || "Petrol";
 
-    bikes.forEach((bike) => {
-      const bikeCard = createBikeCard(bike);
-      bikeGrid.appendChild(bikeCard);
-    });
+          // Store bike data for popup
+          bikeCard.dataset.bikeData = JSON.stringify(bike);
 
-    // Add click event listeners to bike cards for popup
-    addBikeCardClickListeners();
-  }
+          const isAvailable = bike.status === "Available";
+          const buttonClass =
+            bike.status === "Sold Out"
+              ? "sold-out"
+              : bike.status === "Coming Soon"
+              ? "coming-soon"
+              : "";
 
-  // Create individual bike card
-  function createBikeCard(bike) {
-    const bikeCard = document.createElement("div");
-    bikeCard.className = "bike-card";
-
-    // Set data attributes for filtering
-    bikeCard.dataset.brand = bike.brand || "";
-    bikeCard.dataset.price = bike.price || 0;
-    bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
-    bikeCard.dataset.km = bike.kmDriven || 0;
-    bikeCard.dataset.owner = bike.ownership || "1";
-    bikeCard.dataset.fuel = bike.fuelType || "Petrol";
-
-    // Store bike data for popup
-    bikeCard.dataset.bikeData = JSON.stringify(bike);
-
-    const isAvailable = bike.status === "Available";
-    const buttonClass =
-      bike.status === "Sold Out"
-        ? "sold-out"
-        : bike.status === "Coming Soon"
-        ? "coming-soon"
-        : "";
-
-    bikeCard.innerHTML = `
+          bikeCard.innerHTML = `
       <img src="${
         bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
       }" 
@@ -503,120 +503,121 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="emi">Down: ₹${(
             bike.downPayment || 0
           ).toLocaleString()} | EMI: ₹${Math.round(
-      ((bike.price || 0) - (bike.downPayment || 0)) / 36
-    ).toLocaleString()}/month</div>
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36
+          ).toLocaleString()}/month</div>
           <button class="view-details-btn ${buttonClass}" ${
-      !isAvailable ? "disabled" : ""
-    }>
+            !isAvailable ? "disabled" : ""
+          }>
             ${bike.status || "View Details"}
           </button>
         </div>
       </div>
     `;
-    return bikeCard;
-  }
+          return bikeCard;
+        }
 
-  // Helper function to format ownership
-  function formatOwnership(owner) {
-    if (owner === "1") return "1st Owner";
-    if (owner === "2") return "2nd Owner";
-    if (owner === "3") return "3+ Owner";
-    return owner;
-  }
+        // Helper function to format ownership
+        function formatOwnership(owner) {
+          if (owner === "1") return "1st Owner";
+          if (owner === "2") return "2nd Owner";
+          if (owner === "3") return "3+ Owner";
+          return owner;
+        }
 
-  // Add click event listeners to bike cards
-  function addBikeCardClickListeners() {
-    document.querySelectorAll(".bike-card").forEach((card) => {
-      const button = card.querySelector(".view-details-btn");
-      if (button && !button.disabled) {
-        button.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const bikeData = JSON.parse(card.dataset.bikeData);
-          showBikePopup(bikeData);
-        });
-      }
-    });
-  }
+        // Add click event listeners to bike cards
+        function addBikeCardClickListeners() {
+          document.querySelectorAll(".bike-card").forEach((card) => {
+            const button = card.querySelector(".view-details-btn");
+            if (button && !button.disabled) {
+              button.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const bikeData = JSON.parse(card.dataset.bikeData);
+                showBikePopup(bikeData);
+              });
+            }
+          });
+        }
 
-  // Show bike details popup
-  function showBikePopup(bike) {
-    const popup = document.querySelector(".bike-popup-overlay");
+        // Show bike details popup
+        function showBikePopup(bike) {
+          const popup = document.querySelector(".bike-popup-overlay");
 
-    // Populate popup with bike data
-    document.getElementById("popup-bike-image").src =
-      bike.imageUrl || "https://via.placeholder.com/400x300?text=No+Image";
-    document.getElementById(
-      "popup-bike-title"
-    ).textContent = `${bike.brand} ${bike.model}`;
-    document.getElementById(
-      "popup-bike-model"
-    ).textContent = `${bike.modelYear} Model`;
-    document.getElementById("popup-bike-km").textContent = `${(
-      bike.kmDriven || 0
-    ).toLocaleString()} km`;
-    document.getElementById("popup-bike-owner").textContent =
-      formatOwnership(bike.ownership || "1");
-    document.getElementById("popup-bike-fuel").textContent =
-      bike.fuelType || "Petrol";
-    document.getElementById("popup-bike-age").textContent = formatAge(
-      bike.daysOld || 0
-    );
-    document.getElementById("popup-bike-price").textContent = `₹${(
-      bike.price || 0
-    ).toLocaleString()}`;
-    document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
-      bike.downPayment || 0
-    ).toLocaleString()} | EMI: ₹${Math.round(
-      ((bike.price || 0) - (bike.downPayment || 0)) / 36
-    ).toLocaleString()}/month`;
+          // Populate popup with bike data
+          document.getElementById("popup-bike-image").src =
+            bike.imageUrl ||
+            "https://via.placeholder.com/400x300?text=No+Image";
+          document.getElementById(
+            "popup-bike-title"
+          ).textContent = `${bike.brand} ${bike.model}`;
+          document.getElementById(
+            "popup-bike-model"
+          ).textContent = `${bike.modelYear} Model`;
+          document.getElementById("popup-bike-km").textContent = `${(
+            bike.kmDriven || 0
+          ).toLocaleString()} km`;
+          document.getElementById("popup-bike-owner").textContent =
+            formatOwnership(bike.ownership || "1");
+          document.getElementById("popup-bike-fuel").textContent =
+            bike.fuelType || "Petrol";
+          document.getElementById("popup-bike-age").textContent = formatAge(
+            bike.daysOld || 0
+          );
+          document.getElementById("popup-bike-price").textContent = `₹${(
+            bike.price || 0
+          ).toLocaleString()}`;
+          document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
+            bike.downPayment || 0
+          ).toLocaleString()} | EMI: ₹${Math.round(
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36
+          ).toLocaleString()}/month`;
 
-    // Show popup
-    popup.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
+          // Show popup
+          popup.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
 
-  // Close popup functionality
-  function initPopupClose() {
-    const popup = document.querySelector(".bike-popup-overlay");
-    const closeBtn = document.querySelector(".close-popup");
+        // Close popup functionality
+        function initPopupClose() {
+          const popup = document.querySelector(".bike-popup-overlay");
+          const closeBtn = document.querySelector(".close-popup");
 
-    closeBtn.addEventListener("click", closePopup);
+          closeBtn.addEventListener("click", closePopup);
 
-    popup.addEventListener("click", (e) => {
-      if (e.target === popup) {
-        closePopup();
-      }
-    });
+          popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+              closePopup();
+            }
+          });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closePopup();
-      }
-    });
-  }
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              closePopup();
+            }
+          });
+        }
 
-  function closePopup() {
-    const popup = document.querySelector(".bike-popup-overlay");
-    popup.classList.remove("active");
-    document.body.style.overflow = "";
-  }
+        function closePopup() {
+          const popup = document.querySelector(".bike-popup-overlay");
+          popup.classList.remove("active");
+          document.body.style.overflow = "";
+        }
 
-  // Show no bikes message
-  function showNoBikesMessage() {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = `
+        // Show no bikes message
+        function showNoBikesMessage() {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = `
       <div class="no-bikes-message" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
         <i class="fas fa-motorcycle" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
         <h3 style="color: #666; margin-bottom: 10px;">No Bikes Available</h3>
         <p style="color: #999;">New bikes coming soon! Check back later.</p>
       </div>
     `;
-  }
+        }
 
-  // Show error message
-  function showErrorMessage() {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = `
+        // Show error message
+        function showErrorMessage() {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = `
       <div class="error-message" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
         <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff6b00; margin-bottom: 20px;"></i>
         <h3 style="color: #666; margin-bottom: 10px;">Failed to Load Bikes</h3>
@@ -626,342 +627,364 @@ document.addEventListener("DOMContentLoaded", function () {
         </button>
       </div>
     `;
-  }
-
-  // Update bike count
-  function updateBikeCount(count) {
-    document.getElementById("filtered-count").textContent = `${count} ${
-      count === 1 ? "Bike" : "Bikes"
-    } Available`;
-  }
-
-  // Filter functionality
-  function initFilters() {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const filterDropdowns = document.querySelectorAll(".filter-dropdown");
-
-    // Toggle filter dropdowns
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", function (e) {
-        e.stopPropagation();
-        const filterType = this.dataset.filter;
-        const dropdown = document.getElementById(`${filterType}-dropdown`);
-
-        // Close all dropdowns first
-        filterDropdowns.forEach((d) => {
-          d.style.display = "none";
-        });
-        filterButtons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
-
-        // If "All Bikes" was clicked
-        if (filterType === "all") {
-          resetFilters();
-          displayBikes(allBikes);
-          updateBikeCount(allBikes.length);
-          return;
         }
 
-        // Toggle the clicked dropdown
-        if (dropdown.style.display === "block") {
-          dropdown.style.display = "none";
-          this.classList.remove("active");
-        } else {
-          dropdown.style.display = "block";
-          this.classList.add("active");
+        // Update bike count
+        function updateBikeCount(count) {
+          document.getElementById("filtered-count").textContent = `${count} ${
+            count === 1 ? "Bike" : "Bikes"
+          } Available`;
         }
-      });
-    });
 
-    // Close dropdowns when clicking outside
-    document.addEventListener("click", function (e) {
-      if (
-        !e.target.closest(".filter-btn") &&
-        !e.target.closest(".filter-dropdown")
-      ) {
-        filterDropdowns.forEach((dropdown) => {
-          dropdown.style.display = "none";
-        });
-        filterButtons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
-      }
-    });
+        // Filter functionality
+        function initFilters() {
+          const filterButtons = document.querySelectorAll(".filter-btn");
+          const filterDropdowns = document.querySelectorAll(".filter-dropdown");
 
-    // Initialize specific filters
-    initPriceFilter();
-    initBrandFilter();
-    initYearFilter();
-    initKmFilter();
-    initOwnerFilter();
-    initFuelFilter();
-    initBrandLogos();
-  }
+          // Toggle filter dropdowns
+          filterButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const filterType = this.dataset.filter;
+              const dropdown = document.getElementById(
+                `${filterType}-dropdown`
+              );
 
-  // Initialize brand logos
-  function initBrandLogos() {
-    document.querySelectorAll(".brand-logo").forEach((logo) => {
-      logo.addEventListener("click", function () {
-        const brand = this.dataset.brand;
-        currentFilters.brand = brand;
-        applyAllFilters();
+              // Close all dropdowns first
+              filterDropdowns.forEach((d) => {
+                d.style.display = "none";
+              });
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
 
-        // Update UI
-        document.querySelectorAll(".brand-logo").forEach((l) => {
-          l.classList.remove("active");
-        });
-        this.classList.add("active");
+              // If "All Bikes" was clicked
+              if (filterType === "all") {
+                resetFilters();
+                displayBikes(allBikes);
+                updateBikeCount(allBikes.length);
+                return;
+              }
 
-        // Update brand filter button text
-        const brandBtn = document.querySelector('[data-filter="brand"]');
-        brandBtn.innerHTML = `${brand} <i class="fas fa-chevron-down"></i>`;
-      });
-    });
-  }
+              // Toggle the clicked dropdown
+              if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+                this.classList.remove("active");
+              } else {
+                dropdown.style.display = "block";
+                this.classList.add("active");
+              }
+            });
+          });
 
-  // Price filter
-  function initPriceFilter() {
-    const minPriceInput = document.getElementById("min-price");
-    const maxPriceInput = document.getElementById("max-price");
+          // Close dropdowns when clicking outside
+          document.addEventListener("click", function (e) {
+            if (
+              !e.target.closest(".filter-btn") &&
+              !e.target.closest(".filter-dropdown")
+            ) {
+              filterDropdowns.forEach((dropdown) => {
+                dropdown.style.display = "none";
+              });
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
+            }
+          });
 
-    if (minPriceInput && maxPriceInput) {
-      minPriceInput.addEventListener("input", applyPriceFilter);
-      maxPriceInput.addEventListener("input", applyPriceFilter);
+          // Initialize specific filters
+          initPriceFilter();
+          initBrandFilter();
+          initYearFilter();
+          initKmFilter();
+          initOwnerFilter();
+          initFuelFilter();
+          initBrandLogos();
+        }
 
-      document.querySelectorAll(".price-preset").forEach((preset) => {
-        preset.addEventListener("click", function () {
-          minPriceInput.value = this.dataset.min;
-          maxPriceInput.value = this.dataset.max || "";
-          applyPriceFilter();
-        });
-      });
-    }
-  }
+        // Initialize brand logos
+        function initBrandLogos() {
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.addEventListener("click", function () {
+              const brand = this.dataset.brand;
+              currentFilters.brand = brand;
+              applyAllFilters();
 
-  function applyPriceFilter() {
-    const minPrice = parseInt(document.getElementById("min-price").value) || 0;
-    const maxPrice = parseInt(document.getElementById("max-price").value) || Infinity;
+              // Update UI
+              document.querySelectorAll(".brand-logo").forEach((l) => {
+                l.classList.remove("active");
+              });
+              this.classList.add("active");
 
-    currentFilters.minPrice = minPrice;
-    currentFilters.maxPrice = maxPrice;
+              // Update brand filter button text
+              const brandBtn = document.querySelector('[data-filter="brand"]');
+              brandBtn.innerHTML = `${brand} <i class="fas fa-chevron-down"></i>`;
+            });
+          });
+        }
 
-    applyAllFilters();
-  }
+        // Price filter
+        function initPriceFilter() {
+          const minPriceInput = document.getElementById("min-price");
+          const maxPriceInput = document.getElementById("max-price");
 
-  // Brand filter
-  function initBrandFilter() {
-    document.querySelectorAll(".brand-options .filter-option").forEach((option) => {
-      option.addEventListener("click", function () {
-        const brand = this.dataset.brand;
-        currentFilters.brand = brand === currentFilters.brand ? null : brand;
-        applyAllFilters();
+          if (minPriceInput && maxPriceInput) {
+            minPriceInput.addEventListener("input", applyPriceFilter);
+            maxPriceInput.addEventListener("input", applyPriceFilter);
 
-        // Update button text
-        const brandBtn = document.querySelector('[data-filter="brand"]');
-        brandBtn.innerHTML = currentFilters.brand
-          ? `${brand} <i class="fas fa-chevron-down"></i>`
-          : `Brand <i class="fas fa-chevron-down"></i>`;
-
-        // Update brand logos
-        document.querySelectorAll(".brand-logo").forEach((logo) => {
-          logo.classList.remove("active");
-          if (
-            currentFilters.brand &&
-            logo.dataset.brand === currentFilters.brand
-          ) {
-            logo.classList.add("active");
+            document.querySelectorAll(".price-preset").forEach((preset) => {
+              preset.addEventListener("click", function () {
+                minPriceInput.value = this.dataset.min;
+                maxPriceInput.value = this.dataset.max || "";
+                applyPriceFilter();
+              });
+            });
           }
-        });
-      });
-    });
-  }
-
-  // Year filter
-  function initYearFilter() {
-    const yearMin = document.getElementById("year-min");
-    const yearMax = document.getElementById("year-max");
-    const yearMinValue = document.getElementById("year-min-value");
-    const yearMaxValue = document.getElementById("year-max-value");
-
-    if (yearMin && yearMax) {
-      yearMin.addEventListener("input", function () {
-        yearMinValue.textContent = this.value;
-        currentFilters.minYear = parseInt(this.value);
-        applyAllFilters();
-      });
-
-      yearMax.addEventListener("input", function () {
-        yearMaxValue.textContent = this.value;
-        currentFilters.maxYear = parseInt(this.value);
-        applyAllFilters();
-      });
-    }
-  }
-
-  // KM filter
-  function initKmFilter() {
-    const kmMin = document.getElementById("km-min");
-    const kmMax = document.getElementById("km-max");
-    const kmMinValue = document.getElementById("km-min-value");
-    const kmMaxValue = document.getElementById("km-max-value");
-
-    if (kmMin && kmMax) {
-      kmMin.addEventListener("input", function () {
-        kmMinValue.textContent = parseInt(this.value).toLocaleString();
-        currentFilters.minKm = parseInt(this.value);
-        applyAllFilters();
-      });
-
-      kmMax.addEventListener("input", function () {
-        kmMaxValue.textContent = parseInt(this.value).toLocaleString();
-        currentFilters.maxKm = parseInt(this.value);
-        applyAllFilters();
-      });
-    }
-  }
-
-  // Owner filter
-  function initOwnerFilter() {
-    document.querySelectorAll(".ownership-options .filter-option").forEach((option) => {
-      option.addEventListener("click", function () {
-        const owner = this.dataset.owner;
-        currentFilters.owner = owner === currentFilters.owner ? null : owner;
-        applyAllFilters();
-
-        // Update button text if needed
-        const ownerBtn = document.querySelector('[data-filter="owner"]');
-        if (ownerBtn) {
-          ownerBtn.innerHTML = currentFilters.owner
-            ? `${formatOwnership(owner)} <i class="fas fa-chevron-down"></i>`
-            : `Ownership <i class="fas fa-chevron-down"></i>`;
         }
-      });
-    });
-  }
 
-  // Fuel filter
-  function initFuelFilter() {
-    document.querySelectorAll(".fuel-options .filter-option").forEach((option) => {
-      option.addEventListener("click", function () {
-        const fuel = this.dataset.fuel;
-        currentFilters.fuel = fuel === currentFilters.fuel ? null : fuel;
-        applyAllFilters();
+        function applyPriceFilter() {
+          const minPrice =
+            parseInt(document.getElementById("min-price").value) || 0;
+          const maxPrice =
+            parseInt(document.getElementById("max-price").value) || Infinity;
 
-        // Update button text if needed
-        const fuelBtn = document.querySelector('[data-filter="fuel"]');
-        if (fuelBtn) {
-          fuelBtn.innerHTML = currentFilters.fuel
-            ? `${fuel} <i class="fas fa-chevron-down"></i>`
-            : `Fuel Type <i class="fas fa-chevron-down"></i>`;
+          currentFilters.minPrice = minPrice;
+          currentFilters.maxPrice = maxPrice;
+
+          applyAllFilters();
         }
+
+        // Brand filter
+        function initBrandFilter() {
+          document
+            .querySelectorAll(".brand-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const brand = this.dataset.brand;
+                currentFilters.brand =
+                  brand === currentFilters.brand ? null : brand;
+                applyAllFilters();
+
+                // Update button text
+                const brandBtn = document.querySelector(
+                  '[data-filter="brand"]'
+                );
+                brandBtn.innerHTML = currentFilters.brand
+                  ? `${brand} <i class="fas fa-chevron-down"></i>`
+                  : `Brand <i class="fas fa-chevron-down"></i>`;
+
+                // Update brand logos
+                document.querySelectorAll(".brand-logo").forEach((logo) => {
+                  logo.classList.remove("active");
+                  if (
+                    currentFilters.brand &&
+                    logo.dataset.brand === currentFilters.brand
+                  ) {
+                    logo.classList.add("active");
+                  }
+                });
+              });
+            });
+        }
+
+        // Year filter
+        function initYearFilter() {
+          const yearMin = document.getElementById("year-min");
+          const yearMax = document.getElementById("year-max");
+          const yearMinValue = document.getElementById("year-min-value");
+          const yearMaxValue = document.getElementById("year-max-value");
+
+          if (yearMin && yearMax) {
+            yearMin.addEventListener("input", function () {
+              yearMinValue.textContent = this.value;
+              currentFilters.minYear = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            yearMax.addEventListener("input", function () {
+              yearMaxValue.textContent = this.value;
+              currentFilters.maxYear = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // KM filter
+        function initKmFilter() {
+          const kmMin = document.getElementById("km-min");
+          const kmMax = document.getElementById("km-max");
+          const kmMinValue = document.getElementById("km-min-value");
+          const kmMaxValue = document.getElementById("km-max-value");
+
+          if (kmMin && kmMax) {
+            kmMin.addEventListener("input", function () {
+              kmMinValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.minKm = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            kmMax.addEventListener("input", function () {
+              kmMaxValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.maxKm = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // Owner filter
+        function initOwnerFilter() {
+          document
+            .querySelectorAll(".ownership-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const owner = this.dataset.owner;
+                currentFilters.owner =
+                  owner === currentFilters.owner ? null : owner;
+                applyAllFilters();
+
+                // Update button text if needed
+                const ownerBtn = document.querySelector(
+                  '[data-filter="owner"]'
+                );
+                if (ownerBtn) {
+                  ownerBtn.innerHTML = currentFilters.owner
+                    ? `${formatOwnership(
+                        owner
+                      )} <i class="fas fa-chevron-down"></i>`
+                    : `Ownership <i class="fas fa-chevron-down"></i>`;
+                }
+              });
+            });
+        }
+
+        // Fuel filter
+        function initFuelFilter() {
+          document
+            .querySelectorAll(".fuel-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const fuel = this.dataset.fuel;
+                currentFilters.fuel =
+                  fuel === currentFilters.fuel ? null : fuel;
+                applyAllFilters();
+
+                // Update button text if needed
+                const fuelBtn = document.querySelector('[data-filter="fuel"]');
+                if (fuelBtn) {
+                  fuelBtn.innerHTML = currentFilters.fuel
+                    ? `${fuel} <i class="fas fa-chevron-down"></i>`
+                    : `Fuel Type <i class="fas fa-chevron-down"></i>`;
+                }
+              });
+            });
+        }
+
+        // Apply all filters
+        function applyAllFilters() {
+          const filteredBikes = allBikes.filter((bike) => {
+            const price = bike.price || 0;
+            const year = bike.modelYear || new Date().getFullYear();
+            const km = bike.kmDriven || 0;
+            const brand = (bike.brand || "").toLowerCase();
+            const owner = bike.ownership || "";
+            const fuel = bike.fuelType || "";
+
+            // Check all filter conditions
+            const priceMatch =
+              price >= currentFilters.minPrice &&
+              price <= currentFilters.maxPrice;
+            const yearMatch =
+              year >= currentFilters.minYear && year <= currentFilters.maxYear;
+            const kmMatch =
+              km >= currentFilters.minKm && km <= currentFilters.maxKm;
+            const brandMatch =
+              !currentFilters.brand ||
+              brand === currentFilters.brand.toLowerCase();
+            const ownerMatch =
+              !currentFilters.owner || owner.includes(currentFilters.owner);
+            const fuelMatch =
+              !currentFilters.fuel || fuel === currentFilters.fuel;
+
+            return (
+              priceMatch &&
+              yearMatch &&
+              kmMatch &&
+              brandMatch &&
+              ownerMatch &&
+              fuelMatch
+            );
+          });
+
+          displayBikes(filteredBikes);
+          updateBikeCount(filteredBikes.length);
+        }
+
+        // Reset filters
+        function resetFilters() {
+          currentFilters = {
+            brand: null,
+            minPrice: 0,
+            maxPrice: Infinity,
+            minYear: 2015,
+            maxYear: 2024,
+            minKm: 0,
+            maxKm: 50000,
+            owner: null,
+            fuel: null,
+          };
+
+          // Reset form inputs
+          document.getElementById("min-price").value = "";
+          document.getElementById("max-price").value = "";
+          document.getElementById("year-min").value = "2015";
+          document.getElementById("year-max").value = "2024";
+          document.getElementById("km-min").value = "0";
+          document.getElementById("km-max").value = "50000";
+
+          // Reset display values
+          document.getElementById("year-min-value").textContent = "2015";
+          document.getElementById("year-max-value").textContent = "2024";
+          document.getElementById("km-min-value").textContent = "0";
+          document.getElementById("km-max-value").textContent = "50,000";
+
+          // Reset all filter button texts
+          const brandBtn = document.querySelector('[data-filter="brand"]');
+          brandBtn.innerHTML = `Brand <i class="fas fa-chevron-down"></i>`;
+
+          const ownerBtn = document.querySelector('[data-filter="owner"]');
+          if (ownerBtn) {
+            ownerBtn.innerHTML = `Ownership <i class="fas fa-chevron-down"></i>`;
+          }
+
+          const fuelBtn = document.querySelector('[data-filter="fuel"]');
+          if (fuelBtn) {
+            fuelBtn.innerHTML = `Fuel Type <i class="fas fa-chevron-down"></i>`;
+          }
+
+          // Reset brand logos
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.classList.remove("active");
+          });
+        }
+
+        // Format age for display
+        function formatAge(days) {
+          if (days >= 365) {
+            const years = Math.floor(days / 365);
+            return `${years} year${years > 1 ? "s" : ""}`;
+          } else if (days >= 30) {
+            const months = Math.floor(days / 30);
+            return `${months} month${months > 1 ? "s" : ""}`;
+          } else {
+            return `${days} day${days !== 1 ? "s" : ""}`;
+          }
+        }
+
+        // Initialize everything
+        loadBikes();
+        initFilters();
+        initPopupClose();
       });
-    });
-  }
-
-  // Apply all filters
-  function applyAllFilters() {
-    const filteredBikes = allBikes.filter((bike) => {
-      const price = bike.price || 0;
-      const year = bike.modelYear || new Date().getFullYear();
-      const km = bike.kmDriven || 0;
-      const brand = (bike.brand || "").toLowerCase();
-      const owner = bike.ownership || "";
-      const fuel = bike.fuelType || "";
-
-      // Check all filter conditions
-      const priceMatch = 
-        price >= currentFilters.minPrice && 
-        price <= currentFilters.maxPrice;
-      const yearMatch = 
-        year >= currentFilters.minYear && 
-        year <= currentFilters.maxYear;
-      const kmMatch = 
-        km >= currentFilters.minKm && 
-        km <= currentFilters.maxKm;
-      const brandMatch = 
-        !currentFilters.brand || 
-        brand === currentFilters.brand.toLowerCase();
-      const ownerMatch = 
-        !currentFilters.owner || 
-        owner.includes(currentFilters.owner);
-      const fuelMatch = 
-        !currentFilters.fuel || 
-        fuel === currentFilters.fuel;
-
-      return priceMatch && yearMatch && kmMatch && brandMatch && ownerMatch && fuelMatch;
-    });
-
-    displayBikes(filteredBikes);
-    updateBikeCount(filteredBikes.length);
-  }
-
-  // Reset filters
-  function resetFilters() {
-    currentFilters = {
-      brand: null,
-      minPrice: 0,
-      maxPrice: Infinity,
-      minYear: 2015,
-      maxYear: 2024,
-      minKm: 0,
-      maxKm: 50000,
-      owner: null,
-      fuel: null,
-    };
-
-    // Reset form inputs
-    document.getElementById("min-price").value = "";
-    document.getElementById("max-price").value = "";
-    document.getElementById("year-min").value = "2015";
-    document.getElementById("year-max").value = "2024";
-    document.getElementById("km-min").value = "0";
-    document.getElementById("km-max").value = "50000";
-
-    // Reset display values
-    document.getElementById("year-min-value").textContent = "2015";
-    document.getElementById("year-max-value").textContent = "2024";
-    document.getElementById("km-min-value").textContent = "0";
-    document.getElementById("km-max-value").textContent = "50,000";
-
-    // Reset all filter button texts
-    const brandBtn = document.querySelector('[data-filter="brand"]');
-    brandBtn.innerHTML = `Brand <i class="fas fa-chevron-down"></i>`;
-
-    const ownerBtn = document.querySelector('[data-filter="owner"]');
-    if (ownerBtn) {
-      ownerBtn.innerHTML = `Ownership <i class="fas fa-chevron-down"></i>`;
-    }
-
-    const fuelBtn = document.querySelector('[data-filter="fuel"]');
-    if (fuelBtn) {
-      fuelBtn.innerHTML = `Fuel Type <i class="fas fa-chevron-down"></i>`;
-    }
-
-    // Reset brand logos
-    document.querySelectorAll(".brand-logo").forEach((logo) => {
-      logo.classList.remove("active");
-    });
-  }
-
-  // Format age for display
-  function formatAge(days) {
-    if (days >= 365) {
-      const years = Math.floor(days / 365);
-      return `${years} year${years > 1 ? "s" : ""}`;
-    } else if (days >= 30) {
-      const months = Math.floor(days / 30);
-      return `${months} month${months > 1 ? "s" : ""}`;
-    } else {
-      return `${days} day${days !== 1 ? "s" : ""}`;
-    }
-  }
-
-  // Initialize everything
-  loadBikes();
-  initFilters();
-  initPopupClose();
-});
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
