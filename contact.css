@@ -1,12 +1,12 @@
-/* Contact Section Styles */
-.contact-hero {
-  height: 70vh;
-  min-height: 500px;
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
 }
-
 .contact-section {
   background-color: var(--secondary-color);
-  padding: 80px 5%;
+  padding: 10px 1%;
   color: white;
 }
 
@@ -219,10 +219,7 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .contact-hero {
-    height: 60vh;
-    min-height: 400px;
-  }
+
   
   .section-header h2 {
     font-size: 2rem;
@@ -236,10 +233,7 @@
 }
 
 @media (max-width: 576px) {
-  .contact-hero {
-    height: 50vh;
-  }
-  
+
   .hero-content h1 {
     font-size: 2.2rem;
   }

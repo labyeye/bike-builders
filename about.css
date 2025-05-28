@@ -1,4 +1,10 @@
-/* About Page Styles */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
 .about-hero .hero-content h1 {
     margin-bottom: 20px;
 }

@@ -36,477 +36,309 @@
           </a>
         </div>
       </nav>
+      <section class="inventory-section full-inventory">
+        <div class="inventory-content">
+          <!-- Left sidebar filters -->
+          <div class="sidebar-filters">
+            <div class="filters-container">
+              <h3>Filters</h3>
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="all">All Bikes</button>
+              </div>
 
-      <div class="hero-content">
-        <h1>Our Collection</h1>
-      </div>
-      <div class="bicycle-text">Bike</div>
-      <div class="bike-slider">
-        <div class="bike-slides">
-          <img
-            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
-            alt="Bike 1"
-          />
-          <img
-            src="https://cdn.bajajauto.com/-/media/assets/bajajauto/360degreeimages/bikes/pulsar/pulsar-150/single-disc/black-red/00.png"
-            alt="Bike 2"
-          />
-          <img
-            src="https://torrentbajaj.com/wp-content/themes/rvtheme/bikes/360-10152-1.png"
-            alt="Bike 3"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/0X0/n/cw/ec/97549/apache-rtr-160-4v-right-side-view-8.png?isig=0&q=80"
-            alt="Bike 1"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
-            alt="Bike 2"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
-            alt="Bike 3"
-          />
-          <img
-            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
-            alt="Bike 1"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/95229/ninja-h2r-right-side-view-2.png?isig=0&q=80"
-            alt="Bike 2"
-          />
-          <img
-            src="https://kaydeeauto.in/cdn/shop/files/BajajPulsarRS200BS61.png?v=1709297338"
-            alt="Bike 3"
-          />
-          <img
-            src="https://awtobazar.in/wp-content/uploads/2024/05/Bajaj-Pulsar-NS400Z.png"
-            alt="Bike 1"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0"
-            alt="Bike 2"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
-            alt="Bike 3"
-          />
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="price">
+                  Price <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="price-dropdown">
+                  <div class="price-range">
+                    <div class="range-inputs">
+                      <input
+                        type="number"
+                        id="min-price"
+                        placeholder="Min"
+                        min="0"
+                      />
+                      <span>to</span>
+                      <input
+                        type="number"
+                        id="max-price"
+                        placeholder="Max"
+                        min="0"
+                      />
+                    </div>
+                    <div class="price-presets">
+                      <button
+                        class="price-preset"
+                        data-min="0"
+                        data-max="50000"
+                      >
+                        Under 50K
+                      </button>
+                      <button
+                        class="price-preset"
+                        data-min="50000"
+                        data-max="100000"
+                      >
+                        50K-1L
+                      </button>
+                      <button
+                        class="price-preset"
+                        data-min="100000"
+                        data-max="200000"
+                      >
+                        1L-2L
+                      </button>
+                      <button
+                        class="price-preset"
+                        data-min="200000"
+                        data-max="500000"
+                      >
+                        2L-5L
+                      </button>
+                      <button class="price-preset" data-min="500000">
+                        5L+
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="brand">
+                  Brand <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="brand-dropdown">
+                  <div class="filter-options brand-options">
+                    <button class="filter-option" data-brand="Bajaj">
+                      Bajaj
+                    </button>
+                    <button class="filter-option" data-brand="BMW Motorrad">
+                      BMW Motorrad
+                    </button>
+                    <button class="filter-option" data-brand="Ducati">
+                      Ducati
+                    </button>
+                    <button class="filter-option" data-brand="Harley-Davidson">
+                      Harley-Davidson
+                    </button>
+                    <button class="filter-option" data-brand="Hero">
+                      Hero
+                    </button>
+                    <button class="filter-option" data-brand="Honda">
+                      Honda
+                    </button>
+                    <button class="filter-option" data-brand="Kawasaki">
+                      Kawasaki
+                    </button>
+                    <button class="filter-option" data-brand="KTM">KTM</button>
+                    <button class="filter-option" data-brand="Royal Enfield">
+                      Royal Enfield
+                    </button>
+                    <button class="filter-option" data-brand="Suzuki">
+                      Suzuki
+                    </button>
+                    <button
+                      class="filter-option"
+                      data-brand="TVS Motor Company"
+                    >
+                      TVS Motor Company
+                    </button>
+                    <button class="filter-option" data-brand="Yamaha">
+                      Yamaha
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="year">
+                  Year <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="year-dropdown">
+                  <div class="year-slider">
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="year-min"
+                        min="2015"
+                        max="2024"
+                        value="2015"
+                        step="1"
+                      />
+                      <input
+                        type="range"
+                        id="year-max"
+                        min="2015"
+                        max="2024"
+                        value="2024"
+                        step="1"
+                      />
+                    </div>
+                    <div class="year-values">
+                      <span id="year-min-value">2015</span>
+                      <span>to</span>
+                      <span id="year-max-value">2024</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="km">
+                  KM Driven <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="km-dropdown">
+                  <div class="km-slider">
+                    <div class="slider-container">
+                      <input
+                        type="range"
+                        id="km-min"
+                        min="0"
+                        max="50000"
+                        value="0"
+                        step="500"
+                      />
+                      <input
+                        type="range"
+                        id="km-max"
+                        min="0"
+                        max="50000"
+                        value="50000"
+                        step="500"
+                      />
+                    </div>
+                    <div class="km-values">
+                      <span id="km-min-value">0</span>
+                      <span>to</span>
+                      <span id="km-max-value">50,000</span>
+                      <span>km</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="owner">
+                  Ownership <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="owner-dropdown">
+                  <div class="filter-options ownership-options">
+                    <button class="filter-option" data-owner="1">
+                      1st Owner
+                    </button>
+                    <button class="filter-option" data-owner="2">
+                      2nd Owner
+                    </button>
+                    <button class="filter-option" data-owner="3">
+                      3+ Owner
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <button class="filter-btn" data-filter="fuel">
+                  Fuel Type <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="filter-dropdown" id="fuel-dropdown">
+                  <div class="filter-options fuel-options">
+                    <button class="filter-option" data-fuel="Petrol">
+                      Petrol
+                    </button>
+                    <button class="filter-option" data-fuel="Electric">
+                      Electric
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bike-grid-container">
+            <div class="section-header">
+              <h2 id="filtered-count">0 Bikes Available</h2>
+            </div>
+            <div class="brand-logos-container">
+              <div class="brand-logos">
+                <div class="brand-logo" data-brand="Bajaj">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/previews/019/766/250/non_2x/bajaj-logo-bajaj-icon-transparent-free-png.png"
+                    alt="Bajaj"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="BMW Motorrad">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1200px-BMW.svg.png"
+                    alt="BMW"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Harley-Davidson">
+                  <img
+                    src="https://images.seeklogo.com/logo-png/21/2/harley-davidson-logo-png_seeklogo-216797.png"
+                    alt="Harley"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Hero">
+                  <img
+                    src="https://brandeps.com/logo-download/H/Hero-MotoCorp-logo-01.png"
+                    alt="Hero"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Honda">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Honda_Logo.svg"
+                    alt="Honda"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Jawa">
+                  <img
+                    src="https://1000logos.net/wp-content/uploads/2021/04/Jawa-logo.png"
+                    alt="Jawa"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Kawasaki">
+                  <img
+                    src="https://animationvisarts.com/wp-content/uploads/2023/11/image-16-1030x521.png"
+                    alt="Kawasaki"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="KTM">
+                  <img
+                    src="https://download.logo.wine/logo/KTM/KTM-Logo.wine.png"
+                    alt="KTM"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Royal Enfield">
+                  <img
+                    src="https://logos-download.com/wp-content/uploads/2019/06/Royal_Enfield_Logo_full_red.png"
+                    alt="Royal Enfield"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Suzuki">
+                  <img
+                    src="https://images.seeklogo.com/logo-png/13/2/suzuki-logo-png_seeklogo-134277.png"
+                    alt="Suzuki"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="TVS Motor Company">
+                  <img
+                    src="https://download.logo.wine/logo/TVS_Motor_Company/TVS_Motor_Company-Logo.wine.png"
+                    alt="TVS"
+                  />
+                </div>
+                <div class="brand-logo" data-brand="Yamaha">
+                  <img
+                    src="https://brandlogos.net/wp-content/uploads/2014/10/yamaha_3d-logo_brandlogos.net_iwtkb.png"
+                    alt="Yamaha"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="bike-grid"></div>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
 
-    <section class="inventory-section full-inventory">
-      <div class="inventory-content">
-        <!-- Left sidebar filters -->
-        <div class="sidebar-filters">
-          <div class="filters-container">
-            <h3>Filters</h3>
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="all">All Bikes</button>
-            </div>
-
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="price">
-                Price <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="price-dropdown">
-                <div class="price-range">
-                  <div class="range-inputs">
-                    <input
-                      type="number"
-                      id="min-price"
-                      placeholder="Min"
-                      min="0"
-                    />
-                    <span>to</span>
-                    <input
-                      type="number"
-                      id="max-price"
-                      placeholder="Max"
-                      min="0"
-                    />
-                  </div>
-                  <div class="price-presets">
-                    <button class="price-preset" data-min="0" data-max="50000">
-                      Under 50K
-                    </button>
-                    <button
-                      class="price-preset"
-                      data-min="50000"
-                      data-max="100000"
-                    >
-                      50K-1L
-                    </button>
-                    <button
-                      class="price-preset"
-                      data-min="100000"
-                      data-max="200000"
-                    >
-                      1L-2L
-                    </button>
-                    <button
-                      class="price-preset"
-                      data-min="200000"
-                      data-max="500000"
-                    >
-                      2L-5L
-                    </button>
-                    <button class="price-preset" data-min="500000">5L+</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="brand">
-                Brand <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="brand-dropdown">
-                <div class="filter-options brand-options">
-                  <button class="filter-option" data-brand="AJS">AJS</button>
-                  <button class="filter-option" data-brand="Aprilia">
-                    Aprilia
-                  </button>
-                  <button class="filter-option" data-brand="Ather Energy">
-                    Ather Energy
-                  </button>
-                  <button class="filter-option" data-brand="Ariel">
-                    Ariel
-                  </button>
-                  <button class="filter-option" data-brand="Bajaj">
-                    Bajaj
-                  </button>
-                  <button class="filter-option" data-brand="Benelli">
-                    Benelli
-                  </button>
-                  <button class="filter-option" data-brand="Bimota">
-                    Bimota
-                  </button>
-                  <button class="filter-option" data-brand="BMW Motorrad">
-                    BMW Motorrad
-                  </button>
-                  <button class="filter-option" data-brand="BSA">BSA</button>
-                  <button class="filter-option" data-brand="Buell">
-                    Buell
-                  </button>
-                  <button class="filter-option" data-brand="CFMoto">
-                    CFMoto
-                  </button>
-                  <button class="filter-option" data-brand="Can-Am">
-                    Can-Am
-                  </button>
-                  <button class="filter-option" data-brand="Cagiva">
-                    Cagiva
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="Cleveland CycleWerks"
-                  >
-                    Cleveland CycleWerks
-                  </button>
-                  <button class="filter-option" data-brand="Ducati">
-                    Ducati
-                  </button>
-                  <button class="filter-option" data-brand="Derbi">
-                    Derbi
-                  </button>
-                  <button class="filter-option" data-brand="DKW">DKW</button>
-                  <button class="filter-option" data-brand="Daelim">
-                    Daelim
-                  </button>
-                  <button class="filter-option" data-brand="Energica">
-                    Energica
-                  </button>
-                  <button class="filter-option" data-brand="Erik Buell Racing">
-                    Erik Buell Racing
-                  </button>
-                  <button class="filter-option" data-brand="Evoke Motorcycles">
-                    Evoke Motorcycles
-                  </button>
-                  <button class="filter-option" data-brand="Fantic Motor">
-                    Fantic Motor
-                  </button>
-                  <button class="filter-option" data-brand="FB Mondial">
-                    FB Mondial
-                  </button>
-                  <button class="filter-option" data-brand="Fischer">
-                    Fischer
-                  </button>
-                  <button class="filter-option" data-brand="Gas Gas">
-                    Gas Gas
-                  </button>
-                  <button class="filter-option" data-brand="Gilera">
-                    Gilera
-                  </button>
-                  <button class="filter-option" data-brand="Gogoro">
-                    Gogoro
-                  </button>
-                  <button class="filter-option" data-brand="Greeves">
-                    Greeves
-                  </button>
-                  <button class="filter-option" data-brand="Harley-Davidson">
-                    Harley-Davidson
-                  </button>
-                  <button class="filter-option" data-brand="Hero">Hero</button>
-                  <button class="filter-option" data-brand="Honda">
-                    Honda
-                  </button>
-                  <button class="filter-option" data-brand="Husqvarna">
-                    Husqvarna
-                  </button>
-                  <button class="filter-option" data-brand="Indian Motorcycle">
-                    Indian Motorcycle
-                  </button>
-                  <button class="filter-option" data-brand="Italjet">
-                    Italjet
-                  </button>
-                  <button class="filter-option" data-brand="IMZ-Ural">
-                    IMZ-Ural
-                  </button>
-                  <button class="filter-option" data-brand="Jawa">Jawa</button>
-                  <button class="filter-option" data-brand="Jincheng">
-                    Jincheng
-                  </button>
-                  <button class="filter-option" data-brand="Junak">
-                    Junak
-                  </button>
-                  <button class="filter-option" data-brand="Kawasaki">
-                    Kawasaki
-                  </button>
-                  <button class="filter-option" data-brand="KTM">KTM</button>
-                  <button class="filter-option" data-brand="Kymco">
-                    Kymco
-                  </button>
-                  <button class="filter-option" data-brand="KR Motors">
-                    KR Motors
-                  </button>
-                  <button class="filter-option" data-brand="Lambretta">
-                    Lambretta
-                  </button>
-                  <button class="filter-option" data-brand="Lifan">
-                    Lifan
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="Lightning Motorcycles"
-                  >
-                    Lightning Motorcycles
-                  </button>
-                  <button class="filter-option" data-brand="Mahindra">
-                    Mahindra
-                  </button>
-                  <button class="filter-option" data-brand="Modenas">
-                    Modenas
-                  </button>
-                  <button class="filter-option" data-brand="Moto Guzzi">
-                    Moto Guzzi
-                  </button>
-                  <button class="filter-option" data-brand="MV Agusta">
-                    MV Agusta
-                  </button>
-                  <button class="filter-option" data-brand="Norton">
-                    Norton
-                  </button>
-                  <button class="filter-option" data-brand="Niu Technologies">
-                    Niu Technologies
-                  </button>
-                  <button class="filter-option" data-brand="Ossa">Ossa</button>
-                  <button class="filter-option" data-brand="Piaggio">
-                    Piaggio
-                  </button>
-                  <button class="filter-option" data-brand="Peugeot Scooters">
-                    Peugeot Scooters
-                  </button>
-                  <button class="filter-option" data-brand="Paton">
-                    Paton
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="Qianjiang Motorcycle"
-                  >
-                    Qianjiang Motorcycle
-                  </button>
-                  <button class="filter-option" data-brand="Royal Enfield">
-                    Royal Enfield
-                  </button>
-                  <button class="filter-option" data-brand="Rieju">
-                    Rieju
-                  </button>
-                  <button class="filter-option" data-brand="Rokon">
-                    Rokon
-                  </button>
-                  <button class="filter-option" data-brand="Suzuki">
-                    Suzuki
-                  </button>
-                  <button class="filter-option" data-brand="Sherco">
-                    Sherco
-                  </button>
-                  <button class="filter-option" data-brand="SYM">SYM</button>
-                  <button class="filter-option" data-brand="Scomadi">
-                    Scomadi
-                  </button>
-                  <button class="filter-option" data-brand="Triumph">
-                    Triumph
-                  </button>
-                  <button class="filter-option" data-brand="TVS Motor Company">
-                    TVS Motor Company
-                  </button>
-                  <button class="filter-option" data-brand="Terra Modena">
-                    Terra Modena
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="Ultraviolette Automotive"
-                  >
-                    Ultraviolette Automotive
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="United Auto Industries"
-                  >
-                    United Auto Industries
-                  </button>
-                  <button class="filter-option" data-brand="Vespa">
-                    Vespa
-                  </button>
-                  <button
-                    class="filter-option"
-                    data-brand="Victory Motorcycles"
-                  >
-                    Victory Motorcycles
-                  </button>
-                  <button class="filter-option" data-brand="Voxan">
-                    Voxan
-                  </button>
-                  <button class="filter-option" data-brand="Wasp Motorcycles">
-                    Wasp Motorcycles
-                  </button>
-                  <button class="filter-option" data-brand="Yamaha">
-                    Yamaha
-                  </button>
-                  <button class="filter-option" data-brand="Yezdi">
-                    Yezdi
-                  </button>
-                  <button class="filter-option" data-brand="Zero Motorcycles">
-                    Zero Motorcycles
-                  </button>
-                  <button class="filter-option" data-brand="Zongshen">
-                    Zongshen
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="year">
-                Year <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="year-dropdown">
-                <div class="year-slider">
-                  <div class="slider-container">
-                    <input
-                      type="range"
-                      id="year-min"
-                      min="2015"
-                      max="2024"
-                      value="2015"
-                      step="1"
-                    />
-                    <input
-                      type="range"
-                      id="year-max"
-                      min="2015"
-                      max="2024"
-                      value="2024"
-                      step="1"
-                    />
-                  </div>
-                  <div class="year-values">
-                    <span id="year-min-value">2015</span>
-                    <span>to</span>
-                    <span id="year-max-value">2024</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="km">
-                KM Driven <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="km-dropdown">
-                <div class="km-slider">
-                  <div class="slider-container">
-                    <input
-                      type="range"
-                      id="km-min"
-                      min="0"
-                      max="50000"
-                      value="0"
-                      step="500"
-                    />
-                    <input
-                      type="range"
-                      id="km-max"
-                      min="0"
-                      max="50000"
-                      value="50000"
-                      step="500"
-                    />
-                  </div>
-                  <div class="km-values">
-                    <span id="km-min-value">0</span>
-                    <span>to</span>
-                    <span id="km-max-value">50,000</span>
-                    <span>km</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="owner">
-                Ownership <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="owner-dropdown">
-                <div class="filter-options ownership-options">
-                  <button class="filter-option" data-owner="1">
-                    1st Owner
-                  </button>
-                  <button class="filter-option" data-owner="2">
-                    2nd Owner
-                  </button>
-                  <button class="filter-option" data-owner="3">3+ Owner</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="filter-group">
-              <button class="filter-btn" data-filter="fuel">
-                Fuel Type <i class="fas fa-chevron-down"></i>
-              </button>
-              <div class="filter-dropdown" id="fuel-dropdown">
-                <div class="filter-options fuel-options">
-                  <button class="filter-option" data-fuel="Petrol">
-                    Petrol
-                  </button>
-                  <button class="filter-option" data-fuel="Electric">
-                    Electric
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right side bike grid -->
-        <div class="bike-grid-container">
-          <div class="section-header">
-            <h2 id="filtered-count">0 Bikes Available</h2>
-          </div>
-          <div class="bike-grid"></div>
-        </div>
-      </div>
-    </section>
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
@@ -815,31 +647,33 @@
             button.addEventListener("click", function (e) {
               e.stopPropagation();
               const filterType = this.dataset.filter;
+              const dropdown = document.getElementById(
+                `${filterType}-dropdown`
+              );
 
-              // Hide all dropdowns first
-              filterDropdowns.forEach((dropdown) => {
+              // Toggle the clicked dropdown
+              if (dropdown.style.display === "block") {
                 dropdown.style.display = "none";
-              });
-
-              // Toggle active state on buttons
-              filterButtons.forEach((btn) => {
-                btn.classList.remove("active");
-              });
-              this.classList.add("active");
-
-              // Show the corresponding dropdown or reset filters
-              if (filterType !== "all") {
-                const dropdown = document.getElementById(
-                  `${filterType}-dropdown`
-                );
-                if (dropdown) {
-                  dropdown.style.display = "block";
-                }
+                this.classList.remove("active");
               } else {
-                // Reset all filters and show all bikes
-                resetFilters();
-                displayBikes(allBikes);
-                updateBikeCount(allBikes.length);
+                // Hide all dropdowns first
+                filterDropdowns.forEach((d) => {
+                  d.style.display = "none";
+                });
+                filterButtons.forEach((btn) => {
+                  btn.classList.remove("active");
+                });
+
+                // Show the clicked dropdown if not "all"
+                if (filterType !== "all") {
+                  dropdown.style.display = "block";
+                  this.classList.add("active");
+                } else {
+                  // Reset all filters and show all bikes
+                  resetFilters();
+                  displayBikes(allBikes);
+                  updateBikeCount(allBikes.length);
+                }
               }
             });
           });
@@ -853,6 +687,9 @@
               filterDropdowns.forEach((dropdown) => {
                 dropdown.style.display = "none";
               });
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
             }
           });
 
@@ -863,6 +700,28 @@
           initKmFilter();
           initOwnerFilter();
           initFuelFilter();
+          initBrandLogos();
+        }
+
+        // Initialize brand logos
+        function initBrandLogos() {
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.addEventListener("click", function () {
+              const brand = this.dataset.brand;
+              currentFilters.brand = brand;
+              applyAllFilters();
+
+              // Update UI
+              document.querySelectorAll(".brand-logo").forEach((l) => {
+                l.classList.remove("active");
+              });
+              this.classList.add("active");
+
+              // Update brand filter button text
+              const brandBtn = document.querySelector('[data-filter="brand"]');
+              brandBtn.innerHTML = `${brand} <i class="fas fa-chevron-down"></i>`;
+            });
+          });
         }
 
         // Price filter
@@ -914,6 +773,17 @@
                 brandBtn.innerHTML = currentFilters.brand
                   ? `${brand} <i class="fas fa-chevron-down"></i>`
                   : `Brand <i class="fas fa-chevron-down"></i>`;
+
+                // Update brand logos
+                document.querySelectorAll(".brand-logo").forEach((logo) => {
+                  logo.classList.remove("active");
+                  if (
+                    currentFilters.brand &&
+                    logo.dataset.brand === currentFilters.brand
+                  ) {
+                    logo.classList.add("active");
+                  }
+                });
               });
             });
         }
@@ -1045,6 +915,15 @@
           document.getElementById("year-max-value").textContent = "2024";
           document.getElementById("km-min-value").textContent = "0";
           document.getElementById("km-max-value").textContent = "50,000";
+
+          // Reset brand button text
+          const brandBtn = document.querySelector('[data-filter="brand"]');
+          brandBtn.innerHTML = `Brand <i class="fas fa-chevron-down"></i>`;
+
+          // Reset brand logos
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.classList.remove("active");
+          });
         }
 
         // Format age for display

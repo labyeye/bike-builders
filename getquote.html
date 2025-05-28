@@ -38,183 +38,177 @@
           </a>
         </div>
       </nav>
+      <section class="quote-section">
+        <div class="quote-content">
+          <h2>Get Your Perfect Bike Quote</h2>
+          <p>
+            Tell us what you're looking for and we'll match you with the best
+            options in your budget. Our experts will contact you with
+            personalized recommendations.
+          </p>
 
-      <div class="hero-content">
-        <h1>Get a</h1>
-      </div>
-      <div class="bicycle-text">Quote</div>
+          <div class="quote-steps">
+            <div class="quote-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Fill the Quote Form</h4>
+                <p>
+                  Provide details about the bike you're interested in and your
+                  budget.
+                </p>
+              </div>
+            </div>
+            <div class="quote-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Get Expert Recommendations</h4>
+                <p>
+                  Our team will analyze your requirements and find the best
+                  matches.
+                </p>
+              </div>
+            </div>
+            <div class="quote-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Receive Your Quote</h4>
+                <p>
+                  We'll contact you with detailed options and pricing
+                  information.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-cta">
+            <button
+              class="cta-button"
+              onclick="document.getElementById('quote-form').scrollIntoView({ behavior: 'smooth' })"
+            >
+              Get Your Quote Now
+            </button>
+          </div>
+        </div>
+
+        <div class="quote-form-container" id="quote-form">
+          <form id="quote-request-form" class="quote-form">
+            <h3>Quote Request</h3>
+
+            <div class="form-group">
+              <label for="quote-name">Full Name*</label>
+              <input
+                type="text"
+                id="quote-name"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="quote-email">Email*</label>
+              <input
+                type="email"
+                id="quote-email"
+                name="email"
+                placeholder="Your email"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="quote-phone">Phone Number*</label>
+              <input
+                type="tel"
+                id="quote-phone"
+                name="phone"
+                placeholder="Your phone number"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="quote-brand">Preferred Brand*</label>
+              <select id="quote-brand" name="brand" required>
+                <option value="">Select Brand</option>
+                <option value="KTM">KTM</option>
+                <option value="Suzuki">Suzuki</option>
+                <option value="Royal Enfield">Royal Enfield</option>
+                <option value="Kawasaki">Kawasaki</option>
+                <option value="Ducati">Ducati</option>
+                <option value="Bajaj">Bajaj</option>
+                <option value="Harley-Davidson">Harley-Davidson</option>
+                <option value="Yamaha">Yamaha</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quote-model">Preferred Model</label>
+              <input
+                type="text"
+                id="quote-model"
+                name="model"
+                placeholder="e.g. Duke 390"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="quote-year">Preferred Year*</label>
+              <select id="quote-year" name="year" required>
+                <option value="">Select Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="quote-budget">Price Budget (₹)*</label>
+              <input
+                type="number"
+                id="quote-budget"
+                name="budget"
+                placeholder="e.g. 150000"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="quote-notes">Additional Requirements</label>
+              <textarea
+                id="quote-notes"
+                name="notes"
+                placeholder="Any specific features, colors, or other preferences"
+              ></textarea>
+            </div>
+
+            <div class="form-group checkbox-group">
+              <input
+                type="checkbox"
+                id="agree-terms-quote"
+                name="agree-terms"
+                required
+              />
+              <label for="agree-terms-quote"
+                >I agree to the terms and conditions and privacy policy*</label
+              >
+            </div>
+
+            <button type="submit" class="submit-btn">Request Quote</button>
+          </form>
+        </div>
+      </section>
     </div>
 
-    <section class="quote-section">
-      <div class="quote-content">
-        <h2>Get Your Perfect Bike Quote</h2>
-        <p>
-          Tell us what you're looking for and we'll match you with the best
-          options in your budget. Our experts will contact you with personalized
-          recommendations.
-        </p>
-
-        <div class="quote-steps">
-          <div class="quote-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h4>Fill the Quote Form</h4>
-              <p>
-                Provide details about the bike you're interested in and your
-                budget.
-              </p>
-            </div>
-          </div>
-          <div class="quote-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h4>Get Expert Recommendations</h4>
-              <p>
-                Our team will analyze your requirements and find the best
-                matches.
-              </p>
-            </div>
-          </div>
-          <div class="quote-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h4>Receive Your Quote</h4>
-              <p>
-                We'll contact you with detailed options and pricing information.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="quote-cta">
-          <button
-            class="cta-button"
-            onclick="document.getElementById('quote-form').scrollIntoView({ behavior: 'smooth' })"
-          >
-            Get Your Quote Now
-          </button>
-        </div>
-      </div>
-
-      <div class="quote-form-container" id="quote-form">
-        <form id="quote-request-form" class="quote-form">
-          <h3>Quote Request</h3>
-
-          <div class="form-group">
-            <label for="quote-name">Full Name*</label>
-            <input
-              type="text"
-              id="quote-name"
-              name="name"
-              placeholder="Your name"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="quote-email">Email*</label>
-            <input
-              type="email"
-              id="quote-email"
-              name="email"
-              placeholder="Your email"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="quote-phone">Phone Number*</label>
-            <input
-              type="tel"
-              id="quote-phone"
-              name="phone"
-              placeholder="Your phone number"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="quote-brand">Preferred Brand*</label>
-            <select id="quote-brand" name="brand" required>
-              <option value="">Select Brand</option>
-              <option value="KTM">KTM</option>
-              <option value="Suzuki">Suzuki</option>
-              <option value="Royal Enfield">Royal Enfield</option>
-              <option value="Kawasaki">Kawasaki</option>
-              <option value="Ducati">Ducati</option>
-              <option value="Bajaj">Bajaj</option>
-              <option value="Harley-Davidson">Harley-Davidson</option>
-              <option value="Yamaha">Yamaha</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="quote-model">Preferred Model</label>
-            <input
-              type="text"
-              id="quote-model"
-              name="model"
-              placeholder="e.g. Duke 390"
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="quote-year">Preferred Year*</label>
-            <select id="quote-year" name="year" required>
-              <option value="">Select Year</option>
-              <option value="2024">2024</option>
-              <option value="2023">2023</option>
-              <option value="2022">2022</option>
-              <option value="2021">2021</option>
-              <option value="2020">2020</option>
-              <option value="2019">2019</option>
-              <option value="2018">2018</option>
-              <option value="2017">2017</option>
-              <option value="2016">2016</option>
-              <option value="2015">2015</option>
-              <option value="2014">2014</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="quote-budget">Price Budget (₹)*</label>
-            <input
-              type="number"
-              id="quote-budget"
-              name="budget"
-              placeholder="e.g. 150000"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="quote-notes">Additional Requirements</label>
-            <textarea
-              id="quote-notes"
-              name="notes"
-              placeholder="Any specific features, colors, or other preferences"
-            ></textarea>
-          </div>
-
-          <div class="form-group checkbox-group">
-            <input
-              type="checkbox"
-              id="agree-terms-quote"
-              name="agree-terms"
-              required
-            />
-            <label for="agree-terms-quote"
-              >I agree to the terms and conditions and privacy policy*</label
-            >
-          </div>
-
-          <button type="submit" class="submit-btn">Request Quote</button>
-        </form>
-      </div>
-    </section>
-
-    
     <section class="testimonials-section">
       <h2>What Our Customers Say</h2>
       <div class="testimonials-container">

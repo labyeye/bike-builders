@@ -1,3 +1,10 @@
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
 :root {
   --primary-color: #a32919;
   --secondary-color: #100f0f;
@@ -5,10 +12,12 @@
   --light-gray: #a9a9a9;
   --dark-gray: #464646;
 }
+
 .quote-form-container {
   width: 700px;
   position: relative;
   z-index: 1;
+  margin: auto;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   border-radius: 15px;
@@ -132,7 +141,6 @@
   transform: none;
 }
 
-/* Quote Section Specific Styles */
 .quote-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
@@ -144,9 +152,18 @@
 }
 
 .quote-content {
-  max-width: 800px;
+  height: auto;
+  width: 100%;
+  padding: 0 20px;
+  max-width: 600px;
   text-align: center;
   color: white;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 40px;
+  margin-bottom: 320px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .quote-content h2 {
@@ -350,39 +367,40 @@
 @media (max-width: 768px) {
   .quote-section {
     padding: 60px 20px;
-    flex-direction:column;
+    height: auto;
+    flex-direction: column;
   }
-  
+
   .quote-content h2 {
     font-size: 2rem;
   }
-  
+
   .quote-content p {
     font-size: 1rem;
   }
-  
+
   .quote-steps {
     flex-direction: column;
     gap: 20px;
   }
-  
+
   .quote-form-container {
     width: 90%;
     padding: 20px;
   }
-  
+
   .testimonials-section {
     padding: 60px 20px;
   }
-  
+
   .testimonials-section h2 {
     font-size: 2rem;
   }
-  
+
   .testimonial {
     padding: 20px;
   }
-  
+
   .testimonial-header {
     flex-direction: column;
     text-align: center;
@@ -393,33 +411,33 @@
   .quote-form h3 {
     font-size: 1.3rem;
   }
-  
+
   .form-group input,
   .form-group select,
   .form-group textarea {
     padding: 10px 12px;
     width: 95%;
   }
-  
+
   .submit-btn {
     padding: 12px 20px;
     font-size: 1rem;
   }
-  
+
   .quote-content h2 {
     font-size: 1.8rem;
   }
-  
+
   .step-number {
     width: 50px;
     height: 50px;
     font-size: 1.2rem;
   }
-  
+
   .testimonial-header {
     gap: 10px;
   }
-  
+
   .user-avatar {
     width: 50px;
     height: 50px;

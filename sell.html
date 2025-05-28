@@ -36,198 +36,192 @@
           </a>
         </div>
       </nav>
+      <section class="sell-section">
+        <div class="sell-content">
+          <h2>Sell Your Bike in 3 Easy Steps</h2>
+          <p>
+            We make selling your bike simple, fast, and transparent. Get an
+            instant quote and complete the process in just a few clicks.
+          </p>
 
-      <div class="hero-content">
-        <h1>Sell Your</h1>
-      </div>
-      <div class="bicycle-text">Bike</div>
-    </div>
-
-    <section class="sell-section">
-      <div class="sell-content">
-        <h2>Sell Your Bike in 3 Easy Steps</h2>
-        <p>
-          We make selling your bike simple, fast, and transparent. Get an
-          instant quote and complete the process in just a few clicks.
-        </p>
-
-        <div class="sell-steps">
-          <div class="sell-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h4>Enter Your Bike Details</h4>
-              <p>
-                Fill out the form with your bike's specifications and condition.
-              </p>
+          <div class="sell-steps">
+            <div class="sell-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Enter Your Bike Details</h4>
+                <p>
+                  Fill out the form with your bike's specifications and
+                  condition.
+                </p>
+              </div>
+            </div>
+            <div class="sell-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Get Instant Valuation</h4>
+                <p>
+                  Receive a fair market price based on current demand and
+                  condition.
+                </p>
+              </div>
+            </div>
+            <div class="sell-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Schedule Pickup & Get Paid</h4>
+                <p>We handle all the paperwork and payment on the spot.</p>
+              </div>
             </div>
           </div>
-          <div class="sell-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h4>Get Instant Valuation</h4>
-              <p>
-                Receive a fair market price based on current demand and
-                condition.
-              </p>
-            </div>
-          </div>
-          <div class="sell-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h4>Schedule Pickup & Get Paid</h4>
-              <p>We handle all the paperwork and payment on the spot.</p>
-            </div>
+
+          <div class="sell-cta">
+            <button class="cta-button">Get Started Now</button>
           </div>
         </div>
 
-        <div class="sell-cta">
-          <button class="cta-button">Get Started Now</button>
-        </div>
-      </div>
+        <div class="sell-form-container">
+          <form id="sell-bike-form" class="sell-form">
+            <h3>Bike Details</h3>
 
-      <div class="sell-form-container">
-        <form id="sell-bike-form" class="sell-form">
-          <h3>Bike Details</h3>
+            <div
+              style="
+                display: flex;
+                gap: 40px;
+                justify-content: space-between;
+                flex-direction: row;
+              "
+            >
+              <div class="form-group">
+                <label for="bike-brand">Brand*</label>
+                <select id="bike-brand" name="brand" required>
+                  <option value="">Brand</option>
+                  <option value="KTM">KTM</option>
+                  <option value="Suzuki">Suzuki</option>
+                  <option value="Royal Enfield">Royal Enfield</option>
+                  <option value="Kawasaki">Kawasaki</option>
+                  <option value="Ducati">Ducati</option>
+                  <option value="Bajaj">Bajaj</option>
+                  <option value="Harley-Davidson">Harley-Davidson</option>
+                  <option value="Yamaha">Yamaha</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
 
-          <div
-            style="
-              display: flex;
-              gap: 40px;
-              justify-content: space-between;
-              flex-direction: row;
-            "
-          >
-            <div class="form-group">
-              <label for="bike-brand">Brand*</label>
-              <select id="bike-brand" name="brand" required>
-                <option value="">Select Brand</option>
-                <option value="KTM">KTM</option>
-                <option value="Suzuki">Suzuki</option>
-                <option value="Royal Enfield">Royal Enfield</option>
-                <option value="Kawasaki">Kawasaki</option>
-                <option value="Ducati">Ducati</option>
-                <option value="Bajaj">Bajaj</option>
-                <option value="Harley-Davidson">Harley-Davidson</option>
-                <option value="Yamaha">Yamaha</option>
-                <option value="Other">Other</option>
-              </select>
+              <div class="form-group">
+                <label for="bike-model">Model*</label>
+                <input
+                  type="text"
+                  id="bike-model"
+                  name="model"
+                  placeholder="e.g. Duke 390"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label for="bike-year">Year*</label>
+                <select id="bike-year" name="year" required>
+                  <option value="">Year</option>
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+                  <option value="2022">2022</option>
+                  <option value="2021">2021</option>
+                  <option value="2020">2020</option>
+                  <option value="2019">2019</option>
+                  <option value="2018">2018</option>
+                  <option value="2017">2017</option>
+                  <option value="2016">2016</option>
+                  <option value="2015">2015</option>
+                  <option value="2014">2014</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="bike-price">Expected Price (₹)*</label>
+                <input
+                  type="number"
+                  id="bike-price"
+                  name="price"
+                  placeholder="e.g. 150000"
+                  required
+                />
+              </div>
             </div>
 
             <div class="form-group">
-              <label for="bike-model">Model*</label>
+              <label for="bike-images">Upload Images (Max 5)*</label>
+              <div class="image-upload-container">
+                <label for="bike-images" class="image-upload-label">
+                  <i class="fas fa-cloud-upload-alt"></i>
+                  <span>Click to upload images</span>
+                  <input
+                    type="file"
+                    id="bike-images"
+                    name="images"
+                    accept="image/*"
+                    multiple
+                    style="display: none"
+                  />
+                </label>
+                <div class="image-preview" id="image-preview"></div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <h3>Your Contact Information</h3>
+            </div>
+
+            <div class="form-group">
+              <label for="seller-name">Full Name*</label>
               <input
                 type="text"
-                id="bike-model"
-                name="model"
-                placeholder="e.g. Duke 390"
+                id="seller-name"
+                name="name"
+                placeholder="Your name"
                 required
               />
             </div>
+
             <div class="form-group">
-              <label for="bike-year">Year*</label>
-              <select id="bike-year" name="year" required>
-                <option value="">Select Year</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bike-price">Expected Price (₹)*</label>
+              <label for="seller-email">Email*</label>
               <input
-                type="number"
-                id="bike-price"
-                name="price"
-                placeholder="e.g. 150000"
+                type="email"
+                id="seller-email"
+                name="email"
+                placeholder="Your email"
                 required
               />
             </div>
-          </div>
 
-          <div class="form-group">
-            <label for="bike-images">Upload Images (Max 5)*</label>
-            <div class="image-upload-container">
-              <label for="bike-images" class="image-upload-label">
-                <i class="fas fa-cloud-upload-alt"></i>
-                <span>Click to upload images</span>
-                <input
-                  type="file"
-                  id="bike-images"
-                  name="images"
-                  accept="image/*"
-                  multiple
-                  style="display: none"
-                />
-              </label>
-              <div class="image-preview" id="image-preview"></div>
+            <div class="form-group">
+              <label for="seller-phone">Phone Number*</label>
+              <input
+                type="tel"
+                id="seller-phone"
+                name="phone"
+                placeholder="Your phone number"
+                required
+              />
             </div>
-          </div>
 
-          <div class="form-group">
-            <h3>Your Contact Information</h3>
-          </div>
+            <div class="form-group checkbox-group">
+              <input
+                type="checkbox"
+                id="agree-terms"
+                name="agree-terms"
+                required
+              />
+              <label for="agree-terms"
+                >I agree to the terms and conditions and privacy policy*</label
+              >
+            </div>
 
-          <div class="form-group">
-            <label for="seller-name">Full Name*</label>
-            <input
-              type="text"
-              id="seller-name"
-              name="name"
-              placeholder="Your name"
-              required
-            />
-          </div>
+            <button type="submit" class="submit-btn">
+              Get Instant Valuation
+            </button>
+          </form>
+        </div>
+      </section>
+    </div>
 
-          <div class="form-group">
-            <label for="seller-email">Email*</label>
-            <input
-              type="email"
-              id="seller-email"
-              name="email"
-              placeholder="Your email"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="seller-phone">Phone Number*</label>
-            <input
-              type="tel"
-              id="seller-phone"
-              name="phone"
-              placeholder="Your phone number"
-              required
-            />
-          </div>
-
-          <div class="form-group checkbox-group">
-            <input
-              type="checkbox"
-              id="agree-terms"
-              name="agree-terms"
-              required
-            />
-            <label for="agree-terms"
-              >I agree to the terms and conditions and privacy policy*</label
-            >
-          </div>
-
-          <button type="submit" class="submit-btn">
-            Get Instant Valuation
-          </button>
-        </form>
-      </div>
-    </section>
-
-    
     <section class="testimonials-section">
       <h2>What Our Sellers Say</h2>
       <div class="testimonials-container">
@@ -338,86 +332,6 @@
       </div>
     </section>
 
-    
-    <section class="faq-section">
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-container">
-        <div class="faq-item">
-          <div class="faq-question">
-            <h4>How do you determine the value of my bike?</h4>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-answer">
-            <p>
-              Our valuation is based on multiple factors including current
-              market demand, your bike's make/model, year of manufacture,
-              kilometers driven, condition, service history, and location. We
-              use real-time market data to ensure you get the best possible
-              price.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">
-            <h4>How long does the selling process take?</h4>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-answer">
-            <p>
-              Once you submit your details, you'll receive an instant valuation.
-              If you accept our offer, we can typically complete the pickup and
-              payment within 24-48 hours, depending on your location.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">
-            <h4>What documents do I need to sell my bike?</h4>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-answer">
-            <p>
-              You'll need the original RC book, insurance documents, PUC
-              certificate, and your ID proof. Our team will guide you through
-              the transfer process and handle all the paperwork.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">
-            <h4>Is there any fee or commission?</h4>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-answer">
-            <p>
-              No, there are no hidden fees or commissions. The price we offer is
-              the amount you receive. We make our profit when we resell the bike
-              to our network of buyers.
-            </p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <div class="faq-question">
-            <h4>What if my bike needs repairs?</h4>
-            <i class="fas fa-chevron-down"></i>
-          </div>
-          <div class="faq-answer">
-            <p>
-              We buy bikes in all conditions - from excellent to needing
-              significant work. Our valuation will account for any repairs
-              needed, so you don't have to spend money fixing the bike before
-              selling.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
