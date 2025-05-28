@@ -6,6 +6,148 @@
   --dark-gray: #464646;
 }
 
+.floating-buttons {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  z-index: 999;
+}
+
+.floating-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.floating-btn:hover {
+  transform: translateY(-5px) scale(1.1);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.floating-btn i {
+  font-size: 28px;
+  color: white;
+}
+
+.whatsapp-btn {
+  background-color: #25D366;
+}
+
+.call-btn {
+  background-color: var(--primary-color);
+}
+
+.floating-btn::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  right: 70px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.floating-btn:hover::after {
+  opacity: 1;
+  right: 75px;
+}
+
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .floating-btn i {
+    font-size: 24px;
+  }
+}
+
+.search-container {
+  margin-top: 30px;
+  position: relative;
+  max-width: 600px;
+  margin-right: auto;
+}
+
+.search-input {
+  width: 50%;
+  padding: 15px 60px 15px 20px;
+  border-radius: 30px;
+  margin-left: 10px;
+  margin-top: 70px;
+  border: none;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  background-color: white;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+}
+
+.search-button {
+  position: absolute;
+  right: 220px;
+  top: 75px;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: #8a2215;
+}
+
+.search-button svg {
+  color: white;
+  width: 20px;
+  height: 20px;
+}
+
+.background-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.85) 60%,
+      rgba(0, 0, 0, 0.95) 100%), url('https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -142,29 +284,110 @@ body {
 .hero-content {
   position: relative;
   z-index: 5;
-  text-align: center;
   margin-top: 10%;
-  padding: 0 20px;
+  padding: 0 5%;
+  max-width: 1200px;
+  margin-left: 90px;
+  margin-right: auto;
+  text-align: left;
 }
 
 .hero-content h1 {
-  font-size: 4rem;
-  font-weight: 700;
-  transform: translateY(-60px);
-  background: linear-gradient(188deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 5rem;
+  font-weight: 400;
+  margin: 0;
   line-height: 1.2;
+  display: flex;
+  flex-direction: column;
 }
 
-.hero-content p {
-  font-size: 1.2rem;
-  color: var(--light-gray);
-  max-width: 700px;
-  margin: 20px auto 40px;
-  line-height: 1.6;
+.hero-line {
+  display: block;
+  background: linear-gradient(188deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Segoe UI", Helvetica;
+  opacity: 0;
+  transform: translateY(2 0px);
+  animation: fadeInUp 2.8s ease forwards;
 }
+
+.hero-line.highlight {
+  color: var(--primary-color);
+  background: linear-gradient(188deg, var(--primary-color) 0%, #ff6b4a 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 9rem;
+  font-weight: 700;
+  margin-top: -15px;
+}
+.hero-line.subtitle {
+  color: var(--primary-color);
+  background: white;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 2rem;
+  font-weight: 100;
+  margin-left: 10px;
+  margin-top: -15px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.hero-line.highlight {
+  animation: fadeInUp 0.8s ease 0.3s forwards,
+    pulse 2s ease-in-out 2s infinite;
+}
+
+@media (max-width: 1200px) {
+  .hero-content h1 {
+    font-size: 4rem;
+  }
+
+  .hero-line.highlight {
+    font-size: 5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    margin-top: 25%;
+  }
+
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-line.highlight {
+    font-size: 3.5rem;
+    margin-top: -10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-line.highlight {
+    font-size: 3rem;
+  }
+}
+
 
 .cta-button {
   background-color: var(--primary-color);
@@ -180,46 +403,6 @@ body {
 
 .cta-button:hover {
   background-color: #c23320;
-}
-
-.bicycle-text {
-  position: absolute;
-  width: 100%;
-  top: 30%;
-  left: 0;
-  font-family: "Segoe UI", Helvetica;
-  font-weight: 700;
-  color: rgba(165, 155, 155, 0.39);
-  font-size: 20vw;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.bike-slider {
-  position: absolute;
-  bottom: -70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  overflow: hidden;
-  z-index: 2;
-}
-
-.bike-slides {
-  display: flex;
-  width: 300%;
-  animation: slideBikes 9s infinite ease-in-out;
-}
-
-.bike-slides img {
-  width: 18%;
-  flex-shrink: 0;
-  object-fit: contain;
-  transition: transform 0.9s ease;
 }
 
 @keyframes slideBikes {
@@ -321,12 +504,12 @@ h2 {
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 15px;
   }
-  
+
   .brand-logo {
     width: 60px;
     height: 60px;
   }
-  
+
   .brand-card h3 {
     font-size: 0.95rem;
   }
@@ -337,12 +520,12 @@ h2 {
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 10px;
   }
-  
+
   .brand-logo {
     width: 50px;
     height: 50px;
   }
-  
+
   .brand-card h3 {
     font-size: 0.85rem;
   }
@@ -353,6 +536,7 @@ h2 {
   flex-direction: row;
   gap: 30px;
 }
+
 /* Process Sections */
 .process-sections {
   background-color: var(--secondary-color);
@@ -437,7 +621,7 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin:auto;
+  margin: auto;
 }
 
 .step-image img {
@@ -453,7 +637,7 @@ h2 {
   margin: auto;
   margin-top: 20px;
   letter-spacing: 1px;
-  text-align:center;
+  text-align: center;
 }
 
 .process-step p {
@@ -467,20 +651,20 @@ h2 {
   .process-sections {
     padding: 60px 5%;
   }
-  
+
   .process-section {
     margin-bottom: 60px;
   }
-  
+
   .process-header h2 {
     font-size: 1.6rem;
   }
-  
+
   .process-content p {
     font-size: 1rem;
     margin-bottom: 40px;
   }
-  
+
   .process-step {
     min-width: 100%;
     padding: 25px;
@@ -492,6 +676,7 @@ h2 {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   border-color: rgba(255, 255, 255, 0.2);
 }
+
 .process-steps {
   display: flex;
   flex-direction: row;
@@ -511,6 +696,7 @@ h2 {
 .inventory-section {
   background-color: var(--secondary-color);
 }
+
 /* Stats Section */
 .stats-section {
   background: linear-gradient(135deg, var(--secondary-color) 0%, #1a1a1a 100%);
@@ -574,11 +760,13 @@ h2 {
   color: rgba(255, 255, 255, 0.8);
   font-size: 1.1rem;
 }
-.stat-image{
+
+.stat-image {
   width: 100%;
   align-items: center;
 }
-.stat-image img{
+
+.stat-image img {
   width: 90px;
   height: 90px;
   object-fit: contain;
@@ -835,19 +1023,21 @@ h2 {
     min-width: 150px;
     padding: 20px 15px;
   }
-  
+
   .stat-number {
     font-size: 2rem;
   }
-  
+
   .stat-label {
     font-size: 0.9rem;
   }
-  
-  .service-card, .style-card {
+
+  .service-card,
+  .style-card {
     min-width: 100%;
   }
 }
+
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -855,16 +1045,6 @@ h2 {
   margin-bottom: 40px;
 }
 
-.view-all {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-/* Sell Section */
 .sell-section {
   display: flex;
   flex-wrap: wrap;
@@ -1165,13 +1345,6 @@ h2 {
   margin-bottom: 30px;
 }
 
-.filter-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 15px;
-}
-
 .filter-btn {
   padding: 8px 12px;
   font-size: 0.85rem;
@@ -1285,7 +1458,6 @@ h2 {
 input[type="range"] {
   width: 50%;
   margin: 10px 0;
-  -webkit-appearance: none;
   height: 4px;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 2px;
@@ -1325,13 +1497,6 @@ input[type="range"]::-webkit-slider-thumb {
   .filters-container {
     position: relative;
     margin-bottom: 30px;
-  }
-
-  .filter-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
   }
 
   .filter-btn {
@@ -1447,7 +1612,6 @@ input[type="range"]::-webkit-slider-thumb {
   input[type="range"] {
     width: 100%;
     margin: 10px 0;
-    -webkit-appearance: none;
     height: 4px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 2px;
@@ -1632,7 +1796,8 @@ input[type="range"]::-webkit-slider-thumb {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center; /* optional, vertically centers the text */
+  align-items: center;
+  /* optional, vertically centers the text */
   margin-top: 50px;
   padding-top: 20px;
   width: 100%;
@@ -1781,19 +1946,6 @@ input[type="range"]::-webkit-slider-thumb {
     font-size: 2.5rem;
   }
 
-  .bicycle-text {
-    top: 20%;
-    font-size: 25vw;
-  }
-
-  .bike-slider {
-    bottom: -40px;
-  }
-
-  .bike-slides img {
-    width: 25%;
-  }
-
   @keyframes slideBikes {
     0% {
       transform: translateX(0%);
@@ -1811,10 +1963,6 @@ input[type="range"]::-webkit-slider-thumb {
   h2 {
     font-size: 2rem;
     margin-bottom: 40px;
-  }
-
-  .feature {
-    min-width: 100%;
   }
 
   .testimonial {

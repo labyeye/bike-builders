@@ -122,6 +122,7 @@
       </div>
     </div>
     <div class="hero-section" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="background-image"></div>
       <div class="overlay">
         <div class="rectangle"></div>
         <div class="gradient"></div>
@@ -169,53 +170,42 @@
       </nav>
 
       <div class="hero-content">
-        <h1
-          itemprop="headline"
-          data-translate="Get Your Dream Bike at Unbeatable Prices"
-        >
-          Get Your Dream Bike at Unbeatable Prices
+        <h1 itemprop="headline">
+          <span class="hero-line" data-translate="Get Your">Get Your</span>
+          <span class="hero-line highlight" data-translate="Dream Bike"
+            >Dream Bike</span
+          >
+          <span class="hero-line subtitle" data-translate="Ride Into Freedom with the Bike You've Always Wanted"
+            >Ride Into Freedom with the Bike You've Always Wanted</span
+          >
         </h1>
-        <meta
-          itemprop="description"
-          content="Certified pre-owned bikes with 150-point inspection and warranty"
-        />
-      </div>
 
-      <div class="bicycle-text" aria-hidden="true" data-translate="Bike">
-        Bike
-      </div>
-      <div class="bike-slider">
-        <div class="bike-slides">
-          <img
-            src="https://cdn.bajajauto.com/-/media/images/ktm/ktm-bikes/orp/390-duke-orange-booking/00.ashx"
-            alt="KTM Duke 390 motorcycle"
-            loading="lazy"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/664x374/n/cw/ec/95229/ninja-h2r-right-side-view-2.png?isig=0&q=80"
-            alt="Kawasaki Ninja H2R sports bike"
-            loading="lazy"
-          />
-          <img
-            src="https://images.tractorjunction.com/ducati_panigale_v2_3_0f62d9704b.webp?format=webp&quality=40"
-            alt="Ducati Panigale V2 superbike"
-            loading="lazy"
-          />
-          <img
-            src="https://awtobazar.in/wp-content/uploads/2024/05/Bajaj-Pulsar-NS400Z.png"
-            alt="Bajaj Pulsar NS400Z"
-            loading="lazy"
-          />
-          <img
-            src="https://images.tractorjunction.com/6_Hayabusa_a5e71b9068.png?format=webp&quality=40"
-            alt="Suzuki Hayabusa motorcycle"
-            loading="lazy"
-          />
-          <img
-            src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/49656/continental-gt-right-side-view-12.png?isig=0"
-            alt="Royal Enfield Continental GT 650"
-            loading="lazy"
-          />
+        <div class="search-container">
+          <form action="inventory.html" method="get">
+            <input
+              type="text"
+              placeholder="Search your bike..."
+              aria-label="Search for bikes"
+              name="search"
+              class="search-input"
+            />
+            <button type="submit" class="search-button" aria-label="Search">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -573,7 +563,6 @@
         </div>
       </div>
 
-      <!-- How to Sell Section -->
       <div class="process-section sell-process">
         <div class="process-header">
           <h2 data-translate="HOW TO SELL YOUR USED BIKE">
@@ -859,12 +848,7 @@
         >
           <h3>Contact Us</h3>
           <p itemprop="streetAddress">
-            <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Kanhauli
-            Naka-2, Musahri,
-          </p>
-          <p itemprop="addressLocality">Muzaffarpur,</p>
-          <p itemprop="addressRegion">
-            Bihar <span itemprop="postalCode">842001</span>
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i> Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002
           </p>
           <p>
             <i class="fas fa-phone" aria-hidden="true"></i>
@@ -1036,8 +1020,7 @@
           "Get the Quote": "Get the Quote",
           "Choose your preferred language": "Choose your preferred language",
 
-          "Get Your Dream Bike at Unbeatable Prices":
-            "Get Your Dream Bike at Unbeatable Prices",
+          "Get Your Dream Bike": "Get Your Dream Bike",
           Bike: "Bike",
 
           "Bikes Sold": "Bikes Sold",
@@ -1153,8 +1136,7 @@
           "Get the Quote": "कोटेशन प्राप्त करें",
           "Choose your preferred language": "अपनी पसंदीदा भाषा चुनें",
 
-          "Get Your Dream Bike at Unbeatable Prices":
-            "अपनी सपनों की बाइक बेजोड़ कीमतों पर पाएं",
+          "Get Your Dream Bike": "अपनी सपनों की बाइक बेजोड़ कीमतों पर पाएं",
           Bike: "बाइक",
 
           "Bikes Sold": "बाइक बिक चुकी हैं",
@@ -1348,7 +1330,6 @@
           });
         });
 
-
         const updateMobileMenu = () => {
           const mobileMenu = document.querySelector(".mobile-menu");
           if (mobileMenu) {
@@ -1368,5 +1349,23 @@
         setTimeout(updateMobileMenu, 500);
       });
     </script>
+    <div class="floating-buttons">
+      <a
+        href="https://wa.me/918210283582"
+        class="floating-btn whatsapp-btn"
+        data-tooltip="Chat on WhatsApp"
+        aria-label="Chat on WhatsApp"
+      >
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a
+        href="tel:+918210283582"
+        class="floating-btn call-btn"
+        data-tooltip="Call Us"
+        aria-label="Call Us"
+      >
+        <i class="fas fa-phone"></i>
+      </a>
+    </div>
   </body>
 </html>
