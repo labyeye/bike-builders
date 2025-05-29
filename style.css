@@ -50,7 +50,11 @@
 .call-btn {
   background-color: var(--primary-color);
   text-decoration: none;
+}
 
+.youtube-btn {
+  background-color: white;
+  text-decoration: none;
 }
 
 .floating-btn::after {
@@ -440,32 +444,6 @@ body {
   z-index: 1;
 }
 
-.hero-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-
-.hero-slide.active {
-  opacity: 1;
-}
-
-.hero-slide::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle at center,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%);
-}
-
-/* Slider Navigation Dots */
 .slider-dots {
   position: absolute;
   bottom: 30px;
@@ -476,21 +454,6 @@ body {
   z-index: 10;
 }
 
-.slider-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.5);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.slider-dot.active {
-  background-color: var(--primary-color);
-  transform: scale(1.2);
-}
-
-/* Adjust floating buttons position when dots are present */
 .floating-buttons {
   bottom: 70px;
 }
@@ -684,6 +647,7 @@ body {
   margin-left: 10px;
   margin-top: -15px;
 }
+
 @media only screen and (max-width: 768px) {
   .hero-line {
     display: block;
@@ -693,14 +657,16 @@ body {
     -webkit-text-fill-color: transparent;
     font-family: "Segoe UI", Helvetica, sans-serif;
     opacity: 0;
-    transform: translateY(20px); /* Fixed typo '2 0px' */
+    transform: translateY(20px);
+    /* Fixed typo '2 0px' */
     animation: fadeInUp 2.8s ease forwards;
-    font-size: 2rem; 
+    font-size: 2rem;
     text-align: center;
   }
 
   .hero-line.highlight {
-    font-size: 4rem; /* Reduced from 9rem */
+    font-size: 4rem;
+    /* Reduced from 9rem */
     font-weight: 700;
     margin-top: -10px;
     background: linear-gradient(188deg, var(--primary-color) 0%, #ff6b4a 100%);
@@ -911,7 +877,6 @@ h2 {
   gap: 30px;
 }
 
-/* Process Sections */
 .process-sections {
   background-color: white;
   padding: 80px 5%;
@@ -997,6 +962,7 @@ h2 {
   justify-content: center;
   margin: auto;
 }
+
 .step-image-2 {
   width: 190px;
   height: 190px;
@@ -1006,12 +972,14 @@ h2 {
   justify-content: center;
   margin: auto;
 }
+
 .step-image-2 img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
+
 .step-image img {
   width: 100%;
   height: 100%;
@@ -1353,8 +1321,8 @@ h2 {
 
 .style-card {
   flex: 1;
-  min-width: 250px;
-  max-width: 280px;
+  min-width: 220px;
+  max-width: 250px;
   border-radius: 15px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.05);
@@ -2115,7 +2083,17 @@ input[type="range"]::-webkit-slider-thumb {
   animation-delay: 0.5s;
 }
 
-/* Footer */
+.style-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+
+}
+
+.style-card {
+  cursor: pointer;
+}
+
 .footer {
   background-color: var(--secondary-color);
   color: white;
@@ -2165,6 +2143,27 @@ input[type="range"]::-webkit-slider-thumb {
 .footer-section ul li a:hover {
   color: white;
 }
+.hero-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-slide::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.95) 100%);
+}
 
 .social-icons {
   display: flex;
@@ -2181,6 +2180,7 @@ input[type="range"]::-webkit-slider-thumb {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-decoration: none;
   transition: background-color 0.3s;
 }
 
@@ -2259,6 +2259,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: 30px;
   width: 100%;
 }
+
 /* Mobile Responsive Adjustments for Hero Section */
 @media only screen and (max-width: 768px) {
   .hero-section {
@@ -2324,7 +2325,7 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   .floating-buttons {
-    bottom: 20px;
+    bottom: 130px;
     right: 20px;
   }
 
@@ -2361,6 +2362,7 @@ input[type="range"]::-webkit-slider-thumb {
     right: 5%;
   }
 }
+
 /* Responsive Styles */
 @media (max-width: 1200px) {
   .hero-content h1 {

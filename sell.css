@@ -1,3 +1,4 @@
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -23,7 +24,8 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  flex:1'
+  flex: 1'
+
 }
 
 .sell-form h3 {
@@ -159,19 +161,19 @@
     flex-direction: column;
     gap: 30px;
   }
-  
+
   .sell-content h2 {
     text-align: center;
   }
-  
+
   .sell-content p {
     text-align: center;
   }
-  
+
   .sell-steps {
     align-items: center;
   }
-  
+
   .sell-form-container {
     width: 90%;
     padding: 20px;
@@ -182,13 +184,13 @@
   .sell-form h3 {
     font-size: 1.3rem;
   }
-  
+
   .form-group input,
   .form-group select,
   .form-group textarea {
     padding: 10px 12px;
   }
-  
+
   .submit-btn {
     padding: 12px 20px;
     font-size: 1rem;
