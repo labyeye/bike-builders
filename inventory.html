@@ -433,123 +433,125 @@
     </footer>
     <script>
       // Replace your existing script section with this fixed version
-document.addEventListener("DOMContentLoaded", function () {
-  let allBikes = [];
-  let currentFilters = {
-    brand: null,
-    minPrice: 0,
-    maxPrice: Infinity,
-    minYear: 2015,
-    maxYear: 2024,
-    minKm: 0,
-    maxKm: 50000,
-    owner: null,
-    fuel: null,
-  };
-  let currentSort = "default"; // Declare this ONCE at the top level
+      document.addEventListener("DOMContentLoaded", function () {
+        let allBikes = [];
+        let currentFilters = {
+          brand: null,
+          minPrice: 0,
+          maxPrice: Infinity,
+          minYear: 2015,
+          maxYear: 2024,
+          minKm: 0,
+          maxKm: 50000,
+          owner: null,
+          fuel: null,
+        };
+        let currentSort = "default"; // Declare this ONCE at the top level
 
-  function loadBikes() {
-    fetch("https://bike-builders.onrender.com/api/bikes")
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+        function loadBikes() {
+          fetch("https://bike-builders.onrender.com/api/bikes")
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error("Network response was not ok");
+              }
+              return response.json();
+            })
+            .then((bikes) => {
+              allBikes = bikes;
+              if (bikes.length === 0) {
+                showNoBikesMessage();
+              } else {
+                applyAllFilters();
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching bikes:", error);
+              showErrorMessage();
+            });
         }
-        return response.json();
-      })
-      .then((bikes) => {
-        allBikes = bikes;
-        if (bikes.length === 0) {
-          showNoBikesMessage();
-        } else {
-          applyAllFilters();
+
+        // Initialize sort dropdown function - moved to top level
+        function initSortDropdown() {
+          const sortBtn = document.querySelector(".sort-btn");
+          const sortOptions = document.querySelector(".sort-options");
+
+          if (!sortBtn || !sortOptions) return; // Safety check
+
+          sortBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            sortOptions.style.display =
+              sortOptions.style.display === "block" ? "none" : "block";
+          });
+
+          document.addEventListener("click", function (e) {
+            if (!e.target.closest(".sort-dropdown")) {
+              sortOptions.style.display = "none";
+            }
+          });
+
+          document.querySelectorAll(".sort-option").forEach((option) => {
+            option.addEventListener("click", function () {
+              const sortType = this.dataset.sort;
+              currentSort = sortType; // This now references the top-level variable
+
+              // Update the sort button text
+              document.getElementById(
+                "sort-text"
+              ).textContent = `Sort: ${this.textContent}`;
+
+              // Close the dropdown
+              sortOptions.style.display = "none";
+
+              // Apply filters with new sorting
+              applyAllFilters();
+            });
+          });
         }
-      })
-      .catch((error) => {
-        console.error("Error fetching bikes:", error);
-        showErrorMessage();
-      });
-  }
 
-  // Initialize sort dropdown function - moved to top level
-  function initSortDropdown() {
-    const sortBtn = document.querySelector(".sort-btn");
-    const sortOptions = document.querySelector(".sort-options");
+        function displayBikes(bikes) {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = "";
 
-    if (!sortBtn || !sortOptions) return; // Safety check
+          if (bikes.length === 0) {
+            showNoBikesMessage();
+            return;
+          }
 
-    sortBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      sortOptions.style.display =
-        sortOptions.style.display === "block" ? "none" : "block";
-    });
+          bikes.forEach((bike) => {
+            const bikeCard = createBikeCard(bike);
+            bikeGrid.appendChild(bikeCard);
+          });
 
-    document.addEventListener("click", function (e) {
-      if (!e.target.closest(".sort-dropdown")) {
-        sortOptions.style.display = "none";
-      }
-    });
+          // Add click event listeners to bike cards for popup
+          addBikeCardClickListeners();
+        }
 
-    document.querySelectorAll(".sort-option").forEach((option) => {
-      option.addEventListener("click", function () {
-        const sortType = this.dataset.sort;
-        currentSort = sortType; // This now references the top-level variable
-        
-        // Update the sort button text
-        document.getElementById("sort-text").textContent = `Sort: ${this.textContent}`;
-        
-        // Close the dropdown
-        sortOptions.style.display = "none";
-        
-        // Apply filters with new sorting
-        applyAllFilters();
-      });
-    });
-  }
+        // Create individual bike card
+        function createBikeCard(bike) {
+          const bikeCard = document.createElement("div");
+          bikeCard.className = "bike-card";
 
-  function displayBikes(bikes) {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = "";
+          // Set data attributes for filtering
+          bikeCard.dataset.brand = bike.brand || "";
+          bikeCard.dataset.price = bike.price || 0;
+          bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
+          bikeCard.dataset.km = bike.kmDriven || 0;
+          bikeCard.dataset.owner = bike.ownership || "1";
+          bikeCard.dataset.fuel = bike.fuelType || "Petrol";
 
-    if (bikes.length === 0) {
-      showNoBikesMessage();
-      return;
-    }
+          // Store bike data for popup
+          bikeCard.dataset.bikeData = JSON.stringify(bike);
 
-    bikes.forEach((bike) => {
-      const bikeCard = createBikeCard(bike);
-      bikeGrid.appendChild(bikeCard);
-    });
+          const statusClass =
+            bike.status === "Available"
+              ? "status-available"
+              : bike.status === "Sold Out"
+              ? "status-sold"
+              : bike.status === "Coming Soon"
+              ? "status-coming-soon"
+              : "status-available";
 
-    // Add click event listeners to bike cards for popup
-    addBikeCardClickListeners();
-  }
-
-  // Create individual bike card
-  function createBikeCard(bike) {
-    const bikeCard = document.createElement("div");
-    bikeCard.className = "bike-card";
-
-    // Set data attributes for filtering
-    bikeCard.dataset.brand = bike.brand || "";
-    bikeCard.dataset.price = bike.price || 0;
-    bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
-    bikeCard.dataset.km = bike.kmDriven || 0;
-    bikeCard.dataset.owner = bike.ownership || "1";
-    bikeCard.dataset.fuel = bike.fuelType || "Petrol";
-
-    // Store bike data for popup
-    bikeCard.dataset.bikeData = JSON.stringify(bike);
-
-    const statusClass =
-      bike.status === "Available"
-        ? "status-available"
-        : bike.status === "Sold Out"
-        ? "status-sold"
-        : bike.status === "Coming Soon"
-        ? "status-coming-soon"
-        : "status-available";
-
-    bikeCard.innerHTML = `
+          bikeCard.innerHTML = `
       <div class="image-container">
         <img src="${
           bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
@@ -557,8 +559,8 @@ document.addEventListener("DOMContentLoaded", function () {
              alt="${bike.brand} ${bike.model}" 
              onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
         <div class="status-badge ${statusClass}">${
-          bike.status || "Available"
-        }</div>
+            bike.status || "Available"
+          }</div>
       </div>
       <div class="card-content">
         <h3>${bike.brand} ${bike.model}</h3>
@@ -603,119 +605,119 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
       </div>
     `;
-    return bikeCard;
-  }
+          return bikeCard;
+        }
 
-  // Helper function to format ownership
-  function formatOwnership(owner) {
-    if (owner === "1") return "1st Owner";
-    if (owner === "2") return "2nd Owner";
-    if (owner === "3") return "3+ Owner";
-    return owner;
-  }
+        // Helper function to format ownership
+        function formatOwnership(owner) {
+          if (owner === "1") return "1st Owner";
+          if (owner === "2") return "2nd Owner";
+          if (owner === "3") return "3+ Owner";
+          return owner;
+        }
 
-  function addBikeCardClickListeners() {
-    document.querySelectorAll(".bike-card").forEach((card) => {
-      const viewDetailsBtn = card.querySelector(".view-details-btn");
-      const contactBtn = card.querySelector(".contact-btn");
+        function addBikeCardClickListeners() {
+          document.querySelectorAll(".bike-card").forEach((card) => {
+            const viewDetailsBtn = card.querySelector(".view-details-btn");
+            const contactBtn = card.querySelector(".contact-btn");
 
-      if (viewDetailsBtn && !viewDetailsBtn.disabled) {
-        viewDetailsBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          const bikeData = JSON.parse(card.dataset.bikeData);
-          showBikePopup(bikeData);
-        });
-      }
+            if (viewDetailsBtn && !viewDetailsBtn.disabled) {
+              viewDetailsBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const bikeData = JSON.parse(card.dataset.bikeData);
+                showBikePopup(bikeData);
+              });
+            }
 
-      if (contactBtn && !contactBtn.disabled) {
-        contactBtn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          window.location.href = "contact.html";
-        });
-      }
-    });
-  }
+            if (contactBtn && !contactBtn.disabled) {
+              contactBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.location.href = "contact.html";
+              });
+            }
+          });
+        }
 
-  // Show bike details popup
-  function showBikePopup(bike) {
-    const popup = document.querySelector(".bike-popup-overlay");
+        // Show bike details popup
+        function showBikePopup(bike) {
+          const popup = document.querySelector(".bike-popup-overlay");
 
-    // Populate popup with bike data
-    document.getElementById("popup-bike-image").src =
-      bike.imageUrl ||
-      "https://via.placeholder.com/400x300?text=No+Image";
-    document.getElementById(
-      "popup-bike-title"
-    ).textContent = `${bike.brand} ${bike.model}`;
-    document.getElementById(
-      "popup-bike-model"
-    ).textContent = `${bike.modelYear} Model`;
-    document.getElementById("popup-bike-km").textContent = `${(
-      bike.kmDriven || 0
-    ).toLocaleString()} km`;
-    document.getElementById("popup-bike-owner").textContent =
-      formatOwnership(bike.ownership || "1");
-    document.getElementById("popup-bike-fuel").textContent =
-      bike.fuelType || "Petrol";
-    document.getElementById("popup-bike-age").textContent = formatAge(
-      bike.daysOld || 0
-    );
-    document.getElementById("popup-bike-price").textContent = `₹${(
-      bike.price || 0
-    ).toLocaleString()}`;
-    document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
-      bike.downPayment || 0
-    ).toLocaleString()} | EMI: ₹${Math.round(
-      ((bike.price || 0) - (bike.downPayment || 0)) / 36
-    ).toLocaleString()}/month`;
+          // Populate popup with bike data
+          document.getElementById("popup-bike-image").src =
+            bike.imageUrl ||
+            "https://via.placeholder.com/400x300?text=No+Image";
+          document.getElementById(
+            "popup-bike-title"
+          ).textContent = `${bike.brand} ${bike.model}`;
+          document.getElementById(
+            "popup-bike-model"
+          ).textContent = `${bike.modelYear} Model`;
+          document.getElementById("popup-bike-km").textContent = `${(
+            bike.kmDriven || 0
+          ).toLocaleString()} km`;
+          document.getElementById("popup-bike-owner").textContent =
+            formatOwnership(bike.ownership || "1");
+          document.getElementById("popup-bike-fuel").textContent =
+            bike.fuelType || "Petrol";
+          document.getElementById("popup-bike-age").textContent = formatAge(
+            bike.daysOld || 0
+          );
+          document.getElementById("popup-bike-price").textContent = `₹${(
+            bike.price || 0
+          ).toLocaleString()}`;
+          document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
+            bike.downPayment || 0
+          ).toLocaleString()} | EMI: ₹${Math.round(
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36
+          ).toLocaleString()}/month`;
 
-    // Show popup
-    popup.classList.add("active");
-    document.body.style.overflow = "hidden";
-  }
+          // Show popup
+          popup.classList.add("active");
+          document.body.style.overflow = "hidden";
+        }
 
-  // Close popup functionality
-  function initPopupClose() {
-    const popup = document.querySelector(".bike-popup-overlay");
-    const closeBtn = document.querySelector(".close-popup");
+        // Close popup functionality
+        function initPopupClose() {
+          const popup = document.querySelector(".bike-popup-overlay");
+          const closeBtn = document.querySelector(".close-popup");
 
-    closeBtn.addEventListener("click", closePopup);
+          closeBtn.addEventListener("click", closePopup);
 
-    popup.addEventListener("click", (e) => {
-      if (e.target === popup) {
-        closePopup();
-      }
-    });
+          popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+              closePopup();
+            }
+          });
 
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        closePopup();
-      }
-    });
-  }
+          document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+              closePopup();
+            }
+          });
+        }
 
-  function closePopup() {
-    const popup = document.querySelector(".bike-popup-overlay");
-    popup.classList.remove("active");
-    document.body.style.overflow = "";
-  }
+        function closePopup() {
+          const popup = document.querySelector(".bike-popup-overlay");
+          popup.classList.remove("active");
+          document.body.style.overflow = "";
+        }
 
-  // Show no bikes message
-  function showNoBikesMessage() {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = `
+        // Show no bikes message
+        function showNoBikesMessage() {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = `
       <div class="no-bikes-message" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
         <i class="fas fa-motorcycle" style="font-size: 4rem; color: #ccc; margin-bottom: 20px;"></i>
         <h3 style="color: #666; margin-bottom: 10px;">No Bikes Available</h3>
         <p style="color: #999;">New bikes coming soon! Check back later.</p>
       </div>
     `;
-  }
+        }
 
-  // Show error message
-  function showErrorMessage() {
-    const bikeGrid = document.querySelector(".bike-grid");
-    bikeGrid.innerHTML = `
+        // Show error message
+        function showErrorMessage() {
+          const bikeGrid = document.querySelector(".bike-grid");
+          bikeGrid.innerHTML = `
       <div class="error-message" style="grid-column: 1 / -1; text-align: center; padding: 60px 20px;">
         <i class="fas fa-exclamation-triangle" style="font-size: 4rem; color: #ff6b00; margin-bottom: 20px;"></i>
         <h3 style="color: #666; margin-bottom: 10px;">Failed to Load Bikes</h3>
@@ -725,488 +727,701 @@ document.addEventListener("DOMContentLoaded", function () {
         </button>
       </div>
     `;
-  }
-
-  // Update bike count
-  function updateBikeCount(count) {
-    document.getElementById("filtered-count").textContent = `${count} ${
-      count === 1 ? "Bike" : "Bikes"
-    } Available`;
-  }
-
-  // Filter functionality
-  function initFilters() {
-    const filterButtons = document.querySelectorAll(".filter-btn");
-    const filterDropdowns = document.querySelectorAll(".filter-dropdown");
-
-    // Toggle filter dropdowns
-    filterButtons.forEach((button) => {
-      button.addEventListener("click", function (e) {
-        e.stopPropagation();
-        const filterType = this.dataset.filter;
-        const dropdown = document.getElementById(
-          `${filterType}-dropdown`
-        );
-
-        // Close all dropdowns first
-        filterDropdowns.forEach((d) => {
-          d.style.display = "none";
-        });
-        filterButtons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
-
-        // If "All Bikes" was clicked
-        if (filterType === "all") {
-          resetFilters();
-          displayBikes(allBikes);
-          updateBikeCount(allBikes.length);
-          return;
         }
 
-        // Toggle the clicked dropdown
-        if (dropdown.style.display === "block") {
-          dropdown.style.display = "none";
-          this.classList.remove("active");
-        } else {
-          dropdown.style.display = "block";
-          this.classList.add("active");
-        }
-      });
-    });
-
-    // Close dropdowns when clicking outside
-    document.addEventListener("click", function (e) {
-      if (
-        !e.target.closest(".filter-btn") &&
-        !e.target.closest(".filter-dropdown")
-      ) {
-        filterDropdowns.forEach((dropdown) => {
-          dropdown.style.display = "none";
-        });
-        filterButtons.forEach((btn) => {
-          btn.classList.remove("active");
-        });
-      }
-    });
-
-    // Initialize specific filters
-    initPriceFilter();
-    initBrandFilter();
-    initYearFilter();
-    initKmFilter();
-    initOwnerFilter();
-    initFuelFilter();
-    initBrandLogos();
-  }
-
-  function initBrandLogos() {
-    document.querySelectorAll(".brand-logo").forEach((logo) => {
-      logo.addEventListener("click", function () {
-        const brand = this.dataset.brand;
-        currentFilters.brand = brand;
-
-        // Clear any existing search term from URL
-        if (window.location.search.includes("search=")) {
-          window.history.pushState({}, "", "inventory.html");
+        // Update bike count
+        function updateBikeCount(count) {
+          document.getElementById("filtered-count").textContent = `${count} ${
+            count === 1 ? "Bike" : "Bikes"
+          } Available`;
         }
 
-        applyAllFilters();
+        // Filter functionality
+        function initFilters() {
+          const filterButtons = document.querySelectorAll(".filter-btn");
+          const filterDropdowns = document.querySelectorAll(".filter-dropdown");
 
-        // Update UI
-        document.querySelectorAll(".brand-logo").forEach((l) => {
-          l.classList.remove("active");
-        });
-        this.classList.add("active");
+          // Toggle filter dropdowns
+          filterButtons.forEach((button) => {
+            button.addEventListener("click", function (e) {
+              e.stopPropagation();
+              const filterType = this.dataset.filter;
+              const dropdown = document.getElementById(
+                `${filterType}-dropdown`
+              );
 
-        // Update brand filter button text
-        const brandBtn = document.querySelector('[data-filter="brand"]');
-        brandBtn.innerHTML = `${brand} <i class="fas fa-chevron-down"></i>`;
-      });
-    });
-  }
+              // Close all dropdowns first
+              filterDropdowns.forEach((d) => {
+                d.style.display = "none";
+              });
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
 
-  // Price filter
-  function initPriceFilter() {
-    const minPriceInput = document.getElementById("min-price");
-    const maxPriceInput = document.getElementById("max-price");
+              // If "All Bikes" was clicked
+              if (filterType === "all") {
+                resetFilters();
+                displayBikes(allBikes);
+                updateBikeCount(allBikes.length);
+                return;
+              }
 
-    if (minPriceInput && maxPriceInput) {
-      minPriceInput.addEventListener("input", applyPriceFilter);
-      maxPriceInput.addEventListener("input", applyPriceFilter);
+              // Toggle the clicked dropdown
+              if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+                this.classList.remove("active");
+              } else {
+                dropdown.style.display = "block";
+                this.classList.add("active");
+              }
+            });
+          });
 
-      document.querySelectorAll(".price-preset").forEach((preset) => {
-        preset.addEventListener("click", function () {
-          minPriceInput.value = this.dataset.min;
-          maxPriceInput.value = this.dataset.max || "";
-          applyPriceFilter();
-        });
-      });
-    }
-  }
-
-  // Initialize search functionality
-  function initSearch() {
-    const searchInput = document.getElementById("inventory-search");
-    const searchBtn = document.getElementById("search-btn");
-
-    // Handle search button click
-    searchBtn.addEventListener("click", () => {
-      const searchTerm = searchInput.value.trim();
-      if (searchTerm) {
-        // Update URL with search parameter
-        window.history.pushState(
-          {},
-          "",
-          `inventory.html?search=${encodeURIComponent(searchTerm)}`
-        );
-        applyAllFilters();
-      }
-    });
-
-    searchInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm) {
-          window.history.pushState(
-            {},
-            "",
-            `inventory.html?search=${encodeURIComponent(searchTerm)}`
-          );
-          applyAllFilters();
-        }
-      }
-    });
-
-    // Check for search term in URL on page load
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchTerm = urlParams.get("search");
-    if (searchTerm) {
-      searchInput.value = searchTerm;
-      applyAllFilters();
-    }
-  }
-
-  function applyPriceFilter() {
-    const minPrice =
-      parseInt(document.getElementById("min-price").value) || 0;
-    const maxPrice =
-      parseInt(document.getElementById("max-price").value) || Infinity;
-
-    currentFilters.minPrice = minPrice;
-    currentFilters.maxPrice = maxPrice;
-
-    applyAllFilters();
-  }
-
-  // Brand filter
-  function initBrandFilter() {
-    document
-      .querySelectorAll(".brand-options .filter-option")
-      .forEach((option) => {
-        option.addEventListener("click", function () {
-          const brand = this.dataset.brand;
-          currentFilters.brand =
-            brand === currentFilters.brand ? null : brand;
-          applyAllFilters();
-
-          // Update button text
-          const brandBtn = document.querySelector(
-            '[data-filter="brand"]'
-          );
-          brandBtn.innerHTML = currentFilters.brand
-            ? `${brand} <i class="fas fa-chevron-down"></i>`
-            : `Brand <i class="fas fa-chevron-down"></i>`;
-
-          // Update brand logos
-          document.querySelectorAll(".brand-logo").forEach((logo) => {
-            logo.classList.remove("active");
+          // Close dropdowns when clicking outside
+          document.addEventListener("click", function (e) {
             if (
-              currentFilters.brand &&
-              logo.dataset.brand === currentFilters.brand
+              !e.target.closest(".filter-btn") &&
+              !e.target.closest(".filter-dropdown")
             ) {
-              logo.classList.add("active");
+              filterDropdowns.forEach((dropdown) => {
+                dropdown.style.display = "none";
+              });
+              filterButtons.forEach((btn) => {
+                btn.classList.remove("active");
+              });
             }
           });
-        });
-      });
-  }
 
-  // Year filter
-  function initYearFilter() {
-    const yearMin = document.getElementById("year-min");
-    const yearMax = document.getElementById("year-max");
-    const yearMinValue = document.getElementById("year-min-value");
-    const yearMaxValue = document.getElementById("year-max-value");
+          // Initialize specific filters
+          initPriceFilter();
+          initBrandFilter();
+          initYearFilter();
+          initKmFilter();
+          initOwnerFilter();
+          initFuelFilter();
+          initBrandLogos();
+        }
 
-    if (yearMin && yearMax) {
-      yearMin.addEventListener("input", function () {
-        yearMinValue.textContent = this.value;
-        currentFilters.minYear = parseInt(this.value);
-        applyAllFilters();
-      });
+        function initBrandLogos() {
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.addEventListener("click", function () {
+              const brand = this.dataset.brand;
+              currentFilters.brand = brand;
 
-      yearMax.addEventListener("input", function () {
-        yearMaxValue.textContent = this.value;
-        currentFilters.maxYear = parseInt(this.value);
-        applyAllFilters();
-      });
-    }
-  }
+              // Clear any existing search term from URL
+              if (window.location.search.includes("search=")) {
+                window.history.pushState({}, "", "inventory.html");
+              }
 
-  // KM filter
-  function initKmFilter() {
-    const kmMin = document.getElementById("km-min");
-    const kmMax = document.getElementById("km-max");
-    const kmMinValue = document.getElementById("km-min-value");
-    const kmMaxValue = document.getElementById("km-max-value");
+              applyAllFilters();
 
-    if (kmMin && kmMax) {
-      kmMin.addEventListener("input", function () {
-        kmMinValue.textContent = parseInt(this.value).toLocaleString();
-        currentFilters.minKm = parseInt(this.value);
-        applyAllFilters();
-      });
+              // Update UI
+              document.querySelectorAll(".brand-logo").forEach((l) => {
+                l.classList.remove("active");
+              });
+              this.classList.add("active");
 
-      kmMax.addEventListener("input", function () {
-        kmMaxValue.textContent = parseInt(this.value).toLocaleString();
-        currentFilters.maxKm = parseInt(this.value);
-        applyAllFilters();
-      });
-    }
-  }
+              // Update brand filter button text
+              const brandBtn = document.querySelector('[data-filter="brand"]');
+              brandBtn.innerHTML = `${brand} <i class="fas fa-chevron-down"></i>`;
+            });
+          });
+        }
 
-  // Owner filter
-  function initOwnerFilter() {
-    document
-      .querySelectorAll(".ownership-options .filter-option")
-      .forEach((option) => {
-        option.addEventListener("click", function () {
-          const owner = this.dataset.owner;
-          currentFilters.owner =
-            owner === currentFilters.owner ? null : owner;
-          applyAllFilters();
+        // Price filter
+        function initPriceFilter() {
+          const minPriceInput = document.getElementById("min-price");
+          const maxPriceInput = document.getElementById("max-price");
 
-          // Update button text if needed
-          const ownerBtn = document.querySelector(
-            '[data-filter="owner"]'
-          );
-          if (ownerBtn) {
-            ownerBtn.innerHTML = currentFilters.owner
-              ? `${formatOwnership(
-                  owner
-                )} <i class="fas fa-chevron-down"></i>`
-              : `Ownership <i class="fas fa-chevron-down"></i>`;
+          if (minPriceInput && maxPriceInput) {
+            minPriceInput.addEventListener("input", applyPriceFilter);
+            maxPriceInput.addEventListener("input", applyPriceFilter);
+
+            document.querySelectorAll(".price-preset").forEach((preset) => {
+              preset.addEventListener("click", function () {
+                minPriceInput.value = this.dataset.min;
+                maxPriceInput.value = this.dataset.max || "";
+                applyPriceFilter();
+              });
+            });
           }
-        });
-      });
-  }
+        }
 
-  // Fuel filter
-  function initFuelFilter() {
-    document
-      .querySelectorAll(".fuel-options .filter-option")
-      .forEach((option) => {
-        option.addEventListener("click", function () {
-          const fuel = this.dataset.fuel;
-          currentFilters.fuel =
-            fuel === currentFilters.fuel ? null : fuel;
+        // Initialize search functionality
+        function initSearch() {
+          const searchInput = document.getElementById("inventory-search");
+          const searchBtn = document.getElementById("search-btn");
+
+          // Handle search button click
+          searchBtn.addEventListener("click", () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+              // Update URL with search parameter
+              window.history.pushState(
+                {},
+                "",
+                `inventory.html?search=${encodeURIComponent(searchTerm)}`
+              );
+              applyAllFilters();
+            }
+          });
+
+          searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+              const searchTerm = searchInput.value.trim();
+              if (searchTerm) {
+                window.history.pushState(
+                  {},
+                  "",
+                  `inventory.html?search=${encodeURIComponent(searchTerm)}`
+                );
+                applyAllFilters();
+              }
+            }
+          });
+
+          // Check for search term in URL on page load
+          const urlParams = new URLSearchParams(window.location.search);
+          const searchTerm = urlParams.get("search");
+          if (searchTerm) {
+            searchInput.value = searchTerm;
+            applyAllFilters();
+          }
+        }
+        // Mobile filter functionality
+        function initMobileFilters() {
+          const mobileFilterBtn = document.createElement("button");
+          mobileFilterBtn.className = "mobile-filter-btn";
+          mobileFilterBtn.innerHTML = '<i class="fas fa-filter"></i> Filters';
+
+          // Add the button to the search container
+          const searchContainer = document.querySelector(".search-container");
+          if (searchContainer) {
+            searchContainer.appendChild(mobileFilterBtn);
+          }
+
+          // Mobile filter toggle
+          const mobileFiltersContainer = document.querySelector(
+            ".mobile-filters-container"
+          );
+          const closeFiltersBtn = document.querySelector(".close-filters-btn");
+
+          if (mobileFilterBtn && mobileFiltersContainer && closeFiltersBtn) {
+            mobileFilterBtn.addEventListener("click", function () {
+              mobileFiltersContainer.style.display = "block";
+              document.body.style.overflow = "hidden";
+            });
+
+            closeFiltersBtn.addEventListener("click", function () {
+              mobileFiltersContainer.style.display = "none";
+              document.body.style.overflow = "";
+            });
+
+            mobileFiltersContainer.addEventListener("click", function (e) {
+              if (e.target === mobileFiltersContainer) {
+                mobileFiltersContainer.style.display = "none";
+                document.body.style.overflow = "";
+              }
+            });
+          }
+
+          // Initialize mobile filter controls
+          initMobilePriceFilter();
+          initMobileBrandFilter();
+          initMobileYearFilter();
+          initMobileKmFilter();
+          initMobileOwnerFilter();
+          initMobileFuelFilter();
+        }
+
+        // Mobile price filter
+        function initMobilePriceFilter() {
+          const minPriceInput = document.getElementById("min-price-mobile");
+          const maxPriceInput = document.getElementById("max-price-mobile");
+
+          if (minPriceInput && maxPriceInput) {
+            minPriceInput.addEventListener("input", applyPriceFilterMobile);
+            maxPriceInput.addEventListener("input", applyPriceFilterMobile);
+
+            document
+              .querySelectorAll("#price-dropdown-mobile .price-preset")
+              .forEach((preset) => {
+                preset.addEventListener("click", function () {
+                  minPriceInput.value = this.dataset.min;
+                  maxPriceInput.value = this.dataset.max || "";
+                  applyPriceFilterMobile();
+                });
+              });
+          }
+        }
+
+        function applyPriceFilterMobile() {
+          const minPrice =
+            parseInt(document.getElementById("min-price-mobile").value) || 0;
+          const maxPrice =
+            parseInt(document.getElementById("max-price-mobile").value) ||
+            Infinity;
+
+          currentFilters.minPrice = minPrice;
+          currentFilters.maxPrice = maxPrice;
+
           applyAllFilters();
+          document.querySelector(".mobile-filters-container").style.display =
+            "none";
+          document.body.style.overflow = "";
+        }
 
-          // Update button text if needed
+        // Mobile brand filter
+        function initMobileBrandFilter() {
+          document
+            .querySelectorAll("#brand-dropdown-mobile .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const brand = this.dataset.brand;
+                currentFilters.brand =
+                  brand === currentFilters.brand ? null : brand;
+                applyAllFilters();
+
+                // Update button text
+                const brandBtn = document.querySelector(
+                  '[data-filter="brand"]'
+                );
+                brandBtn.innerHTML = currentFilters.brand
+                  ? `${brand} <i class="fas fa-chevron-down"></i>`
+                  : `Brand <i class="fas fa-chevron-down"></i>`;
+
+                document.querySelector(
+                  ".mobile-filters-container"
+                ).style.display = "none";
+                document.body.style.overflow = "";
+              });
+            });
+        }
+
+        // Mobile year filter
+        function initMobileYearFilter() {
+          const yearMin = document.getElementById("year-min-mobile");
+          const yearMax = document.getElementById("year-max-mobile");
+          const yearMinValue = document.getElementById("year-min-value-mobile");
+          const yearMaxValue = document.getElementById("year-max-value-mobile");
+
+          if (yearMin && yearMax) {
+            yearMin.addEventListener("input", function () {
+              yearMinValue.textContent = this.value;
+              currentFilters.minYear = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            yearMax.addEventListener("input", function () {
+              yearMaxValue.textContent = this.value;
+              currentFilters.maxYear = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // Mobile km filter
+        function initMobileKmFilter() {
+          const kmMin = document.getElementById("km-min-mobile");
+          const kmMax = document.getElementById("km-max-mobile");
+          const kmMinValue = document.getElementById("km-min-value-mobile");
+          const kmMaxValue = document.getElementById("km-max-value-mobile");
+
+          if (kmMin && kmMax) {
+            kmMin.addEventListener("input", function () {
+              kmMinValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.minKm = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            kmMax.addEventListener("input", function () {
+              kmMaxValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.maxKm = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // Mobile owner filter
+        function initMobileOwnerFilter() {
+          document
+            .querySelectorAll("#owner-dropdown-mobile .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const owner = this.dataset.owner;
+                currentFilters.owner =
+                  owner === currentFilters.owner ? null : owner;
+                applyAllFilters();
+
+                // Update button text if needed
+                const ownerBtn = document.querySelector(
+                  '[data-filter="owner"]'
+                );
+                if (ownerBtn) {
+                  ownerBtn.innerHTML = currentFilters.owner
+                    ? `${formatOwnership(
+                        owner
+                      )} <i class="fas fa-chevron-down"></i>`
+                    : `Ownership <i class="fas fa-chevron-down"></i>`;
+                }
+
+                document.querySelector(
+                  ".mobile-filters-container"
+                ).style.display = "none";
+                document.body.style.overflow = "";
+              });
+            });
+        }
+
+        // Mobile fuel filter
+        function initMobileFuelFilter() {
+          document
+            .querySelectorAll("#fuel-dropdown-mobile .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const fuel = this.dataset.fuel;
+                currentFilters.fuel =
+                  fuel === currentFilters.fuel ? null : fuel;
+                applyAllFilters();
+
+                // Update button text if needed
+                const fuelBtn = document.querySelector('[data-filter="fuel"]');
+                if (fuelBtn) {
+                  fuelBtn.innerHTML = currentFilters.fuel
+                    ? `${fuel} <i class="fas fa-chevron-down"></i>`
+                    : `Fuel Type <i class="fas fa-chevron-down"></i>`;
+                }
+
+                document.querySelector(
+                  ".mobile-filters-container"
+                ).style.display = "none";
+                document.body.style.overflow = "";
+              });
+            });
+        }
+
+        function applyPriceFilter() {
+          const minPrice =
+            parseInt(document.getElementById("min-price").value) || 0;
+          const maxPrice =
+            parseInt(document.getElementById("max-price").value) || Infinity;
+
+          currentFilters.minPrice = minPrice;
+          currentFilters.maxPrice = maxPrice;
+
+          applyAllFilters();
+        }
+
+        // Brand filter
+        function initBrandFilter() {
+          document
+            .querySelectorAll(".brand-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const brand = this.dataset.brand;
+                currentFilters.brand =
+                  brand === currentFilters.brand ? null : brand;
+                applyAllFilters();
+
+                // Update button text
+                const brandBtn = document.querySelector(
+                  '[data-filter="brand"]'
+                );
+                brandBtn.innerHTML = currentFilters.brand
+                  ? `${brand} <i class="fas fa-chevron-down"></i>`
+                  : `Brand <i class="fas fa-chevron-down"></i>`;
+
+                // Update brand logos
+                document.querySelectorAll(".brand-logo").forEach((logo) => {
+                  logo.classList.remove("active");
+                  if (
+                    currentFilters.brand &&
+                    logo.dataset.brand === currentFilters.brand
+                  ) {
+                    logo.classList.add("active");
+                  }
+                });
+              });
+            });
+        }
+
+        // Year filter
+        function initYearFilter() {
+          const yearMin = document.getElementById("year-min");
+          const yearMax = document.getElementById("year-max");
+          const yearMinValue = document.getElementById("year-min-value");
+          const yearMaxValue = document.getElementById("year-max-value");
+
+          if (yearMin && yearMax) {
+            yearMin.addEventListener("input", function () {
+              yearMinValue.textContent = this.value;
+              currentFilters.minYear = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            yearMax.addEventListener("input", function () {
+              yearMaxValue.textContent = this.value;
+              currentFilters.maxYear = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // KM filter
+        function initKmFilter() {
+          const kmMin = document.getElementById("km-min");
+          const kmMax = document.getElementById("km-max");
+          const kmMinValue = document.getElementById("km-min-value");
+          const kmMaxValue = document.getElementById("km-max-value");
+
+          if (kmMin && kmMax) {
+            kmMin.addEventListener("input", function () {
+              kmMinValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.minKm = parseInt(this.value);
+              applyAllFilters();
+            });
+
+            kmMax.addEventListener("input", function () {
+              kmMaxValue.textContent = parseInt(this.value).toLocaleString();
+              currentFilters.maxKm = parseInt(this.value);
+              applyAllFilters();
+            });
+          }
+        }
+
+        // Owner filter
+        function initOwnerFilter() {
+          document
+            .querySelectorAll(".ownership-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const owner = this.dataset.owner;
+                currentFilters.owner =
+                  owner === currentFilters.owner ? null : owner;
+                applyAllFilters();
+
+                // Update button text if needed
+                const ownerBtn = document.querySelector(
+                  '[data-filter="owner"]'
+                );
+                if (ownerBtn) {
+                  ownerBtn.innerHTML = currentFilters.owner
+                    ? `${formatOwnership(
+                        owner
+                      )} <i class="fas fa-chevron-down"></i>`
+                    : `Ownership <i class="fas fa-chevron-down"></i>`;
+                }
+              });
+            });
+        }
+
+        // Fuel filter
+        function initFuelFilter() {
+          document
+            .querySelectorAll(".fuel-options .filter-option")
+            .forEach((option) => {
+              option.addEventListener("click", function () {
+                const fuel = this.dataset.fuel;
+                currentFilters.fuel =
+                  fuel === currentFilters.fuel ? null : fuel;
+                applyAllFilters();
+
+                // Update button text if needed
+                const fuelBtn = document.querySelector('[data-filter="fuel"]');
+                if (fuelBtn) {
+                  fuelBtn.innerHTML = currentFilters.fuel
+                    ? `${fuel} <i class="fas fa-chevron-down"></i>`
+                    : `Fuel Type <i class="fas fa-chevron-down"></i>`;
+                }
+              });
+            });
+        }
+
+        function getSearchParam() {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get("search")?.toLowerCase() || "";
+        }
+
+        function applyAllFilters() {
+          const searchTerm = getSearchParam().trim().toLowerCase();
+          const filteredBikes = allBikes.filter((bike) => {
+            if (searchTerm) {
+              const brand = (bike.brand || "").toLowerCase();
+              const model = (bike.model || "").toLowerCase();
+
+              const searchMatch =
+                model.includes(searchTerm) ||
+                `${brand} ${model}`.includes(searchTerm) ||
+                model
+                  .replace(/\s+/g, "")
+                  .includes(searchTerm.replace(/\s+/g, ""));
+
+              if (!searchMatch) return false;
+            }
+            const price = bike.price || 0;
+            const year = bike.modelYear || new Date().getFullYear();
+            const km = bike.kmDriven || 0;
+            const brand = (bike.brand || "").toLowerCase();
+            const owner = bike.ownership || "";
+            const fuel = bike.fuelType || "";
+
+            const priceMatch =
+              price >= currentFilters.minPrice &&
+              price <= currentFilters.maxPrice;
+            const yearMatch =
+              year >= currentFilters.minYear && year <= currentFilters.maxYear;
+            const kmMatch =
+              km >= currentFilters.minKm && km <= currentFilters.maxKm;
+            const brandMatch =
+              !currentFilters.brand ||
+              brand === currentFilters.brand.toLowerCase();
+            const ownerMatch =
+              !currentFilters.owner || owner.includes(currentFilters.owner);
+            const fuelMatch =
+              !currentFilters.fuel || fuel === currentFilters.fuel;
+
+            return (
+              priceMatch &&
+              yearMatch &&
+              kmMatch &&
+              brandMatch &&
+              ownerMatch &&
+              fuelMatch
+            );
+          });
+
+          const sortedBikes = sortBikes(filteredBikes, currentSort);
+          displayBikes(sortedBikes);
+          updateBikeCount(sortedBikes.length);
+
+          if (searchTerm) {
+            showSearchTerm(searchTerm);
+          }
+        }
+
+        function sortBikes(bikes, sortType) {
+          switch (sortType) {
+            case "price-low":
+              return [...bikes].sort((a, b) => (a.price || 0) - (b.price || 0));
+            case "price-high":
+              return [...bikes].sort((a, b) => (b.price || 0) - (a.price || 0));
+            case "year-new":
+              return [...bikes].sort(
+                (a, b) => (b.modelYear || 0) - (a.modelYear || 0)
+              );
+            case "year-old":
+              return [...bikes].sort(
+                (a, b) => (a.modelYear || 0) - (b.modelYear || 0)
+              );
+            default:
+              return bikes; // Default sorting (original order)
+          }
+        }
+
+        function showSearchTerm(term) {
+          const existingDisplay = document.querySelector(
+            ".search-term-display"
+          );
+          if (existingDisplay) {
+            existingDisplay.remove();
+          }
+
+          const searchContainer = document.createElement("div");
+          searchContainer.className = "search-term-display";
+
+          const searchText = document.createElement("span");
+          searchText.textContent = `Showing results for: ${term}`;
+          searchText.className = "search-term-text";
+
+          const clearBtn = document.createElement("button");
+          clearBtn.className = "clear-search-btn";
+          clearBtn.innerHTML = "&times;";
+          clearBtn.title = "Clear search";
+          clearBtn.addEventListener("click", () => {
+            window.location.href = "inventory.html";
+          });
+
+          searchContainer.appendChild(searchText);
+          searchContainer.appendChild(clearBtn);
+
+          const sectionHeader = document.querySelector(".section-header");
+          if (sectionHeader) {
+            sectionHeader.insertBefore(
+              searchContainer,
+              sectionHeader.firstChild
+            );
+          }
+        }
+
+        function resetFilters() {
+          currentFilters = {
+            brand: null,
+            minPrice: 0,
+            maxPrice: Infinity,
+            minYear: 2015,
+            maxYear: 2024,
+            minKm: 0,
+            maxKm: 50000,
+            owner: null,
+            fuel: null,
+          };
+
+          // Reset form inputs
+          document.getElementById("min-price").value = "";
+          document.getElementById("max-price").value = "";
+          document.getElementById("year-min").value = "2015";
+          document.getElementById("year-max").value = "2024";
+          document.getElementById("km-min").value = "0";
+          document.getElementById("km-max").value = "50000";
+
+          // Reset display values
+          document.getElementById("year-min-value").textContent = "2015";
+          document.getElementById("year-max-value").textContent = "2024";
+          document.getElementById("km-min-value").textContent = "0";
+          document.getElementById("km-max-value").textContent = "50,000";
+
+          // Reset all filter button texts
+          const brandBtn = document.querySelector('[data-filter="brand"]');
+          brandBtn.innerHTML = `Brand <i class="fas fa-chevron-down"></i>`;
+
+          const ownerBtn = document.querySelector('[data-filter="owner"]');
+          if (ownerBtn) {
+            ownerBtn.innerHTML = `Ownership <i class="fas fa-chevron-down"></i>`;
+          }
+
           const fuelBtn = document.querySelector('[data-filter="fuel"]');
           if (fuelBtn) {
-            fuelBtn.innerHTML = currentFilters.fuel
-              ? `${fuel} <i class="fas fa-chevron-down"></i>`
-              : `Fuel Type <i class="fas fa-chevron-down"></i>`;
+            fuelBtn.innerHTML = `Fuel Type <i class="fas fa-chevron-down"></i>`;
           }
-        });
+
+          // Reset brand logos
+          document.querySelectorAll(".brand-logo").forEach((logo) => {
+            logo.classList.remove("active");
+          });
+        }
+
+        // Format age for display
+        function formatAge(days) {
+          if (days >= 365) {
+            const years = Math.floor(days / 365);
+            return `${years} year${years > 1 ? "s" : ""}`;
+          } else if (days >= 30) {
+            const months = Math.floor(days / 30);
+            return `${months} month${months > 1 ? "s" : ""}`;
+          } else {
+            return `${days} day${days !== 1 ? "s" : ""}`;
+          }
+        }
+
+        // Initialize everything
+        loadBikes();
+        initFilters();
+        initPopupClose();
+        initSortDropdown(); // Now this will work properly
+        initSearch(); // Initialize search functionality
+        initMobileFilters(); // Add this line
+
       });
-  }
-
-  function getSearchParam() {
-    const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("search")?.toLowerCase() || "";
-  }
-
-  function applyAllFilters() {
-    const searchTerm = getSearchParam().trim().toLowerCase();
-    const filteredBikes = allBikes.filter((bike) => {
-      if (searchTerm) {
-        const brand = (bike.brand || "").toLowerCase();
-        const model = (bike.model || "").toLowerCase();
-
-        const searchMatch =
-          model.includes(searchTerm) ||
-          `${brand} ${model}`.includes(searchTerm) ||
-          model
-            .replace(/\s+/g, "")
-            .includes(searchTerm.replace(/\s+/g, ""));
-
-        if (!searchMatch) return false;
-      }
-      const price = bike.price || 0;
-      const year = bike.modelYear || new Date().getFullYear();
-      const km = bike.kmDriven || 0;
-      const brand = (bike.brand || "").toLowerCase();
-      const owner = bike.ownership || "";
-      const fuel = bike.fuelType || "";
-
-      const priceMatch =
-        price >= currentFilters.minPrice &&
-        price <= currentFilters.maxPrice;
-      const yearMatch =
-        year >= currentFilters.minYear && year <= currentFilters.maxYear;
-      const kmMatch =
-        km >= currentFilters.minKm && km <= currentFilters.maxKm;
-      const brandMatch =
-        !currentFilters.brand ||
-        brand === currentFilters.brand.toLowerCase();
-      const ownerMatch =
-        !currentFilters.owner || owner.includes(currentFilters.owner);
-      const fuelMatch =
-        !currentFilters.fuel || fuel === currentFilters.fuel;
-
-      return (
-        priceMatch &&
-        yearMatch &&
-        kmMatch &&
-        brandMatch &&
-        ownerMatch &&
-        fuelMatch
-      );
-    });
-    
-    const sortedBikes = sortBikes(filteredBikes, currentSort);
-    displayBikes(sortedBikes);
-    updateBikeCount(sortedBikes.length);
-
-    if (searchTerm) {
-      showSearchTerm(searchTerm);
-    }
-  }
-
-  function sortBikes(bikes, sortType) {
-    switch (sortType) {
-      case "price-low":
-        return [...bikes].sort((a, b) => (a.price || 0) - (b.price || 0));
-      case "price-high":
-        return [...bikes].sort((a, b) => (b.price || 0) - (a.price || 0));
-      case "year-new":
-        return [...bikes].sort(
-          (a, b) => (b.modelYear || 0) - (a.modelYear || 0)
-        );
-      case "year-old":
-        return [...bikes].sort(
-          (a, b) => (a.modelYear || 0) - (b.modelYear || 0)
-        );
-      default:
-        return bikes; // Default sorting (original order)
-    }
-  }
-
-  function showSearchTerm(term) {
-    const existingDisplay = document.querySelector(
-      ".search-term-display"
-    );
-    if (existingDisplay) {
-      existingDisplay.remove();
-    }
-
-    const searchContainer = document.createElement("div");
-    searchContainer.className = "search-term-display";
-
-    const searchText = document.createElement("span");
-    searchText.textContent = `Showing results for: ${term}`;
-    searchText.className = "search-term-text";
-
-    const clearBtn = document.createElement("button");
-    clearBtn.className = "clear-search-btn";
-    clearBtn.innerHTML = "&times;";
-    clearBtn.title = "Clear search";
-    clearBtn.addEventListener("click", () => {
-      window.location.href = "inventory.html";
-    });
-
-    searchContainer.appendChild(searchText);
-    searchContainer.appendChild(clearBtn);
-
-    const sectionHeader = document.querySelector(".section-header");
-    if (sectionHeader) {
-      sectionHeader.insertBefore(
-        searchContainer,
-        sectionHeader.firstChild
-      );
-    }
-  }
-
-  function resetFilters() {
-    currentFilters = {
-      brand: null,
-      minPrice: 0,
-      maxPrice: Infinity,
-      minYear: 2015,
-      maxYear: 2024,
-      minKm: 0,
-      maxKm: 50000,
-      owner: null,
-      fuel: null,
-    };
-
-    // Reset form inputs
-    document.getElementById("min-price").value = "";
-    document.getElementById("max-price").value = "";
-    document.getElementById("year-min").value = "2015";
-    document.getElementById("year-max").value = "2024";
-    document.getElementById("km-min").value = "0";
-    document.getElementById("km-max").value = "50000";
-
-    // Reset display values
-    document.getElementById("year-min-value").textContent = "2015";
-    document.getElementById("year-max-value").textContent = "2024";
-    document.getElementById("km-min-value").textContent = "0";
-    document.getElementById("km-max-value").textContent = "50,000";
-
-    // Reset all filter button texts
-    const brandBtn = document.querySelector('[data-filter="brand"]');
-    brandBtn.innerHTML = `Brand <i class="fas fa-chevron-down"></i>`;
-
-    const ownerBtn = document.querySelector('[data-filter="owner"]');
-    if (ownerBtn) {
-      ownerBtn.innerHTML = `Ownership <i class="fas fa-chevron-down"></i>`;
-    }
-
-    const fuelBtn = document.querySelector('[data-filter="fuel"]');
-    if (fuelBtn) {
-      fuelBtn.innerHTML = `Fuel Type <i class="fas fa-chevron-down"></i>`;
-    }
-
-    // Reset brand logos
-    document.querySelectorAll(".brand-logo").forEach((logo) => {
-      logo.classList.remove("active");
-    });
-  }
-
-  // Format age for display
-  function formatAge(days) {
-    if (days >= 365) {
-      const years = Math.floor(days / 365);
-      return `${years} year${years > 1 ? "s" : ""}`;
-    } else if (days >= 30) {
-      const months = Math.floor(days / 30);
-      return `${months} month${months > 1 ? "s" : ""}`;
-    } else {
-      return `${days} day${days !== 1 ? "s" : ""}`;
-    }
-  }
-
-  // Initialize everything
-  loadBikes();
-  initFilters();
-  initPopupClose();
-  initSortDropdown(); // Now this will work properly
-  initSearch(); // Initialize search functionality
-});
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
@@ -1335,6 +1550,207 @@ document.addEventListener("DOMContentLoaded", function () {
       >
         <i class="fa-solid fa-phone-volume fa-shake"></i>
       </a>
+    </div>
+    <!-- Add this just before </body> -->
+    <div class="mobile-filters-container">
+      <div class="mobile-filters-inner">
+        <button class="close-filters-btn">&times;</button>
+        <div class="filters-container">
+          <h3>Filters</h3>
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="all">All Bikes</button>
+          </div>
+
+          <!-- Copy all your filter groups here from the sidebar -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="price">
+              Price <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="price-dropdown-mobile">
+              <div class="price-range">
+                <div class="range-inputs">
+                  <input
+                    type="number"
+                    id="min-price-mobile"
+                    placeholder="Min"
+                    min="0"
+                  />
+                  <span>to</span>
+                  <input
+                    type="number"
+                    id="max-price-mobile"
+                    placeholder="Max"
+                    min="0"
+                  />
+                </div>
+                <div class="price-presets">
+                  <button class="price-preset" data-min="0" data-max="50000">
+                    Under 50K
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="50000"
+                    data-max="100000"
+                  >
+                    50K-1L
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="100000"
+                    data-max="200000"
+                  >
+                    1L-2L
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="200000"
+                    data-max="500000"
+                  >
+                    2L-5L
+                  </button>
+                  <button class="price-preset" data-min="500000">5L+</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Include all other filter groups similarly -->
+          <!-- Brand filter -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="brand">
+              Brand <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="brand-dropdown-mobile">
+              <div class="filter-options brand-options">
+                <button class="filter-option" data-brand="Bajaj">Bajaj</button>
+                <button class="filter-option" data-brand="BMW Motorrad">
+                  BMW Motorrad
+                </button>
+                <button class="filter-option" data-brand="Ducati">
+                  Ducati
+                </button>
+                <button class="filter-option" data-brand="Harley-Davidson">
+                  Harley-Davidson
+                </button>
+                <button class="filter-option" data-brand="Hero">Hero</button>
+                <button class="filter-option" data-brand="Honda">Honda</button>
+                <button class="filter-option" data-brand="Kawasaki">
+                  Kawasaki
+                </button>
+                <button class="filter-option" data-brand="KTM">KTM</button>
+                <button class="filter-option" data-brand="Royal Enfield">
+                  Royal Enfield
+                </button>
+                <button class="filter-option" data-brand="Suzuki">
+                  Suzuki
+                </button>
+                <button class="filter-option" data-brand="TVS">TVS</button>
+                <button class="filter-option" data-brand="Yamaha">
+                  Yamaha
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Year filter -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="year">
+              Year <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="year-dropdown-mobile">
+              <div class="year-slider">
+                <div class="slider-container">
+                  <input
+                    type="range"
+                    id="year-min-mobile"
+                    min="2015"
+                    max="2024"
+                    value="2015"
+                    step="1"
+                  />
+                  <input
+                    type="range"
+                    id="year-max-mobile"
+                    min="2015"
+                    max="2024"
+                    value="2024"
+                    step="1"
+                  />
+                </div>
+                <div class="year-values">
+                  <span id="year-min-value-mobile">2015</span>
+                  <span>to</span>
+                  <span id="year-max-value-mobile">2024</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- KM Driven filter -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="km">
+              KM Driven <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="km-dropdown-mobile">
+              <div class="km-slider">
+                <div class="slider-container">
+                  <input
+                    type="range"
+                    id="km-min-mobile"
+                    min="0"
+                    max="50000"
+                    value="0"
+                    step="500"
+                  />
+                  <input
+                    type="range"
+                    id="km-max-mobile"
+                    min="0"
+                    max="50000"
+                    value="50000"
+                    step="500"
+                  />
+                </div>
+                <div class="km-values">
+                  <span id="km-min-value-mobile">0</span>
+                  <span>to</span>
+                  <span id="km-max-value-mobile">50,000</span>
+                  <span>km</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ownership filter -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="owner">
+              Ownership <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="owner-dropdown-mobile">
+              <div class="filter-options ownership-options">
+                <button class="filter-option" data-owner="1">1st Owner</button>
+                <button class="filter-option" data-owner="2">2nd Owner</button>
+                <button class="filter-option" data-owner="3">3+ Owner</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fuel Type filter -->
+          <div class="filter-group">
+            <button class="filter-btn" data-filter="fuel">
+              Fuel Type <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="filter-dropdown" id="fuel-dropdown-mobile">
+              <div class="filter-options fuel-options">
+                <button class="filter-option" data-fuel="Petrol">Petrol</button>
+                <button class="filter-option" data-fuel="Electric">
+                  Electric
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
