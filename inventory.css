@@ -1270,3 +1270,123 @@ html, body {
   align-items: center;
   justify-content: center;
 }
+
+/* Sort Dropdown Styles */
+.sort-dropdown {
+  position: relative;
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.sort-btn {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #444;
+  padding: 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+  min-width: 150px;
+  justify-content: space-between;
+}
+
+.sort-btn:hover {
+  background: #333;
+  border-color: #555;
+}
+
+.sort-btn.active {
+  background: #ff6b00;
+  border-color: #ff6b00;
+}
+
+.sort-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 10px 0;
+  min-width: 200px;
+  z-index: 100;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 1px solid #444;
+  margin-top: 5px;
+}
+
+.sort-dropdown:hover .sort-options,
+.sort-dropdown:focus-within .sort-options {
+  display: block;
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+.sort-option {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.sort-option:hover, .sort-option.active {
+  background: #ff6b00;
+}
+
+/* Search container adjustments */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-box {
+  flex: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .sort-dropdown {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .sort-btn {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .sort-options {
+    width: 100%;
+    right: auto;
+    left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .sort-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .sort-option {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+}
