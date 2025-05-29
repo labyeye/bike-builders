@@ -2325,7 +2325,6 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   .floating-buttons {
-    bottom: 130px;
     right: 20px;
   }
 
