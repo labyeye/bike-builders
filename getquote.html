@@ -31,23 +31,23 @@
             /></div
         ></a>
         <ul class="nav-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="inventory.html">Buy Bike</a></li>
-          <li><a href="sell.html">Sell Your Bike</a></li>
-          <li><a href="about.html">About Us</a></li>
+          <li><a href="index.html" data-translate="Home">Home</a></li>
+          <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+          <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+          <li><a href="about.html" data-translate="About Us">About Us</a></li>
           <li><a href="#" data-translate="Updates">Updates</a></li>
           <li><a href="contact.html" data-translate="Contact">Contact</a></li>
         </ul>
         <div class="login-btn">
           <a href="/getquote.html">
-            <button>Get the Quote</button>
+            <button data-translate="Get the Quote">Get the Quote</button>
           </a>
         </div>
       </nav>
       <section class="quote-section">
         <div class="quote-content">
-          <h2>Get Your Perfect Bike Quote</h2>
-          <p>
+          <h2 data-translate="Get Your Perfect Bike Quote">Get Your Perfect Bike Quote</h2>
+          <p data-translate="Tell us what you're looking for and we'll match you with the best options in your budget. Our experts will contact you with personalized recommendations.">
             Tell us what you're looking for and we'll match you with the best
             options in your budget. Our experts will contact you with
             personalized recommendations.
@@ -57,8 +57,8 @@
             <div class="quote-step">
               <div class="step-number">1</div>
               <div class="step-content">
-                <h4>Fill the Quote Form</h4>
-                <p>
+                <h4 data-translate="Fill the Quote Form">Fill the Quote Form</h4>
+                <p data-translate="Provide details about the bike you're interested in and your budget.">
                   Provide details about the bike you're interested in and your
                   budget.
                 </p>
@@ -67,8 +67,8 @@
             <div class="quote-step">
               <div class="step-number">2</div>
               <div class="step-content">
-                <h4>Get Expert Recommendations</h4>
-                <p>
+                <h4 data-translate="Get Expert Recommendations">Get Expert Recommendations</h4>
+                <p data-translate="Our team will analyze your requirements and find the best matches.">
                   Our team will analyze your requirements and find the best
                   matches.
                 </p>
@@ -77,8 +77,8 @@
             <div class="quote-step">
               <div class="step-number">3</div>
               <div class="step-content">
-                <h4>Receive Your Quote</h4>
-                <p>
+                <h4 data-translate="Receive Your Quote">Receive Your Quote</h4>
+                <p data-translate="We'll contact you with detailed options and pricing information.">
                   We'll contact you with detailed options and pricing
                   information.
                 </p>
@@ -91,17 +91,17 @@
               class="cta-button"
               onclick="document.getElementById('quote-form').scrollIntoView({ behavior: 'smooth' })"
             >
-              Get Your Quote Now
+              <span data-translate="Get Your Quote Now">Get Your Quote Now</span>
             </button>
           </div>
         </div>
 
         <div class="quote-form-container" id="quote-form">
           <form id="quote-request-form" class="quote-form">
-            <h3>Quote Request</h3>
+            <h3 data-translate="Quote Request">Quote Request</h3>
 
             <div class="form-group">
-              <label for="quote-name">Full Name*</label>
+              <label for="quote-name" data-translate="Full Name*">Full Name*</label>
               <input
                 type="text"
                 id="quote-name"
@@ -112,7 +112,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-email">Email*</label>
+              <label for="quote-email" data-translate="Email*">Email*</label>
               <input
                 type="email"
                 id="quote-email"
@@ -123,7 +123,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-phone">Phone Number*</label>
+              <label for="quote-phone" data-translate="Phone Number*">Phone Number*</label>
               <input
                 type="tel"
                 id="quote-phone"
@@ -134,7 +134,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-brand">Preferred Brand*</label>
+              <label for="quote-brand" data-translate="Preferred Brand*">Preferred Brand*</label>
               <select id="quote-brand" name="brand" required>
                 <option value="">Select Brand</option>
                 <option value="KTM">KTM</option>
@@ -150,7 +150,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-model">Preferred Model</label>
+              <label for="quote-model" data-translate="Preferred Model">Preferred Model</label>
               <input
                 type="text"
                 id="quote-model"
@@ -160,7 +160,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-year">Preferred Year*</label>
+              <label for="quote-year" data-translate="Preferred Year*">Preferred Year*</label>
               <select id="quote-year" name="year" required>
                 <option value="">Select Year</option>
                 <option value="2024">2024</option>
@@ -178,7 +178,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-budget">Price Budget (₹)*</label>
+              <label for="quote-budget" data-translate="Price Budget (₹)*">Price Budget (₹)*</label>
               <input
                 type="number"
                 id="quote-budget"
@@ -189,7 +189,7 @@
             </div>
 
             <div class="form-group">
-              <label for="quote-notes">Additional Requirements</label>
+              <label for="quote-notes" data-translate="Additional Requirements">Additional Requirements</label>
               <textarea
                 id="quote-notes"
                 name="notes"
@@ -205,18 +205,18 @@
                 required
               />
               <label for="agree-terms-quote"
-                >I agree to the terms and conditions and privacy policy*</label
+                data-translate="I agree to the terms and conditions and privacy policy*">I agree to the terms and conditions and privacy policy*</label
               >
             </div>
 
-            <button type="submit" class="submit-btn">Request Quote</button>
+            <button type="submit" class="submit-btn" data-translate="Request Quote">Request Quote</button>
           </form>
         </div>
       </section>
     </div>
 
     <section class="testimonials-section">
-      <h2>What Our Customers Say</h2>
+      <h2 data-translate="What Our Customers Say">What Our Customers Say</h2>
       <div class="testimonials-container">
         <div class="testimonial">
           <div class="testimonial-header">
@@ -241,7 +241,7 @@
             <i class="fas fa-quote-right"></i>
           </div>
           <p class="quote">
-            Got an excellent quote for my dream bike through Dan Electo. The
+            Got an excellent quote for my dream bike through Bike Builders. The
             team understood my requirements perfectly and found me a great deal
             within my budget.
           </p>
@@ -324,6 +324,158 @@
         <div class="testimonial-dot"></div>
       </div>
     </section>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <div class="logo">
+            <img src="./assets/logo2.svg" style="width: 50px" alt="Bike Builders Logo" />
+          </div>
+          <p data-translate="Bringing the future of bike riding to you today.">Bringing the future of bike riding to you today.</p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/share/1Ao18FYX8e/"><i class="fa-brands fa-facebook-f"
+                style="color: #0400ff;"></i></a>
+            <a href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+              aria-label="Visit our Instagram profile"><img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:20px" /></a>
+            <a href="https://wa.me/918210283582"><i class="fa-brands fa-whatsapp" style="color: #00a841;"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3 data-translate="Quick Links">Quick Links</h3>
+          <ul>
+            <li><a href="index.html" data-translate="Home">Home</a></li>
+            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li><a href="about.html" data-translate="About Us">About Us</a></li>
+            <li><a href="#" data-translate="Updates">Updates</a></li>
+            <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 data-translate="Contact Us">Contact Us</h3>
+          <p data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002">
+            <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
+            Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
+            842002
+          </p>
+          <span itemprop="telephone">+91 8210283582 / 7564987167 / 9825944897</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">&copy; 2023 Bike Builders. All rights reserved.</p>
+        <a href="www.pixelatenest.com" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed By Pixelate Nest</a>
+      </div>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const translations = {
+          en: {
+            "Home": "Home",
+            "Buy Bike": "Buy Bike",
+            "Sell Your Bike": "Sell Your Bike",
+            "About Us": "About Us",
+            "Updates": "Updates",
+            "Contact": "Contact",
+            "Get the Quote": "Get the Quote",
+            "Get Your Perfect Bike Quote": "Get Your Perfect Bike Quote",
+            "Tell us what you're looking for and we'll match you with the best options in your budget. Our experts will contact you with personalized recommendations.": "Tell us what you're looking for and we'll match you with the best options in your budget. Our experts will contact you with personalized recommendations.",
+            "Fill the Quote Form": "Fill the Quote Form",
+            "Provide details about the bike you're interested in and your budget.": "Provide details about the bike you're interested in and your budget.",
+            "Get Expert Recommendations": "Get Expert Recommendations",
+            "Our team will analyze your requirements and find the best matches.": "Our team will analyze your requirements and find the best matches.",
+            "Receive Your Quote": "Receive Your Quote",
+            "We'll contact you with detailed options and pricing information.": "We'll contact you with detailed options and pricing information.",
+            "Get Your Quote Now": "Get Your Quote Now",
+            "Quote Request": "Quote Request",
+            "Full Name*": "Full Name*",
+            "Email*": "Email*",
+            "Phone Number*": "Phone Number*",
+          },
+          hi: {
+            "Home": "होम",
+            "Buy Bike": "बाइक खरीदें",
+            "Sell Your Bike": "अपनी बाइक बेचें",
+            "About Us": "हमारे बारे में",
+            "Updates": "अपडेट्स",
+            "Contact": "संपर्क करें",
+            "Get the Quote": "कीमत पता करें",
+            "Get Your Perfect Bike Quote": "अपने आदर्श बाइक कीमत पता करें",
+            "Tell us what you're looking for and we'll match you with the best options in your budget. Our experts will contact you with personalized recommendations.": "हम आपके आवश्यकताओं के अनुसार आपको सबसे अच्छे विकल्पों को देंगे और हमारे विशेषज्ञ आपको अपनी बाइक की विशिष्ट सिफारिशों के साथ संपर्क करेंगे।",
+            "Fill the Quote Form": "कीमत पता फॉर्म भरें",
+            "Provide details about the bike you're interested in and your budget.": "आपके द्वारा दिए गए बाइक के बारे में विवरण और आपकी बचत दें",
+            "Get Expert Recommendations": "विशेषज्ञ सिफारिशें प्राप्त करें",
+            "Our team will analyze your requirements and find the best matches.": "हमारा टीम आपकी आवश्यकताओं का विश्लेषण करेगा और सबसे अच्छे मैच को खोजेगा।",
+            "Receive Your Quote": "आपकी कीमत प्राप्त करें",
+            "We'll contact you with detailed options and pricing information.": "हम आपको विवरणपूर्ण विकल्पों और कीमत जानकारी के साथ संपर्क करेंगे।",
+            "Get Your Quote Now": "अभी आपकी कीमत पता करें",
+            "Quote Request": "कीमत पता अनुरोध",
+            "Full Name*": "पूरा नाम*",
+            "Email*": "ईमेल*",
+            "Phone Number*": "फ़ोन नंबर*",
+            "Preferred Brand*": "पसंदीदा ब्रांड*",
+            "Preferred Model": "पसंदीदा मॉडल",
+          }
+        };
+  
+        const preferredLanguage =
+          localStorage.getItem("preferredLanguage") || "en";
+  
+        if (preferredLanguage !== "en") {
+          document.body.classList.add("hindi-font");
+          const elements = document.querySelectorAll("[data-translate]");
+          elements.forEach((element) => {
+            const key = element.getAttribute("data-translate");
+            if (
+              translations[preferredLanguage] &&
+              translations[preferredLanguage][key]
+            ) {
+              element.textContent = translations[preferredLanguage][key];
+            }
+          });
+  
+          const formLabels = {
+            "bike-brand": "Brand*",
+            "bike-model": "Model*",
+            "bike-year": "Year*",
+            "bike-price": "Expected Price (₹)*",
+            "bike-images": "Upload Images (Max 5)*",
+            "seller-name": "Full Name*",
+            "seller-email": "Email*",
+            "seller-phone": "Phone Number*",
+          };
+  
+          Object.entries(formLabels).forEach(([id, enText]) => {
+            const element = document.getElementById(id);
+            if (element && translations[preferredLanguage][enText]) {
+              const label = element
+                .closest(".form-group")
+                ?.querySelector("label");
+              if (label) {
+                label.textContent = translations[preferredLanguage][enText];
+              }
+              if (element.placeholder) {
+                element.placeholder = translations[preferredLanguage][enText];
+              }
+            }
+          });
+  
+          const uiElements = {
+            "image-upload-label span": "Click to upload images",
+            "agree-terms-label":
+              "I agree to the terms and conditions and privacy policy*",
+            "submit-btn": "Get Instant Valuation",
+            "testimonials-title": "What Our Sellers Say",
+          };
+  
+          Object.entries(uiElements).forEach(([selector, enText]) => {
+            const element = document.querySelector(selector);
+            if (element && translations[preferredLanguage][enText]) {
+              element.textContent = translations[preferredLanguage][enText];
+            }
+          });
+        }
+      });
+    </script>
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
