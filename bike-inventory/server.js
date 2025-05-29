@@ -6,7 +6,8 @@ const session = require("express-session");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 const cors = require("cors");
-
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -23,7 +24,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "public", "views"));
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "rgesda543",
@@ -320,40 +321,42 @@ app.post(
     }
   }
 );
-app.post('/api/sell-request', async (req, res) => {
+app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
   try {
-    const {
-      brand,
-      model,
-      year,
-      price,
-      name,
-      email,
-      phone
-    } = req.body;
+    const { brand, model, year, price, name, email, phone } = req.body;
 
     if (!brand || !model || !year || !price || !name || !email || !phone) {
-      return res.status(400).json({ error: 'Please fill all required fields' });
+      return res.status(400).json({ error: "Please fill all required fields" });
     }
+
+    const images = req.files ? req.files.map((file) => file.filename) : [];
 
     const sellRequest = new SellRequest({
       brand,
       model,
       year,
       expectedPrice: price,
-      images: [], // You can implement image upload separately
+      images,
       sellerName: name,
       sellerEmail: email,
-      sellerPhone: phone
+      sellerPhone: phone,
     });
 
     await sellRequest.save();
-    res.status(201).json({ message: 'Sell request submitted successfully! We will contact you shortly.' });
+    res
+      .status(201)
+      .json({
+        message:
+          "Sell request submitted successfully! We will contact you shortly.",
+      });
   } catch (err) {
-    console.error('Error submitting sell request:', err);
-    res.status(500).json({ error: 'Failed to submit sell request. Please try again.' });
+    console.error("Error submitting sell request:", err);
+    res
+      .status(500)
+      .json({ error: "Failed to submit sell request. Please try again." });
   }
 });
+
 app.get("/admin/sell-requests", isAuthenticated, async (req, res) => {
   try {
     const requests = await SellRequest.find().sort({ createdAt: -1 });
@@ -406,12 +409,10 @@ app.post("/api/quote-request", async (req, res) => {
     await quoteRequest.save();
 
     // Here you would typically send a confirmation email
-    res
-      .status(201)
-      .json({
-        message:
-          "Quote request submitted successfully! We will contact you shortly.",
-      });
+    res.status(201).json({
+      message:
+        "Quote request submitted successfully! We will contact you shortly.",
+    });
   } catch (err) {
     console.error("Error submitting quote request:", err);
     res
