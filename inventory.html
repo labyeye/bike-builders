@@ -256,6 +256,18 @@
           </div>
           <div class="bike-grid-container">
             <div class="section-header">
+              <div class="search-container">
+                <div class="search-box">
+                  <input
+                    type="text"
+                    id="inventory-search"
+                    placeholder="Search bikes by brand or model..."
+                  />
+                  <button id="search-btn">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
               <h2 id="filtered-count">0 Bikes Available</h2>
             </div>
             <div class="brand-logos-container">
@@ -356,7 +368,10 @@
             <a
               href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
               aria-label="Visit our Instagram profile"
-              ><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:20px"/></a>
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                style="width: 20px"
+            /></a>
             <a
               href="https://wa.me/918210283582"
               aria-label="Chat with us on WhatsApp"
@@ -365,7 +380,8 @@
             <a
               href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
               aria-label="Watch on Youtube"
-              ><i class="fa-brands fa-youtube" style="color: #fa0000;"></i></a>
+              ><i class="fa-brands fa-youtube" style="color: #fa0000"></i
+            ></a>
           </div>
         </div>
         <div class="footer-section">
@@ -414,7 +430,6 @@
           fuel: null,
         };
 
-        // Fetch bikes from API
         function loadBikes() {
           fetch("https://bike-builders.onrender.com/api/bikes")
             .then((response) => {
@@ -428,9 +443,8 @@
               if (bikes.length === 0) {
                 showNoBikesMessage();
               } else {
-                displayBikes(bikes);
+                applyAllFilters();
               }
-              updateBikeCount(bikes.length);
             })
             .catch((error) => {
               console.error("Error fetching bikes:", error);
@@ -438,7 +452,6 @@
             });
         }
 
-        // Display bikes in grid
         function displayBikes(bikes) {
           const bikeGrid = document.querySelector(".bike-grid");
           bikeGrid.innerHTML = "";
@@ -473,56 +486,69 @@
           // Store bike data for popup
           bikeCard.dataset.bikeData = JSON.stringify(bike);
 
-          const isAvailable = bike.status === "Available";
-          const buttonClass =
-            bike.status === "Sold Out"
-              ? "sold-out"
+          const statusClass =
+            bike.status === "Available"
+              ? "status-available"
+              : bike.status === "Sold Out"
+              ? "status-sold"
               : bike.status === "Coming Soon"
-              ? "coming-soon"
-              : "";
+              ? "status-coming-soon"
+              : "status-available";
 
           bikeCard.innerHTML = `
+    <div class="image-container">
       <img src="${
         bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
       }" 
            alt="${bike.brand} ${bike.model}" 
-           onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'" />
-      <div class="card-content">
-        <h3>${bike.brand} ${bike.model}</h3>
-        <span class="model">${bike.modelYear} Model</span>
-        <div class="details">
-          <div class="detail-item">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-user"></i>
-            <span>${formatOwnership(bike.ownership || "1")}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-gas-pump"></i>
-            <span>${bike.fuelType || "Petrol"}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>${formatAge(bike.daysOld || 0)}</span>
-          </div>
+           onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
+      <div class="status-badge ${statusClass}">${
+            bike.status || "Available"
+          }</div>
+    </div>
+    <div class="card-content">
+      <h3>${bike.brand} ${bike.model}</h3>
+      <span class="model">${bike.modelYear} Model</span>
+      <div class="details">
+        <div class="detail-item">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
         </div>
-        <div class="price-container">
-          <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
-          <div class="emi">Down: ₹${(
-            bike.downPayment || 0
-          ).toLocaleString()} | EMI: ₹${Math.round(
+        <div class="detail-item">
+          <i class="fas fa-user"></i>
+          <span>${formatOwnership(bike.ownership || "1")}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-gas-pump"></i>
+          <span>${bike.fuelType || "Petrol"}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span>${formatAge(bike.daysOld || 0)}</span>
+        </div>
+      </div>
+      <div class="price-container">
+        <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
+        <div class="emi">Down: ₹${(
+          bike.downPayment || 0
+        ).toLocaleString()} | EMI: ₹${Math.round(
             ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month</div>
-          <button class="view-details-btn ${buttonClass}" ${
-            !isAvailable ? "disabled" : ""
+        <div class="button-group">
+          <button class="contact-btn" ${
+            bike.status !== "Available" ? "disabled" : ""
           }>
-            ${bike.status || "View Details"}
+            Contact Seller
+          </button>
+          <button class="view-details-btn" ${
+            bike.status !== "Available" ? "disabled" : ""
+          }>
+            View Details
           </button>
         </div>
       </div>
-    `;
+    </div>
+  `;
           return bikeCard;
         }
 
@@ -534,15 +560,23 @@
           return owner;
         }
 
-        // Add click event listeners to bike cards
         function addBikeCardClickListeners() {
           document.querySelectorAll(".bike-card").forEach((card) => {
-            const button = card.querySelector(".view-details-btn");
-            if (button && !button.disabled) {
-              button.addEventListener("click", (e) => {
+            const viewDetailsBtn = card.querySelector(".view-details-btn");
+            const contactBtn = card.querySelector(".contact-btn");
+
+            if (viewDetailsBtn && !viewDetailsBtn.disabled) {
+              viewDetailsBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const bikeData = JSON.parse(card.dataset.bikeData);
                 showBikePopup(bikeData);
+              });
+            }
+
+            if (contactBtn && !contactBtn.disabled) {
+              contactBtn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                window.location.href = "contact.html";
               });
             }
           });
@@ -712,12 +746,17 @@
           initBrandLogos();
         }
 
-        // Initialize brand logos
         function initBrandLogos() {
           document.querySelectorAll(".brand-logo").forEach((logo) => {
             logo.addEventListener("click", function () {
               const brand = this.dataset.brand;
               currentFilters.brand = brand;
+
+              // Clear any existing search term from URL
+              if (window.location.search.includes("search=")) {
+                window.history.pushState({}, "", "inventory.html");
+              }
+
               applyAllFilters();
 
               // Update UI
@@ -751,7 +790,51 @@
             });
           }
         }
+        // Initialize search functionality
+        function initSearch() {
+          const searchInput = document.getElementById("inventory-search");
+          const searchBtn = document.getElementById("search-btn");
 
+          // Handle search button click
+          searchBtn.addEventListener("click", () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+              // Update URL with search parameter
+              window.history.pushState(
+                {},
+                "",
+                `inventory.html?search=${encodeURIComponent(searchTerm)}`
+              );
+              applyAllFilters();
+            }
+          });
+
+          // Handle Enter key in search input
+          searchInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") {
+              const searchTerm = searchInput.value.trim();
+              if (searchTerm) {
+                window.history.pushState(
+                  {},
+                  "",
+                  `inventory.html?search=${encodeURIComponent(searchTerm)}`
+                );
+                applyAllFilters();
+              }
+            }
+          });
+
+          // Check for search term in URL on page load
+          const urlParams = new URLSearchParams(window.location.search);
+          const searchTerm = urlParams.get("search");
+          if (searchTerm) {
+            searchInput.value = searchTerm;
+            applyAllFilters();
+          }
+        }
+
+        // Add this to your initialization section
+        initSearch();
         function applyPriceFilter() {
           const minPrice =
             parseInt(document.getElementById("min-price").value) || 0;
@@ -888,10 +971,29 @@
               });
             });
         }
-
-        // Apply all filters
+        function getSearchParam() {
+          const urlParams = new URLSearchParams(window.location.search);
+          return urlParams.get("search")?.toLowerCase() || "";
+        }
         function applyAllFilters() {
+          const searchTerm = getSearchParam().trim().toLowerCase();
           const filteredBikes = allBikes.filter((bike) => {
+            // Apply search filter if there's a search term
+            if (searchTerm) {
+              const brand = (bike.brand || "").toLowerCase();
+              const model = (bike.model || "").toLowerCase();
+
+              const searchMatch =
+                model.includes(searchTerm) ||
+                `${brand} ${model}`.includes(searchTerm) ||
+                model
+                  .replace(/\s+/g, "")
+                  .includes(searchTerm.replace(/\s+/g, ""));
+
+              if (!searchMatch) return false;
+            }
+
+            // Apply other filters
             const price = bike.price || 0;
             const year = bike.modelYear || new Date().getFullYear();
             const km = bike.kmDriven || 0;
@@ -899,7 +1001,6 @@
             const owner = bike.ownership || "";
             const fuel = bike.fuelType || "";
 
-            // Check all filter conditions
             const priceMatch =
               price >= currentFilters.minPrice &&
               price <= currentFilters.maxPrice;
@@ -927,9 +1028,48 @@
 
           displayBikes(filteredBikes);
           updateBikeCount(filteredBikes.length);
+
+          if (searchTerm) {
+            showSearchTerm(searchTerm);
+          }
         }
 
-        // Reset filters
+        // Also update the initBrandLogos function to maintain search term
+
+        function showSearchTerm(term) {
+          const existingDisplay = document.querySelector(
+            ".search-term-display"
+          );
+          if (existingDisplay) {
+            existingDisplay.remove();
+          }
+
+          const searchContainer = document.createElement("div");
+          searchContainer.className = "search-term-display";
+
+          const searchText = document.createElement("span");
+          searchText.textContent = `Showing results for: ${term}`;
+          searchText.className = "search-term-text";
+
+          const clearBtn = document.createElement("button");
+          clearBtn.className = "clear-search-btn";
+          clearBtn.innerHTML = "&times;";
+          clearBtn.title = "Clear search";
+          clearBtn.addEventListener("click", () => {
+            window.location.href = "inventory.html";
+          });
+
+          searchContainer.appendChild(searchText);
+          searchContainer.appendChild(clearBtn);
+
+          const sectionHeader = document.querySelector(".section-header");
+          if (sectionHeader) {
+            sectionHeader.insertBefore(
+              searchContainer,
+              sectionHeader.firstChild
+            );
+          }
+        }
         function resetFilters() {
           currentFilters = {
             brand: null,

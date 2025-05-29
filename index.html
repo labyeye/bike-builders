@@ -193,13 +193,15 @@
         </h1>
 
         <div class="search-container">
-          <form action="inventory.html" method="get">
+          <!-- In index.html, update the search form -->
+          <form action="inventory.html" method="get" id="searchForm">
             <input
               type="text"
               placeholder="Search your bike..."
               aria-label="Search for bikes"
               name="search"
               class="search-input"
+              id="searchInput"
             />
             <button type="submit" class="search-button" aria-label="Search">
               <svg
@@ -915,7 +917,10 @@
             <a
               href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
               aria-label="Visit our Instagram profile"
-              ><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width:20px"/></a>
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                style="width: 20px"
+            /></a>
             <a
               href="https://wa.me/918210283582"
               aria-label="Chat with us on WhatsApp"
@@ -924,7 +929,8 @@
             <a
               href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
               aria-label="Watch on Youtube"
-              ><i class="fa-brands fa-youtube" style="color: #fa0000;"></i></a>
+              ><i class="fa-brands fa-youtube" style="color: #fa0000"></i
+            ></a>
           </div>
         </div>
         <div class="footer-section">
