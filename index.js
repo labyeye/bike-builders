@@ -143,7 +143,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <li><a href="inventory.html">Buy Bike</a></li>
             <li><a href="sell.html">Sell Your Bike</a></li>
             <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contact</a></li>
+                      <li><a href="#" data-translate="Updates">Updates</a></li>
+          <li><a href="contact.html" data-translate="Contact">Contact</a></li>
           </ul>
           <div class="login-btn">
             <button aria-label="Get a quote for your bike">Get the Quote</button>

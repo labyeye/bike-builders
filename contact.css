@@ -79,6 +79,45 @@
   color: white;
   transition: all 0.3s ease;
 }
+.card-icon-whatsapp {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 25px;
+  background: linear-gradient(135deg, #00bc22);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+.card-icon-locations {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 25px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  transition: all 0.3s ease;
+}
+.card-icon-social {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 25px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  transition: all 0.3s ease;
+}
 
 .contact-card:hover .card-icon {
   transform: rotate(15deg) scale(1.1);
@@ -207,7 +246,9 @@
 .social-btn.ig {
   background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
 }
-
+.social-btn.yt {
+  background-color: #ff0000;
+}
 .social-btn.tw {
   background-color: #1DA1F2;
 }
