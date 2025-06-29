@@ -112,6 +112,28 @@ const quoteRequestSchema = new mongoose.Schema({
   },
   createdAt: { type: Date, default: Date.now },
 });
+const offerSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  type: { 
+    type: String, 
+    enum: ["festival", "sale", "event", "new"], 
+    required: true 
+  },
+  image: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
+  cta: { type: String, default: "Learn More" },
+  link: { type: String },
+  status: { 
+    type: String, 
+    enum: ["active", "expired", "upcoming"], 
+    default: "active" 
+  },
+  createdAt: { type: Date, default: Date.now }
+});
+const Offer = mongoose.model('Offer', offerSchema);
+
 
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
@@ -546,6 +568,94 @@ app.post('/admin/booking/update-status/:id', isAuthenticated, async (req, res) =
     res.status(500).send('Error updating booking');
   }
 });
+app.get('/api/offers', async (req, res) => {
+  try {
+    const currentDate = new Date();
+    const offers = await Offer.find({
+      startDate: { $lte: currentDate },
+      endDate: { $gte: currentDate },
+      status: 'active'
+    }).sort({ createdAt: -1 });
+    
+    res.json(offers);
+  } catch (err) {
+    console.error('Error fetching offers:', err);
+    res.status(500).json({ error: 'Failed to fetch offers' });
+  }
+});
+
+// Admin route to view all offers
+app.get('/admin/offers', isAuthenticated, async (req, res) => {
+  try {
+    const offers = await Offer.find().sort({ startDate: -1 });
+    res.render('offers', {
+      offers,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error('Error fetching offers:', err);
+    res.status(500).send('Error loading offers');
+  }
+});
+
+// Add new offer (admin only)
+app.post('/admin/offers/add', isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const { title, description, type, image, startDate, endDate, cta, link } = req.body;
+    
+    if (!title || !description || !type || !image || !startDate || !endDate) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    const offer = new Offer({
+      title,
+      description,
+      type,
+      image,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+      cta: cta || 'Learn More',
+      link: link || null
+    });
+
+    await offer.save();
+    res.redirect('/admin/offers');
+  } catch (err) {
+    console.error('Error adding offer:', err);
+    res.status(500).send('Error adding offer');
+  }
+});
+
+// Update offer status (admin only)
+app.post('/admin/offers/update-status/:id', isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await Offer.findByIdAndUpdate(req.params.id, { status });
+    res.redirect('/admin/offers');
+  } catch (err) {
+    console.error('Error updating offer:', err);
+    res.status(500).send('Error updating offer');
+  }
+});
+
+// Delete offer (admin only)
+app.post('/admin/offers/delete/:id', isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    await Offer.findByIdAndDelete(req.params.id);
+    res.redirect('/admin/offers');
+  } catch (err) {
+    console.error('Error deleting offer:', err);
+    res.status(500).send('Error deleting offer');
+  }
+});
+
+// Add this to your admin dashboard route to show offer stats
+// In your /admin/dashboard route, add this to the stats object:
+const stats = {
+  // ... your existing stats ...
+  activeOffers: await Offer.countDocuments({ status: 'active' }),
+  upcomingOffers: await Offer.countDocuments({ status: 'upcoming' })
+};
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);

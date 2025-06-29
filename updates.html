@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Special Offers | Alfa Motors World</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="updates.css">
+</head>
+<body>
+  <header class="updates-header">
+    <div class="container">
+      <h1><i class="fas fa-bullhorn"></i> Current Offers & Events</h1>
+      <p>Don't miss out on these exclusive deals and special promotions</p>
+    </div>
+  </header>
+
+  <main class="updates-container">
+    <div class="container">
+      <div class="updates-grid" id="offers-container">
+        <!-- Offers will be loaded here dynamically -->
+      </div>
+    </div>
+  </main>
+
+  <footer class="updates-footer">
+    <div class="container">
+      <p>Check back regularly for new offers and promotions!</p>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('https://bike-builders.onrender.com/api/offers')
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById('offers-container');
+          if (data.length === 0) {
+            container.innerHTML = `
+              <div class="no-offers">
+                <i class="fas fa-calendar-times"></i>
+                <h3>No current offers</h3>
+                <p>Check back later for special promotions</p>
+              </div>
+            `;
+            return;
+          }
+
+          data.forEach(offer => {
+            const offerCard = document.createElement('div');
+            offerCard.className = 'offer-card';
+            offerCard.innerHTML = `
+              <div class="offer-badge">${offer.type}</div>
+              <div class="offer-image" style="background-image: url('${offer.image}')"></div>
+              <div class="offer-content">
+                <h3>${offer.title}</h3>
+                <div class="offer-meta">
+                  <span><i class="fas fa-calendar-alt"></i> ${new Date(offer.startDate).toLocaleDateString()} - ${new Date(offer.endDate).toLocaleDateString()}</span>
+                </div>
+                <p>${offer.description}</p>
+                <div class="offer-cta">
+                  <a href="${offer.link || 'contact.html'}" class="btn">${offer.cta || 'Learn More'}</a>
+                </div>
+              </div>
+            `;
+            container.appendChild(offerCard);
+          });
+        })
+        .catch(error => {
+          console.error('Error loading offers:', error);
+          document.getElementById('offers-container').innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-triangle"></i>
+              <h3>Failed to load offers</h3>
+              <p>Please try again later</p>
+            </div>
+          `;
+        });
+    });
+  </script>
+</body>
+</html>
