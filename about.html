@@ -25,13 +25,35 @@
         </div>
       </a>
       <ul class="nav-links">
-        <li><a href="index.html" data-translate="Home">Home</a></li>
-        <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-        <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
-        <li><a href="about.html" class="active" data-translate="About Us">About Us</a></li>
-        <li><a href="#" data-translate="Updates">Updates</a></li>
-        <li><a href="contact.html" data-translate="Contact">Contact</a></li>
-      </ul>
+          <li><a href="index.html" data-translate="Home">Home</a></li>
+          <li>
+            <a href="inventory.html" data-translate="Buy Bike">Buy Bike</a>
+          </li>
+          <li>
+            <a href="sell.html" data-translate="Sell Your Bike"
+              >Sell Your Bike</a
+            >
+          </li>
+          <li>
+            <a
+              href="about.html"
+              aria-label="About Bike Builders"
+              data-translate="About Us"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="book.html"
+              aria-label="Book Bike"
+              data-translate="Book Bike"
+              class="active"
+              >Book Bike</a
+            >
+          </li>
+          <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
+          <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+        </ul>
       <div class="login-btn">
         <a href="/getquote.html">
           <button data-translate="Get the Quote">Get the Quote</button>
@@ -552,18 +574,66 @@
     gtag("config", "G-ETL311CBE6");
   </script>
   <div class="floating-buttons">
-    <a href="https://wa.me/918210283582" class="floating-btn whatsapp-btn" data-tooltip="Chat on WhatsApp"
-      aria-label="Chat on WhatsApp">
-      <i class="fa-brands fa-whatsapp fa-bounce"></i>
-    </a>
-    <a href="https://youtube.com/@bikebuilders-vo2nm?feature=shared" class="floating-btn youtube-btn"
-      data-tooltip="Watch on YouTube" aria-label="Watch on YouTube">
-      <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
-    </a>
-    <a href="tel:+918210283582" class="floating-btn call-btn" data-tooltip="Call Us" aria-label="Call Us">
-      <i class="fa-solid fa-phone-volume fa-shake"></i>
-    </a>
-  </div>
+      
+      <a
+        href="#"
+        class="floating-btn whatsapp-btn"
+        data-tooltip="Chat on WhatsApp"
+        aria-label="Chat on WhatsApp"
+        id="whatsappTrigger"
+      >
+        <i class="fa-brands fa-whatsapp fa-bounce"></i>
+      </a>
+
+      <!-- YouTube Button (unchanged) -->
+      <a
+        href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
+        class="floating-btn youtube-btn"
+        data-tooltip="Watch on YouTube"
+        aria-label="Watch on YouTube"
+      >
+        <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
+      </a>
+
+      <!-- Call Button -->
+      <a
+        href="#"
+        class="floating-btn call-btn"
+        data-tooltip="Call Us"
+        aria-label="Call Us"
+        id="callTrigger"
+      >
+        <i class="fa-solid fa-phone-volume fa-shake"></i>
+      </a>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsappModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Choose WhatsApp Number</h3>
+        <button class="number-option" data-number="918210283582">
+          Number 1: +91 82102 83582
+        </button>
+        <button class="number-option" data-number="919876543210">
+          Number 2: +91 98765 43210
+        </button>
+      </div>
+    </div>
+
+    <!-- Call Modal -->
+    <div id="callModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Choose Number to Call</h3>
+        <button class="number-option" data-number="918210283582">
+          Number 1: +91 82102 83582
+        </button>
+        <button class="number-option" data-number="919876543210">
+          Number 2: +91 98765 43210
+        </button>
+      </div>
+    </div>
 </body>
 
 </html>
