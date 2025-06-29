@@ -39,16 +39,16 @@ const bookingSchema = new mongoose.Schema({
   name: String,
   email: String,
   phone: String,
-  bikeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Bike' },
+  bikeId: { type: mongoose.Schema.Types.ObjectId, ref: "Bike" },
   paymentMethod: String,
   amount: Number,
   transactionId: String,
   status: {
     type: String,
-    enum: ['Pending', 'Confirmed', 'Cancelled'],
-    default: 'Pending'
+    enum: ["Pending", "Confirmed", "Cancelled"],
+    default: "Pending",
   },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
 
 const bikeSchema = new mongoose.Schema({
@@ -115,32 +115,30 @@ const quoteRequestSchema = new mongoose.Schema({
 const offerSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  type: { 
-    type: String, 
-    enum: ["festival", "sale", "event", "new"], 
-    required: true 
+  type: {
+    type: String,
+    enum: ["festival", "sale", "event", "new"],
+    required: true,
   },
   image: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   cta: { type: String, default: "Learn More" },
   link: { type: String },
-  status: { 
-    type: String, 
-    enum: ["active", "expired", "upcoming"], 
-    default: "active" 
+  status: {
+    type: String,
+    enum: ["active", "expired", "upcoming"],
+    default: "active",
   },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
 });
-const Offer = mongoose.model('Offer', offerSchema);
-
 
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
 const SellRequest = mongoose.model("SellRequest", sellRequestSchema);
 const QuoteRequest = mongoose.model("QuoteRequest", quoteRequestSchema);
-const Booking = mongoose.model('Booking', bookingSchema);
-
+const Booking = mongoose.model("Booking", bookingSchema);
+const Offer = mongoose.model("Offer", offerSchema);
 
 (async function () {
   const existing = await User.findOne({ username: "admin" });
@@ -382,12 +380,10 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
     });
 
     await sellRequest.save();
-    res
-      .status(201)
-      .json({
-        message:
-          "Sell request submitted successfully! We will contact you shortly.",
-      });
+    res.status(201).json({
+      message:
+        "Sell request submitted successfully! We will contact you shortly.",
+    });
   } catch (err) {
     console.error("Error submitting sell request:", err);
     res
@@ -489,29 +485,40 @@ app.post(
     }
   }
 );
-app.get('/api/available-bikes', async (req, res) => {
+app.get("/api/available-bikes", async (req, res) => {
   try {
-    const bikes = await Bike.find({ status: 'Available' });
+    const bikes = await Bike.find({ status: "Available" });
     res.json(bikes);
   } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch available bikes' });
+    res.status(500).json({ error: "Failed to fetch available bikes" });
   }
 });
 
 // Handle bike booking
-app.post('/api/book-bike', async (req, res) => {
+app.post("/api/book-bike", async (req, res) => {
   try {
-    const { name, email, phone, bikeId, paymentMethod, amount, transactionId } = req.body;
+    const { name, email, phone, bikeId, paymentMethod, amount, transactionId } =
+      req.body;
 
     // Basic validation
-    if (!name || !email || !phone || !bikeId || !paymentMethod || !amount || !transactionId) {
-      return res.status(400).json({ error: 'Please fill all required fields' });
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !bikeId ||
+      !paymentMethod ||
+      !amount ||
+      !transactionId
+    ) {
+      return res.status(400).json({ error: "Please fill all required fields" });
     }
 
     // Check if bike exists and is available
     const bike = await Bike.findById(bikeId);
-    if (!bike || bike.status !== 'Available') {
-      return res.status(400).json({ error: 'Selected bike is not available for booking' });
+    if (!bike || bike.status !== "Available") {
+      return res
+        .status(400)
+        .json({ error: "Selected bike is not available for booking" });
     }
 
     const booking = new Booking({
@@ -521,7 +528,7 @@ app.post('/api/book-bike', async (req, res) => {
       bikeId,
       paymentMethod,
       amount,
-      transactionId
+      transactionId,
     });
 
     await booking.save();
@@ -532,79 +539,87 @@ app.post('/api/book-bike', async (req, res) => {
     // 3. Maybe update bike status to "Reserved"
 
     res.status(201).json({
-      message: 'Booking confirmed! We will contact you shortly to complete the process.'
+      message:
+        "Booking confirmed! We will contact you shortly to complete the process.",
     });
   } catch (err) {
-    console.error('Error processing booking:', err);
-    res.status(500).json({ error: 'Failed to process booking. Please try again.' });
+    console.error("Error processing booking:", err);
+    res
+      .status(500)
+      .json({ error: "Failed to process booking. Please try again." });
   }
 });
 
 // Admin route to view bookings
-app.get('/admin/bookings', isAuthenticated, async (req, res) => {
+app.get("/admin/bookings", isAuthenticated, async (req, res) => {
   try {
     const bookings = await Booking.find()
-      .populate('bikeId')
+      .populate("bikeId")
       .sort({ createdAt: -1 });
-    
-    res.render('bookings', {
+
+    res.render("bookings", {
       bookings,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
-    console.error('Error fetching bookings:', err);
-    res.status(500).send('Error loading bookings');
+    console.error("Error fetching bookings:", err);
+    res.status(500).send("Error loading bookings");
   }
 });
 
 // Update booking status
-app.post('/admin/booking/update-status/:id', isAuthenticated, async (req, res) => {
-  try {
-    const { status } = req.body;
-    await Booking.findByIdAndUpdate(req.params.id, { status });
-    res.redirect('/admin/bookings');
-  } catch (err) {
-    console.error('Error updating booking:', err);
-    res.status(500).send('Error updating booking');
+app.post(
+  "/admin/booking/update-status/:id",
+  isAuthenticated,
+  async (req, res) => {
+    try {
+      const { status } = req.body;
+      await Booking.findByIdAndUpdate(req.params.id, { status });
+      res.redirect("/admin/bookings");
+    } catch (err) {
+      console.error("Error updating booking:", err);
+      res.status(500).send("Error updating booking");
+    }
   }
-});
-app.get('/api/offers', async (req, res) => {
+);
+app.get("/api/offers", async (req, res) => {
   try {
     const currentDate = new Date();
     const offers = await Offer.find({
       startDate: { $lte: currentDate },
       endDate: { $gte: currentDate },
-      status: 'active'
+      status: "active",
     }).sort({ createdAt: -1 });
-    
+
     res.json(offers);
   } catch (err) {
-    console.error('Error fetching offers:', err);
-    res.status(500).json({ error: 'Failed to fetch offers' });
+    console.error("Error fetching offers:", err);
+    res.status(500).json({ error: "Failed to fetch offers" });
   }
 });
 
 // Admin route to view all offers
-app.get('/admin/offers', isAuthenticated, async (req, res) => {
+app.get("/admin/offers", isAuthenticated, async (req, res) => {
   try {
     const offers = await Offer.find().sort({ startDate: -1 });
-    res.render('offers', {
+    res.render("offers", {
       offers,
-      user: req.session.user
+      user: req.session.user,
     });
   } catch (err) {
-    console.error('Error fetching offers:', err);
-    res.status(500).send('Error loading offers');
+    console.error("Error fetching offers:", err);
+    res.status(500).send("Error loading offers");
   }
 });
 
 // Add new offer (admin only)
-app.post('/admin/offers/add', isAuthenticated, isAdmin, async (req, res) => {
+app.post("/admin/offers/add", isAuthenticated, isAdmin, async (req, res) => {
   try {
-    const { title, description, type, image, startDate, endDate, cta, link } = req.body;
-    
+    const { title, description, type, image, startDate, endDate, cta, link } =
+      req.body;
+
     if (!title || !description || !type || !image || !startDate || !endDate) {
-      return res.status(400).json({ error: 'Please fill all required fields' });
+      return res.status(400).json({ error: "Please fill all required fields" });
     }
 
     const offer = new Offer({
@@ -614,48 +629,52 @@ app.post('/admin/offers/add', isAuthenticated, isAdmin, async (req, res) => {
       image,
       startDate: new Date(startDate),
       endDate: new Date(endDate),
-      cta: cta || 'Learn More',
-      link: link || null
+      cta: cta || "Learn More",
+      link: link || null,
     });
 
-    await offer.save();
-    res.redirect('/admin/offers');
+    await Offer.save();
+    res.redirect("/admin/offers");
   } catch (err) {
-    console.error('Error adding offer:', err);
-    res.status(500).send('Error adding offer');
+    console.error("Error adding offer:", err);
+    res.status(500).send("Error adding offer");
   }
 });
 
 // Update offer status (admin only)
-app.post('/admin/offers/update-status/:id', isAuthenticated, isAdmin, async (req, res) => {
-  try {
-    const { status } = req.body;
-    await Offer.findByIdAndUpdate(req.params.id, { status });
-    res.redirect('/admin/offers');
-  } catch (err) {
-    console.error('Error updating offer:', err);
-    res.status(500).send('Error updating offer');
+app.post(
+  "/admin/offers/update-status/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const { status } = req.body;
+      await Offer.findByIdAndUpdate(req.params.id, { status });
+      res.redirect("/admin/offers");
+    } catch (err) {
+      console.error("Error updating offer:", err);
+      res.status(500).send("Error updating offer");
+    }
   }
-});
+);
 
 // Delete offer (admin only)
-app.post('/admin/offers/delete/:id', isAuthenticated, isAdmin, async (req, res) => {
-  try {
-    await Offer.findByIdAndDelete(req.params.id);
-    res.redirect('/admin/offers');
-  } catch (err) {
-    console.error('Error deleting offer:', err);
-    res.status(500).send('Error deleting offer');
+app.post(
+  "/admin/offers/delete/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      await Offer.findByIdAndDelete(req.params.id);
+      res.redirect("/admin/offers");
+    } catch (err) {
+      console.error("Error deleting offer:", err);
+      res.status(500).send("Error deleting offer");
+    }
   }
-});
+);
 
-// Add this to your admin dashboard route to show offer stats
-// In your /admin/dashboard route, add this to the stats object:
-const stats = {
-  // ... your existing stats ...
-  activeOffers: await Offer.countDocuments({ status: 'active' }),
-  upcomingOffers: await Offer.countDocuments({ status: 'upcoming' })
-};
+
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
