@@ -417,6 +417,71 @@
       }
     });
   </script>
+   <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get modal elements
+        const whatsappModal = document.getElementById("whatsappModal");
+        const callModal = document.getElementById("callModal");
+
+        // Get trigger buttons
+        const whatsappTrigger = document.getElementById("whatsappTrigger");
+        const callTrigger = document.getElementById("callTrigger");
+
+        // Get close buttons
+        const closeButtons = document.getElementsByClassName("close");
+
+        // When user clicks WhatsApp button
+        whatsappTrigger.addEventListener("click", function (e) {
+          e.preventDefault();
+          whatsappModal.style.display = "block";
+        });
+
+        // When user clicks Call button
+        callTrigger.addEventListener("click", function (e) {
+          e.preventDefault();
+          callModal.style.display = "block";
+        });
+
+        // When user clicks on close button
+        Array.from(closeButtons).forEach((button) => {
+          button.addEventListener("click", function () {
+            whatsappModal.style.display = "none";
+            callModal.style.display = "none";
+          });
+        });
+
+        // When user clicks outside the modal
+        window.addEventListener("click", function (event) {
+          if (event.target == whatsappModal) {
+            whatsappModal.style.display = "none";
+          }
+          if (event.target == callModal) {
+            callModal.style.display = "none";
+          }
+        });
+
+        // Handle number selection for WhatsApp
+        const whatsappOptions =
+          whatsappModal.querySelectorAll(".number-option");
+        whatsappOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const number = this.getAttribute("data-number");
+            window.open(`https://wa.me/${number}`, "_blank");
+            whatsappModal.style.display = "none";
+          });
+        });
+
+        // Handle number selection for Call
+        const callOptions = callModal.querySelectorAll(".number-option");
+        callOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const number = this.getAttribute("data-number");
+            window.location.href = `tel:${number}`;
+            callModal.style.display = "none";
+          });
+        });
+      });
+    </script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       const timelineItems = document.querySelectorAll(".timeline-item");

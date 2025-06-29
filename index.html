@@ -165,21 +165,21 @@
             >
           </li>
           <li>
-              <a
-                href="about.html"
-                aria-label="About Bike Builders"
-                data-translate="About Us"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="book.html"
-                aria-label="Book Bike"
-                data-translate="Book Bike"
-                >Book Bike</a
-              >
-            </li>
+            <a
+              href="about.html"
+              aria-label="About Bike Builders"
+              data-translate="About Us"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="book.html"
+              aria-label="Book Bike"
+              data-translate="Book Bike"
+              >Book Bike</a
+            >
+          </li>
           <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
           <li><a href="contact.html" data-translate="Contact">Contact</a></li>
         </ul>
@@ -988,7 +988,7 @@
                 >Book Bike</a
               >
             </li>
-            
+
             <li>
               <a
                 href="contact.html"
@@ -1771,15 +1771,84 @@
         return owner;
       }
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get modal elements
+        const whatsappModal = document.getElementById("whatsappModal");
+        const callModal = document.getElementById("callModal");
+
+        // Get trigger buttons
+        const whatsappTrigger = document.getElementById("whatsappTrigger");
+        const callTrigger = document.getElementById("callTrigger");
+
+        // Get close buttons
+        const closeButtons = document.getElementsByClassName("close");
+
+        // When user clicks WhatsApp button
+        whatsappTrigger.addEventListener("click", function (e) {
+          e.preventDefault();
+          whatsappModal.style.display = "block";
+        });
+
+        // When user clicks Call button
+        callTrigger.addEventListener("click", function (e) {
+          e.preventDefault();
+          callModal.style.display = "block";
+        });
+
+        // When user clicks on close button
+        Array.from(closeButtons).forEach((button) => {
+          button.addEventListener("click", function () {
+            whatsappModal.style.display = "none";
+            callModal.style.display = "none";
+          });
+        });
+
+        // When user clicks outside the modal
+        window.addEventListener("click", function (event) {
+          if (event.target == whatsappModal) {
+            whatsappModal.style.display = "none";
+          }
+          if (event.target == callModal) {
+            callModal.style.display = "none";
+          }
+        });
+
+        // Handle number selection for WhatsApp
+        const whatsappOptions =
+          whatsappModal.querySelectorAll(".number-option");
+        whatsappOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const number = this.getAttribute("data-number");
+            window.open(`https://wa.me/${number}`, "_blank");
+            whatsappModal.style.display = "none";
+          });
+        });
+
+        // Handle number selection for Call
+        const callOptions = callModal.querySelectorAll(".number-option");
+        callOptions.forEach((option) => {
+          option.addEventListener("click", function () {
+            const number = this.getAttribute("data-number");
+            window.location.href = `tel:${number}`;
+            callModal.style.display = "none";
+          });
+        });
+      });
+    </script>
     <div class="floating-buttons">
+      
       <a
-        href="https://wa.me/918210283582"
+        href="#"
         class="floating-btn whatsapp-btn"
         data-tooltip="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
+        id="whatsappTrigger"
       >
         <i class="fa-brands fa-whatsapp fa-bounce"></i>
       </a>
+
+      <!-- YouTube Button (unchanged) -->
       <a
         href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
         class="floating-btn youtube-btn"
@@ -1788,14 +1857,45 @@
       >
         <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
       </a>
+
+      <!-- Call Button -->
       <a
-        href="tel:+918210283582"
+        href="#"
         class="floating-btn call-btn"
         data-tooltip="Call Us"
         aria-label="Call Us"
+        id="callTrigger"
       >
         <i class="fa-solid fa-phone-volume fa-shake"></i>
       </a>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsappModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Choose WhatsApp Number</h3>
+        <button class="number-option" data-number="918210283582">
+          Number 1: +91 82102 83582
+        </button>
+        <button class="number-option" data-number="919876543210">
+          Number 2: +91 98765 43210
+        </button>
+      </div>
+    </div>
+
+    <!-- Call Modal -->
+    <div id="callModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Choose Number to Call</h3>
+        <button class="number-option" data-number="918210283582">
+          Number 1: +91 82102 83582
+        </button>
+        <button class="number-option" data-number="919876543210">
+          Number 2: +91 98765 43210
+        </button>
+      </div>
     </div>
   </body>
 </html>
