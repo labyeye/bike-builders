@@ -5,6 +5,94 @@
   --light-gray: #a9a9a9;
   --dark-gray: #464646;
 }
+.gallery-section {
+  padding: 60px 0;
+  background-color: #f8f8f8;
+  text-align: center;
+  overflow: hidden;
+}
+
+.gallery-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.gallery-slider {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  margin-top: 30px;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 15px;
+  animation: scroll 30s linear infinite;
+  width: calc(250px * 12); /* Adjust based on number of images */
+}
+
+.gallery-track img {
+  width: 250px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.gallery-track img:hover {
+  transform: scale(1.05);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 6)); /* Half of total width */
+  }
+}
+
+/* Pause animation on hover */
+.gallery-slider:hover .gallery-track {
+  animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gallery-track {
+    gap: 10px;
+  }
+
+  .gallery-track img {
+    width: 200px;
+    height: 140px;
+  }
+
+  @keyframes scroll {
+    100% {
+      transform: translateX(calc(-200px * 6));
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-section h2 {
+    font-size: 2rem;
+  }
+
+  .gallery-track img {
+    width: 160px;
+    height: 120px;
+  }
+
+  @keyframes scroll {
+    100% {
+      transform: translateX(calc(-160px * 6));
+    }
+  }
+}
 /* Modal Styles */
 .modal {
   display: none;
@@ -14,7 +102,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -25,7 +113,7 @@
   width: 80%;
   max-width: 400px;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .close {
@@ -45,7 +133,7 @@
   width: 100%;
   padding: 12px;
   margin: 10px 0;
-  background-color: #25D366;
+  background-color: #25d366;
   color: white;
   border: none;
   border-radius: 5px;
@@ -55,7 +143,7 @@
 }
 
 .number-option:hover {
-  background-color: #128C7E;
+  background-color: #128c7e;
 }
 
 #callModal .number-option {
@@ -102,9 +190,8 @@
 }
 
 .whatsapp-btn {
-  background-color: #25D366;
+  background-color: #25d366;
   text-decoration: none;
-
 }
 
 .call-btn {
@@ -479,10 +566,13 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at center,
+  background-image: radial-gradient(
+      circle at center,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%), url('https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG');
+      rgba(0, 0, 0, 0.95) 100%
+    ),
+    url("https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG");
   background-size: cover;
   background-position: center;
   z-index: 1;
@@ -555,7 +645,11 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(50% 50% at 77% 49%, rgba(48, 46, 46, 1) 0%, rgba(1, 1, 1, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 77% 49%,
+    rgba(48, 46, 46, 1) 0%,
+    rgba(1, 1, 1, 0) 100%
+  );
 }
 
 .navbar {
@@ -590,7 +684,7 @@ body {
 }
 
 .nav-links a::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 0;
   height: 2px;
@@ -634,13 +728,18 @@ body {
 }
 
 .login-btn button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.7s ease;
   z-index: -1;
 }
@@ -675,7 +774,11 @@ body {
 
 .hero-line {
   display: block;
-  background: linear-gradient(188deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 100%);
+  background: linear-gradient(
+    188deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -711,7 +814,11 @@ body {
 @media only screen and (max-width: 768px) {
   .hero-line {
     display: block;
-    background: linear-gradient(188deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.7) 100%);
+    background: linear-gradient(
+      188deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -761,10 +868,8 @@ body {
   }
 }
 
-
 .hero-line.highlight {
-  animation: fadeInUp 0.8s ease 0.3s forwards,
-    pulse 2s ease-in-out 2s infinite;
+  animation: fadeInUp 0.8s ease 0.3s forwards, pulse 2s ease-in-out 2s infinite;
 }
 
 @media (max-width: 1200px) {
@@ -777,7 +882,6 @@ body {
   }
 }
 
-
 @media (max-width: 480px) {
   .hero-content h1 {
     font-size: 2.5rem;
@@ -787,7 +891,6 @@ body {
     font-size: 3rem;
   }
 }
-
 
 .cta-button {
   background-color: var(--primary-color);
@@ -836,13 +939,17 @@ h2 {
 }
 
 .brands-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle, rgba(163, 41, 25, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1099,14 +1206,11 @@ h2 {
   gap: 25px;
 }
 
-
-
 .process-step:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   border-color: rgba(255, 255, 255, 0.2);
 }
-
 
 /* Inventory Section */
 .inventory-section {
@@ -1123,13 +1227,17 @@ h2 {
 }
 
 .stats-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle, rgba(163, 41, 25, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1245,9 +1353,8 @@ h2 {
 
 /* Hindi font class */
 .hindi-font {
-  font-family: 'Noto Sans Devanagari', 'Segoe UI', sans-serif;
+  font-family: "Noto Sans Devanagari", "Segoe UI", sans-serif;
 }
-
 
 /* Services Section */
 .services-section {
@@ -1255,7 +1362,6 @@ h2 {
   padding: 80px 5%;
   position: relative;
   overflow: hidden;
-
 }
 
 .services-section h2 {
@@ -1267,13 +1373,17 @@ h2 {
 }
 
 .services-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%, rgba(163, 41, 25, 0.1) 0%, transparent 50%);
+  background: radial-gradient(
+    circle at 20% 50%,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 50%
+  );
   z-index: 0;
 }
 
@@ -1358,13 +1468,17 @@ h2 {
 }
 
 .styles-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle, rgba(163, 41, 25, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1481,13 +1595,17 @@ h2 {
 }
 
 .sell-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle, rgba(163, 41, 25, 0.1) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1589,7 +1707,7 @@ h2 {
 }
 
 .sell-cta .cta-button::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -1615,13 +1733,17 @@ h2 {
 }
 
 .testimonials-section::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%, rgba(163, 41, 25, 0.1) 0%, transparent 50%);
+  background: radial-gradient(
+    circle at 20% 50%,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 50%
+  );
   z-index: 0;
 }
 
@@ -1633,7 +1755,7 @@ h2 {
 }
 
 .testimonials-section h2::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -15px;
   left: 50%;
@@ -1671,13 +1793,17 @@ h2 {
 }
 
 .testimonial::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0) 50%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
   z-index: -1;
 }
 
@@ -1755,7 +1881,7 @@ h2 {
 }
 
 .quote::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -2147,7 +2273,6 @@ input[type="range"]::-webkit-slider-thumb {
   text-decoration: none;
   color: inherit;
   display: block;
-
 }
 
 .style-card {
@@ -2219,11 +2344,16 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .hero-slide::before {
-  content: '';
+  content: "";
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.95) 100%);
+  background-image: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.85) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
 }
 
 .social-icons {
@@ -2262,13 +2392,12 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 0.9rem;
 }
 
-
 .mobile-menu-toggle {
   display: none;
   background: none;
   border: none;
   color: white;
-  font-size: 2.0rem;
+  font-size: 2rem;
   cursor: pointer;
   z-index: 1001;
   position: absolute;
@@ -2422,7 +2551,6 @@ input[type="range"]::-webkit-slider-thumb {
     height: 30px;
     right: 21%;
     top: 24px;
-
   }
 }
 
@@ -2492,7 +2620,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 @media (max-width: 768px) {
-
   @keyframes slideBikes {
     0% {
       transform: translateX(0%);
