@@ -1,5 +1,4 @@
-/* updates.css - Similar styling to book.css but adapted for updates */
-
+/* updates.css */
 .updates-hero {
   background-image: url('../assets/updates-bg.jpg');
   background-size: cover;
@@ -54,6 +53,34 @@
   padding: 2rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  opacity: 0; /* Start hidden for animation */
+}
+
+.update-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.update-card[data-type="festival"]::before {
+  background: linear-gradient(90deg, #FF5722, #E64A19);
+}
+
+.update-card[data-type="sale"]::before {
+  background: linear-gradient(90deg, #2196F3, #0D47A1);
+}
+
+.update-card[data-type="event"]::before {
+  background: linear-gradient(90deg, #9C27B0, #6A1B9A);
+}
+
+.update-card[data-type="new"]::before {
+  background: linear-gradient(90deg, #00BCD4, #00838F);
 }
 
 .update-card:hover {
@@ -102,6 +129,22 @@
   transform: translateX(5px);
 }
 
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.update-card {
+  animation: fadeInUp 0.5s ease forwards;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .updates-section {
@@ -117,7 +160,7 @@
   }
 }
 
-/* Mobile menu styles (same as book.css) */
+/* Mobile menu styles */
 .mobile-menu-toggle {
   display: none;
   background: none;
