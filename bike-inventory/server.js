@@ -35,6 +35,21 @@ app.use(
 );
 
 app.use(express.static(path.join(__dirname, "public")));
+const bookingSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  phone: String,
+  bikeId: { type: mongoose.Schema.Types.ObjectId, ref: 'Bike' },
+  paymentMethod: String,
+  amount: Number,
+  transactionId: String,
+  status: {
+    type: String,
+    enum: ['Pending', 'Confirmed', 'Cancelled'],
+    default: 'Pending'
+  },
+  createdAt: { type: Date, default: Date.now }
+});
 
 const bikeSchema = new mongoose.Schema({
   brand: String,
@@ -102,6 +117,8 @@ const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
 const SellRequest = mongoose.model("SellRequest", sellRequestSchema);
 const QuoteRequest = mongoose.model("QuoteRequest", quoteRequestSchema);
+const Booking = mongoose.model('Booking', bookingSchema);
+
 
 (async function () {
   const existing = await User.findOne({ username: "admin" });
@@ -450,6 +467,85 @@ app.post(
     }
   }
 );
+app.get('/api/available-bikes', async (req, res) => {
+  try {
+    const bikes = await Bike.find({ status: 'Available' });
+    res.json(bikes);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch available bikes' });
+  }
+});
+
+// Handle bike booking
+app.post('/api/book-bike', async (req, res) => {
+  try {
+    const { name, email, phone, bikeId, paymentMethod, amount, transactionId } = req.body;
+
+    // Basic validation
+    if (!name || !email || !phone || !bikeId || !paymentMethod || !amount || !transactionId) {
+      return res.status(400).json({ error: 'Please fill all required fields' });
+    }
+
+    // Check if bike exists and is available
+    const bike = await Bike.findById(bikeId);
+    if (!bike || bike.status !== 'Available') {
+      return res.status(400).json({ error: 'Selected bike is not available for booking' });
+    }
+
+    const booking = new Booking({
+      name,
+      email,
+      phone,
+      bikeId,
+      paymentMethod,
+      amount,
+      transactionId
+    });
+
+    await booking.save();
+
+    // Here you would typically:
+    // 1. Send confirmation email to customer
+    // 2. Send notification to admin
+    // 3. Maybe update bike status to "Reserved"
+
+    res.status(201).json({
+      message: 'Booking confirmed! We will contact you shortly to complete the process.'
+    });
+  } catch (err) {
+    console.error('Error processing booking:', err);
+    res.status(500).json({ error: 'Failed to process booking. Please try again.' });
+  }
+});
+
+// Admin route to view bookings
+app.get('/admin/bookings', isAuthenticated, async (req, res) => {
+  try {
+    const bookings = await Booking.find()
+      .populate('bikeId')
+      .sort({ createdAt: -1 });
+    
+    res.render('bookings', {
+      bookings,
+      user: req.session.user
+    });
+  } catch (err) {
+    console.error('Error fetching bookings:', err);
+    res.status(500).send('Error loading bookings');
+  }
+});
+
+// Update booking status
+app.post('/admin/booking/update-status/:id', isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    await Booking.findByIdAndUpdate(req.params.id, { status });
+    res.redirect('/admin/bookings');
+  } catch (err) {
+    console.error('Error updating booking:', err);
+    res.status(500).send('Error updating booking');
+  }
+});
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);

@@ -1,0 +1,404 @@
+/* Book page specific styles */
+.book-hero {
+  background-image: url("../assets/book-bg.jpg");
+  background-size: cover;
+  background-position: center;
+  min-height: 170vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  color: white;
+  z-index: 2;
+}
+
+.book-content {
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.book-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.book-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.book-steps {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  gap: 2rem;
+}
+
+.book-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.step-number {
+  width: 50px;
+  height: 50px;
+  background-color: #ff5e14;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.step-content h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.step-content p {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Form Styles - Matching getquote.html */
+.book-form-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2.5rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.book-form h3 {
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #ff5e14;
+}
+
+.form-group select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Payment Methods */
+.payment-methods {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.payment-method {
+  flex: 1;
+}
+
+.payment-method input {
+  display: none;
+}
+
+.payment-method input:checked + .payment-option {
+  border-color: #ff5e14;
+  background-color: rgba(255, 94, 20, 0.1);
+}
+
+.payment-option {
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.payment-option img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 0.5rem;
+  object-fit: contain;
+}
+
+.payment-option span {
+  font-size: 0.9rem;
+  color: #333;
+  font-weight: 500;
+}
+
+/* QR Code Section */
+.qr-code-container {
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 1px dashed #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.qr-code-container img {
+  max-width: 200px;
+  margin-bottom: 1rem;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.qr-code-container p {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Checkbox Styles */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: auto;
+  margin-right: 0.75rem;
+  accent-color: #ff5e14;
+}
+
+.checkbox-group label {
+  margin-bottom: 0;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #ff5e14;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #e04f0d;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background-color: #f9f9f9;
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.testimonials-section h2 {
+  color: #333;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.testimonial {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  max-width: 800px;
+  margin: 0 auto;
+  display: none;
+}
+
+.testimonial.active {
+  display: block;
+}
+
+.testimonial-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.user-info {
+  text-align: left;
+  flex: 1;
+}
+
+.user-name {
+  margin: 0;
+  color: #333;
+  font-weight: 600;
+}
+
+.user-location {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.bike-info {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.bike-info span {
+  font-size: 0.9rem;
+  color: #ff5e14;
+  font-weight: 500;
+}
+
+.quote-icon {
+  color: #ff5e14;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.quote {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.testimonial-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.testimonial-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.testimonial-dot {
+  width: 12px;
+  height: 12px;
+  background-color: #ddd;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.testimonial-dot.active {
+  background-color: #ff5e14;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .book-steps {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .book-step {
+    max-width: 100%;
+  }
+
+  .payment-methods {
+    flex-direction: column;
+  }
+
+  .book-form-container {
+    padding: 1.5rem;
+  }
+
+  .book-content h2 {
+    font-size: 2rem;
+  }
+
+  .book-content p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-section {
+    padding: 1rem;
+  }
+
+  .book-form-container {
+    padding: 1.25rem;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .submit-btn {
+    padding: 0.9rem;
+  }
+}
