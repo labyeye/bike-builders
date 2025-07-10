@@ -51,6 +51,36 @@
   border-radius: 50%;
   transition: transform 0.3s;
 }
+.bike-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+.bike-slider::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+.bike-slider .bike-card {
+  scroll-snap-align: start;
+  flex: 0 0 300px;
+  min-width: 300px;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.bike-slider .bike-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Add other bike card styles as needed */
 
 #darkModeToggle {
   display: none;

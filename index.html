@@ -1726,15 +1726,19 @@
       });
 
       function fetchFeaturedBikes() {
-        fetch("https://bike-builders.onrender.com/api/bikes?limit=10")
+        fetch("https://bike-builders.onrender.com/api/featured-bikes")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
             }
             return response.json();
           })
-          .then((bikes) => {
-            displayFeaturedBikes(bikes);
+          .then((data) => {
+            if (data.success && data.data) {
+              displayFeaturedBikes(data.data);
+            } else {
+              showFeaturedBikesError();
+            }
           })
           .catch((error) => {
             console.error("Error fetching featured bikes:", error);
@@ -1746,13 +1750,13 @@
         const bikeSlider = document.querySelector(".bike-slider");
         bikeSlider.innerHTML = "";
 
-        if (bikes.length === 0) {
+        if (!bikes || bikes.length === 0) {
           bikeSlider.innerHTML = `
       <div class="no-bikes" style="width: 100%; text-align: center; padding: 40px;">
         <i class="fas fa-motorcycle" style="font-size: 3rem; color: #ccc;"></i>
         <p style="margin-top: 15px; color: #666;">No featured bikes available at the moment</p>
       </div>
-      `;
+    `;
           return;
         }
 
@@ -1774,48 +1778,60 @@
             isDisabled = true;
           }
 
+          // Handle image URLs - ensure it's always an array
+          const images = Array.isArray(bike.imageUrl)
+            ? bike.imageUrl.filter((url) => url && url.trim() !== "")
+            : [];
+
+          const firstImage =
+            images.length > 0
+              ? images[0]
+              : "https://via.placeholder.com/300?text=No+Image";
+
           bikeCard.innerHTML = `
-        <div class="image-container">
-          <img src="${bike.imageUrl}" 
-              alt="${bike.brand} ${bike.model}" 
-              >
-          <div class="status-badge ${statusClass}">${statusText}</div>
-        </div>
-        <div class="card-content">
-          <h3>${bike.brand} ${bike.model}</h3>
-          <span class="model">${bike.modelYear} Model</span>
-          <div class="details">
-            <div class="detail-item">
-              <i class="fas fa-tachometer-alt"></i>
-              <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
-            </div>
-            <div class="detail-item">
-              <i class="fas fa-user"></i>
-              <span>${formatOwnership(bike.ownership || "1")}</span>
-            </div>
-            <div class="detail-item">
-              <i class="fas fa-gas-pump"></i>
-              <span>${bike.fuelType || "Petrol"}</span>
-            </div>
-            <div class="detail-item">
-              <i class="fas fa-calendar-alt"></i>
-              <span>${bike.year || "N/A"}</span>
-            </div>
+      <div class="image-container">
+        <img src="${firstImage}" 
+            alt="${bike.brand} ${bike.model}" 
+            loading="lazy">
+        <div class="status-badge ${statusClass}">${statusText}</div>
+      </div>
+      <div class="card-content">
+        <h3>${bike.brand} ${bike.model}</h3>
+        <span class="model">${bike.modelYear || bike.year || "N/A"} Model</span>
+        <div class="details">
+          <div class="detail-item">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
           </div>
-          <div class="price-container">
-            <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
-            <div class="emi">Down: ₹${(
-              bike.downPayment || 0
-            ).toLocaleString()} | EMI: ₹${Math.round(
+          <div class="detail-item">
+            <i class="fas fa-user"></i>
+            <span>${formatOwnership(bike.ownership || "1")}</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-gas-pump"></i>
+            <span>${bike.fuelType || "Petrol"}</span>
+          </div>
+          <div class="detail-item">
+            <i class="fas fa-calendar-alt"></i>
+            <span>${bike.year || bike.modelYear || "N/A"}</span>
+          </div>
+        </div>
+        <div class="price-container">
+          <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
+          <div class="emi">Down: ₹${(
+            bike.downPayment || 0
+          ).toLocaleString()} | EMI: ₹${Math.round(
             ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month</div>
-            <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>
-              ${isDisabled ? bike.status : "View Details"}
-            </button>
-          </div>
+          <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>
+            ${isDisabled ? bike.status : "View Details"}
+          </button>
         </div>
-      `;
+      </div>
+    `;
+
           bikeSlider.appendChild(bikeCard);
+
           if (!isDisabled) {
             bikeCard
               .querySelector(".view-details-btn")
@@ -1825,19 +1841,19 @@
           }
         });
       }
-
       function showFeaturedBikesError() {
         const bikeSlider = document.querySelector(".bike-slider");
         bikeSlider.innerHTML = `
-    <div class="error-message" style="width: 100%; text-align: center; padding: 40px;">
-      <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff6b00;"></i>
-      <p style="margin-top: 15px; color: #666;">Failed to load featured bikes. Please try again later.</p>
-      <button onclick="fetchFeaturedBikes()" style="margin-top: 10px; padding: 8px 15px; background: #ff6b00; color: white; border: none; border-radius: 4px; cursor: pointer;">
-        Retry
-      </button>
-    </div>
-  `;
+      <div class="error-message" style="width: 100%; text-align: center; padding: 40px;">
+        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff6b00;"></i>
+        <p style="margin-top: 15px; color: #666;">Failed to load featured bikes. Please try again later.</p>
+        <button onclick="fetchFeaturedBikes()" style="margin-top: 10px; padding: 8px 15px; background: #ff6b00; color: white; border: none; border-radius: 4px; cursor: pointer;">
+          Retry
+        </button>
+      </div>
+    `;
       }
+
       function formatOwnership(owner) {
         if (owner === "1") return "1st Owner";
         if (owner === "2") return "2nd Owner";

@@ -202,6 +202,17 @@ app.get("/api/bikes", async (req, res) => {
     res.status(500).json({ success: false, error: "Failed to fetch bikes" });
   }
 });
+app.get("/api/featured-bikes", async (req, res) => {
+  try {
+    const bikes = await Bike.find({ status: "Available" })
+      .sort({ createdAt: -1 })
+      .limit(10);
+    res.json({ success: true, data: bikes });
+  } catch (err) {
+    console.error("Error fetching featured bikes:", err);
+    res.status(500).json({ success: false, error: "Failed to fetch featured bikes" });
+  }
+});
 app.get("/api/stats", isAuthenticated, async (req, res) => {
   try {
     const stats = {
