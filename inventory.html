@@ -798,7 +798,7 @@
         let currentSort = "default"; // Declare this ONCE at the top level
 
         function loadBikes() {
-          fetch("https://bike-builders.onrender.com/api/bikes")
+          fetch("http://localhost:2500/api/bikes")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Network response was not ok");

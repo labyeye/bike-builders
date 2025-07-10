@@ -9,7 +9,7 @@ const cors = require("cors");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 mongoose
   .connect(process.env.MONGO_URI, {
@@ -21,9 +21,10 @@ mongoose
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "public", "views"));
+app.use(cors({
+  origin: 'http://localhost:3000',
+  credentials: true
+}));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   session({
@@ -34,7 +35,6 @@ app.use(
   })
 );
 
-app.use(express.static(path.join(__dirname, "public")));
 const bookingSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -60,7 +60,7 @@ const bikeSchema = new mongoose.Schema({
   fuelType: { type: String, enum: ["Petrol", "EV"] },
   daysOld: Number,
   price: Number,
-  downPayment: Number, // Add this line
+  downPayment: Number,
   imageUrl: String,
   status: {
     type: String,
@@ -69,6 +69,7 @@ const bikeSchema = new mongoose.Schema({
   },
   createdAt: { type: Date, default: Date.now },
 });
+
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
@@ -78,6 +79,7 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   lastLogin: Date,
 });
+
 const sellRequestSchema = new mongoose.Schema({
   brand: String,
   model: String,
@@ -95,7 +97,6 @@ const sellRequestSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Quote Request Schema
 const quoteRequestSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -112,6 +113,7 @@ const quoteRequestSchema = new mongoose.Schema({
   },
   createdAt: { type: Date, default: Date.now },
 });
+
 const offerSchema = new mongoose.Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
@@ -151,28 +153,23 @@ const Offer = mongoose.model("Offer", offerSchema);
 
 function isAuthenticated(req, res, next) {
   if (req.session.isAuthenticated) return next();
-  res.redirect("/admin/login");
+  res.status(401).json({ success: false, error: "Unauthorized" });
 }
 
 function isAdmin(req, res, next) {
   if (req.session.user && req.session.user.role === "admin") return next();
-  res.status(403).send("Access denied");
+  res.status(403).json({ success: false, error: "Access denied" });
 }
 
 app.get("/", (req, res) => {
-  res.send("Bike Inventory System");
+  res.json({ message: "Bike Inventory System API" });
 });
 
-app.get("/admin/login", (req, res) => {
-  res.render("login", { error: null });
-});
-
-app.post("/admin/login", async (req, res) => {
+app.post("/api/admin/login", async (req, res) => {
   const user = await User.findOne({ username: req.body.username });
-  const valid =
-    user && (await bcrypt.compare(req.body.password, user.password));
+  const valid = user && (await bcrypt.compare(req.body.password, user.password));
 
-  if (!valid) return res.render("login", { error: "Invalid credentials" });
+  if (!valid) return res.status(401).json({ success: false, error: "Invalid credentials" });
 
   req.session.isAuthenticated = true;
   req.session.user = {
@@ -180,83 +177,31 @@ app.post("/admin/login", async (req, res) => {
     role: user.role,
   };
 
-  res.redirect("/admin/dashboard");
+  res.json({ success: true, user: req.session.user });
 });
 
-app.get("/admin/logout", (req, res) => {
+app.get("/api/admin/check-auth", (req, res) => {
+  if (req.session.isAuthenticated) {
+    res.json({ isAuthenticated: true, user: req.session.user });
+  } else {
+    res.json({ isAuthenticated: false });
+  }
+});
+
+app.get("/api/admin/logout", (req, res) => {
   req.session.destroy();
-  res.redirect("/admin/login");
+  res.json({ success: true });
 });
 
 app.get("/api/bikes", async (req, res) => {
   try {
     const bikes = await Bike.find({ status: "Available" });
-    res.json(bikes);
+    res.json({ success: true, bikes });
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch bikes" });
+    res.status(500).json({ success: false, error: "Failed to fetch bikes" });
   }
 });
-
-app.get("/admin/dashboard", isAuthenticated, async (req, res) => {
-  try {
-    const bikes = await Bike.find().sort({ createdAt: -1 });
-    const stats = {
-      total: await Bike.countDocuments(),
-      available: await Bike.countDocuments({ status: "Available" }),
-      comingSoon: await Bike.countDocuments({ status: "Coming Soon" }),
-      sold: await Bike.countDocuments({ status: "Sold Out" }),
-    };
-
-    res.render("dashboard", {
-      bikes,
-      stats,
-      user: req.session.user,
-    });
-  } catch (err) {
-    res.status(500).send("Error loading dashboard");
-  }
-});
-
-app.get("/admin/bike/edit/:id", isAuthenticated, async (req, res) => {
-  try {
-    const bike = await Bike.findById(req.params.id);
-    res.render("edit-bike", { bike });
-  } catch (err) {
-    res.status(500).send("Error loading bike");
-  }
-});
-
-app.post("/admin/bike/edit/:id", isAuthenticated, async (req, res) => {
-  try {
-    await Bike.findByIdAndUpdate(req.params.id, req.body);
-    res.redirect("/admin/dashboard");
-  } catch (err) {
-    res.status(500).send("Error updating bike");
-  }
-});
-
-app.post(
-  "/admin/bike/delete/:id",
-  isAuthenticated,
-  isAdmin,
-  async (req, res) => {
-    try {
-      await Bike.findByIdAndDelete(req.params.id);
-      res.redirect("/admin/dashboard");
-    } catch (err) {
-      res.status(500).send("Error deleting bike");
-    }
-  }
-);
-
-app.get("/admin/bike/add", isAuthenticated, (req, res) => {
-  res.render("add-bike", {
-    error: null,
-    formData: null,
-    user: req.session.user,
-  });
-});
-app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
+app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
   try {
     const bikeData = {
       brand: req.body.brand,
@@ -267,7 +212,100 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
       fuelType: req.body.fuelType,
       daysOld: Number(req.body.daysOld),
       price: Number(req.body.price),
-      downPayment: Number(req.body.downPayment), // Add this line
+      downPayment: Number(req.body.downPayment),
+      imageUrl: req.body.imageUrl || "https://via.placeholder.com/300",
+      status: req.body.status,
+    };
+    if (
+      !bikeData.brand ||
+      !bikeData.model ||
+      isNaN(bikeData.modelYear) ||
+      isNaN(bikeData.kmDriven) ||
+      !bikeData.ownership ||
+      !bikeData.fuelType ||
+      isNaN(bikeData.daysOld) ||
+      isNaN(bikeData.price) ||
+      isNaN(bikeData.downPayment) ||
+      !bikeData.status
+    ) {
+      return res.status(400).json({ success: false, error: "Invalid data" });
+    }
+
+    const bike = new Bike(bikeData);
+    await bike.save();
+    res.json({ success: true, bike });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Failed to add bike" });
+  }
+});
+app.get("/api/stats", isAuthenticated, async (req, res) => {
+  try {
+    const stats = {
+      total: await Bike.countDocuments(),
+      available: await Bike.countDocuments({ status: "Available" }),
+      sold: await Bike.countDocuments({ status: "Sold Out" }),
+    };
+    res.json({ success: true, ...stats });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error loading stats" });
+  }
+});
+
+app.get("/api/admin/dashboard", isAuthenticated, async (req, res) => {
+  try {
+    const bikes = await Bike.find().sort({ createdAt: -1 });
+    const stats = {
+      total: await Bike.countDocuments(),
+      available: await Bike.countDocuments({ status: "Available" }),
+      comingSoon: await Bike.countDocuments({ status: "Coming Soon" }),
+      sold: await Bike.countDocuments({ status: "Sold Out" }),
+    };
+
+    res.json({ success: true, bikes, stats, user: req.session.user });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error loading dashboard" });
+  }
+});
+
+app.get("/api/admin/bike/:id", isAuthenticated, async (req, res) => {
+  try {
+    const bike = await Bike.findById(req.params.id);
+    res.json({ success: true, bike });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error loading bike" });
+  }
+});
+
+app.put("/api/admin/bike/:id", isAuthenticated, async (req, res) => {
+  try {
+    const bike = await Bike.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    res.json({ success: true, bike });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error updating bike" });
+  }
+});
+
+app.delete("/api/admin/bike/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    await Bike.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error deleting bike" });
+  }
+});
+
+app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
+  try {
+    const bikeData = {
+      brand: req.body.brand,
+      model: req.body.model,
+      modelYear: Number(req.body.modelYear),
+      kmDriven: Number(req.body.kmDriven),
+      ownership: req.body.ownership,
+      fuelType: req.body.fuelType,
+      daysOld: Number(req.body.daysOld),
+      price: Number(req.body.price),
+      downPayment: Number(req.body.downPayment),
       imageUrl: req.body.imageUrl || "https://via.placeholder.com/300",
       status: req.body.status,
     };
@@ -281,89 +319,61 @@ app.post("/admin/bike/add", isAuthenticated, async (req, res) => {
       !bikeData.fuelType ||
       isNaN(bikeData.daysOld) ||
       isNaN(bikeData.price) ||
-      isNaN(bikeData.downPayment) || // Add downPayment check
+      isNaN(bikeData.downPayment) ||
       !bikeData.status
     ) {
-      return res.render("add-bike", {
-        error: "Please fill all required fields with valid data",
-        formData: req.body,
-        user: req.session.user,
-      });
+      return res.status(400).json({ success: false, error: "Invalid data" });
     }
 
     const bike = new Bike(bikeData);
     await bike.save();
-    res.redirect("/admin/dashboard");
+    res.json({ success: true, bike });
   } catch (err) {
-    res.render("add-bike", {
-      error: "Failed to add bike. Please try again.",
-      formData: req.body,
-      user: req.session.user,
-    });
+    res.status(500).json({ success: false, error: "Failed to add bike" });
   }
 });
 
-app.get("/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
+app.get("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
   try {
     const staff = await User.find().sort({ role: 1 });
-    res.render("staff", {
-      title: "Staff Management",
-      staff,
-      user: req.session.user,
-    });
+    res.json({ success: true, staff });
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Server Error");
+    res.status(500).json({ success: false, error: "Server Error" });
   }
 });
 
-app.get("/admin/staff/add", isAuthenticated, isAdmin, (req, res) => {
-  res.render("add-staff", {
-    error: null,
-    user: req.session.user,
-  });
-});
-
-app.post("/admin/staff/add", isAuthenticated, isAdmin, async (req, res) => {
+app.post("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
   try {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    await User.create({
+    const user = await User.create({
       username: req.body.username,
       password: hashedPassword,
       role: req.body.role,
     });
-    res.redirect("/admin/staff");
+    res.json({ success: true, user });
   } catch (err) {
-    res.render("add-staff", {
-      error: "Failed to add staff member",
-      formData: req.body,
-      user: req.session.user,
-    });
+    res.status(500).json({ success: false, error: "Failed to add staff member" });
   }
 });
 
-app.post(
-  "/admin/staff/delete/:id",
-  isAuthenticated,
-  isAdmin,
-  async (req, res) => {
-    try {
-      if (req.params.id === req.session.user._id) {
-        return res.status(400).send("Cannot delete your own account");
-      }
-      await User.findByIdAndDelete(req.params.id);
-      res.redirect("/admin/staff");
-    } catch (err) {
-      res.status(500).send("Error deleting staff member");
+app.delete("/api/admin/staff/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    if (req.params.id === req.session.user._id) {
+      return res.status(400).json({ success: false, error: "Cannot delete your own account" });
     }
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error deleting staff member" });
   }
-);
+});
+
 app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
   try {
     const { brand, model, year, price, name, email, phone } = req.body;
 
     if (!brand || !model || !year || !price || !name || !email || !phone) {
-      return res.status(400).json({ error: "Please fill all required fields" });
+      return res.status(400).json({ success: false, error: "Missing required fields" });
     }
 
     const images = req.files ? req.files.map((file) => file.filename) : [];
@@ -380,54 +390,37 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
     });
 
     await sellRequest.save();
-    res.status(201).json({
-      message:
-        "Sell request submitted successfully! We will contact you shortly.",
-    });
+    res.json({ success: true, message: "Sell request submitted successfully" });
   } catch (err) {
-    console.error("Error submitting sell request:", err);
-    res
-      .status(500)
-      .json({ error: "Failed to submit sell request. Please try again." });
+    res.status(500).json({ success: false, error: "Failed to submit sell request" });
   }
 });
 
-app.get("/admin/sell-requests", isAuthenticated, async (req, res) => {
+app.get("/api/admin/sell-requests", isAuthenticated, async (req, res) => {
   try {
     const requests = await SellRequest.find().sort({ createdAt: -1 });
-    res.render("sell-requests", {
-      requests,
-      user: req.session.user,
-    });
+    res.json({ success: true, requests });
   } catch (err) {
-    console.error("Error fetching sell requests:", err);
-    res.status(500).send("Error loading sell requests");
+    res.status(500).json({ success: false, error: "Error loading sell requests" });
   }
 });
 
-app.post(
-  "/admin/sell-request/update-status/:id",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-      await SellRequest.findByIdAndUpdate(req.params.id, { status });
-      res.redirect("/admin/sell-requests");
-    } catch (err) {
-      console.error("Error updating sell request:", err);
-      res.status(500).send("Error updating sell request");
-    }
+app.put("/api/admin/sell-request/:id", isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const request = await SellRequest.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    res.json({ success: true, request });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error updating sell request" });
   }
-);
+});
 
-// Handle quote requests
 app.post("/api/quote-request", async (req, res) => {
   try {
     const { name, email, phone, brand, model, year, budget, notes } = req.body;
 
-    // Basic validation
     if (!name || !email || !phone || !brand || !year || !budget) {
-      return res.status(400).json({ error: "Please fill all required fields" });
+      return res.status(400).json({ success: false, error: "Missing required fields" });
     }
 
     const quoteRequest = new QuoteRequest({
@@ -442,83 +435,51 @@ app.post("/api/quote-request", async (req, res) => {
     });
 
     await quoteRequest.save();
-
-    // Here you would typically send a confirmation email
-    res.status(201).json({
-      message:
-        "Quote request submitted successfully! We will contact you shortly.",
-    });
+    res.json({ success: true, message: "Quote request submitted successfully" });
   } catch (err) {
-    console.error("Error submitting quote request:", err);
-    res
-      .status(500)
-      .json({ error: "Failed to submit quote request. Please try again." });
+    res.status(500).json({ success: false, error: "Failed to submit quote request" });
   }
 });
 
-// Admin route to view quote requests
-app.get("/admin/quote-requests", isAuthenticated, async (req, res) => {
+app.get("/api/admin/quote-requests", isAuthenticated, async (req, res) => {
   try {
     const requests = await QuoteRequest.find().sort({ createdAt: -1 });
-    res.render("buy-requests", {
-      requests,
-      user: req.session.user,
-    });
+    res.json({ success: true, requests });
   } catch (err) {
-    console.error("Error fetching quote requests:", err);
-    res.status(500).send("Error loading quote requests");
+    res.status(500).json({ success: false, error: "Error loading quote requests" });
   }
 });
 
-// Update quote request status
-app.post(
-  "/admin/quote-request/update-status/:id",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-      await QuoteRequest.findByIdAndUpdate(req.params.id, { status });
-      res.redirect("/admin/quote-requests");
-    } catch (err) {
-      console.error("Error updating quote request:", err);
-      res.status(500).send("Error updating quote request");
-    }
+app.put("/api/admin/quote-request/:id", isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const request = await QuoteRequest.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    res.json({ success: true, request });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error updating quote request" });
   }
-);
+});
+
 app.get("/api/available-bikes", async (req, res) => {
   try {
     const bikes = await Bike.find({ status: "Available" });
-    res.json(bikes);
+    res.json({ success: true, bikes });
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch available bikes" });
+    res.status(500).json({ success: false, error: "Failed to fetch available bikes" });
   }
 });
 
-// Handle bike booking
 app.post("/api/book-bike", async (req, res) => {
   try {
-    const { name, email, phone, bikeId, paymentMethod, amount, transactionId } =
-      req.body;
+    const { name, email, phone, bikeId, paymentMethod, amount, transactionId } = req.body;
 
-    // Basic validation
-    if (
-      !name ||
-      !email ||
-      !phone ||
-      !bikeId ||
-      !paymentMethod ||
-      !amount ||
-      !transactionId
-    ) {
-      return res.status(400).json({ error: "Please fill all required fields" });
+    if (!name || !email || !phone || !bikeId || !paymentMethod || !amount || !transactionId) {
+      return res.status(400).json({ success: false, error: "Missing required fields" });
     }
 
-    // Check if bike exists and is available
     const bike = await Bike.findById(bikeId);
     if (!bike || bike.status !== "Available") {
-      return res
-        .status(400)
-        .json({ error: "Selected bike is not available for booking" });
+      return res.status(400).json({ success: false, error: "Bike not available" });
     }
 
     const booking = new Booking({
@@ -532,56 +493,31 @@ app.post("/api/book-bike", async (req, res) => {
     });
 
     await booking.save();
-
-    // Here you would typically:
-    // 1. Send confirmation email to customer
-    // 2. Send notification to admin
-    // 3. Maybe update bike status to "Reserved"
-
-    res.status(201).json({
-      message:
-        "Booking confirmed! We will contact you shortly to complete the process.",
-    });
+    res.json({ success: true, message: "Booking confirmed" });
   } catch (err) {
-    console.error("Error processing booking:", err);
-    res
-      .status(500)
-      .json({ error: "Failed to process booking. Please try again." });
+    res.status(500).json({ success: false, error: "Failed to process booking" });
   }
 });
 
-// Admin route to view bookings
-app.get("/admin/bookings", isAuthenticated, async (req, res) => {
+app.get("/api/admin/bookings", isAuthenticated, async (req, res) => {
   try {
-    const bookings = await Booking.find()
-      .populate("bikeId")
-      .sort({ createdAt: -1 });
-
-    res.render("bookings", {
-      bookings,
-      user: req.session.user,
-    });
+    const bookings = await Booking.find().populate("bikeId").sort({ createdAt: -1 });
+    res.json({ success: true, bookings });
   } catch (err) {
-    console.error("Error fetching bookings:", err);
-    res.status(500).send("Error loading bookings");
+    res.status(500).json({ success: false, error: "Error loading bookings" });
   }
 });
 
-// Update booking status
-app.post(
-  "/admin/booking/update-status/:id",
-  isAuthenticated,
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-      await Booking.findByIdAndUpdate(req.params.id, { status });
-      res.redirect("/admin/bookings");
-    } catch (err) {
-      console.error("Error updating booking:", err);
-      res.status(500).send("Error updating booking");
-    }
+app.put("/api/admin/booking/:id", isAuthenticated, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    res.json({ success: true, booking });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error updating booking" });
   }
-);
+});
+
 app.get("/api/offers", async (req, res) => {
   try {
     const currentDate = new Date();
@@ -591,35 +527,27 @@ app.get("/api/offers", async (req, res) => {
       status: "active",
     }).sort({ createdAt: -1 });
 
-    res.json(offers);
+    res.json({ success: true, offers });
   } catch (err) {
-    console.error("Error fetching offers:", err);
-    res.status(500).json({ error: "Failed to fetch offers" });
+    res.status(500).json({ success: false, error: "Failed to fetch offers" });
   }
 });
 
-// Admin route to view all offers
-app.get("/admin/offers", isAuthenticated, async (req, res) => {
+app.get("/api/admin/offers", isAuthenticated, async (req, res) => {
   try {
     const offers = await Offer.find().sort({ startDate: -1 });
-    res.render("offers", {
-      offers,
-      user: req.session.user,
-    });
+    res.json({ success: true, offers });
   } catch (err) {
-    console.error("Error fetching offers:", err);
-    res.status(500).send("Error loading offers");
+    res.status(500).json({ success: false, error: "Error loading offers" });
   }
 });
 
-// Add new offer (admin only)
-app.post("/admin/offers/add", isAuthenticated, isAdmin, async (req, res) => {
+app.post("/api/admin/offers", isAuthenticated, isAdmin, async (req, res) => {
   try {
-    const { title, description, type, image, startDate, endDate, cta, link } =
-      req.body;
+    const { title, description, type, image, startDate, endDate, cta, link } = req.body;
 
     if (!title || !description || !type || !image || !startDate || !endDate) {
-      return res.status(400).json({ error: "Please fill all required fields" });
+      return res.status(400).json({ success: false, error: "Missing required fields" });
     }
 
     const offer = new Offer({
@@ -633,48 +561,31 @@ app.post("/admin/offers/add", isAuthenticated, isAdmin, async (req, res) => {
       link: link || null,
     });
 
-    await Offer.save();
-    res.redirect("/admin/offers");
+    await offer.save();
+    res.json({ success: true, offer });
   } catch (err) {
-    console.error("Error adding offer:", err);
-    res.status(500).send("Error adding offer");
+    res.status(500).json({ success: false, error: "Error adding offer" });
   }
 });
 
-// Update offer status (admin only)
-app.post(
-  "/admin/offers/update-status/:id",
-  isAuthenticated,
-  isAdmin,
-  async (req, res) => {
-    try {
-      const { status } = req.body;
-      await Offer.findByIdAndUpdate(req.params.id, { status });
-      res.redirect("/admin/offers");
-    } catch (err) {
-      console.error("Error updating offer:", err);
-      res.status(500).send("Error updating offer");
-    }
+app.put("/api/admin/offers/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const { status } = req.body;
+    const offer = await Offer.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    res.json({ success: true, offer });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error updating offer" });
   }
-);
+});
 
-// Delete offer (admin only)
-app.post(
-  "/admin/offers/delete/:id",
-  isAuthenticated,
-  isAdmin,
-  async (req, res) => {
-    try {
-      await Offer.findByIdAndDelete(req.params.id);
-      res.redirect("/admin/offers");
-    } catch (err) {
-      console.error("Error deleting offer:", err);
-      res.status(500).send("Error deleting offer");
-    }
+app.delete("/api/admin/offers/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    await Offer.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error deleting offer" });
   }
-);
-
-
+});
 
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
