@@ -5,6 +5,163 @@
   --light-gray: #a9a9a9;
   --dark-gray: #464646;
 }
+
+/* Theme Toggle Styles */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 30px;
+  background-color: #e0e0e0;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.toggle-label i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #333;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.toggle-label .fa-sun {
+  left: 8px;
+}
+
+.toggle-label .fa-moon {
+  right: 8px;
+}
+
+.toggle-ball {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.3s;
+}
+
+#darkModeToggle {
+  display: none;
+}
+
+#darkModeToggle:checked+.toggle-label {
+  background-color: #333;
+}
+
+#darkModeToggle:checked+.toggle-label .toggle-ball {
+  transform: translateX(30px);
+}
+
+#darkModeToggle:checked+.toggle-label .fa-sun {
+  color: #ffcc00;
+}
+
+#darkModeToggle:checked+.toggle-label .fa-moon {
+  color: #fff;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+.dark-mode .hero-content h1,
+.dark-mode .hero-content .hero-line,
+.dark-mode .hero-content .subtitle {
+  color: #ffffff;
+}
+
+.dark-mode .style-card,
+.dark-mode .service-card,
+.dark-mode .bike-card,
+.dark-mode .testimonial,
+.dark-mode .process-step,
+.dark-mode .brand-card,
+.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .style-card:hover,
+.dark-mode .service-card:hover,
+.dark-mode .bike-card:hover,
+.dark-mode .brand-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark-mode .nav-links a,
+.dark-mode .mobile-menu .nav-links a {
+  color: #e0e0e0;
+}
+
+.dark-mode .mobile-menu {
+  background-color: #1e1e1e;
+}
+
+.dark-mode .footer {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.dark-mode .footer a {
+  color: #bbbbbb;
+}
+
+.dark-mode .footer a:hover {
+  color: #ffffff;
+}
+
+.dark-mode .search-input {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+}
+
+.dark-mode .search-input::placeholder {
+  color: #aaaaaa;
+}
+
+.dark-mode .floating-btn {
+  background-color: #333;
+  color: #e0e0e0;
+}
+
+.dark-mode .floating-btn:hover {
+  background-color: #444;
+}
+
+.dark-mode .process-sections {
+  background-color: #1e1e1e;
+  max-width: 1400px;
+  margin: 0 auto 80px;
+  width: 100%;
+}
+
+.dark-mode .process-section h2 {
+  color: white
+}
+
+.dark-mode .process-section p {
+  color: white
+}
+
+.dark-mode .process-section h3 {
+  color: white
+}
+
 .gallery-section {
   padding: 60px 0;
   background-color: #f8f8f8;
@@ -18,6 +175,19 @@
   color: #333;
 }
 
+.dark-mode .gallery-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.dark-mode .gallery-section {
+  padding: 60px 0;
+  background-color: var(--secondary-color);
+  text-align: center;
+  overflow: hidden;
+}
+
 .gallery-slider {
   width: 100%;
   overflow: hidden;
@@ -29,7 +199,8 @@
   display: flex;
   gap: 15px;
   animation: scroll 30s linear infinite;
-  width: calc(250px * 12); /* Adjust based on number of images */
+  width: calc(250px * 12);
+  /* Adjust based on number of images */
 }
 
 .gallery-track img {
@@ -49,8 +220,10 @@
   0% {
     transform: translateX(0);
   }
+
   100% {
-    transform: translateX(calc(-250px * 6)); /* Half of total width */
+    transform: translateX(calc(-250px * 6));
+    /* Half of total width */
   }
 }
 
@@ -93,6 +266,7 @@
     }
   }
 }
+
 /* Modal Styles */
 .modal {
   display: none;
@@ -246,6 +420,12 @@
   background-color: white;
 }
 
+body.dark-mode .featured-bikes-section {
+  padding: 80px 5%;
+  background-color: var(--secondary-color);
+}
+
+
 .featured-bikes-section h2 {
   color: #333;
 }
@@ -332,6 +512,17 @@
   border: 1px solid #eee;
 }
 
+body.dark-mode .bike-slider .bike-card {
+  flex: 0 0 calc(25% - 15px);
+  min-width: 280px;
+  background: transparent;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: 1px solid black;
+}
+
 .bike-slider .bike-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -356,6 +547,12 @@
   font-size: 1.1rem;
   margin: 0 0 5px;
   color: #333;
+}
+
+body.dark-mode .bike-slider .bike-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 5px;
+  color: white;
 }
 
 .bike-slider .bike-card .model {
@@ -431,18 +628,7 @@
   z-index: 2;
 }
 
-.bike-slider .bike-card .status-available {
-  background-color: #28a745;
-}
 
-.bike-slider .bike-card .status-sold {
-  background-color: #dc3545;
-}
-
-.bike-slider .bike-card .status-coming-soon {
-  background-color: #ffc107;
-  color: #333;
-}
 
 /* View Details Button - Updated */
 .bike-slider .bike-card .view-details-btn {
@@ -566,12 +752,10 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(
-      circle at center,
+  background-image: radial-gradient(circle at center,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%
-    ),
+      rgba(0, 0, 0, 0.95) 100%),
     url("https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG");
   background-size: cover;
   background-position: center;
@@ -645,11 +829,9 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    50% 50% at 77% 49%,
-    rgba(48, 46, 46, 1) 0%,
-    rgba(1, 1, 1, 0) 100%
-  );
+  background: radial-gradient(50% 50% at 77% 49%,
+      rgba(48, 46, 46, 1) 0%,
+      rgba(1, 1, 1, 0) 100%);
 }
 
 .navbar {
@@ -734,12 +916,10 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.7s ease;
   z-index: -1;
 }
@@ -774,11 +954,9 @@ body {
 
 .hero-line {
   display: block;
-  background: linear-gradient(
-    188deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.7) 100%
-  );
+  background: linear-gradient(188deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.7) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -814,11 +992,9 @@ body {
 @media only screen and (max-width: 768px) {
   .hero-line {
     display: block;
-    background: linear-gradient(
-      188deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.7) 100%
-    );
+    background: linear-gradient(188deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.7) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -932,6 +1108,13 @@ h2 {
 
 /* Brands Section */
 .brands-section {
+  background: linear-gradient(135deg, var(--primary-color) 0%, #ffaa17 100%);
+  padding: 80px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+body.dark-mode .brands-section {
   background: linear-gradient(135deg, var(--secondary-color) 0%, #1a1a1a 100%);
   padding: 80px 5%;
   position: relative;
@@ -945,11 +1128,9 @@ h2 {
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 70%);
   z-index: 0;
 }
 
@@ -999,6 +1180,13 @@ h2 {
 }
 
 .brand-card h3 {
+  font-size: 1.1rem;
+  margin: 0;
+  color: rgb(0, 0, 0);
+  font-weight: 500;
+}
+
+body.dark-mode .brand-card h3 {
   font-size: 1.1rem;
   margin: 0;
   color: white;
@@ -1212,19 +1400,26 @@ h2 {
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Inventory Section */
 .inventory-section {
   background-color: var(--secondary-color);
 }
 
-/* Stats Section */
 .stats-section {
-  background: linear-gradient(135deg, var(--secondary-color) 0%, #1a1a1a 100%);
+  background: linear-gradient(135deg, var(--primary-color) 0%, #ffaa17 100%);
   padding: 80px 5%;
   text-align: center;
   position: relative;
   overflow: hidden;
 }
+
+body.dark-mode .stats-section {
+   background: #1a1a1a;
+  padding: 80px 5%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
 
 .stats-section::before {
   content: "";
@@ -1233,11 +1428,9 @@ h2 {
   right: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 70%);
   z-index: 0;
 }
 
@@ -1364,6 +1557,13 @@ h2 {
   overflow: hidden;
 }
 
+body.dark-mode .services-section {
+  background-color: #100f0f;
+  padding: 80px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
 .services-section h2 {
   color: var(--primary-color);
   text-align: center;
@@ -1379,11 +1579,9 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at 20% 50%,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 50%
-  );
+  background: radial-gradient(circle at 20% 50%,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 50%);
   z-index: 0;
 }
 
@@ -1439,8 +1637,21 @@ h2 {
   color: rgb(0, 0, 0);
 }
 
+body.dark-mode .service-card h3 {
+  font-size: 1.4rem;
+  margin: 20px 0 15px;
+  color: white;
+}
+
 .service-card p {
   color: rgba(0, 0, 0, 0.7);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+body.dark-mode .service-card p {
+  color: white;
   line-height: 1.6;
   font-size: 0.95rem;
   margin-bottom: 20px;
@@ -1474,11 +1685,9 @@ h2 {
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 70%);
   z-index: 0;
 }
 
@@ -1580,6 +1789,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: var(--text-color);
   margin-bottom: 40px;
 }
 
@@ -1601,11 +1811,9 @@ h2 {
   right: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 70%);
   z-index: 0;
 }
 
@@ -1726,6 +1934,13 @@ h2 {
 
 /* Testimonials Section */
 .testimonials-section {
+  background-color: white;
+  padding: 100px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark-mode .testimonials-section {
   background-color: var(--secondary-color);
   padding: 100px 5%;
   position: relative;
@@ -1739,11 +1954,9 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    circle at 20% 50%,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 50%
-  );
+  background: radial-gradient(circle at 20% 50%,
+      rgba(163, 41, 25, 0.1) 0%,
+      transparent 50%);
   z-index: 0;
 }
 
@@ -1752,6 +1965,15 @@ h2 {
   margin-bottom: 70px;
   position: relative;
   display: inline-block;
+  color: black
+}
+
+.dark-mode .testimonials-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 70px;
+  position: relative;
+  display: inline-block;
+  color:white;
 }
 
 .testimonials-section h2::after {
@@ -1799,11 +2021,9 @@ h2 {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0) 50%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0) 50%);
   z-index: -1;
 }
 
@@ -1841,11 +2061,24 @@ h2 {
 .user-name {
   font-size: 1.2rem;
   font-weight: 600;
+  color: black;
+  margin: 0 0 5px 0;
+}
+
+.dark-mode .user-name {
+  font-size: 1.2rem;
+  font-weight: 600;
   color: white;
   margin: 0 0 5px 0;
 }
 
 .user-location {
+  color: black;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.dark-mode .user-location {
   color: rgba(255, 255, 255, 0.6);
   font-size: 0.9rem;
   margin: 0;
@@ -1872,6 +2105,15 @@ h2 {
 }
 
 .quote {
+  font-style: italic;
+  line-height: 1.8;
+  margin-bottom: 25px;
+  color: black;
+  position: relative;
+  padding-left: 20px;
+}
+
+.dark-mode .quote {
   font-style: italic;
   line-height: 1.8;
   margin-bottom: 25px;
@@ -2034,6 +2276,20 @@ input[type="range"]::-webkit-slider-thumb {
 .section-header {
   flex-direction: column;
   align-items: center;
+  gap: 15px;
+}
+
+.section-header h2 {
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  gap: 15px;
+}
+
+body.dark-mode .section-header h2 {
+  flex-direction: column;
+  align-items: center;
+  color: white;
   gap: 15px;
 }
 
@@ -2280,6 +2536,12 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .footer {
+  background-color: var(--text-color);
+  color: black;
+  padding: 60px 5% 20px;
+}
+
+.dark-mode .footer {
   background-color: var(--secondary-color);
   color: white;
   padding: 60px 5% 20px;
@@ -2301,10 +2563,22 @@ input[type="range"]::-webkit-slider-thumb {
 .footer-section h3 {
   font-size: 1.3rem;
   margin-bottom: 20px;
+  color: black;
+}
+
+.dark-mode .footer-section h3 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
   color: white;
 }
 
 .footer-section p {
+  color: var(--secondary-color);
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.dark-mode .footer-section p {
   color: var(--light-gray);
   line-height: 1.6;
   margin-bottom: 15px;
@@ -2320,12 +2594,22 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .footer-section ul li a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.dark-mode .footer-section ul li a {
   color: var(--light-gray);
   text-decoration: none;
   transition: color 0.3s;
 }
 
 .footer-section ul li a:hover {
+  color: var(--light-gray);
+}
+
+.dark-mode .footer-section ul li a:hover {
   color: white;
 }
 
@@ -2348,12 +2632,10 @@ input[type="range"]::-webkit-slider-thumb {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.85) 60%,
-    rgba(0, 0, 0, 0.95) 100%
-  );
+  background-image: radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.85) 60%,
+      rgba(0, 0, 0, 0.95) 100%);
 }
 
 .social-icons {
