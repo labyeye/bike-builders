@@ -42,21 +42,21 @@
             >
           </li>
           <li>
-              <a
-                href="about.html"
-                aria-label="About Bike Builders"
-                data-translate="About Us"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="book.html"
-                aria-label="Book Bike"
-                data-translate="Book Bike"
-                >Book Bike</a
-              >
-            </li>
+            <a
+              href="about.html"
+              aria-label="About Bike Builders"
+              data-translate="About Us"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="book.html"
+              aria-label="Book Bike"
+              data-translate="Book Bike"
+              >Book Bike</a
+            >
+          </li>
           <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
           <li><a href="contact.html" data-translate="Contact">Contact</a></li>
         </ul>
@@ -65,246 +65,409 @@
             <button data-translate="Get the Quote">Get the Quote</button>
           </a>
         </div>
+        <div class="theme-toggle">
+          <input
+            type="checkbox"
+            id="darkModeToggle"
+            aria-label="Toggle dark mode"
+          />
+          <label for="darkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
       </nav>
       <section class="inventory-section full-inventory">
         <div class="inventory-content">
-          <!-- Left sidebar filters -->
-          <div class="sidebar-filters">
-            <div class="filters-container">
-              <h3 data-translate="Filters">Filters</h3>
-              <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="all"
-                  data-translate="All Bikes"
-                >
-                  All Bikes
-                </button>
-              </div>
+          <!-- Add this inside the inventory-section div, right after the search-container -->
+          <div class="filters-container">
+            <!-- Desktop Filters -->
+            <div class="desktop-filters">
+              <button class="filter-btn" data-filter="all">
+                <span data-translate="All Bikes">All Bikes</span>
+              </button>
 
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="price"
-                  data-translate="Price"
-                >
-                  Price <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="price">
+                  <span data-translate="Price">Price</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="price-dropdown">
-                  <div class="price-range">
-                    <div class="range-inputs">
-                      <input
-                        type="number"
-                        id="min-price"
-                        placeholder="Min"
-                        min="0"
-                      />
-                      <span>to</span>
-                      <input
-                        type="number"
-                        id="max-price"
-                        placeholder="Max"
-                        min="0"
-                      />
+                  <div class="price-presets">
+                    <button class="price-preset" data-min="0" data-max="50000">
+                      <span data-translate="Under 50K">Under 50K</span>
+                    </button>
+                    <button
+                      class="price-preset"
+                      data-min="50000"
+                      data-max="100000"
+                    >
+                      <span data-translate="50K-1L">50K-1L</span>
+                    </button>
+                    <button
+                      class="price-preset"
+                      data-min="100000"
+                      data-max="200000"
+                    >
+                      <span data-translate="1L-2L">1L-2L</span>
+                    </button>
+                    <button
+                      class="price-preset"
+                      data-min="200000"
+                      data-max="500000"
+                    >
+                      <span data-translate="2L-5L">2L-5L</span>
+                    </button>
+                    <button class="price-preset" data-min="500000">
+                      <span data-translate="5L+">5L+</span>
+                    </button>
+                  </div>
+                  <div class="price-range-inputs">
+                    <div class="range-input">
+                      <label for="min-price">Min</label>
+                      <input type="number" id="min-price" placeholder="Min" />
                     </div>
-                    <div class="price-presets">
-                      <button
-                        class="price-preset"
-                        data-min="0"
-                        data-max="50000"
-                      >
-                        Under 50K
-                      </button>
-                      <button
-                        class="price-preset"
-                        data-min="50000"
-                        data-max="100000"
-                      >
-                        50K-1L
-                      </button>
-                      <button
-                        class="price-preset"
-                        data-min="100000"
-                        data-max="200000"
-                      >
-                        1L-2L
-                      </button>
-                      <button
-                        class="price-preset"
-                        data-min="200000"
-                        data-max="500000"
-                      >
-                        2L-5L
-                      </button>
-                      <button class="price-preset" data-min="500000">
-                        5L+
-                      </button>
+                    <div class="range-input">
+                      <label for="max-price">Max</label>
+                      <input type="number" id="max-price" placeholder="Max" />
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="brand"
-                  data-translate="Brand"
-                >
-                  Brand <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="brand">
+                  <span data-translate="Brand">Brand</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="brand-dropdown">
-                  <div class="filter-options brand-options">
+                  <div class="brand-options">
+                    <button class="filter-option" data-brand="Royal Enfield">
+                      Royal Enfield
+                    </button>
                     <button class="filter-option" data-brand="Bajaj">
                       Bajaj
-                    </button>
-                    <button class="filter-option" data-brand="BMW Motorrad">
-                      BMW Motorrad
-                    </button>
-                    <button class="filter-option" data-brand="Ducati">
-                      Ducati
-                    </button>
-                    <button class="filter-option" data-brand="Harley-Davidson">
-                      Harley-Davidson
                     </button>
                     <button class="filter-option" data-brand="Hero">
                       Hero
                     </button>
-                    <button class="filter-option" data-brand="Honda">
-                      Honda
-                    </button>
-                    <button class="filter-option" data-brand="Kawasaki">
-                      Kawasaki
+                    <button class="filter-option" data-brand="Yamaha">
+                      Yamaha
                     </button>
                     <button class="filter-option" data-brand="KTM">KTM</button>
-                    <button class="filter-option" data-brand="Royal Enfield">
-                      Royal Enfield
+                    <button class="filter-option" data-brand="TVS">TVS</button>
+                    <button class="filter-option" data-brand="Honda">
+                      Honda
                     </button>
                     <button class="filter-option" data-brand="Suzuki">
                       Suzuki
                     </button>
-                    <button class="filter-option" data-brand="TVS">TVS</button>
-                    <button class="filter-option" data-brand="Yamaha">
-                      Yamaha
+                    <button class="filter-option" data-brand="Jawa">
+                      Jawa
+                    </button>
+                    <button class="filter-option" data-brand="BMW Motorrad">
+                      BMW
+                    </button>
+                    <button class="filter-option" data-brand="Harley-Davidson">
+                      Harley
+                    </button>
+                    <button class="filter-option" data-brand="Kawasaki">
+                      Kawasaki
                     </button>
                   </div>
                 </div>
               </div>
+
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="year"
-                  data-translate="Year"
-                >
-                  Year <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="year">
+                  <span data-translate="Year">Year</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="year-dropdown">
-                  <div class="year-slider">
-                    <div class="slider-container">
+                  <div class="year-range">
+                    <div class="range-values">
+                      <span id="year-min-value">2015</span> -
+                      <span id="year-max-value">2024</span>
+                    </div>
+                    <div class="range-sliders">
                       <input
                         type="range"
                         id="year-min"
-                        min="2015"
+                        min="2000"
                         max="2024"
                         value="2015"
-                        step="1"
                       />
                       <input
                         type="range"
                         id="year-max"
-                        min="2015"
+                        min="2000"
                         max="2024"
                         value="2024"
-                        step="1"
                       />
-                    </div>
-                    <div class="year-values">
-                      <span id="year-min-value">2015</span>
-                      <span>to</span>
-                      <span id="year-max-value">2024</span>
                     </div>
                   </div>
                 </div>
               </div>
 
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="km"
-                  data-translate="KM Driven"
-                >
-                  KM Driven <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="km">
+                  <span data-translate="KM Driven">KM Driven</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="km-dropdown">
-                  <div class="km-slider">
-                    <div class="slider-container">
+                  <div class="km-range">
+                    <div class="range-values">
+                      <span id="km-min-value">0</span> -
+                      <span id="km-max-value">50,000</span> km
+                    </div>
+                    <div class="range-sliders">
                       <input
                         type="range"
                         id="km-min"
                         min="0"
-                        max="50000"
+                        max="100000"
                         value="0"
-                        step="500"
+                        step="1000"
                       />
                       <input
                         type="range"
                         id="km-max"
                         min="0"
-                        max="50000"
+                        max="100000"
                         value="50000"
-                        step="500"
+                        step="1000"
                       />
                     </div>
-                    <div class="km-values">
-                      <span id="km-min-value">0</span>
-                      <span>to</span>
-                      <span id="km-max-value">50,000</span>
-                      <span>km</span>
-                    </div>
                   </div>
                 </div>
               </div>
 
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="owner"
-                  data-translate="Ownership"
-                >
-                  Ownership <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="owner">
+                  <span data-translate="Ownership">Ownership</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="owner-dropdown">
-                  <div class="filter-options ownership-options">
+                  <div class="ownership-options">
                     <button class="filter-option" data-owner="1">
-                      1st Owner
+                      <span data-translate="1st Owner">1st Owner</span>
                     </button>
                     <button class="filter-option" data-owner="2">
-                      2nd Owner
+                      <span data-translate="2nd Owner">2nd Owner</span>
                     </button>
                     <button class="filter-option" data-owner="3">
-                      3+ Owner
+                      <span data-translate="3+ Owner">3+ Owner</span>
                     </button>
                   </div>
                 </div>
               </div>
 
               <div class="filter-group">
-                <button
-                  class="filter-btn"
-                  data-filter="fuel"
-                  data-translate="Fuel Type"
-                >
-                  Fuel Type <i class="fas fa-chevron-down"></i>
+                <button class="filter-btn" data-filter="fuel">
+                  <span data-translate="Fuel Type">Fuel Type</span>
+                  <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="filter-dropdown" id="fuel-dropdown">
-                  <div class="filter-options fuel-options">
+                  <div class="fuel-options">
                     <button class="filter-option" data-fuel="Petrol">
-                      Petrol
+                      <span data-translate="Petrol">Petrol</span>
                     </button>
                     <button class="filter-option" data-fuel="Electric">
-                      Electric
+                      <span data-translate="Electric">Electric</span>
                     </button>
                   </div>
                 </div>
+              </div>
+            </div>
+
+            
+          </div>
+
+          <!-- Mobile Filters Overlay -->
+          <div class="mobile-filters-container">
+            <div class="mobile-filters">
+              <div class="mobile-filters-header">
+                <h3 data-translate="Filters">Filters</h3>
+                <button class="close-filters-btn">&times;</button>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="Price">Price</h4>
+                <div class="price-presets">
+                  <button class="price-preset" data-min="0" data-max="50000">
+                    <span data-translate="Under 50K">Under 50K</span>
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="50000"
+                    data-max="100000"
+                  >
+                    <span data-translate="50K-1L">50K-1L</span>
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="100000"
+                    data-max="200000"
+                  >
+                    <span data-translate="1L-2L">1L-2L</span>
+                  </button>
+                  <button
+                    class="price-preset"
+                    data-min="200000"
+                    data-max="500000"
+                  >
+                    <span data-translate="2L-5L">2L-5L</span>
+                  </button>
+                  <button class="price-preset" data-min="500000">
+                    <span data-translate="5L+">5L+</span>
+                  </button>
+                </div>
+                <div class="price-range-inputs">
+                  <div class="range-input">
+                    <label for="min-price-mobile">Min</label>
+                    <input
+                      type="number"
+                      id="min-price-mobile"
+                      placeholder="Min"
+                    />
+                  </div>
+                  <div class="range-input">
+                    <label for="max-price-mobile">Max</label>
+                    <input
+                      type="number"
+                      id="max-price-mobile"
+                      placeholder="Max"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="Brand">Brand</h4>
+                <div class="mobile-brand-options" id="brand-dropdown-mobile">
+                  <button class="filter-option" data-brand="Royal Enfield">
+                    Royal Enfield
+                  </button>
+                  <button class="filter-option" data-brand="Bajaj">
+                    Bajaj
+                  </button>
+                  <button class="filter-option" data-brand="Hero">Hero</button>
+                  <button class="filter-option" data-brand="Yamaha">
+                    Yamaha
+                  </button>
+                  <button class="filter-option" data-brand="KTM">KTM</button>
+                  <button class="filter-option" data-brand="TVS">TVS</button>
+                  <button class="filter-option" data-brand="Honda">
+                    Honda
+                  </button>
+                  <button class="filter-option" data-brand="Suzuki">
+                    Suzuki
+                  </button>
+                  <button class="filter-option" data-brand="Jawa">Jawa</button>
+                  <button class="filter-option" data-brand="BMW Motorrad">
+                    BMW
+                  </button>
+                  <button class="filter-option" data-brand="Harley-Davidson">
+                    Harley
+                  </button>
+                  <button class="filter-option" data-brand="Kawasaki">
+                    Kawasaki
+                  </button>
+                </div>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="Year">Year</h4>
+                <div class="year-range">
+                  <div class="range-values">
+                    <span id="year-min-value-mobile">2015</span> -
+                    <span id="year-max-value-mobile">2024</span>
+                  </div>
+                  <div class="range-sliders">
+                    <input
+                      type="range"
+                      id="year-min-mobile"
+                      min="2000"
+                      max="2024"
+                      value="2015"
+                    />
+                    <input
+                      type="range"
+                      id="year-max-mobile"
+                      min="2000"
+                      max="2024"
+                      value="2024"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="KM Driven">KM Driven</h4>
+                <div class="km-range">
+                  <div class="range-values">
+                    <span id="km-min-value-mobile">0</span> -
+                    <span id="km-max-value-mobile">50,000</span> km
+                  </div>
+                  <div class="range-sliders">
+                    <input
+                      type="range"
+                      id="km-min-mobile"
+                      min="0"
+                      max="100000"
+                      value="0"
+                      step="1000"
+                    />
+                    <input
+                      type="range"
+                      id="km-max-mobile"
+                      min="0"
+                      max="100000"
+                      value="50000"
+                      step="1000"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="Ownership">Ownership</h4>
+                <div
+                  class="mobile-ownership-options"
+                  id="owner-dropdown-mobile"
+                >
+                  <button class="filter-option" data-owner="1">
+                    <span data-translate="1st Owner">1st Owner</span>
+                  </button>
+                  <button class="filter-option" data-owner="2">
+                    <span data-translate="2nd Owner">2nd Owner</span>
+                  </button>
+                  <button class="filter-option" data-owner="3">
+                    <span data-translate="3+ Owner">3+ Owner</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="mobile-filter-group">
+                <h4 data-translate="Fuel Type">Fuel Type</h4>
+                <div class="mobile-fuel-options" id="fuel-dropdown-mobile">
+                  <button class="filter-option" data-fuel="Petrol">
+                    <span data-translate="Petrol">Petrol</span>
+                  </button>
+                  <button class="filter-option" data-fuel="Electric">
+                    <span data-translate="Electric">Electric</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="mobile-filter-actions">
+                <button class="reset-filters-btn" data-translate="Reset">
+                  Reset
+                </button>
+                <button class="apply-filters-btn" data-translate="Apply">
+                  Apply
+                </button>
               </div>
             </div>
           </div>
@@ -477,7 +640,9 @@
             <li><a href="inventory.html">Buy Bike</a></li>
             <li><a href="sell.html">Sell Your Bike</a></li>
             <li><a href="about.html">About Us</a></li>
-            <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
+            <li>
+              <a href="./updates.html" data-translate="Updates">Updates</a>
+            </li>
             <li><a href="contact.html" data-translate="Contact">Contact</a></li>
           </ul>
         </div>
@@ -1672,6 +1837,84 @@
         }
       }
     </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const mobileDarkModeToggle = document.getElementById(
+          "mobileDarkModeToggle"
+        );
+
+        // Check for saved user preference or system preference
+        function checkDarkModePreference() {
+          const savedTheme = localStorage.getItem("theme");
+          const systemPrefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add("dark-mode");
+            if (darkModeToggle) darkModeToggle.checked = true;
+            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+          }
+        }
+
+        // Initialize dark mode
+        checkDarkModePreference();
+
+        // Desktop toggle
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync mobile toggle
+            if (mobileDarkModeToggle) {
+              mobileDarkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Mobile toggle
+        if (mobileDarkModeToggle) {
+          mobileDarkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync desktop toggle
+            if (darkModeToggle) {
+              darkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Watch for system theme changes
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            const newColorScheme = e.matches ? "dark" : "light";
+            if (!localStorage.getItem("theme")) {
+              // Only if user hasn't set a preference
+              if (newColorScheme === "dark") {
+                document.body.classList.add("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = true;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+              } else {
+                document.body.classList.remove("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = false;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
+              }
+            }
+          });
+      });
+    </script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-ETL311CBE6"
@@ -1789,7 +2032,6 @@
       </div>
     </div>
     <div class="floating-buttons">
-      
       <a
         href="#"
         class="floating-btn whatsapp-btn"
@@ -1847,202 +2089,6 @@
         <button class="number-option" data-number="919876543210">
           +91 98358 44897
         </button>
-      </div>
-    </div>
-    <div class="mobile-filters-container">
-      <div class="mobile-filters-inner">
-        <button class="close-filters-btn">&times;</button>
-        <div class="filters-container">
-          <h3 data-translate="Filters">Filters</h3>
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="all">All Bikes</button>
-          </div>
-
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="price">
-              Price <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="price-dropdown-mobile">
-              <div class="price-range">
-                <div class="range-inputs">
-                  <input
-                    type="number"
-                    id="min-price-mobile"
-                    placeholder="Min"
-                    min="0"
-                  />
-                  <span>to</span>
-                  <input
-                    type="number"
-                    id="max-price-mobile"
-                    placeholder="Max"
-                    min="0"
-                  />
-                </div>
-                <div class="price-presets">
-                  <button class="price-preset" data-min="0" data-max="50000">
-                    Under 50K
-                  </button>
-                  <button
-                    class="price-preset"
-                    data-min="50000"
-                    data-max="100000"
-                  >
-                    50K-1L
-                  </button>
-                  <button
-                    class="price-preset"
-                    data-min="100000"
-                    data-max="200000"
-                  >
-                    1L-2L
-                  </button>
-                  <button
-                    class="price-preset"
-                    data-min="200000"
-                    data-max="500000"
-                  >
-                    2L-5L
-                  </button>
-                  <button class="price-preset" data-min="500000">5L+</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="brand">
-              Brand <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="brand-dropdown-mobile">
-              <div class="filter-options brand-options">
-                <button class="filter-option" data-brand="Bajaj">Bajaj</button>
-                <button class="filter-option" data-brand="BMW Motorrad">
-                  BMW Motorrad
-                </button>
-                <button class="filter-option" data-brand="Ducati">
-                  Ducati
-                </button>
-                <button class="filter-option" data-brand="Harley-Davidson">
-                  Harley-Davidson
-                </button>
-                <button class="filter-option" data-brand="Hero">Hero</button>
-                <button class="filter-option" data-brand="Honda">Honda</button>
-                <button class="filter-option" data-brand="Kawasaki">
-                  Kawasaki
-                </button>
-                <button class="filter-option" data-brand="KTM">KTM</button>
-                <button class="filter-option" data-brand="Royal Enfield">
-                  Royal Enfield
-                </button>
-                <button class="filter-option" data-brand="Suzuki">
-                  Suzuki
-                </button>
-                <button class="filter-option" data-brand="TVS">TVS</button>
-                <button class="filter-option" data-brand="Yamaha">
-                  Yamaha
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Year filter -->
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="year">
-              Year <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="year-dropdown-mobile">
-              <div class="year-slider">
-                <div class="slider-container">
-                  <input
-                    type="range"
-                    id="year-min-mobile"
-                    min="2015"
-                    max="2024"
-                    value="2015"
-                    step="1"
-                  />
-                  <input
-                    type="range"
-                    id="year-max-mobile"
-                    min="2015"
-                    max="2024"
-                    value="2024"
-                    step="1"
-                  />
-                </div>
-                <div class="year-values">
-                  <span id="year-min-value-mobile">2015</span>
-                  <span>to</span>
-                  <span id="year-max-value-mobile">2024</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KM Driven filter -->
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="km">
-              KM Driven <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="km-dropdown-mobile">
-              <div class="km-slider">
-                <div class="slider-container">
-                  <input
-                    type="range"
-                    id="km-min-mobile"
-                    min="0"
-                    max="50000"
-                    value="0"
-                    step="500"
-                  />
-                  <input
-                    type="range"
-                    id="km-max-mobile"
-                    min="0"
-                    max="50000"
-                    value="50000"
-                    step="500"
-                  />
-                </div>
-                <div class="km-values">
-                  <span id="km-min-value-mobile">0</span>
-                  <span>to</span>
-                  <span id="km-max-value-mobile">50,000</span>
-                  <span>km</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Ownership filter -->
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="owner">
-              Ownership <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="owner-dropdown-mobile">
-              <div class="filter-options ownership-options">
-                <button class="filter-option" data-owner="1">1st Owner</button>
-                <button class="filter-option" data-owner="2">2nd Owner</button>
-                <button class="filter-option" data-owner="3">3+ Owner</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Fuel Type filter -->
-          <div class="filter-group">
-            <button class="filter-btn" data-filter="fuel">
-              Fuel Type <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="filter-dropdown" id="fuel-dropdown-mobile">
-              <div class="filter-options fuel-options">
-                <button class="filter-option" data-fuel="Petrol">Petrol</button>
-                <button class="filter-option" data-fuel="Electric">
-                  Electric
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </body>
