@@ -333,7 +333,7 @@
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Load available bikes
-        fetch("http://localhost:2500/api/available-bikes")
+        fetch("https://bike-builders.onrender.com/api/available-bikes")
           .then((response) => response.json())
           .then((bikes) => {
             const select = document.getElementById("book-bike");
@@ -373,7 +373,7 @@
               jsonData[key] = value;
             });
 
-            const response = await fetch("http://localhost:2500/api/book-bike", {
+            const response = await fetch("https://bike-builders.onrender.com/api/book-bike", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",

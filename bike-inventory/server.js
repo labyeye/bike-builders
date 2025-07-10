@@ -22,9 +22,10 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: true, // or specify your frontend URL like "http://localhost:3000"
   credentials: true
 }));
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(
   session({
@@ -61,7 +62,7 @@ const bikeSchema = new mongoose.Schema({
   daysOld: Number,
   price: Number,
   downPayment: Number,
-  imageUrl: String,
+  imageUrl: [String],
   status: {
     type: String,
     enum: ["Available", "Coming Soon", "Sold Out"],
@@ -201,43 +202,6 @@ app.get("/api/bikes", async (req, res) => {
     res.status(500).json({ success: false, error: "Failed to fetch bikes" });
   }
 });
-app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
-  try {
-    const bikeData = {
-      brand: req.body.brand,
-      model: req.body.model,
-      modelYear: Number(req.body.modelYear),
-      kmDriven: Number(req.body.kmDriven),
-      ownership: req.body.ownership,
-      fuelType: req.body.fuelType,
-      daysOld: Number(req.body.daysOld),
-      price: Number(req.body.price),
-      downPayment: Number(req.body.downPayment),
-      imageUrl: req.body.imageUrl || "https://via.placeholder.com/300",
-      status: req.body.status,
-    };
-    if (
-      !bikeData.brand ||
-      !bikeData.model ||
-      isNaN(bikeData.modelYear) ||
-      isNaN(bikeData.kmDriven) ||
-      !bikeData.ownership ||
-      !bikeData.fuelType ||
-      isNaN(bikeData.daysOld) ||
-      isNaN(bikeData.price) ||
-      isNaN(bikeData.downPayment) ||
-      !bikeData.status
-    ) {
-      return res.status(400).json({ success: false, error: "Invalid data" });
-    }
-
-    const bike = new Bike(bikeData);
-    await bike.save();
-    res.json({ success: true, bike });
-  } catch (err) {
-    res.status(500).json({ success: false, error: "Failed to add bike" });
-  }
-});
 app.get("/api/stats", isAuthenticated, async (req, res) => {
   try {
     const stats = {
@@ -293,7 +257,7 @@ app.delete("/api/admin/bike/:id", isAuthenticated, isAdmin, async (req, res) => 
     res.status(500).json({ success: false, error: "Error deleting bike" });
   }
 });
-
+// Remove the first POST route (around line 141-178) and keep only this one
 app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
   try {
     const bikeData = {
@@ -306,10 +270,16 @@ app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
       daysOld: Number(req.body.daysOld),
       price: Number(req.body.price),
       downPayment: Number(req.body.downPayment),
-      imageUrl: req.body.imageUrl || "https://via.placeholder.com/300",
+      imageUrl: req.body.imageUrls || [], // Accept imageUrls from frontend
       status: req.body.status,
     };
 
+    // Filter out empty image URLs
+    if (Array.isArray(bikeData.imageUrl)) {
+      bikeData.imageUrl = bikeData.imageUrl.filter(url => url && url.trim() !== "");
+    }
+
+    // Validation
     if (
       !bikeData.brand ||
       !bikeData.model ||
@@ -322,13 +292,14 @@ app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
       isNaN(bikeData.downPayment) ||
       !bikeData.status
     ) {
-      return res.status(400).json({ success: false, error: "Invalid data" });
+      return res.status(400).json({ success: false, error: "Invalid data. Please check all required fields." });
     }
 
     const bike = new Bike(bikeData);
     await bike.save();
     res.json({ success: true, bike });
   } catch (err) {
+    console.error("Error adding bike:", err);
     res.status(500).json({ success: false, error: "Failed to add bike" });
   }
 });

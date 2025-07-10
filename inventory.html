@@ -280,8 +280,6 @@
                 </div>
               </div>
             </div>
-
-            
           </div>
 
           <!-- Mobile Filters Overlay -->
@@ -798,7 +796,7 @@
         let currentSort = "default"; // Declare this ONCE at the top level
 
         function loadBikes() {
-          fetch("http://localhost:2500/api/bikes")
+          fetch("https://bike-builders.onrender.com/api/bikes")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -871,7 +869,21 @@
             bikeGrid.appendChild(bikeCard);
           });
 
-          // Add click event listeners to bike cards for popup
+          // Initialize sliders only if jQuery is available
+          if (typeof $ !== "undefined") {
+            document.querySelectorAll(".bike-slider").forEach((slider) => {
+              $(slider).slick({
+                dots: true,
+                arrows: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                adaptiveHeight: true,
+              });
+            });
+          }
+
           addBikeCardClickListeners();
         }
 
@@ -880,7 +892,7 @@
           const bikeCard = document.createElement("div");
           bikeCard.className = "bike-card";
 
-          // Set data attributes for filtering
+          // Set data attributes
           bikeCard.dataset.brand = bike.brand || "";
           bikeCard.dataset.price = bike.price || 0;
           bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
@@ -900,60 +912,74 @@
               ? "status-coming-soon"
               : "status-available";
 
+          // Get non-empty image URLs
+          const images = (bike.imageUrl || []).filter(
+            (url) => url && url.trim() !== ""
+          );
+          if (images.length === 0) {
+            images.push("https://via.placeholder.com/300?text=No+Image");
+          }
+
           bikeCard.innerHTML = `
-      <div class="image-container">
-        <img src="${
-          bike.imageUrl || "https://via.placeholder.com/300x200?text=No+Image"
-        }" 
-             alt="${bike.brand} ${bike.model}" 
-             onerror="this.src='https://via.placeholder.com/300x200?text=No+Image'">
-        <div class="status-badge ${statusClass}">${
+    <div class="image-container">
+      <div class="bike-slider">
+        ${images
+          .map(
+            (img) => `
+          <div class="slide">
+            <img src="${img}" alt="${bike.brand} ${bike.model}" loading="lazy">
+          </div>
+        `
+          )
+          .join("")}
+      </div>
+      <div class="status-badge ${statusClass}">${
             bike.status || "Available"
           }</div>
-      </div>
-      <div class="card-content">
-        <h3>${bike.brand} ${bike.model}</h3>
-        <span class="model">${bike.modelYear} Model</span>
-        <div class="details">
-          <div class="detail-item">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-user"></i>
-            <span>${formatOwnership(bike.ownership || "1")}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-gas-pump"></i>
-            <span>${bike.fuelType || "Petrol"}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>${formatAge(bike.daysOld || 0)}</span>
-          </div>
+    </div>
+    <div class="card-content">
+      <h3>${bike.brand} ${bike.model}</h3>
+      <span class="model">${bike.modelYear} Model</span>
+      <div class="details">
+        <div class="detail-item">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
         </div>
-        <div class="price-container">
-          <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
-          <div class="emi">Down: ₹${(
-            bike.downPayment || 0
-          ).toLocaleString()} | EMI: ₹${Math.round(
+        <div class="detail-item">
+          <i class="fas fa-user"></i>
+          <span>${formatOwnership(bike.ownership || "1")}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-gas-pump"></i>
+          <span>${bike.fuelType || "Petrol"}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fas fa-calendar-alt"></i>
+          <span>${formatAge(bike.daysOld || 0)}</span>
+        </div>
+      </div>
+      <div class="price-container">
+        <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
+        <div class="emi">Down: ₹${(
+          bike.downPayment || 0
+        ).toLocaleString()} | EMI: ₹${Math.round(
             ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month</div>
-          <div class="button-group">
-            <button class="contact-btn" ${
-              bike.status !== "Available" ? "disabled" : ""
-            }>
-              Book Now
-            </button>
-            <button class="view-details-btn" ${
-              bike.status !== "Available" ? "disabled" : ""
-            }>
-              View Details
-            </button>
-          </div>
+        <div class="button-group">
+          <button class="contact-btn" ${
+            bike.status !== "Available" ? "disabled" : ""
+          }>
+            Book Now
+          </button>
+          <button class="view-details-btn" ${
+            bike.status !== "Available" ? "disabled" : ""
+          }>
+            View Details
+          </button>
         </div>
       </div>
-    `;
+    </div>
+  `;
           return bikeCard;
         }
 
@@ -991,10 +1017,15 @@
         function showBikePopup(bike) {
           const popup = document.querySelector(".bike-popup-overlay");
 
+          // Get non-empty image URLs
+          const images = (bike.imageUrl || []).filter(
+            (url) => url && url.trim() !== ""
+          );
+          if (images.length === 0) {
+            images.push("https://via.placeholder.com/600x400?text=No+Image");
+          }
+
           // Populate popup with bike data
-          document.getElementById("popup-bike-image").src =
-            bike.imageUrl ||
-            "https://via.placeholder.com/400x300?text=No+Image";
           document.getElementById(
             "popup-bike-title"
           ).textContent = `${bike.brand} ${bike.model}`;
@@ -1019,6 +1050,35 @@
           ).toLocaleString()} | EMI: ₹${Math.round(
             ((bike.price || 0) - (bike.downPayment || 0)) / 36
           ).toLocaleString()}/month`;
+
+          // Create slider HTML
+          const sliderContainer = document.querySelector(
+            ".popup-image-container"
+          );
+          sliderContainer.innerHTML = `
+    <div class="popup-slider">
+      ${images
+        .map(
+          (img) => `
+        <div class="slide">
+          <img src="${img}" alt="${bike.brand} ${bike.model}">
+        </div>
+      `
+        )
+        .join("")}
+    </div>
+  `;
+
+          // Initialize slider
+          $(".popup-slider").slick({
+            dots: true,
+            arrows: true,
+            infinite: true,
+            speed: 300,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            adaptiveHeight: true,
+          });
 
           // Show popup
           popup.classList.add("active");
@@ -1592,59 +1652,120 @@
         }
 
         function applyAllFilters() {
-          const searchTerm = getSearchParam().trim().toLowerCase();
-          const filteredBikes = allBikes.filter((bike) => {
-            if (searchTerm) {
-              const brand = (bike.brand || "").toLowerCase();
-              const model = (bike.model || "").toLowerCase();
-
-              const searchMatch =
-                model.includes(searchTerm) ||
-                `${brand} ${model}`.includes(searchTerm) ||
-                model
-                  .replace(/\s+/g, "")
-                  .includes(searchTerm.replace(/\s+/g, ""));
-
-              if (!searchMatch) return false;
+          // Safety check: Ensure allBikes is defined and is an array
+          if (!allBikes || !Array.isArray(allBikes)) {
+            console.warn("allBikes is not ready or not an array:", allBikes);
+            // Initialize as empty array if undefined
+            if (!allBikes) {
+              allBikes = [];
             }
-            const price = bike.price || 0;
-            const year = bike.modelYear || new Date().getFullYear();
-            const km = bike.kmDriven || 0;
-            const brand = (bike.brand || "").toLowerCase();
-            const owner = bike.ownership || "";
-            const fuel = bike.fuelType || "";
+            // If it's not an array, try to convert or handle gracefully
+            if (!Array.isArray(allBikes)) {
+              console.error(
+                "allBikes is not an array. Type:",
+                typeof allBikes,
+                "Value:",
+                allBikes
+              );
+              // If it's an object with a bikes property, use that
+              if (
+                allBikes &&
+                typeof allBikes === "object" &&
+                Array.isArray(allBikes.bikes)
+              ) {
+                allBikes = allBikes.bikes;
+              } else {
+                // Fallback to empty array
+                allBikes = [];
+              }
+            }
+          }
 
-            const priceMatch =
-              price >= currentFilters.minPrice &&
-              price <= currentFilters.maxPrice;
-            const yearMatch =
-              year >= currentFilters.minYear && year <= currentFilters.maxYear;
-            const kmMatch =
-              km >= currentFilters.minKm && km <= currentFilters.maxKm;
-            const brandMatch =
-              !currentFilters.brand ||
-              brand === currentFilters.brand.toLowerCase();
-            const ownerMatch =
-              !currentFilters.owner || owner.includes(currentFilters.owner);
-            const fuelMatch =
-              !currentFilters.fuel || fuel === currentFilters.fuel;
+          // If still no bikes after safety checks, display empty results
+          if (allBikes.length === 0) {
+            displayBikes([]);
+            updateBikeCount(0);
+            return;
+          }
 
-            return (
-              priceMatch &&
-              yearMatch &&
-              kmMatch &&
-              brandMatch &&
-              ownerMatch &&
-              fuelMatch
-            );
-          });
+          try {
+            const searchTerm = getSearchParam().trim().toLowerCase();
 
-          const sortedBikes = sortBikes(filteredBikes, currentSort);
-          displayBikes(sortedBikes);
-          updateBikeCount(sortedBikes.length);
+            const filteredBikes = allBikes.filter((bike) => {
+              // Safety check for bike object
+              if (!bike || typeof bike !== "object") {
+                console.warn("Invalid bike object:", bike);
+                return false;
+              }
 
-          if (searchTerm) {
-            showSearchTerm(searchTerm);
+              // Search term filtering
+              if (searchTerm) {
+                const brand = (bike.brand || "").toLowerCase();
+                const model = (bike.model || "").toLowerCase();
+
+                const searchMatch =
+                  model.includes(searchTerm) ||
+                  `${brand} ${model}`.includes(searchTerm) ||
+                  model
+                    .replace(/\s+/g, "")
+                    .includes(searchTerm.replace(/\s+/g, ""));
+
+                if (!searchMatch) return false;
+              }
+
+              // Extract bike properties with defaults
+              const price = bike.price || 0;
+              const year = bike.modelYear || new Date().getFullYear();
+              const km = bike.kmDriven || 0;
+              const brand = (bike.brand || "").toLowerCase();
+              const owner = bike.ownership || "";
+              const fuel = bike.fuelType || "";
+
+              // Apply filters with safety checks
+              const priceMatch =
+                (!currentFilters.minPrice ||
+                  price >= currentFilters.minPrice) &&
+                (!currentFilters.maxPrice || price <= currentFilters.maxPrice);
+
+              const yearMatch =
+                (!currentFilters.minYear || year >= currentFilters.minYear) &&
+                (!currentFilters.maxYear || year <= currentFilters.maxYear);
+
+              const kmMatch =
+                (!currentFilters.minKm || km >= currentFilters.minKm) &&
+                (!currentFilters.maxKm || km <= currentFilters.maxKm);
+
+              const brandMatch =
+                !currentFilters.brand ||
+                brand === currentFilters.brand.toLowerCase();
+
+              const ownerMatch =
+                !currentFilters.owner || owner.includes(currentFilters.owner);
+
+              const fuelMatch =
+                !currentFilters.fuel || fuel === currentFilters.fuel;
+
+              return (
+                priceMatch &&
+                yearMatch &&
+                kmMatch &&
+                brandMatch &&
+                ownerMatch &&
+                fuelMatch
+              );
+            });
+
+            const sortedBikes = sortBikes(filteredBikes, currentSort);
+            displayBikes(sortedBikes);
+            updateBikeCount(sortedBikes.length);
+
+            if (searchTerm) {
+              showSearchTerm(searchTerm);
+            }
+          } catch (error) {
+            console.error("Error in applyAllFilters:", error);
+            displayBikes([]);
+            updateBikeCount(0);
           }
         }
 

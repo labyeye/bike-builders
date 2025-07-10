@@ -26,7 +26,7 @@ const EditBike = ({ user }) => {
   useEffect(() => {
     const fetchBike = async () => {
       try {
-        const response = await fetch(`http://localhost:2500/api/admin/bike/${id}`, {
+        const response = await fetch(`https://bike-builders.onrender.com/api/admin/bike/${id}`, {
           credentials: 'include'
         });
         
@@ -84,7 +84,7 @@ const EditBike = ({ user }) => {
         downPayment: Number(bike.downPayment)
       };
 
-      const response = await fetch(`http://localhost:2500/api/admin/bike/${id}`, {
+      const response = await fetch(`https://bike-builders.onrender.com/api/admin/bike/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

@@ -10,6 +10,7 @@ import {
   People,
   Logout
 } from '@mui/icons-material';
+import '../../css/Sidebar.css';
 
 const DashSidebar = ({ user }) => {
   return (
