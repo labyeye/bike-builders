@@ -43,7 +43,7 @@ const handleSubmit = async (e) => {
 
   try {
     // Check authentication first
-    const authResponse = await fetch("https://bike-builders.onrender.com/api/admin/check-auth", {
+    const authResponse = await fetch("http://localhost:2500/api/admin/check-auth", {
       method: "GET",
       credentials: "include",
     });
@@ -69,7 +69,7 @@ const handleSubmit = async (e) => {
       imageUrl: filteredImageUrls, // Send as imageUrl to match backend expectation
     };
 
-    const response = await fetch("https://bike-builders.onrender.com/api/admin/bike", {
+    const response = await fetch("http://localhost:2500/api/admin/bike", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

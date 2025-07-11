@@ -1726,7 +1726,7 @@
       });
 
       function fetchFeaturedBikes() {
-        fetch("https://bike-builders.onrender.com/api/featured-bikes")
+        fetch("http://localhost:2500/api/featured-bikes")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
