@@ -230,7 +230,6 @@ body.dark-mode {
   gap: 15px;
   animation: scroll 30s linear infinite;
   width: calc(250px * 12);
-  /* Adjust based on number of images */
 }
 
 .gallery-track img {
