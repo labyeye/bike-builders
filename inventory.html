@@ -12,9 +12,15 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   </head>
 
   <body>
@@ -873,7 +879,6 @@
             bikeGrid.appendChild(bikeCard);
           });
 
-          // Initialize sliders only if jQuery is available
           if (typeof $ !== "undefined") {
             document.querySelectorAll(".bike-slider").forEach((slider) => {
               $(slider).slick({
@@ -926,6 +931,7 @@
 
           bikeCard.innerHTML = `
     <div class="image-container">
+      <div class="status-badge ${statusClass}">${bike.status}</div>
       <div class="bike-slider">
         ${images
           .map(
@@ -937,9 +943,7 @@
           )
           .join("")}
       </div>
-      <div class="status-badge ${statusClass}">${
-            bike.status || "Available"
-          }</div>
+      
     </div>
     <div class="card-content">
       <h3>${bike.brand} ${bike.model}</h3>
@@ -1656,14 +1660,11 @@
         }
 
         function applyAllFilters() {
-          // Safety check: Ensure allBikes is defined and is an array
           if (!allBikes || !Array.isArray(allBikes)) {
             console.warn("allBikes is not ready or not an array:", allBikes);
-            // Initialize as empty array if undefined
             if (!allBikes) {
               allBikes = [];
             }
-            // If it's not an array, try to convert or handle gracefully
             if (!Array.isArray(allBikes)) {
               console.error(
                 "allBikes is not an array. Type:",
@@ -1671,7 +1672,6 @@
                 "Value:",
                 allBikes
               );
-              // If it's an object with a bikes property, use that
               if (
                 allBikes &&
                 typeof allBikes === "object" &&
@@ -1679,13 +1679,11 @@
               ) {
                 allBikes = allBikes.bikes;
               } else {
-                // Fallback to empty array
                 allBikes = [];
               }
             }
           }
 
-          // If still no bikes after safety checks, display empty results
           if (allBikes.length === 0) {
             displayBikes([]);
             updateBikeCount(0);
@@ -1696,13 +1694,11 @@
             const searchTerm = getSearchParam().trim().toLowerCase();
 
             const filteredBikes = allBikes.filter((bike) => {
-              // Safety check for bike object
               if (!bike || typeof bike !== "object") {
                 console.warn("Invalid bike object:", bike);
                 return false;
               }
 
-              // Search term filtering
               if (searchTerm) {
                 const brand = (bike.brand || "").toLowerCase();
                 const model = (bike.model || "").toLowerCase();
@@ -1717,15 +1713,12 @@
                 if (!searchMatch) return false;
               }
 
-              // Extract bike properties with defaults
               const price = bike.price || 0;
               const year = bike.modelYear || new Date().getFullYear();
               const km = bike.kmDriven || 0;
               const brand = (bike.brand || "").toLowerCase();
               const owner = bike.ownership || "";
               const fuel = bike.fuelType || "";
-
-              // Apply filters with safety checks
               const priceMatch =
                 (!currentFilters.minPrice ||
                   price >= currentFilters.minPrice) &&
@@ -1748,6 +1741,8 @@
 
               const fuelMatch =
                 !currentFilters.fuel || fuel === currentFilters.fuel;
+              const statusMatch =
+              !currentFilters.status || bike.status === currentFilters.status;
 
               return (
                 priceMatch &&
@@ -1755,7 +1750,8 @@
                 kmMatch &&
                 brandMatch &&
                 ownerMatch &&
-                fuelMatch
+                fuelMatch &&
+                statusMatch
               );
             });
 
@@ -1788,7 +1784,7 @@
                 (a, b) => (a.modelYear || 0) - (b.modelYear || 0)
               );
             default:
-              return bikes; // Default sorting (original order)
+              return bikes;
           }
         }
 

@@ -196,7 +196,7 @@ app.get("/api/admin/logout", (req, res) => {
 
 app.get("/api/bikes", async (req, res) => {
   try {
-    const bikes = await Bike.find({ status: "Available" });
+    const bikes = await Bike.find();
     res.json({ success: true, bikes });
   } catch (err) {
     res.status(500).json({ success: false, error: "Failed to fetch bikes" });
@@ -204,7 +204,7 @@ app.get("/api/bikes", async (req, res) => {
 });
 app.get("/api/featured-bikes", async (req, res) => {
   try {
-    const bikes = await Bike.find({ status: "Available" })
+    const bikes = await Bike.find()
       .sort({ createdAt: -1 })
       .limit(10);
     res.json({ success: true, data: bikes });
