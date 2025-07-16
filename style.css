@@ -234,8 +234,8 @@ body.dark-mode {
 }
 
 .gallery-track img {
-  width: 250px;
-  height: 180px;
+  width: 290px;
+  height: 200px;
   object-fit: cover;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

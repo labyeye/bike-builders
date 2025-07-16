@@ -445,9 +445,9 @@ app.put("/api/admin/quote-request/:id", isAuthenticated, async (req, res) => {
 app.get("/api/available-bikes", async (req, res) => {
   try {
     const bikes = await Bike.find({ status: "Available" });
-    res.json({ success: true, bikes });
+    res.json(bikes); // Return the array directly
   } catch (err) {
-    res.status(500).json({ success: false, error: "Failed to fetch available bikes" });
+    res.status(500).json({ error: "Failed to fetch available bikes" });
   }
 });
 
