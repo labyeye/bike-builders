@@ -4,21 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>Sell Your Bike | Bike Builders</title>
-    <link rel="stylesheet" href="globals.css" />
-    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="sell.css" />
+    <link rel="stylesheet" href="style.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
   <body>
-    <div class="hero-section sell-hero">
-      <div class="overlay">
-        <div class="rectangle"></div>
-        <div class="gradient"></div>
-      </div>
-
+    <div class="sell-hero-section sell-hero">
       <nav class="navbar">
         <a href="index.html" class="logo-link"
           ><div class="logo">
@@ -31,329 +26,271 @@
         ></a>
         <ul class="nav-links">
           <li><a href="index.html" data-translate="Home">Home</a></li>
-          <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-          <li><a href="sell.html" class="active" data-translate="Sell Your Bike">Sell Your Bike</a></li>
           <li>
-              <a
-                href="about.html"
-                aria-label="About Bike Builders"
-                data-translate="About Us"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="book.html"
-                aria-label="Book Bike"
-                data-translate="Book Bike"
-                >Book Bike</a
-              >
-            </li>
+            <a href="inventory.html" data-translate="Buy Bike">Buy Bike</a>
+          </li>
+          <li>
+            <a href="sell.html" class="active" data-translate="Sell Your Bike"
+              >Sell Your Bike</a
+            >
+          </li>
+          <li>
+            <a
+              href="about.html"
+              aria-label="About Bike Builders"
+              data-translate="About Us"
+              >About Us</a
+            >
+          </li>
+          <li>
+            <a
+              href="book.html"
+              aria-label="Book Bike"
+              data-translate="Book Bike"
+              >Book Bike</a
+            >
+          </li>
           <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
           <li><a href="contact.html" data-translate="Contact">Contact</a></li>
         </ul>
         <div class="login-btn">
-          <a href="/getquote.html" >
+          <a href="/getquote.html">
             <button data-translate="Get the Quote">Get the Quote</button>
           </a>
         </div>
+        <div class="theme-toggle">
+          <input
+            type="checkbox"
+            id="darkModeToggle"
+            aria-label="Toggle dark mode"
+          />
+          <label for="darkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
       </nav>
-      <section class="sell-section">
-        <div class="sell-content">
-          <h2 data-translate="Sell Your Bike in 3 Easy Steps">Sell Your Bike in 3 Easy Steps</h2>
-          <p data-translate="We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.">
-            We make selling your bike simple, fast, and transparent. Get an
-            instant quote and complete the process in just a few clicks.
-          </p>
+    </div>
+    <section class="sell-section">
+      <div class="sell-content">
+        <h2 data-translate="Sell Your Bike in 3 Easy Steps">
+          Sell Your Bike in 3 Easy Steps
+        </h2>
+        <p
+          data-translate="We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks."
+        >
+          We make selling your bike simple, fast, and transparent. Get an
+          instant quote and complete the process in just a few clicks.
+        </p>
 
-          <div class="sell-steps">
-            <div class="sell-step">
-              <div class="step-number">1</div>
-              <div class="step-content">
-                <h4 data-translate="Enter Your Bike Details">Enter Your Bike Details</h4>
-                <p data-translate="Fill out the form with your bike's specifications and condition.">
-                  Fill out the form with your bike's specifications and
-                  condition.
-                </p>
-              </div>
-            </div>
-            <div class="sell-step">
-              <div class="step-number">2</div>
-              <div class="step-content">
-                <h4 data-translate="Get Instant Valuation">Get Instant Valuation</h4>
-                <p data-translate="Receive a fair market price based on current demand and condition.">
-                  Receive a fair market price based on current demand and
-                  condition.
-                </p>
-              </div>
-            </div>
-            <div class="sell-step">
-              <div class="step-number">3</div>
-              <div class="step-content">
-                <h4 data-translate="Schedule Pickup & Get Paid">Schedule Pickup & Get Paid</h4>
-                <p data-translate="We handle all the paperwork and payment on the spot.">We handle all the paperwork and payment on the spot.</p>
-              </div>
+        <div class="sell-steps">
+          <div class="sell-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <h4 data-translate="Enter Your Bike Details">
+                Enter Your Bike Details
+              </h4>
+              <p
+                data-translate="Fill out the form with your bike's specifications and condition."
+              >
+                Fill out the form with your bike's specifications and condition.
+              </p>
             </div>
           </div>
-
-          <div class="sell-cta">
-            <button class="cta-button" data-translate="Get Started Now">Get Started Now</button>
+          <div class="sell-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <h4 data-translate="Get Instant Valuation">
+                Get Instant Valuation
+              </h4>
+              <p
+                data-translate="Receive a fair market price based on current demand and condition."
+              >
+                Receive a fair market price based on current demand and
+                condition.
+              </p>
+            </div>
+          </div>
+          <div class="sell-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <h4 data-translate="Schedule Pickup & Get Paid">
+                Schedule Pickup & Get Paid
+              </h4>
+              <p
+                data-translate="We handle all the paperwork and payment on the spot."
+              >
+                We handle all the paperwork and payment on the spot.
+              </p>
+            </div>
           </div>
         </div>
 
-        <div class="sell-form-container">
-          <form id="sell-bike-form" class="sell-form">
-            <h3 data-translate="Bike Details">Bike Details</h3>
+        <div class="sell-cta">
+          <button class="cta-button" data-translate="Get Started Now">
+            Get Started Now
+          </button>
+        </div>
+      </div>
 
-            <div
-              style="
-                display: flex;
-                gap: 40px;
-                justify-content: space-between;
-                flex-direction: row;
-              "
-            >
-              <div class="form-group">
-                <label for="bike-brand" data-translate="Brand*">Brand*</label>
-                <select id="bike-brand" name="brand" required>
-                  <option value="">Brand</option>
-                  <option value="KTM">KTM</option>
-                  <option value="Suzuki">Suzuki</option>
-                  <option value="Royal Enfield">Royal Enfield</option>
-                  <option value="Kawasaki">Kawasaki</option>
-                  <option value="Ducati">Ducati</option>
-                  <option value="Bajaj">Bajaj</option>
-                  <option value="Harley-Davidson">Harley-Davidson</option>
-                  <option value="Yamaha">Yamaha</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+      <div class="sell-form-container">
+        <form id="sell-bike-form" class="sell-form">
+          <h3 data-translate="Bike Details">Bike Details</h3>
 
-              <div class="form-group">
-                <label for="bike-model" data-translate="Model*">Model*</label>
-                <input
-                  type="text"
-                  id="bike-model"
-                  name="model"
-                  placeholder="e.g. Duke 390"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="bike-year" data-translate="Year*">Year*</label>
-                <select id="bike-year" name="year" required>
-                  <option value="">Year</option>
-                  <option value="2024">2024</option>
-                  <option value="2023">2023</option>
-                  <option value="2022">2022</option>
-                  <option value="2021">2021</option>
-                  <option value="2020">2020</option>
-                  <option value="2019">2019</option>
-                  <option value="2018">2018</option>
-                  <option value="2017">2017</option>
-                  <option value="2016">2016</option>
-                  <option value="2015">2015</option>
-                  <option value="2014">2014</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="bike-price" data-translate="Expected Price (₹)*">Expected Price (₹)*</label>
-                <input
-                  type="number"
-                  id="bike-price"
-                  name="price"
-                  placeholder="e.g. 150000"
-                  required
-                />
-              </div>
+          <div
+            style="
+              display: flex;
+              gap: 40px;
+              justify-content: space-between;
+              flex-direction: row;
+            "
+          >
+            <div class="form-group">
+              <label for="bike-brand" data-translate="Brand*">Brand*</label>
+              <select id="bike-brand" name="brand" required>
+                <option value="">Brand</option>
+                <option value="KTM">KTM</option>
+                <option value="Suzuki">Suzuki</option>
+                <option value="Royal Enfield">Royal Enfield</option>
+                <option value="Kawasaki">Kawasaki</option>
+                <option value="Ducati">Ducati</option>
+                <option value="Bajaj">Bajaj</option>
+                <option value="Harley-Davidson">Harley-Davidson</option>
+                <option value="Yamaha">Yamaha</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
 
             <div class="form-group">
-              <label for="bike-images" data-translate="Upload Images (Max 5)*">Upload Images (Max 5)*</label>
-              <div class="image-upload-container">
-                <label for="bike-images" class="image-upload-label">
-                  <i class="fas fa-cloud-upload-alt"></i>
-                  <span data-translate="Click to upload images">Click to upload images</span>
-                  <input
-                    type="file"
-                    id="bike-images"
-                    name="images"
-                    accept="image/*"
-                    multiple
-                    style="display: none"
-                  />
-                </label>
-                <div class="image-preview" id="image-preview"></div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <h3 data-translate="Your Contact Information">Your Contact Information</h3>
-            </div>
-
-            <div class="form-group">
-              <label for="seller-name" data-translate="Full Name*">Full Name*</label>
+              <label for="bike-model" data-translate="Model*">Model*</label>
               <input
                 type="text"
-                id="seller-name"
-                name="name"
-                placeholder="Your name"
+                id="bike-model"
+                name="model"
+                placeholder="e.g. Duke 390"
                 required
               />
             </div>
-
             <div class="form-group">
-              <label for="seller-email" data-translate="Email*">Email*</label>
-              <input
-                type="email"
-                id="seller-email"
-                name="email"
-                placeholder="Your email"
-                required
-              />
+              <label for="bike-year" data-translate="Year*">Year*</label>
+              <select id="bike-year" name="year" required>
+                <option value="">Year</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+              </select>
             </div>
-
             <div class="form-group">
-              <label for="seller-phone" data-translate="Phone Number*">Phone Number*</label>
-              <input
-                type="tel"
-                id="seller-phone"
-                name="phone"
-                placeholder="Your phone number"
-                required
-              />
-            </div>
-
-            <div class="form-group checkbox-group">
-              <input
-                type="checkbox"
-                id="agree-terms"
-                name="agree-terms"
-                required
-              />
-              <label for="agree-terms"
-                data-translate="I agree to the terms and conditions and privacy policy*">I agree to the terms and conditions and privacy policy*</label
+              <label for="bike-price" data-translate="Price (₹)*"
+                >Price (₹)*</label
               >
+              <input
+                type="number"
+                id="bike-price"
+                name="price"
+                placeholder="e.g. 150000"
+                required
+              />
             </div>
+          </div>
 
-            <button type="submit" class="submit-btn">
-              <span data-translate="Get Instant Valuation">Get Instant Valuation</span>
-            </button>
-          </form>
-        </div>
-      </section>
-    </div>
+          <div class="form-group">
+            <label for="bike-images" data-translate="Upload Images (Max 5)*"
+              >Upload Images (Max 5)*</label
+            >
+            <div class="image-upload-container">
+              <label for="bike-images" class="image-upload-label">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <span data-translate="Click to upload images"
+                  >Click to upload images</span
+                >
+                <input
+                  type="file"
+                  id="bike-images"
+                  name="images"
+                  accept="image/*"
+                  multiple
+                  style="display: none"
+                />
+              </label>
+              <div class="image-preview" id="image-preview"></div>
+            </div>
+          </div>
 
-    <section class="testimonials-section">
-      <h2 data-translate="What Our Sellers Say">What Our Sellers Say</h2>
-      <div class="testimonials-container">
-        <div class="testimonial">
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Rahul Sharma"
-              class="user-avatar"
+          <div class="form-group">
+            <h3 data-translate="Your Contact Information">
+              Your Contact Information
+            </h3>
+          </div>
+
+          <div class="form-group">
+            <label for="seller-name" data-translate="Full Name*"
+              >Full Name*</label
+            >
+            <input
+              type="text"
+              id="seller-name"
+              name="name"
+              placeholder="Your name"
+              required
             />
-            <div class="user-info">
-              <h4 class="user-name" data-translate="Rahul Sharma">Rahul Sharma</h4>
-              <p class="user-location" data-translate="Muzaffarpur, Bihar">Muzaffarpur, Bihar</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
           </div>
-          <div class="quote-icon">
-            <i class="fas fa-quote-right"></i>
-          </div>
-          <p class="quote" data-translate="Sold my KTM Duke 390 through Bike Builders. The process was smooth and transparent. Got a fair price and payment was instant. Highly recommended!">
-            Sold my KTM Duke 390 through Bike Builders. The process was smooth and
-            transparent. Got a fair price and payment was instant. Highly
-            recommended!
-          </p>
-          <div class="testimonial-footer">
-            <span class="testimonial-date" data-translate="15 May 2023">15 May 2023</span>
-            <span class="social-proof" data-translate="Verified Seller">Verified Seller</span>
-          </div>
-        </div>
 
-        <div class="testimonial">
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-              alt="Priya Patel"
-              class="user-avatar"
+          <div class="form-group">
+            <label for="seller-email" data-translate="Email*">Email*</label>
+            <input
+              type="email"
+              id="seller-email"
+              name="email"
+              placeholder="Your email"
+              required
             />
-            <div class="user-info">
-              <h4 class="user-name" data-translate="Priya Patel">Priya Patel</h4>
-              <p class="user-location" data-translate="Patna, Bihar">Patna, Bihar</p>
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-            </div>
           </div>
-          <div class="quote-icon">
-            <i class="fas fa-quote-right"></i>
-          </div>
-          <p class="quote" data-translate="I was skeptical about selling my bike online, but Bike Builders made it so easy. Their team was professional and the valuation was accurate. Will use again!">
-            I was skeptical about selling my bike online, but Bike Builders made it
-            so easy. Their team was professional and the valuation was accurate.
-            Will use again!
-          </p>
-          <div class="testimonial-footer">
-            <span class="testimonial-date" data-translate="22 April 2023">22 April 2023</span>
-            <span class="social-proof" data-translate="Verified Seller">Verified Seller</span>
-          </div>
-        </div>
 
-        <div class="testimonial">
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/men/75.jpg"
-              alt="Vikram Singh"
-              class="user-avatar"
+          <div class="form-group">
+            <label for="seller-phone" data-translate="Phone Number*"
+              >Phone Number*</label
+            >
+            <input
+              type="tel"
+              id="seller-phone"
+              name="phone"
+              placeholder="Your phone number"
+              required
             />
-            <div class="user-info">
-              <h4 class="user-name" data-translate="Vikram Singh">Vikram Singh</h4>
-              <p class="user-location" data-translate="Darbhanga, Bihar">Darbhanga, Bihar</p
-              <div class="rating">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
           </div>
-          <div class="quote-icon">
-            <i class="fas fa-quote-right"></i>
-          </div>
-          <p class="quote" data-translate="Best platform to sell your bike. No middlemen, no hidden charges. Got 15% more than what local dealers were offering. Excellent service!">
-            Best platform to sell your bike. No middlemen, no hidden charges.
-            Got 15% more than what local dealers were offering. Excellent
-            service!
-          </p>
-          <div class="testimonial-footer">
-            <span class="testimonial-date" data-translate="10 March 2023">10 March 2023</span>
-            <span class="social-proof" data-translate="Verified Seller">Verified Seller</span>
-          </div>
-        </div>
-      </div>
 
-      <div class="testimonial-nav">
-        <div class="testimonial-dot active"></div>
-        <div class="testimonial-dot"></div>
-        <div class="testimonial-dot"></div>
+          <div class="form-group checkbox-group">
+            <input
+              type="checkbox"
+              id="agree-terms"
+              name="agree-terms"
+              required
+            />
+            <label
+              for="agree-terms"
+              data-translate="I agree to the terms and conditions and privacy policy*"
+              >I agree to the terms and conditions and privacy policy*</label
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">
+            <span data-translate="Get Instant Valuation"
+              >Get Instant Valuation</span
+            >
+          </button>
+        </form>
       </div>
     </section>
-
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
@@ -364,7 +301,9 @@
               alt="Bike Builders Logo"
             />
           </div>
-          <p data-translate="Bringing the future of bike riding to you today.">Bringing the future of bike riding to you today.</p>
+          <p data-translate="Bringing the future of bike riding to you today.">
+            Bringing the future of bike riding to you today.
+          </p>
           <div class="social-icons">
             <a href="https://www.facebook.com/share/1Ao18FYX8e/"
               ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
@@ -392,8 +331,14 @@
           <h3 data-translate="Quick Links">Quick Links</h3>
           <ul>
             <li><a href="index.html" data-translate="Home">Home</a></li>
-            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li>
+              <a href="inventory.html" data-translate="Buy Bike">Buy Bike</a>
+            </li>
+            <li>
+              <a href="sell.html" data-translate="Sell Your Bike"
+                >Sell Your Bike</a
+              >
+            </li>
             <li>
               <a
                 href="about.html"
@@ -410,19 +355,23 @@
                 >Book Bike</a
               >
             </li>
-            <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
+            <li>
+              <a href="./updates.html" data-translate="Updates">Updates</a>
+            </li>
             <li><a href="contact.html" data-translate="Contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-section">
           <h3 data-translate="Contact Us">Contact Us</h3>
-          <p data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002">
+          <p
+            data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
+          >
             <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
             Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
             842002
           </p>
           <span itemprop="telephone"
-            >+91 8210283582 / 7564987167 / 9825944897</span
+            >+91 8210283582 /  9825944897</span
           >
         </div>
       </div>
@@ -433,22 +382,23 @@
         >
       </div>
     </footer>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const translations = {
           en: {
-            "Home": "Home",
+            Home: "Home",
             "Buy Bike": "Buy Bike",
             "Sell Your Bike": "Sell Your Bike",
             "About Us": "About Us",
-            "Updates": "Updates",
+            Updates: "Updates",
             Contact: "Contact",
             "Get the Quote": "Get the Quote",
             "Bike Details": "Bike Details",
             "Brand*": "Brand*",
             "Model*": "Model*",
             "Year*": "Year*",
-            "Expected Price (₹)*": "Expected Price (₹)*",
+            "Price (₹)*": "Price (₹)*",
             "Upload Images (Max 5)*": "Upload Images (Max 5)*",
             "Click to upload images": "Click to upload images",
             "Your Contact Information": "Your Contact Information",
@@ -460,27 +410,31 @@
             "Get Instant Valuation": "Get Instant Valuation",
             "What Our Sellers Say": "What Our Sellers Say",
             "Sell Your Bike in 3 Easy Steps": "Sell Your Bike in 3 Easy Steps",
-            "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.": "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.",
+            "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.":
+              "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.",
             "Enter Your Bike Details": "Enter Your Bike Details",
-            "Fill out the form with your bike's specifications and condition.": "Fill out the form with your bike's specifications and condition.",
+            "Fill out the form with your bike's specifications and condition.":
+              "Fill out the form with your bike's specifications and condition.",
             "Get Instant Valuation": "Get Instant Valuation",
-            "Receive a fair market price based on current demand and condition.": "Receive a fair market price based on current demand and condition.",
+            "Receive a fair market price based on current demand and condition.":
+              "Receive a fair market price based on current demand and condition.",
             "Schedule Pickup & Get Paid": "Schedule Pickup & Get Paid",
-            "We handle all the paperwork and payment on the spot.": "We handle all the paperwork and payment on the spot.",
+            "We handle all the paperwork and payment on the spot.":
+              "We handle all the paperwork and payment on the spot.",
           },
           hi: {
-            "Home": "होम",
+            Home: "होम",
             "Buy Bike": "खरीदें बाइक",
             "Sell Your Bike": "अपनी बाइक बेचें",
             "About Us": "हमारे बारे में",
-            "Updates": "अपडेट्स",
+            Updates: "अपडेट्स",
             Contact: "संपर्क करें",
             "Get the Quote": "कीमत पता करें",
             "Bike Details": "बाइक का विवरण",
             "Brand*": "ब्रांड*",
             "Model*": "मॉडल*",
             "Year*": "साल*",
-            "Expected Price (₹)*": "अनुमानित कीमत (₹)*",
+            "Price (₹)*": "कीमत (₹)*",
             "Upload Images (Max 5)*": "तस्वीरें अपलोड करें (अधिकतम 5)*",
             "Click to upload images": "तस्वीरें अपलोड करने के लिए क्लिक करें",
             "Your Contact Information": "आपकी संपर्क जानकारी",
@@ -492,13 +446,17 @@
             "Get Instant Valuation": "तुरंत मूल्यांकन प्राप्त करें",
             "What Our Sellers Say": "हमारे विक्रेता क्या कहते हैं",
             "Sell Your Bike in 3 Easy Steps": "अपनी बाइक बेचने में 3 सरल चरण",
-            "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.": "हम अपनी बाइक बेचने को सरल, तेज़ और पारदर्शी बनाते हैं। तुरंत अनुमान प्राप्त करें और केवल कुछ क्लिक में पूरा प्रक्रिया पूरा करें।",
+            "We make selling your bike simple, fast, and transparent. Get an instant quote and complete the process in just a few clicks.":
+              "हम अपनी बाइक बेचने को सरल, तेज़ और पारदर्शी बनाते हैं। तुरंत अनुमान प्राप्त करें और केवल कुछ क्लिक में पूरा प्रक्रिया पूरा करें।",
             "Enter Your Bike Details": "अपनी बाइक की विवरण दर्ज करें",
-            "Fill out the form with your bike's specifications and condition.": "अपनी बाइक की विवरण दर्ज करें और स्थिति को भी दर्ज करें।",
+            "Fill out the form with your bike's specifications and condition.":
+              "अपनी बाइक की विवरण दर्ज करें और स्थिति को भी दर्ज करें।",
             "Get Instant Valuation": "तुरंत मूल्यांकन प्राप्त करें",
-            "Receive a fair market price based on current demand and condition.": "वर्तमान मांग और स्थिति के आधार पर एक विश्वसनीय मूल्यांकन प्राप्त करें।",
+            "Receive a fair market price based on current demand and condition.":
+              "वर्तमान मांग और स्थिति के आधार पर एक विश्वसनीय मूल्यांकन प्राप्त करें।",
             "Schedule Pickup & Get Paid": "पिकअप और भुगतान का अनुरोध करें",
-            "We handle all the paperwork and payment on the spot.": "हम सभी कागजात और भुगतान को स्थानीय स्तर पर संभालते हैं।",
+            "We handle all the paperwork and payment on the spot.":
+              "हम सभी कागजात और भुगतान को स्थानीय स्तर पर संभालते हैं।",
           },
         };
 
@@ -522,7 +480,7 @@
             "bike-brand": "Brand*",
             "bike-model": "Model*",
             "bike-year": "Year*",
-            "bike-price": "Expected Price (₹)*",
+            "bike-price": "Price (₹)*",
             "bike-images": "Upload Images (Max 5)*",
             "seller-name": "Full Name*",
             "seller-email": "Email*",
@@ -563,6 +521,84 @@
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const mobileDarkModeToggle = document.getElementById(
+          "mobileDarkModeToggle"
+        );
+
+        // Check for saved user preference or system preference
+        function checkDarkModePreference() {
+          const savedTheme = localStorage.getItem("theme");
+          const systemPrefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add("dark-mode");
+            if (darkModeToggle) darkModeToggle.checked = true;
+            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+          }
+        }
+
+        // Initialize dark mode
+        checkDarkModePreference();
+
+        // Desktop toggle
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync mobile toggle
+            if (mobileDarkModeToggle) {
+              mobileDarkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Mobile toggle
+        if (mobileDarkModeToggle) {
+          mobileDarkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync desktop toggle
+            if (darkModeToggle) {
+              darkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Watch for system theme changes
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            const newColorScheme = e.matches ? "dark" : "light";
+            if (!localStorage.getItem("theme")) {
+              // Only if user hasn't set a preference
+              if (newColorScheme === "dark") {
+                document.body.classList.add("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = true;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+              } else {
+                document.body.classList.remove("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = false;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
+              }
+            }
+          });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
         const toggleBtn = document.createElement("button");
         toggleBtn.className = "mobile-menu-toggle";
         toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
@@ -585,6 +621,13 @@
           <div class="login-btn">
             <button>Get the Quote</button>
           </div>
+          <div class="theme-toggle mobile-theme-toggle">
+          <label for="mobileDarkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
         `;
 
         document.body.appendChild(mobileMenu);
@@ -750,7 +793,7 @@
 
             // Submit to server
             const response = await fetch(
-              "http://localhost:2500/api/sell-request",
+              "https://bike-builders.onrender.com/api/sell-request",
               {
                 method: "POST",
                 body: formData,
@@ -798,7 +841,7 @@
       gtag("js", new Date());
       gtag("config", "G-ETL311CBE6");
     </script>
-     <script>
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Get modal elements
         const whatsappModal = document.getElementById("whatsappModal");
@@ -864,7 +907,6 @@
       });
     </script>
     <div class="floating-buttons">
-      
       <a
         href="#"
         class="floating-btn whatsapp-btn"
@@ -897,7 +939,7 @@
       </a>
     </div>
 
-    <!-- WhatsApp Modal -->
+    
     <div id="whatsappModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -911,7 +953,7 @@
       </div>
     </div>
 
-    <!-- Call Modal -->
+    
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>

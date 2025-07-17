@@ -15,6 +15,10 @@ const AddBike = ({ user }) => {
     fuelType: "",
     daysOld: "",
     price: "",
+    emiAvailable: false,
+    emiAmount: "",
+    ageValue: "",
+    ageUnit: "days",
     downPayment: "",
     imageUrl: ["", "", "", "", ""],
     status: "",
@@ -35,65 +39,80 @@ const AddBike = ({ user }) => {
       [name]: value,
     }));
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  // Updated handleSubmit function for AddBike.js
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setError(null); // Clear previous errors
+    setError(null);
 
-  try {
-    // Check authentication first
-    const authResponse = await fetch("http://localhost:2500/api/admin/check-auth", {
-      method: "GET",
-      credentials: "include",
-    });
+    try {
+      const authResponse = await fetch(
+        "https://bike-builders.onrender.com/api/admin/check-auth",
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      );
 
-    if (!authResponse.ok) {
-      setError("Please login first");
-      navigate("/admin/login");
-      return;
+      if (!authResponse.ok) {
+        setError("Please login first");
+        navigate("/admin/login");
+        return;
+      }
+
+      const authData = await authResponse.json();
+      if (!authData.isAuthenticated) {
+        setError("Please login first");
+        navigate("/admin/login");
+        return;
+      }
+      const filteredImageUrls = formData.imageUrl.filter(
+        (url) => url && url.trim() !== ""
+      );
+
+      let daysOld = 0;
+      if (formData.ageValue) {
+        switch (formData.ageUnit) {
+          case "months":
+            daysOld = Math.round(formData.ageValue * 30.44); // Average days in month
+            break;
+          case "years":
+            daysOld = Math.round(formData.ageValue * 365.25); // Account for leap years
+            break;
+          default: // days
+            daysOld = formData.ageValue;
+        }
+      }
+      const dataToSend = {
+        ...formData,
+        daysOld: daysOld,
+        ageValue: undefined,
+        ageUnit: undefined,
+      };
+      const response = await fetch("https://bike-builders.onrender.com/api/admin/bike", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify(dataToSend),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to add bike");
+      }
+
+      const result = await response.json();
+      if (result.success) {
+        navigate("/admin/dashboard");
+      } else {
+        setError(result.error || "Failed to add bike");
+      }
+    } catch (err) {
+      console.error("Error adding bike:", err);
+      setError(err.message || "An error occurred while adding the bike");
     }
-
-    const authData = await authResponse.json();
-    if (!authData.isAuthenticated) {
-      setError("Please login first");
-      navigate("/admin/login");
-      return;
-    }
-
-    // Filter out empty image URLs before sending
-    const filteredImageUrls = formData.imageUrl.filter(url => url && url.trim() !== "");
-    
-    const dataToSend = {
-      ...formData,
-      imageUrl: filteredImageUrls, // Send as imageUrl to match backend expectation
-    };
-
-    const response = await fetch("http://localhost:2500/api/admin/bike", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify(dataToSend),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || "Failed to add bike");
-    }
-
-    const result = await response.json();
-    if (result.success) {
-      navigate("/admin/dashboard");
-    } else {
-      setError(result.error || "Failed to add bike");
-    }
-  } catch (err) {
-    console.error("Error adding bike:", err);
-    setError(err.message || "An error occurred while adding the bike");
-  }
-};
+  };
 
   return (
     <div className="app-container">
@@ -359,32 +378,54 @@ const handleSubmit = async (e) => {
                 }}
               >
                 <div className="form-group">
-                  <label
-                    style={{
-                      display: "block",
-                      marginBottom: "0.5rem",
-                      fontWeight: "500",
-                      color: "#2d3748",
-                    }}
-                  >
-                    Days Old <span style={{ color: "#e53e3e" }}>*</span>
-                  </label>
-                  <input
-                    type="number"
-                    name="daysOld"
-                    min="0"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "8px",
-                      fontSize: "1rem",
-                      transition: "border-color 0.2s",
-                    }}
-                    required
-                    value={formData.daysOld}
-                    onChange={handleChange}
-                  />
+                  <label>Age</label>
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    {/* Numeric Input */}
+                    <input
+                      type="number"
+                      min="0"
+                      value={formData.ageValue}
+                      onChange={(e) =>
+                        setFormData({
+                          ...formData,
+                          ageValue: e.target.value,
+                        })
+                      }
+                      style={{
+                        flex: 1,
+                        padding: "0.75rem",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "8px",
+                      }}
+                    />
+
+                    {/* Unit Selector Buttons */}
+                    <div style={{ display: "flex" }}>
+                      {["days", "months", "years"].map((unit) => (
+                        <button
+                          key={unit}
+                          type="button"
+                          onClick={() =>
+                            setFormData({
+                              ...formData,
+                              ageUnit: unit,
+                            })
+                          }
+                          style={{
+                            padding: "0 1rem",
+                            border: "1px solid #e2e8f0",
+                            backgroundColor:
+                              formData.ageUnit === unit ? "#4299e1" : "white",
+                            color:
+                              formData.ageUnit === unit ? "white" : "#4a5568",
+                            cursor: "pointer",
+                          }}
+                        >
+                          {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -454,6 +495,52 @@ const handleSubmit = async (e) => {
                   />
                 </div>
               </div>
+              {/* EMI Availability */}
+              <div className="form-group" style={{ marginBottom: "1.5rem" }}>
+                <label
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={formData.emiAvailable}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        emiAvailable: e.target.checked,
+                      })
+                    }
+                  />
+                  <span>EMI Available</span>
+                </label>
+              </div>
+
+              {/* EMI Amount (shown only when EMI is available) */}
+              {formData.emiAvailable && (
+                <div className="form-group" style={{ marginBottom: "1.5rem" }}>
+                  <label>Monthly EMI Amount (₹)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={formData.emiAmount}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        emiAmount: e.target.value,
+                      })
+                    }
+                    style={{
+                      width: "100%",
+                      padding: "0.75rem",
+                      border: "1px solid #e2e8f0",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </div>
+              )}
 
               <div className="form-group" style={{ marginBottom: "1.5rem" }}>
                 <label

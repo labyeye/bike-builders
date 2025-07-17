@@ -27,7 +27,7 @@ const EditBike = ({ user }) => {
     const fetchBike = async () => {
       try {
         const response = await fetch(
-          `http://localhost:2500/api/admin/bike/${id}`,
+          `https://bike-builders.onrender.com/api/admin/bike/${id}`,
           {
             credentials: "include",
           }
@@ -46,6 +46,10 @@ const EditBike = ({ user }) => {
             modelYear: data.bike.modelYear.toString(),
             kmDriven: data.bike.kmDriven.toString(),
             daysOld: data.bike.daysOld.toString(),
+            emiAvailable: data.bike.emiAvailable || false,
+            emiAmount: data.bike.emiAmount?.toString() || "",
+            ageValue: data.bike.daysOld?.toString() || "",
+            ageUnit: "days",
             price: data.bike.price.toString(),
             downPayment: data.bike.downPayment.toString(),
             // Ensure imageUrl is an array with 5 elements
@@ -93,7 +97,7 @@ const EditBike = ({ user }) => {
     try {
       // Check authentication first
       const authResponse = await fetch(
-        "http://localhost:2500/api/admin/check-auth",
+        "https://bike-builders.onrender.com/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -129,7 +133,7 @@ const EditBike = ({ user }) => {
       };
 
       const response = await fetch(
-        `http://localhost:2500/api/admin/bike/${id}`,
+        `https://bike-builders.onrender.com/api/admin/bike/${id}`,
         {
           method: "PUT",
           headers: {
@@ -419,33 +423,46 @@ const EditBike = ({ user }) => {
                 </div>
 
                 <div className="form-group">
-                  <label
-                    style={{
-                      display: "block",
-                      marginBottom: "0.5rem",
-                      fontWeight: "500",
-                      color: "#2d3748",
-                    }}
-                  >
-                    Days Old <span style={{ color: "#e53e3e" }}>*</span>
-                  </label>
-                  <input
-                    type="number"
-                    name="daysOld"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "8px",
-                      fontSize: "1rem",
-                      transition: "border-color 0.2s",
-                    }}
-                    min="0"
-                    required
-                    value={bike.daysOld}
-                    onChange={handleChange}
-                  />
-                </div>
+  <label>Age</label>
+  <div style={{ display: "flex", gap: "0.5rem" }}>
+    {/* Numeric Input */}
+    <input
+      type="number"
+      min="0"
+      value={bike.ageValue}
+      onChange={handleChange}
+      style={{
+        flex: 1,
+        padding: "0.75rem",
+        border: "1px solid #e2e8f0",
+        borderRadius: "8px"
+      }}
+    />
+    
+    {/* Unit Selector Buttons */}
+    <div style={{ display: "flex" }}>
+      {["days", "months", "years"].map((unit) => (
+        <button
+          key={unit}
+          type="button"
+          onClick={() => setBike({
+            ...bike,
+            ageUnit: unit
+          })}
+          style={{
+            padding: "0 1rem",
+            border: "1px solid #e2e8f0",
+            backgroundColor: bike.ageUnit === unit ? "#4299e1" : "white",
+            color: bike.ageUnit === unit ? "white" : "#4a5568",
+            cursor: "pointer"
+          }}
+        >
+          {unit.charAt(0).toUpperCase() + unit.slice(1)}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
 
                 <div className="form-group">
                   <label
@@ -506,6 +523,45 @@ const EditBike = ({ user }) => {
                     onChange={handleChange}
                   />
                 </div>
+                {/* EMI Availability */}
+                <div className="form-group" style={{ marginBottom: "1.5rem" }}>
+                  <label
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.5rem",
+                    }}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={bike.emiAvailable}
+                      onChange={handleChange}
+                    />
+                    <span>EMI Available</span>
+                  </label>
+                </div>
+
+                {/* EMI Amount (shown only when EMI is available) */}
+                {bike.emiAvailable && (
+                  <div
+                    className="form-group"
+                    style={{ marginBottom: "1.5rem" }}
+                  >
+                    <label>Monthly EMI Amount (₹)</label>
+                    <input
+                      type="number"
+                      min="0"
+                      value={bike.emiAmount}
+                      onChange={handleChange}
+                      style={{
+                        width: "100%",
+                        padding: "0.75rem",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </div>
+                )}
 
                 <div className="form-group" style={{ gridColumn: "span 2" }}>
                   <label

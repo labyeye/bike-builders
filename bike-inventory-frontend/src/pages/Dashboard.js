@@ -30,7 +30,7 @@ const Dashboard = ({ user }) => {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "http://localhost:2500/api/admin/check-auth",
+          "https://bike-builders.onrender.com/api/admin/check-auth",
           {
             credentials: "include",
           }
@@ -52,7 +52,7 @@ const Dashboard = ({ user }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:2500/api/admin/dashboard", {
+        const response = await fetch("https://bike-builders.onrender.com/api/admin/dashboard", {
           credentials: "include",
         });
 
@@ -74,7 +74,7 @@ const Dashboard = ({ user }) => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this bike?")) return;
     try {
-      const response = await fetch(`http://localhost:2500/api/admin/bike/${id}`, {
+      const response = await fetch(`https://bike-builders.onrender.com/api/admin/bike/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -106,9 +106,9 @@ const Dashboard = ({ user }) => {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
     }).format(price);

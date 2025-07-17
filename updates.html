@@ -84,6 +84,18 @@
             <button data-translate="Get the Quote">Get the Quote</button>
           </a>
         </div>
+        <div class="theme-toggle">
+          <input
+            type="checkbox"
+            id="darkModeToggle"
+            aria-label="Toggle dark mode"
+          />
+          <label for="darkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
       </nav>
       
       <section class="updates-section">
@@ -138,7 +150,7 @@
           <p data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002">
             <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002
           </p>
-          <span itemprop="telephone">+91 8210283582 / 7564987167 / 9825944897</span>
+          <span itemprop="telephone">+91 8210283582 /  9825944897</span>
         </div>
       </div>
       <div class="footer-bottom">
@@ -153,6 +165,48 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+         const toggleBtn = document.createElement("button");
+        toggleBtn.className = "mobile-menu-toggle";
+        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+
+        const navbar = document.querySelector(".navbar");
+        navbar.appendChild(toggleBtn);
+
+        const mobileMenu = document.createElement("div");
+        mobileMenu.className = "mobile-menu";
+        mobileMenu.innerHTML = `
+          <button class="close-btn"><i class="fas fa-times"></i></button>
+          <ul class="nav-links">
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="inventory.html">Buy Bike</a></li>
+            <li><a href="sell.html">Sell Your Bike</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="updates.html" data-translate="Updates">Updates</a></li>
+            <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+          </ul>
+          <div class="login-btn">
+            <button>Get the Quote</button>
+          </div>
+          <div class="theme-toggle mobile-theme-toggle">
+          <label for="mobileDarkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
+        `;
+
+        document.body.appendChild(mobileMenu);
+
+        toggleBtn.addEventListener("click", function () {
+          mobileMenu.classList.add("active");
+        });
+
+        mobileMenu
+          .querySelector(".close-btn")
+          .addEventListener("click", function () {
+            mobileMenu.classList.remove("active");
+          });
         // Translation functionality
         const translations = {
           en: {
@@ -201,7 +255,7 @@
         translateText();
 
         // Fetch offers from backend
-        fetch('http://localhost:2500/api/offers')
+        fetch('https://bike-builders.onrender.com/api/offers')
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
@@ -265,6 +319,84 @@
                 ${translations[preferredLanguage]["Failed to load updates. Please try again later."]}
               </p>
             `;
+          });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const darkModeToggle = document.getElementById("darkModeToggle");
+        const mobileDarkModeToggle = document.getElementById(
+          "mobileDarkModeToggle"
+        );
+
+        // Check for saved user preference or system preference
+        function checkDarkModePreference() {
+          const savedTheme = localStorage.getItem("theme");
+          const systemPrefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add("dark-mode");
+            if (darkModeToggle) darkModeToggle.checked = true;
+            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+          }
+        }
+
+        // Initialize dark mode
+        checkDarkModePreference();
+
+        // Desktop toggle
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync mobile toggle
+            if (mobileDarkModeToggle) {
+              mobileDarkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Mobile toggle
+        if (mobileDarkModeToggle) {
+          mobileDarkModeToggle.addEventListener("change", function () {
+            if (this.checked) {
+              document.body.classList.add("dark-mode");
+              localStorage.setItem("theme", "dark");
+            } else {
+              document.body.classList.remove("dark-mode");
+              localStorage.setItem("theme", "light");
+            }
+            // Sync desktop toggle
+            if (darkModeToggle) {
+              darkModeToggle.checked = this.checked;
+            }
+          });
+        }
+
+        // Watch for system theme changes
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (e) => {
+            const newColorScheme = e.matches ? "dark" : "light";
+            if (!localStorage.getItem("theme")) {
+              // Only if user hasn't set a preference
+              if (newColorScheme === "dark") {
+                document.body.classList.add("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = true;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+              } else {
+                document.body.classList.remove("dark-mode");
+                if (darkModeToggle) darkModeToggle.checked = false;
+                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
+              }
+            }
           });
       });
     </script>
@@ -368,7 +500,7 @@
       </a>
     </div>
 
-    <!-- WhatsApp Modal -->
+    
     <div id="whatsappModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -382,7 +514,7 @@
       </div>
     </div>
 
-    <!-- Call Modal -->
+    
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>

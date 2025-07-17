@@ -1,18 +1,51 @@
-/* Book page specific styles */
-.book-hero {
-  background-image: url("../assets/book-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  min-height: 170vh;
-  display: flex;
-  flex-direction: column;
+.book-hero-section {
+  width: 100%;
+  height: 100px;
+  overflow: hidden;
 }
+.nav-links a.active{
+  color: black !important;
+}
+.dark-mode .nav-links a.active{
+  color: lightgray !important;
+}
+.login-btn button {
+  background-color: white;
+  color: black;
+  border: 1px solid var(--primary-color);
+  border-radius: 25px;
+  padding: 8px 25px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+.dark-mode .login-btn button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 25px;
+  padding: 8px 25px;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
 
 .book-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
+  min-height: 100vh;
   color: white;
   z-index: 2;
 }
@@ -27,12 +60,25 @@
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
+  color:black;
 }
-
+.dark-mode .book-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color:white;
+}
 .book-content p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
+  color:black;
+}
+.dark-mode .book-content p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+  color:white;
 }
 
 .book-steps {
@@ -63,14 +109,24 @@
   font-weight: bold;
   margin-bottom: 1rem;
 }
-
 .step-content h4 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
+  color:black
+}
+.dark-mode .step-content h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color:white
 }
 
 .step-content p {
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+.dark-mode .step-content p {
   font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.8);
 }
@@ -82,8 +138,8 @@
   padding: 2.5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
+  height:100%;
   max-width: 600px;
-  margin: 2rem auto;
 }
 
 .book-form h3 {
@@ -243,40 +299,6 @@
   background-color: #e04f0d;
 }
 
-/* Testimonials Section */
-.testimonials-section {
-  background-color: #f9f9f9;
-  padding: 4rem 2rem;
-  text-align: center;
-}
-
-.testimonials-section h2 {
-  color: #333;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.testimonial {
-  background-color: white;
-  border-radius: 10px;
-  padding: 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  max-width: 800px;
-  margin: 0 auto;
-  display: none;
-}
-
-.testimonial.active {
-  display: block;
-}
-
-.testimonial-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
 .user-avatar {
   width: 60px;
   height: 60px;
@@ -313,46 +335,6 @@
   font-size: 0.9rem;
   color: #ff5e14;
   font-weight: 500;
-}
-
-.quote-icon {
-  color: #ff5e14;
-  font-size: 1.5rem;
-  margin: 1rem 0;
-}
-
-.quote {
-  color: #555;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-  font-size: 1rem;
-}
-
-.testimonial-footer {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: #888;
-}
-
-.testimonial-nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
-}
-
-.testimonial-dot {
-  width: 12px;
-  height: 12px;
-  background-color: #ddd;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.testimonial-dot.active {
-  background-color: #ff5e14;
 }
 
 /* Responsive Styles */

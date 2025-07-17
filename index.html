@@ -100,7 +100,6 @@
         "priceRange": "₹50,000 - ₹25,00,000"
       }
     </script>
-    <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
 
     <link
@@ -583,7 +582,7 @@
       </div>
     </section>
     <section class="gallery-section">
-      <h2 class="section-title">Our Event Gallery</h2>
+      <h2 class="section-title" data-translate="OUR HAPPY CUSTOMERS">Our Happy Customers</h2>
       <img src="./assets/images/heading-hr.jpg.png" alt="" />
       <div class="gallery-slider">
         <div class="gallery-track">
@@ -1140,7 +1139,7 @@
           <p>
             <i class="fas fa-phone" aria-hidden="true"></i>
             <span itemprop="telephone"
-              >+91 8210283582 / 7564987167 / 9825944897</span
+              >+91 8210283582 /  9825944897</span
             >
           </p>
           <p>
@@ -1280,7 +1279,7 @@
             </a>
           </li>
           <li>
-            <a href="#" class="updates-link"> <!-- Changed to stay as # -->
+            <a href="updates.html" class="updates-link"> <!-- Changed to stay as # -->
               <i class="fas fa-bell"></i> 
               <span data-translate="Updates">Updates</span>
             </a>
@@ -1300,7 +1299,6 @@
           </a>
         </div>
         <div class="theme-toggle mobile-theme-toggle">
-          <input type="checkbox" id="mobileDarkModeToggle" aria-label="Toggle dark mode">
           <label for="mobileDarkModeToggle" class="toggle-label">
             <i class="fas fa-sun"></i>
             <i class="fas fa-moon"></i>
@@ -1507,6 +1505,7 @@
           "TVS Motor": "TVS Motor",
           Yamaha: "Yamaha",
           "HOW TO BUY YOUR DREAM BIKE": "HOW TO BUY YOUR DREAM BIKE",
+          "OUR HAPPY CUSTOMERS": "OUR HAPPY CUSTOMERS",
           "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.":
             "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.",
           "BROWSE INVENTORY": "BROWSE INVENTORY",
@@ -1626,7 +1625,7 @@
           Suzuki: "सुजुकी",
           "TVS Motor": "टीवीएस मोटर",
           Yamaha: "यामाहा",
-
+          "OUR HAPPY CUSTOMERS": "हमारे खुश ग्राहक",
           "HOW TO BUY YOUR DREAM BIKE": "अपनी पसंद की बाइक कैसे खरीदें",
           "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.":
             "बाइक बिल्डर्स में, हम बाइक खरीदने को आसान और पारदर्शी बनाते हैं। हमारी प्रमाणित बाइक्स के साथ पूरी जांच रिपोर्ट और वारंटी मिलती है",
@@ -1798,7 +1797,7 @@
       });
 
       function fetchFeaturedBikes() {
-        fetch("http://localhost:2500/api/featured-bikes")
+        fetch("https://bike-builders.onrender.com/api/featured-bikes")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
@@ -2109,7 +2108,7 @@
       </a>
     </div>
 
-    <!-- WhatsApp Modal -->
+    
     <div id="whatsappModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -2123,7 +2122,7 @@
       </div>
     </div>
 
-    <!-- Call Modal -->
+    
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>

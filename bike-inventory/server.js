@@ -62,6 +62,8 @@ const bikeSchema = new mongoose.Schema({
   daysOld: Number,
   price: Number,
   downPayment: Number,
+  emiAvailable: Boolean,
+  emiAmount: Number,
   imageUrl: [String],
   status: {
     type: String,
@@ -281,6 +283,8 @@ app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
       daysOld: Number(req.body.daysOld),
       price: Number(req.body.price),
       downPayment: Number(req.body.downPayment),
+      emiAvailable: req.body.emiAvailable || false,
+      emiAmount: req.body.emiAvailable ? Number(req.body.emiAmount) : null,
       imageUrl: req.body.imageUrls || [], // Accept imageUrls from frontend
       status: req.body.status,
     };
@@ -475,6 +479,8 @@ app.post("/api/book-bike", async (req, res) => {
     });
 
     await booking.save();
+        await Bike.findByIdAndUpdate(bikeId, { status: "Sold Out" });
+
     res.json({ success: true, message: "Booking confirmed" });
   } catch (err) {
     res.status(500).json({ success: false, error: "Failed to process booking" });

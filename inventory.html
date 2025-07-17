@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>Inventory | Bike Builders</title>
-    <link rel="stylesheet" href="globals.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="inventory.css" />
     <link
@@ -662,7 +661,7 @@
             842002
           </p>
           <span itemprop="telephone"
-            >+91 8210283582 / 7564987167 / 9825944897</span
+            >+91 8210283582 /  9825944897</span
           >
         </div>
       </div>
@@ -806,7 +805,7 @@
         let currentSort = "default"; // Declare this ONCE at the top level
 
         function loadBikes() {
-          fetch("http://localhost:2500/api/bikes")
+          fetch("https://bike-builders.onrender.com/api/bikes")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Network response was not ok");
@@ -906,6 +905,7 @@
           bikeCard.dataset.price = bike.price || 0;
           bikeCard.dataset.year = bike.modelYear || new Date().getFullYear();
           bikeCard.dataset.km = bike.kmDriven || 0;
+          bikeCard.dataset.emiAmount = bike.emiAmount || 0;
           bikeCard.dataset.owner = bike.ownership || "1";
           bikeCard.dataset.fuel = bike.fuelType || "Petrol";
 
@@ -970,8 +970,8 @@
         <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
         <div class="emi">Down: ₹${(
           bike.downPayment || 0
-        ).toLocaleString()} | EMI: ₹${Math.round(
-            ((bike.price || 0) - (bike.downPayment || 0)) / 36
+        ).toLocaleString()} | EMI: ₹${(
+            bike.emiAmount || 0
           ).toLocaleString()}/month</div>
         <div class="button-group">
           <button class="contact-btn" ${
@@ -1015,7 +1015,8 @@
             if (contactBtn && !contactBtn.disabled) {
               contactBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
-                window.location.href = "book.html";
+                const bikeData = JSON.parse(card.dataset.bikeData);
+                window.location.href = `book.html?bikeId=${bikeData._id}`;
               });
             }
           });
@@ -1742,7 +1743,7 @@
               const fuelMatch =
                 !currentFilters.fuel || fuel === currentFilters.fuel;
               const statusMatch =
-              !currentFilters.status || bike.status === currentFilters.status;
+                !currentFilters.status || bike.status === currentFilters.status;
 
               return (
                 priceMatch &&
@@ -1931,6 +1932,13 @@
       <div class="login-btn">
         <button data-translate="Get the Quote">Get the Quote</button>
       </div>
+      <div class="theme-toggle mobile-theme-toggle">
+          <label for="mobileDarkModeToggle" class="toggle-label">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+            <span class="toggle-ball"></span>
+          </label>
+        </div>
     `;
 
         document.body.appendChild(mobileMenu);
@@ -2185,7 +2193,7 @@
       </a>
     </div>
 
-    <!-- WhatsApp Modal -->
+    
     <div id="whatsappModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -2199,7 +2207,7 @@
       </div>
     </div>
 
-    <!-- Call Modal -->
+    
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
