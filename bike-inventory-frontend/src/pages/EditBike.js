@@ -27,7 +27,7 @@ const EditBike = ({ user }) => {
     const fetchBike = async () => {
       try {
         const response = await fetch(
-          `https://bike-builders.onrender.com/api/admin/bike/${id}`,
+          `https://bike-builders-1.onrender.com/api/admin/bike/${id}`,
           {
             credentials: "include",
           }
@@ -97,7 +97,7 @@ const EditBike = ({ user }) => {
     try {
       // Check authentication first
       const authResponse = await fetch(
-        "https://bike-builders.onrender.com/api/admin/check-auth",
+        "https://bike-builders-1.onrender.com/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -133,7 +133,7 @@ const EditBike = ({ user }) => {
       };
 
       const response = await fetch(
-        `https://bike-builders.onrender.com/api/admin/bike/${id}`,
+        `https://bike-builders-1.onrender.com/api/admin/bike/${id}`,
         {
           method: "PUT",
           headers: {

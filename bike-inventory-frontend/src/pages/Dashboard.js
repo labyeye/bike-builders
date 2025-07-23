@@ -30,7 +30,7 @@ const Dashboard = ({ user }) => {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "https://bike-builders.onrender.com/api/admin/check-auth",
+          "https://bike-builders-1.onrender.com/api/admin/check-auth",
           {
             credentials: "include",
           }
@@ -52,7 +52,7 @@ const Dashboard = ({ user }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://bike-builders.onrender.com/api/admin/dashboard", {
+        const response = await fetch("https://bike-builders-1.onrender.com/api/admin/dashboard", {
           credentials: "include",
         });
 
@@ -74,7 +74,7 @@ const Dashboard = ({ user }) => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this bike?")) return;
     try {
-      const response = await fetch(`https://bike-builders.onrender.com/api/admin/bike/${id}`, {
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/bike/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

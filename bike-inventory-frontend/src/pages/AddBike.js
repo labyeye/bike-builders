@@ -46,7 +46,7 @@ const AddBike = ({ user }) => {
 
     try {
       const authResponse = await fetch(
-        "https://bike-builders.onrender.com/api/admin/check-auth",
+        "https://bike-builders-1.onrender.com/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -88,7 +88,7 @@ const AddBike = ({ user }) => {
         ageValue: undefined,
         ageUnit: undefined,
       };
-      const response = await fetch("https://bike-builders.onrender.com/api/admin/bike", {
+      const response = await fetch("https://bike-builders-1.onrender.com/api/admin/bike", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
