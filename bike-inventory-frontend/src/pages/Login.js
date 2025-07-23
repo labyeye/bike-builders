@@ -48,9 +48,6 @@ const AdminLogin = () => {
     } finally {
       setIsLoading(false);
     }
-  };
-  const handleLoginSuccess = (data) => {
-  window.location.href = '/dashboard'; // or use react-router's navigate
 };
 
   // Styles
