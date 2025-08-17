@@ -28,7 +28,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5500",
   "https://www.bikebuilders.in",
-  "https://bike-builders-f6gr.vercel.app"
+  "https://bike-builders-f6gr.vercel.app",
 ];
 
 app.use(cors({
