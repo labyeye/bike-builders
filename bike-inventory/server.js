@@ -50,8 +50,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 3600000,
-      sameSite: "none", // for cross-site cookies in production
-      secure: true      // for HTTPS only
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production"
     },
   })
 );
