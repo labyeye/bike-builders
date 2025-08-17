@@ -50,8 +50,8 @@ app.use(
     saveUninitialized: true,
     cookie: {
       maxAge: 3600000,
-      sameSite: "lax", // use "none" and secure: true for HTTPS
-      secure: false    // set to true if using HTTPS
+      sameSite: "none", // for cross-site cookies in production
+      secure: true      // for HTTPS only
     },
   })
 );
@@ -212,7 +212,6 @@ app.post("/api/admin/login", async (req, res) => {
 });
 
 app.get("/api/admin/check-auth", (req, res) => {
-  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
   if (req.session.isAuthenticated) {
     res.json({ isAuthenticated: true, user: req.session.user });
   } else {
