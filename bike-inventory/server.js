@@ -212,6 +212,10 @@ app.post("/api/admin/login", async (req, res) => {
 });
 
 app.get("/api/admin/check-auth", (req, res) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
   if (req.session.isAuthenticated) {
     res.json({ isAuthenticated: true, user: req.session.user });
   } else {
