@@ -8,7 +8,8 @@ import {
   Sell,
   RequestQuote,
   People,
-  Logout
+  Logout,
+  BookOnline
 } from '@mui/icons-material';
 import '../../css/Sidebar.css';
 
@@ -56,11 +57,16 @@ const DashSidebar = ({ user }) => {
             <span>Sell Requests</span>
           </NavLink>
         </div>
-        
         <div className="nav-item">
           <NavLink className="nav-link" to="/admin/quote-requests">
             <RequestQuote />
             <span>Buy Requests</span>
+          </NavLink>
+        </div>
+        <div className="nav-item">
+          <NavLink className="nav-link" to="/admin/bookings">
+            <BookOnline />
+            <span>Bookings</span>
           </NavLink>
         </div>
         

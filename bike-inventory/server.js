@@ -1,3 +1,6 @@
+
+// Delete booking route
+
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -21,8 +24,21 @@ mongoose
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://127.0.0.1:5500",
+  "https://www.bikebuilders.in",
+  "https://bike-builders-f6gr.vercel.app"
+];
+
 app.use(cors({
-  origin: true, // or specify your frontend URL like "http://localhost:3000"
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
@@ -32,7 +48,11 @@ app.use(
     secret: process.env.SESSION_SECRET || "rgesda543",
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 3600000 },
+    cookie: {
+      maxAge: 3600000,
+      sameSite: "lax", // use "none" and secure: true for HTTPS
+      secure: false    // set to true if using HTTPS
+    },
   })
 );
 
@@ -137,6 +157,14 @@ const offerSchema = new mongoose.Schema({
   },
   createdAt: { type: Date, default: Date.now },
 });
+// Review Mongoose model
+const reviewSchema = new mongoose.Schema({
+  name: String,
+  message: String,
+  rating: Number,
+  date: { type: Date, default: Date.now }
+});
+const Review = mongoose.model('Review', reviewSchema);
 
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
@@ -499,7 +527,20 @@ app.get("/api/admin/bookings", isAuthenticated, async (req, res) => {
 app.put("/api/admin/booking/:id", isAuthenticated, async (req, res) => {
   try {
     const { status } = req.body;
-    const booking = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true });
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { status }, { new: true }).populate('bikeId');
+    if (status === 'Approved' && booking) {
+      // Send confirmation email
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: booking.email,
+        subject: 'Your Bike Booking is Confirmed!',
+        text: `Dear ${booking.name},\n\nYour booking for ${booking.bikeId?.brand} ${booking.bikeId?.model} is confirmed!\n\nThank you for choosing Bike Builders.`
+      });
+      // Mark bike as sold out
+      if (booking.bikeId && booking.bikeId._id) {
+        await Bike.findByIdAndUpdate(booking.bikeId._id, { status: 'Sold Out' });
+      }
+    }
     res.json({ success: true, booking });
   } catch (err) {
     res.status(500).json({ success: false, error: "Error updating booking" });
@@ -574,7 +615,39 @@ app.delete("/api/admin/offers/:id", isAuthenticated, isAdmin, async (req, res) =
     res.status(500).json({ success: false, error: "Error deleting offer" });
   }
 });
+app.delete("/api/admin/booking/:id", isAuthenticated, async (req, res) => {
+  try {
+    await Booking.findByIdAndDelete(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, error: "Error deleting booking" });
+  }
+});
 
+// Submit a review (MongoDB)
+app.post('/api/reviews', async (req, res) => {
+  const { name, message, rating } = req.body;
+  if (!name || !message || !rating) {
+    return res.status(400).json({ success: false, error: 'Missing fields' });
+  }
+  try {
+    const review = new Review({ name, message, rating });
+    await review.save();
+    res.json({ success: true, review });
+  } catch (e) {
+    res.status(500).json({ success: false, error: 'Failed to save review' });
+  }
+});
+
+// Get all reviews (MongoDB)
+app.get('/api/reviews', async (req, res) => {
+  try {
+    const reviews = await Review.find().sort({ date: -1 });
+    res.json({ success: true, reviews });
+  } catch (e) {
+    res.status(500).json({ success: false, error: 'Failed to fetch reviews' });
+  }
+});
 app.listen(port, () => {
   console.log(`🚀 Server running on http://localhost:${port}`);
 });

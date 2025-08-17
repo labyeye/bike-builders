@@ -1,6 +1,6 @@
 /* updates.css */
 .updates-hero {
-  background-image: url('../assets/updates-bg.jpg');
+  background-image: url('.../assets/updates-bg.jpg');
   background-size: cover;
   background-position: center;
   min-height: 100vh;

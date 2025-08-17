@@ -15,7 +15,7 @@
   <div class="hero-section">
     <nav class="navbar">
       <div class="logo">
-        <img src="./assets/logo2.svg" class="logo-img" alt="Bike Builders Logo" />
+        <img src="../assets/logo2.svg" class="logo-img" alt="Bike Builders Logo" />
       </div>
       <ul class="nav-links">
         <li><a href="index.html" data-translate="Home">Home</a></li>
@@ -142,11 +142,46 @@
     </section>
   </div>
 
+  <!-- Review Section -->
+  <section class="testimonials-section">
+    <h2>What Our Riders Say</h2>
+    <div class="testimonials-container" id="dynamic-testimonials">
+      <div class="loading">Loading reviews...</div>
+    </div>
+  </section>
+  <!-- Review Modal -->
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Leave a Review</h3>
+      <form id="reviewForm">
+        <input type="text" id="reviewName" placeholder="Your Name" required />
+        <textarea id="reviewMessage" placeholder="Your Review" required></textarea>
+        <div class="star-rating">
+          <span class="star" data-value="1"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="2"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="3"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="4"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="5"><i class="fa fa-star"></i></span>
+        </div>
+        <input type="hidden" id="reviewRating" value="0" required />
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
   <footer class="footer">
     <div class="footer-content">
       <div class="footer-section">
+        <!-- 5-Star Rating Display -->
+        <div class="footer-stars" style="margin: 10px 0;">
+          <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+        </div>
         <div class="logo">
-          <img src="./assets/logo2.svg" style="width: 50px" alt="Bike Builders Logo" />
+          <img src="../assets/logo2.svg" style="width: 50px" alt="Bike Builders Logo" />
         </div>
         <p data-translate="Bringing the future of bike riding to you today.">Bringing the future of bike riding to you today.</p>
         <div class="social-icons">
@@ -200,6 +235,128 @@
     </div>
   </footer>
   <script>
+    // Dynamic testimonials fetch
+    document.addEventListener("DOMContentLoaded", function () {
+      function getInitials(name) {
+        if (!name) return "U";
+        return name
+          .split(" ")
+          .map((n) => n[0].toUpperCase())
+          .join("")
+          .slice(0, 2);
+      }
+      function randomAvatar(name) {
+        // Use dicebear for demo, fallback to initials
+        const seed = name ? name.replace(/\s/g, "") : "user";
+        return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(seed)}`;
+      }
+      function renderTestimonials(reviews) {
+        const container = document.getElementById("dynamic-testimonials");
+        if (!reviews || reviews.length === 0) {
+          container.innerHTML = '<div class="no-reviews">No reviews yet.</div>';
+          return;
+        }
+        container.innerHTML = reviews
+          .map((r) => `
+            <div class="testimonial" itemscope itemtype="https://schema.org/Review">
+              <div class="quote-icon">
+                <i class="fas fa-quote-right" aria-hidden="true"></i>
+              </div>
+              <div class="testimonial-header">
+                <img src="${randomAvatar(r.name)}" alt="${r.name}" class="user-avatar" width="60" height="60" loading="lazy" />
+                <div class="user-info">
+                  <h4 class="user-name" itemprop="author">${r.name}</h4>
+                  <div class="rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
+                    <meta itemprop="ratingValue" content="${r.rating}" />
+                    ${'<i class="fas fa-star"></i>'.repeat(r.rating)}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
+                  </div>
+                </div>
+              </div>
+              <div class="quote" itemprop="reviewBody">${r.message}</div>
+              <div class="testimonial-footer">
+                <span class="testimonial-date">${new Date(r.date).toLocaleDateString()}</span>
+              </div>
+              <meta itemprop="itemReviewed" content="Bike Builders" />
+            </div>
+          `)
+          .join("");
+      }
+      function fetchTestimonials() {
+        fetch("https://bike-builders-1.onrender.com/api/reviews")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && Array.isArray(data.reviews)) {
+              renderTestimonials(data.reviews);
+            } else {
+              renderTestimonials([]);
+            }
+          })
+          .catch(() => {
+            renderTestimonials([]);
+          });
+      }
+      fetchTestimonials();
+
+      // Review Modal logic
+      const reviewModal = document.getElementById("reviewModal");
+      const closeReviewModalBtn = reviewModal.querySelector(".close");
+      closeReviewModalBtn.addEventListener("click", () => {
+        reviewModal.style.display = "none";
+      });
+      window.addEventListener("click", function (event) {
+        if (event.target == reviewModal) {
+          reviewModal.style.display = "none";
+        }
+      });
+      // Star rating logic
+      const stars = reviewModal.querySelectorAll(".star");
+      const ratingInput = document.getElementById("reviewRating");
+      stars.forEach((star) => {
+        star.addEventListener("click", function () {
+          const val = this.getAttribute("data-value");
+          ratingInput.value = val;
+          stars.forEach((s, i) => {
+            s.classList.toggle("selected", i < val);
+          });
+        });
+      });
+      // Submit review
+      const reviewForm = document.getElementById("reviewForm");
+      reviewForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("reviewName").value.trim();
+        const message = document.getElementById("reviewMessage").value.trim();
+        const rating = Number(document.getElementById("reviewRating").value);
+        if (!name || !message || !rating) {
+          alert("Please fill all fields and select a rating.");
+          return;
+        }
+        fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, message, rating })
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              reviewModal.style.display = "none";
+              reviewForm.reset();
+              ratingInput.value = 0;
+              stars.forEach((s) => s.classList.remove("selected"));
+              fetchTestimonials();
+            } else {
+              alert("Failed to submit review.");
+            }
+          })
+          .catch(() => alert("Failed to submit review."));
+      });
+      // Open modal button (add anywhere you want, e.g. after testimonials)
+      const openBtn = document.createElement("button");
+      openBtn.textContent = "Leave a Review";
+      openBtn.className = "review-btn";
+      openBtn.onclick = () => { reviewModal.style.display = "block"; };
+      document.querySelector(".testimonials-section").appendChild(openBtn);
+    });
     document.addEventListener("DOMContentLoaded", function () {
       const translations = {
         en: {

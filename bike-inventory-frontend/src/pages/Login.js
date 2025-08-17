@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, User, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-const AdminLogin = () => {
+const AdminLogin = ({ setUser }) => {
     const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -27,7 +27,7 @@ const AdminLogin = () => {
     setError('');
     
     try {
-      const response = await fetch('https://bike-builders-1.onrender.com/api/admin/login', {
+  const response = await fetch('https://bike-builders-1.onrender.com/api/admin/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,10 +36,14 @@ const AdminLogin = () => {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
+  const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
+      }
+      // Set user state in App.js
+      if (setUser && data.user) {
+        setUser(data.user);
       }
       navigate("/admin/dashboard");
       
@@ -125,7 +129,9 @@ const AdminLogin = () => {
   const inputStyle = {
     width: '100%',
     padding: '20px 12px 8px',
-    border: '1px solid #e0e0e0',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: '#e0e0e0',
     borderRadius: '4px 4px 0 0',
     backgroundColor: '#fafafa',
     fontSize: '16px',
@@ -138,7 +144,7 @@ const AdminLogin = () => {
     ...inputStyle,
     backgroundColor: '#ffffff',
     borderColor: '#1976d2',
-    borderBottomWidth: '2px'
+    borderWidth: '2px',
   };
 
   const labelStyle = {

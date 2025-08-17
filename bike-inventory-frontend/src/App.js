@@ -8,6 +8,7 @@ import EditBike from './pages/EditBike';
 import SellRequests from './pages/SellRequests';
 import BuyRequests from './pages/BuyRequests';
 import AdminLogin from './pages/Login';
+import Bookings from './pages/Bookings';
 
 function App() {
   // You would typically manage user authentication state here
@@ -17,7 +18,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<AdminLogin setUser={setUser} />} />
-        <Route path="/admin/dashboard" element={<BikeInventoryDashboard user={user} />} />
+  <Route path="/admin/dashboard" element={<BikeInventoryDashboard user={user} />} />
+  <Route path="/admin/bookings" element={<Bookings user={user} />} />
         <Route path="/admin/bike/add" element={<AddBike user={user} />} />
         <Route path="/admin/bike/edit/:id" element={<EditBike user={user} />} />
         <Route path="/admin/sell-requests" element={<SellRequests user={user} />} />

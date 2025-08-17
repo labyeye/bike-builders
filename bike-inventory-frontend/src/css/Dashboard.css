@@ -1,3 +1,37 @@
+/* Modern Table Styles */
+.modern-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+.modern-table thead th {
+  background: #f5f7fa;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-weight: 600;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+.modern-table tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+}
+.table-row-striped {
+  background: #f9fafb;
+}
+.modern-table tbody tr:hover {
+  background: #e3e8f0;
+  transition: background 0.2s;
+}
+.modern-table tbody tr:last-child td {
+  border-bottom: none;
+}
 /* Updated Dashboard.css */
 .app-container {
   display: flex;
