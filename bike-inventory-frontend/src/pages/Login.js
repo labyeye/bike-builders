@@ -296,13 +296,12 @@ const AdminLogin = ({ setUser }) => {
 
         {/* Form */}
         <div style={formContainerStyle}>
-          {error && (
-            <div style={errorStyle}>
-              <p style={errorTextStyle}>{error}</p>
-            </div>
-          )}
-
-          <div>
+          <form onSubmit={handleSubmit} autoComplete="on">
+            {error && (
+              <div style={errorStyle}>
+                <p style={errorTextStyle}>{error}</p>
+              </div>
+            )}
             {/* Username Field */}
             <div style={fieldContainerStyle}>
               <input
@@ -316,6 +315,7 @@ const AdminLogin = ({ setUser }) => {
                 required
                 style={focusedField === 'username' ? inputFocusStyle : inputStyle}
                 placeholder=" "
+                autoComplete="username"
               />
               <label
                 htmlFor="username"
@@ -327,7 +327,6 @@ const AdminLogin = ({ setUser }) => {
                 <User size={20} />
               </div>
             </div>
-
             {/* Password Field */}
             <div style={fieldContainerStyle}>
               <input
@@ -341,6 +340,7 @@ const AdminLogin = ({ setUser }) => {
                 required
                 style={focusedField === 'password' ? inputFocusStyle : inputStyle}
                 placeholder=" "
+                autoComplete="current-password"
               />
               <label
                 htmlFor="password"
@@ -358,7 +358,6 @@ const AdminLogin = ({ setUser }) => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-
             {/* Forgot Password Link */}
             <div style={forgotPasswordStyle}>
               <button
@@ -370,7 +369,6 @@ const AdminLogin = ({ setUser }) => {
                 Forgot password?
               </button>
             </div>
-
             {/* Action Buttons */}
             <div style={buttonContainerStyle}>
               <button
@@ -381,10 +379,8 @@ const AdminLogin = ({ setUser }) => {
               >
                 Create account
               </button>
-              
               <button
-                type="button"
-                onClick={handleSubmit}
+                type="submit"
                 disabled={isLoading}
                 style={submitButtonStyle}
                 onMouseEnter={(e) => !isLoading && Object.assign(e.target.style, submitButtonHoverStyle)}
@@ -400,7 +396,7 @@ const AdminLogin = ({ setUser }) => {
                 )}
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
 
