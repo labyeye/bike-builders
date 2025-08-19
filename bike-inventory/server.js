@@ -33,13 +33,15 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: function(origin, callback) {
+    // Allow requests from allowedOrigins or undefined (like curl/postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200
 }));
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -51,7 +53,8 @@ app.use(
     cookie: {
       maxAge: 3600000,
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: process.env.NODE_ENV === "production"
+      secure: process.env.NODE_ENV === "production" ? true : false,
+      domain: process.env.NODE_ENV === "production" ? ".bikebuilders.in" : undefined // set your domain here
     },
   })
 );
