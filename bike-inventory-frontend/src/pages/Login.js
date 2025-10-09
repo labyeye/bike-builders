@@ -1,276 +1,275 @@
-import React, { useState } from 'react';
-import { Lock, User, Eye, EyeOff } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Lock, User, Eye, EyeOff } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 const AdminLogin = ({ setUser }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    username: '',
-    password: ''
+    username: "",
+    password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [focusedField, setFocusedField] = useState('');
+  const [error, setError] = useState("");
+  const [focusedField, setFocusedField] = useState("");
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
-    if (error) setError('');
+    if (error) setError("");
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
-    
+    setError("");
+
     try {
-  const response = await fetch('https://bike-builders-1.onrender.com/api/admin/login', {
-        method: 'POST',
+      const response = await fetch("https://bike-builders-1.onrender.com/api/admin/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include',
+        credentials: "include",
         body: JSON.stringify(formData),
       });
 
-  const data = await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
+        throw new Error(data.message || "Login failed");
       }
       // Set user state in App.js
       if (setUser && data.user) {
         setUser(data.user);
       }
       navigate("/admin/dashboard");
-      
     } catch (err) {
-      setError(err.message || 'An error occurred during login');
+      setError(err.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
-};
+  };
 
   // Styles
   const containerStyle = {
-    minHeight: '100vh',
-    backgroundColor: '#f5f5f5',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '16px',
-    fontFamily: 'Roboto, Arial, sans-serif'
+    minHeight: "100vh",
+    backgroundColor: "#f5f5f5",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "16px",
+    fontFamily: "Roboto, Arial, sans-serif",
   };
 
   const cardStyle = {
-    width: '100%',
-    maxWidth: '400px',
-    backgroundColor: '#ffffff',
-    borderRadius: '8px',
-    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
-    overflow: 'hidden'
+    width: "100%",
+    maxWidth: "400px",
+    backgroundColor: "#ffffff",
+    borderRadius: "8px",
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    overflow: "hidden",
   };
 
   const headerStyle = {
-    padding: '32px 24px 24px',
-    textAlign: 'center'
+    padding: "32px 24px 24px",
+    textAlign: "center",
   };
 
   const logoStyle = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '48px',
-    height: '48px',
-    backgroundColor: '#1976d2',
-    borderRadius: '50%',
-    marginBottom: '16px'
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "48px",
+    height: "48px",
+    backgroundColor: "#1976d2",
+    borderRadius: "50%",
+    marginBottom: "16px",
   };
 
   const titleStyle = {
-    fontSize: '24px',
-    fontWeight: '400',
-    color: '#212121',
-    margin: '0 0 4px 0'
+    fontSize: "24px",
+    fontWeight: "400",
+    color: "#212121",
+    margin: "0 0 4px 0",
   };
 
   const subtitleStyle = {
-    fontSize: '14px',
-    color: '#757575',
-    margin: '0'
+    fontSize: "14px",
+    color: "#757575",
+    margin: "0",
   };
 
   const formContainerStyle = {
-    padding: '0 24px 24px'
+    padding: "0 24px 24px",
   };
 
   const errorStyle = {
-    marginBottom: '16px',
-    padding: '12px',
-    backgroundColor: '#ffebee',
-    borderLeft: '4px solid #f44336',
-    borderRadius: '4px'
+    marginBottom: "16px",
+    padding: "12px",
+    backgroundColor: "#ffebee",
+    borderLeft: "4px solid #f44336",
+    borderRadius: "4px",
   };
 
   const errorTextStyle = {
-    color: '#c62828',
-    fontSize: '14px',
-    margin: '0'
+    color: "#c62828",
+    fontSize: "14px",
+    margin: "0",
   };
 
   const fieldContainerStyle = {
-    position: 'relative',
-    marginBottom: '24px'
+    position: "relative",
+    marginBottom: "24px",
   };
 
   const inputStyle = {
-    width: '100%',
-    padding: '20px 12px 8px',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: '#e0e0e0',
-    borderRadius: '4px 4px 0 0',
-    backgroundColor: '#fafafa',
-    fontSize: '16px',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    boxSizing: 'border-box'
+    width: "100%",
+    padding: "20px 12px 8px",
+    borderStyle: "solid",
+    borderWidth: "1px",
+    borderColor: "#e0e0e0",
+    borderRadius: "4px 4px 0 0",
+    backgroundColor: "#fafafa",
+    fontSize: "16px",
+    outline: "none",
+    transition: "all 0.2s ease",
+    boxSizing: "border-box",
   };
 
   const inputFocusStyle = {
     ...inputStyle,
-    backgroundColor: '#ffffff',
-    borderColor: '#1976d2',
-    borderWidth: '2px',
+    backgroundColor: "#ffffff",
+    borderColor: "#1976d2",
+    borderWidth: "2px",
   };
 
   const labelStyle = {
-    position: 'absolute',
-    left: '12px',
-    transition: 'all 0.2s ease',
-    pointerEvents: 'none',
-    color: '#757575'
+    position: "absolute",
+    left: "12px",
+    transition: "all 0.2s ease",
+    pointerEvents: "none",
+    color: "#757575",
   };
 
   const labelFloatStyle = {
     ...labelStyle,
-    top: '8px',
-    fontSize: '12px',
-    color: '#1976d2'
+    top: "8px",
+    fontSize: "12px",
+    color: "#1976d2",
   };
 
   const labelNormalStyle = {
     ...labelStyle,
-    top: '16px',
-    fontSize: '16px'
+    top: "16px",
+    fontSize: "16px",
   };
 
   const iconStyle = {
-    position: 'absolute',
-    right: '12px',
-    top: '16px',
-    color: '#9e9e9e'
+    position: "absolute",
+    right: "12px",
+    top: "16px",
+    color: "#9e9e9e",
   };
 
   const eyeIconStyle = {
-    position: 'absolute',
-    right: '12px',
-    top: '16px',
-    color: '#9e9e9e',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    padding: '0',
-    transition: 'color 0.2s ease'
+    position: "absolute",
+    right: "12px",
+    top: "16px",
+    color: "#9e9e9e",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    padding: "0",
+    transition: "color 0.2s ease",
   };
 
   const forgotPasswordStyle = {
-    textAlign: 'right',
-    marginBottom: '24px'
+    textAlign: "right",
+    marginBottom: "24px",
   };
 
   const linkStyle = {
-    fontSize: '14px',
-    color: '#1976d2',
-    textDecoration: 'none',
-    fontWeight: '500',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'color 0.2s ease'
+    fontSize: "14px",
+    color: "#1976d2",
+    textDecoration: "none",
+    fontWeight: "500",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    transition: "color 0.2s ease",
   };
 
   const buttonContainerStyle = {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingTop: '16px'
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: "16px",
   };
 
   const createAccountButtonStyle = {
-    padding: '8px 24px',
-    color: '#1976d2',
-    fontWeight: '500',
-    backgroundColor: 'transparent',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '14px',
-    transition: 'background-color 0.2s ease'
+    padding: "8px 24px",
+    color: "#1976d2",
+    fontWeight: "500",
+    backgroundColor: "transparent",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    transition: "background-color 0.2s ease",
   };
 
   const submitButtonStyle = {
-    padding: '8px 24px',
-    backgroundColor: '#1976d2',
-    color: '#ffffff',
-    fontWeight: '500',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-    fontSize: '14px',
-    transition: 'all 0.2s ease',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-    opacity: isLoading ? 0.6 : 1
+    padding: "8px 24px",
+    backgroundColor: "#1976d2",
+    color: "#ffffff",
+    fontWeight: "500",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    fontSize: "14px",
+    transition: "all 0.2s ease",
+    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+    opacity: isLoading ? 0.6 : 1,
   };
 
   const submitButtonHoverStyle = {
     ...submitButtonStyle,
-    backgroundColor: '#1565c0',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.3)'
+    backgroundColor: "#1565c0",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
   };
 
   const loadingSpinnerStyle = {
-    width: '16px',
-    height: '16px',
-    border: '2px solid #ffffff',
-    borderTop: '2px solid transparent',
-    borderRadius: '50%',
-    animation: 'spin 1s linear infinite',
-    marginRight: '8px'
+    width: "16px",
+    height: "16px",
+    border: "2px solid #ffffff",
+    borderTop: "2px solid transparent",
+    borderRadius: "50%",
+    animation: "spin 1s linear infinite",
+    marginRight: "8px",
   };
 
   const footerStyle = {
-    textAlign: 'center',
-    marginTop: '24px'
+    textAlign: "center",
+    marginTop: "24px",
   };
 
   const footerLinksStyle = {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '16px'
+    display: "flex",
+    justifyContent: "center",
+    gap: "16px",
   };
 
   const footerLinkStyle = {
-    fontSize: '12px',
-    color: '#757575',
-    textDecoration: 'none',
-    background: 'none',
-    border: 'none',
-    cursor: 'pointer',
-    transition: 'color 0.2s ease'
+    fontSize: "12px",
+    color: "#757575",
+    textDecoration: "none",
+    background: "none",
+    border: "none",
+    cursor: "pointer",
+    transition: "color 0.2s ease",
   };
 
   return (
@@ -283,7 +282,7 @@ const AdminLogin = ({ setUser }) => {
           }
         `}
       </style>
-      
+
       <div style={cardStyle}>
         {/* Header */}
         <div style={headerStyle}>
@@ -310,16 +309,22 @@ const AdminLogin = ({ setUser }) => {
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
-                onFocus={() => setFocusedField('username')}
-                onBlur={() => setFocusedField('')}
+                onFocus={() => setFocusedField("username")}
+                onBlur={() => setFocusedField("")}
                 required
-                style={focusedField === 'username' ? inputFocusStyle : inputStyle}
+                style={
+                  focusedField === "username" ? inputFocusStyle : inputStyle
+                }
                 placeholder=" "
                 autoComplete="username"
               />
               <label
                 htmlFor="username"
-                style={formData.username || focusedField === 'username' ? labelFloatStyle : labelNormalStyle}
+                style={
+                  formData.username || focusedField === "username"
+                    ? labelFloatStyle
+                    : labelNormalStyle
+                }
               >
                 Username
               </label>
@@ -330,21 +335,27 @@ const AdminLogin = ({ setUser }) => {
             {/* Password Field */}
             <div style={fieldContainerStyle}>
               <input
-                type={showPassword ? 'text' : 'password'}
+                type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                onFocus={() => setFocusedField('password')}
-                onBlur={() => setFocusedField('')}
+                onFocus={() => setFocusedField("password")}
+                onBlur={() => setFocusedField("")}
                 required
-                style={focusedField === 'password' ? inputFocusStyle : inputStyle}
+                style={
+                  focusedField === "password" ? inputFocusStyle : inputStyle
+                }
                 placeholder=" "
                 autoComplete="current-password"
               />
               <label
                 htmlFor="password"
-                style={formData.password || focusedField === 'password' ? labelFloatStyle : labelNormalStyle}
+                style={
+                  formData.password || focusedField === "password"
+                    ? labelFloatStyle
+                    : labelNormalStyle
+                }
               >
                 Password
               </label>
@@ -352,8 +363,8 @@ const AdminLogin = ({ setUser }) => {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 style={eyeIconStyle}
-                onMouseEnter={(e) => e.target.style.color = '#616161'}
-                onMouseLeave={(e) => e.target.style.color = '#9e9e9e'}
+                onMouseEnter={(e) => (e.target.style.color = "#616161")}
+                onMouseLeave={(e) => (e.target.style.color = "#9e9e9e")}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -363,8 +374,8 @@ const AdminLogin = ({ setUser }) => {
               <button
                 type="button"
                 style={linkStyle}
-                onMouseEnter={(e) => e.target.style.color = '#1565c0'}
-                onMouseLeave={(e) => e.target.style.color = '#1976d2'}
+                onMouseEnter={(e) => (e.target.style.color = "#1565c0")}
+                onMouseLeave={(e) => (e.target.style.color = "#1976d2")}
               >
                 Forgot password?
               </button>
@@ -374,8 +385,12 @@ const AdminLogin = ({ setUser }) => {
               <button
                 type="button"
                 style={createAccountButtonStyle}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#e3f2fd'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                onMouseEnter={(e) =>
+                  (e.target.style.backgroundColor = "#e3f2fd")
+                }
+                onMouseLeave={(e) =>
+                  (e.target.style.backgroundColor = "transparent")
+                }
               >
                 Create account
               </button>
@@ -383,24 +398,27 @@ const AdminLogin = ({ setUser }) => {
                 type="submit"
                 disabled={isLoading}
                 style={submitButtonStyle}
-                onMouseEnter={(e) => !isLoading && Object.assign(e.target.style, submitButtonHoverStyle)}
-                onMouseLeave={(e) => !isLoading && Object.assign(e.target.style, submitButtonStyle)}
+                onMouseEnter={(e) =>
+                  !isLoading &&
+                  Object.assign(e.target.style, submitButtonHoverStyle)
+                }
+                onMouseLeave={(e) =>
+                  !isLoading && Object.assign(e.target.style, submitButtonStyle)
+                }
               >
                 {isLoading ? (
-                  <div style={{display: 'flex', alignItems: 'center'}}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
                     <div style={loadingSpinnerStyle}></div>
                     Signing in
                   </div>
                 ) : (
-                  'Next'
+                  "Next"
                 )}
               </button>
             </div>
           </form>
         </div>
       </div>
-
-      
     </div>
   );
 };
