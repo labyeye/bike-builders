@@ -118,7 +118,7 @@ const Dashboard = ({ user }) => {
     e.target.onerror = null;
     e.target.style.display = 'none';
     const parent = e.target.parentElement;
-    parent.innerHTML = '<div class="no-image"><ImageIcon /></div>';
+    parent.innerHTML = '<div class="no-image">No Image</div>';
   };
 
   if (!authChecked || loading) return <div className="loading">Loading...</div>;
@@ -189,11 +189,11 @@ const Dashboard = ({ user }) => {
                 {bikes.length > 0 ? (
                   bikes.map((bike) => (
                     <tr key={bike._id}>
-                      <td>
-                        {bike.images && bike.images.length > 0 ? (
-                          <img 
-                            src={bike.images[0]} 
-                            alt={bike.model} 
+                      <td data-label="Image">
+                        {bike.imageUrl && bike.imageUrl.length > 0 ? (
+                          <img
+                            src={bike.imageUrl[0]}
+                            alt={bike.model}
                             className="bike-thumbnail"
                             onError={handleImageError}
                           />
@@ -201,24 +201,24 @@ const Dashboard = ({ user }) => {
                           <div className="no-image"><ImageIcon /></div>
                         )}
                       </td>
-                      <td>{bike.model}</td>
-                      <td>{bike.brand}</td>
-                      <td>{formatPrice(bike.price)}</td>
-                      <td>
+                      <td data-label="Model">{bike.model}</td>
+                      <td data-label="Brand">{bike.brand}</td>
+                      <td data-label="Price">{formatPrice(bike.price)}</td>
+                      <td data-label="Status">
                         <span className={getStatusBadgeClass(bike.status)}>
                           {bike.status}
                         </span>
                       </td>
-                      <td>{bike.stock}</td>
-                      <td>
+                      <td data-label="Stock">{bike.stock}</td>
+                      <td data-label="Actions">
                         <div className="action-buttons">
-                          <button 
+                          <button
                             className="btn-icon edit"
                             onClick={() => navigate(`/admin/bike/edit/${bike._id}`)}
                           >
                             <Edit />
                           </button>
-                          <button 
+                          <button
                             className="btn-icon delete"
                             onClick={() => handleDelete(bike._id)}
                           >

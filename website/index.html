@@ -1790,7 +1790,16 @@
       });
 
       function fetchFeaturedBikes() {
-        fetch("https://bike-builders-1.onrender.com/api/featured-bikes")
+        const API_BASE = "https://bike-builders-1.onrender.com"; // change if your API runs elsewhere
+
+        function normalizeImageUrl(url) {
+          if (!url) return url;
+          if (/^https?:\/\//i.test(url) || url.startsWith("data:") || url.startsWith("//")) return url;
+          if (url.startsWith("/")) return API_BASE + url;
+          return API_BASE + "/" + url;
+        }
+
+        fetch(API_BASE + "/api/featured-bikes")
           .then((response) => {
             if (!response.ok) {
               throw new Error("Network response was not ok");
@@ -1799,7 +1808,23 @@
           })
           .then((data) => {
             if (data.success && data.data) {
-              displayFeaturedBikes(data.data);
+              // normalize image URLs
+              const bikes = data.data.map((b) => {
+                const copy = Object.assign({}, b);
+                try {
+                  if (Array.isArray(copy.imageUrl)) {
+                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u));
+                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
+                  } else {
+                    copy.imageUrl = [];
+                  }
+                } catch (e) {
+                  copy.imageUrl = copy.imageUrl || [];
+                }
+                return copy;
+              });
+              displayFeaturedBikes(bikes);
             } else {
               showFeaturedBikesError();
             }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
   TwoWheeler,
@@ -14,14 +14,29 @@ import {
 import '../../css/Sidebar.css';
 
 const DashSidebar = ({ user }) => {
+  const [open, setOpen] = useState(false);
+
+  const closeIfOpen = () => {
+    if (open) setOpen(false);
+  };
+
   return (
-    <div className="sidebar">
+    <>
+      <button
+        className={`sidebar-hamburger ${open ? 'open' : ''}`}
+        aria-label="Toggle sidebar"
+        aria-expanded={open}
+        onClick={() => setOpen((s) => !s)}
+      >
+        <span className="hamburger-icon">☰</span>
+      </button>
+      <div className={`sidebar ${open ? 'open' : ''}`}>
       <NavLink className="sidebar-brand" to="/admin/dashboard">
         <TwoWheeler className="sidebar-brand-icon" />
         <span className="sidebar-brand-text">Bike Inventory</span>
       </NavLink>
       
-      <div className="nav-items">
+  <div className="nav-items" onClick={closeIfOpen}>
         <div className="nav-item">
           <NavLink className="nav-link" to="/admin/dashboard">
             <Dashboard />
@@ -91,8 +106,17 @@ const DashSidebar = ({ user }) => {
             <span>Logout</span>
           </NavLink>
         </div>
-      </div>
-    </div>
+  </div>
+  </div>
+  {/* overlay for mobile when sidebar is open */}
+      {open && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
+    </>
   );
 };
 

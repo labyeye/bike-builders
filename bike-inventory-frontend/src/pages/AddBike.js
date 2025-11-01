@@ -21,8 +21,11 @@ const AddBike = ({ user }) => {
     ageUnit: "days",
     downPayment: "",
     imageUrl: ["", "", "", "", ""],
+    stock: "",
     status: "",
   });
+  const [imageFiles, setImageFiles] = useState([]);
+  const [previews, setPreviews] = useState([]);
   const [error, setError] = useState(null);
   const handleImageUrlChange = (index, value) => {
     const newImageUrls = [...formData.imageUrl];
@@ -31,6 +34,12 @@ const AddBike = ({ user }) => {
       ...prev,
       imageUrl: newImageUrls,
     }));
+  };
+  const handleFilesChange = (e) => {
+    const files = Array.from(e.target.files).slice(0, 5);
+    setImageFiles(files);
+    const urls = files.map((f) => URL.createObjectURL(f));
+    setPreviews(urls);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -82,19 +91,31 @@ const AddBike = ({ user }) => {
             daysOld = formData.ageValue;
         }
       }
-      const dataToSend = {
-        ...formData,
-        daysOld: daysOld,
-        ageValue: undefined,
-        ageUnit: undefined,
-      };
+      const form = new FormData();
+      form.append("brand", formData.brand);
+      form.append("model", formData.model);
+      form.append("modelYear", formData.modelYear);
+      form.append("kmDriven", formData.kmDriven);
+      form.append("ownership", formData.ownership);
+      form.append("fuelType", formData.fuelType);
+      form.append("daysOld", daysOld);
+      form.append("price", formData.price);
+      form.append("downPayment", formData.downPayment);
+      form.append("emiAvailable", formData.emiAvailable);
+      form.append("emiAmount", formData.emiAmount);
+      form.append("status", formData.status);
+      form.append("stock", formData.stock || 1);
+      // include any filtered image URLs (fallback)
+      filteredImageUrls.forEach((url) => form.append("imageUrls", url));
+      // append files
+      imageFiles.slice(0, 5).forEach((file) => {
+        form.append("images", file);
+      });
+
       const response = await fetch("https://bike-builders-1.onrender.com/api/admin/bike", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
         credentials: "include",
-        body: JSON.stringify(dataToSend),
+        body: form,
       });
 
       if (!response.ok) {
@@ -551,38 +572,34 @@ const AddBike = ({ user }) => {
                     color: "#2d3748",
                   }}
                 >
-                  Image URLs (Up to 5)
+                  Upload Images (Up to 5)
                 </label>
-                {[0, 1, 2, 3, 4].map((index) => (
-                  <input
-                    key={index}
-                    type="text"
-                    placeholder={`Image URL ${index + 1} (optional)`}
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
-                      borderRadius: "8px",
-                      fontSize: "1rem",
-                      transition: "border-color 0.2s",
-                      marginBottom: "0.5rem",
-                    }}
-                    value={formData.imageUrl[index]}
-                    onChange={(e) =>
-                      handleImageUrlChange(index, e.target.value)
-                    }
-                  />
-                ))}
-                <small
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFilesChange}
                   style={{
                     display: "block",
-                    marginTop: "0.5rem",
-                    color: "#718096",
-                    fontSize: "0.875rem",
+                    marginBottom: "0.75rem",
                   }}
-                >
-                  You can add up to 5 images for the bike
-                </small>
+                />
+                <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
+                  {previews && previews.length > 0 ? (
+                    previews.map((src, idx) => (
+                      <img
+                        key={idx}
+                        src={src}
+                        alt={`preview-${idx}`}
+                        style={{ width: 100, height: 80, objectFit: "cover", borderRadius: 6 }}
+                      />
+                    ))
+                  ) : (
+                    <small style={{ color: "#718096", fontSize: "0.875rem" }}>
+                      You can add up to 5 images for the bike
+                    </small>
+                  )}
+                </div>
               </div>
 
               <div className="form-group" style={{ marginBottom: "1.5rem" }}>

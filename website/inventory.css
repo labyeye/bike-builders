@@ -17,6 +17,7 @@
   --mobile-filter-header-border: #eeeeee;
   --reset-btn-bg: #f5f5f5;
 }
+
 .login-btn button {
   background-color: white;
   color: black;
@@ -46,6 +47,7 @@
   overflow: hidden;
   z-index: 1;
 }
+
 .dark-mode .footer {
   background-color: #1a1a1a;
   color: #e0e0e0;
@@ -398,6 +400,60 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* Responsive */
+
+/* Make slider images full width on small screens and align arrows */
+@media (max-width: 768px) {
+
+  .bike-slider .slide img,
+  .bike-slider img,
+  .image-container img {
+    width: 100% !important;
+    height: 300px !important;
+    display: block;
+    margin: 0 auto;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  /* Ensure the slider container uses full width */
+  .image-container {
+    width: 100%;
+    padding: 0 12px;
+    box-sizing: border-box;
+  }
+
+  /* Position arrows vertically centered and outside edges */
+  .bike-slider .slick-prev,
+  .bike-slider .slick-next {
+    width: 36px;
+    height: 36px;
+    top: 50% !important;
+    transform: translateY(-50%);
+    left: 8px !important;
+    right: auto !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    z-index: 5;
+    /* Hidden on small screens if arrows are not wanted */
+    display: none !important;
+  }
+
+  .bike-slider .slick-next {
+    left: auto !important;
+    right: 8px !important;
+  }
+
+  /* Slightly larger icons on mobile */
+  .bike-slider .slick-prev:before,
+  .bike-slider .slick-next:before {
+    font-size: 18px;
+  }
+
+  /* Keep arrows outside the main image flow */
+  .bike-slider .slick-list {
+    overflow: visible !important;
+  }
+}
+
 @media (max-width: 768px) {
   .desktop-filters {
     display: none;

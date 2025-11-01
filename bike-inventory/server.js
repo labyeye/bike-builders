@@ -407,60 +407,7 @@ app.delete(
   }
 );
 
-app.post("/api/admin/bike", isAuthenticated, async (req, res) => {
-  try {
-    const bikeData = {
-      brand: req.body.brand,
-      model: req.body.model,
-      modelYear: Number(req.body.modelYear),
-      kmDriven: Number(req.body.kmDriven),
-      ownership: req.body.ownership,
-      fuelType: req.body.fuelType,
-      daysOld: Number(req.body.daysOld),
-      price: Number(req.body.price),
-      downPayment: Number(req.body.downPayment),
-      emiAvailable: req.body.emiAvailable || false,
-      emiAmount: req.body.emiAvailable ? Number(req.body.emiAmount) : null,
-      imageUrl: req.body.imageUrls || [],
-      status: req.body.status,
-    };
 
-    // Filter out empty image URLs
-    if (Array.isArray(bikeData.imageUrl)) {
-      bikeData.imageUrl = bikeData.imageUrl.filter(
-        (url) => url && url.trim() !== ""
-      );
-    }
-
-    // Validation
-    if (
-      !bikeData.brand ||
-      !bikeData.model ||
-      isNaN(bikeData.modelYear) ||
-      isNaN(bikeData.kmDriven) ||
-      !bikeData.ownership ||
-      !bikeData.fuelType ||
-      isNaN(bikeData.daysOld) ||
-      isNaN(bikeData.price) ||
-      isNaN(bikeData.downPayment) ||
-      !bikeData.status
-    ) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          error: "Invalid data. Please check all required fields.",
-        });
-    }
-
-    const bike = new Bike(bikeData);
-    await bike.save();
-    res.json({ success: true, bike });
-  } catch (err) {
-    console.error("Error adding bike:", err);
-    res.status(500).json({ success: false, error: "Failed to add bike" });
-  }
-});
 
 // Staff management routes
 app.get("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
@@ -565,74 +512,61 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
   }
 });
 
-app.get("/api/admin/sell-requests", isAuthenticated, async (req, res) => {
+// Accept multipart/form-data for image uploads
+app.post("/api/admin/bike", isAuthenticated, upload.array("images", 5), async (req, res) => {
   try {
-    const requests = await SellRequest.find().sort({ createdAt: -1 });
-    res.json({ success: true, requests });
-  } catch (err) {
-    console.error("Error loading sell requests:", err);
-    res
-      .status(500)
-      .json({ success: false, error: "Error loading sell requests" });
-  }
-});
-
-app.put("/api/admin/sell-request/:id", isAuthenticated, async (req, res) => {
-  try {
-    const { status } = req.body;
-    const request = await SellRequest.findByIdAndUpdate(
-      req.params.id,
-      { status },
-      { new: true }
-    );
-    if (!request) {
-      return res
-        .status(404)
-        .json({ success: false, error: "Request not found" });
-    }
-    res.json({ success: true, request });
-  } catch (err) {
-    console.error("Error updating sell request:", err);
-    res
-      .status(500)
-      .json({ success: false, error: "Error updating sell request" });
-  }
-});
-
-// Quote request routes
-app.post("/api/quote-request", async (req, res) => {
-  try {
-    const { name, email, phone, brand, model, year, budget, notes } = req.body;
-
-    if (!name || !email || !phone || !brand || !year || !budget) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Missing required fields" });
+    // Build imageUrl array from uploaded files (if any)
+    let imageUrls = [];
+    if (req.files && req.files.length > 0) {
+      imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
+    } else if (req.body.imageUrls) {
+      // fallback to any imageUrls provided in body
+      imageUrls = Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls];
+      imageUrls = imageUrls.filter((u) => u && u.trim() !== "");
     }
 
-    const quoteRequest = new QuoteRequest({
-      name,
-      email,
-      phone,
-      brand,
-      model,
-      year,
-      budget,
-      notes,
-    });
+    const bikeData = {
+      brand: req.body.brand,
+      model: req.body.model,
+      modelYear: Number(req.body.modelYear),
+      kmDriven: Number(req.body.kmDriven),
+      ownership: req.body.ownership,
+      fuelType: req.body.fuelType,
+      daysOld: Number(req.body.daysOld),
+      price: Number(req.body.price),
+      downPayment: Number(req.body.downPayment),
+      emiAvailable: req.body.emiAvailable === 'true' || req.body.emiAvailable === true,
+      emiAmount: req.body.emiAvailable ? Number(req.body.emiAmount) : null,
+      imageUrl: imageUrls,
+      status: req.body.status,
+      stock: req.body.stock ? Number(req.body.stock) : 1,
+    };
 
-    await quoteRequest.save();
-    res.json({
-      success: true,
-      message: "Quote request submitted successfully",
-    });
+    // Validation
+    if (
+      !bikeData.brand ||
+      !bikeData.model ||
+      isNaN(bikeData.modelYear) ||
+      isNaN(bikeData.kmDriven) ||
+      !bikeData.ownership ||
+      !bikeData.fuelType ||
+      isNaN(bikeData.daysOld) ||
+      isNaN(bikeData.price) ||
+      isNaN(bikeData.downPayment) ||
+      !bikeData.status
+    ) {
+      return res.status(400).json({ success: false, error: "Invalid data. Please check all required fields." });
+    }
+
+    const bike = new Bike(bikeData);
+    await bike.save();
+    res.json({ success: true, bike });
   } catch (err) {
-    console.error("Error submitting quote request:", err);
-    res
-      .status(500)
-      .json({ success: false, error: "Failed to submit quote request" });
+    console.error("Error adding bike:", err);
+    res.status(500).json({ success: false, error: "Failed to add bike" });
   }
 });
+
 
 app.get("/api/admin/quote-requests", isAuthenticated, async (req, res) => {
   try {

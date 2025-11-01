@@ -6,6 +6,16 @@
   --dark-gray: #464646;
 }
 
+/* Global box-sizing and overflow guard to prevent horizontal scroll on mobile */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Theme Toggle Styles */
 .theme-toggle {
   display: flex;
@@ -293,6 +303,24 @@ body.dark-mode {
     100% {
       transform: translateX(calc(-160px * 6));
     }
+  }
+}
+
+/* Theme toggle: show mobile variant inside mobile menu only */
+.mobile-theme-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* hide the desktop theme toggle when on small screens */
+  .theme-toggle {
+    display: none !important;
+  }
+  /* show the mobile theme toggle when mobile menu is active */
+  .mobile-menu .mobile-theme-toggle {
+    display: flex !important;
+    align-items: center;
+    padding: 12px 16px;
   }
 }
 

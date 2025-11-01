@@ -831,15 +831,52 @@
         };
         let currentSort = "default"; // Declare this ONCE at the top level
 
+        const API_BASE = "https://bike-builders-1.onrender.com"; // change if your API runs on a different host/port
+
+        function normalizeImageUrl(url) {
+          if (!url) return url;
+          // already absolute
+          if (/^https?:\/\//i.test(url) || url.startsWith("data:") || url.startsWith("//")) return url;
+          // server-relative path like /uploads/abc -> prefix with API_BASE
+          if (url.startsWith("/")) return API_BASE + url;
+          // relative path (uploads/abc)
+          return API_BASE + "/" + url;
+        }
+
         function loadBikes() {
-          fetch("https://bike-builders-1.onrender.com/api/bikes")
+          fetch(API_BASE + "/api/bikes")
             .then((response) => {
               if (!response.ok) {
                 throw new Error("Network response was not ok");
               }
               return response.json();
             })
-            .then((bikes) => {
+            .then((data) => {
+              let bikes = [];
+              if (Array.isArray(data)) {
+                bikes = data;
+              } else if (data && Array.isArray(data.bikes)) {
+                bikes = data.bikes;
+              } else {
+                console.warn('Unexpected bikes response:', data);
+              }
+
+              // ensure bikes' image paths are normalized to point to the backend
+              bikes = (bikes || []).map((b) => {
+                try {
+                  const copy = Object.assign({}, b);
+                  if (Array.isArray(copy.imageUrl)) {
+                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u));
+                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
+                  } else {
+                    copy.imageUrl = [];
+                  }
+                  return copy;
+                } catch (e) {
+                  return b;
+                }
+              });
               allBikes = bikes;
               if (bikes.length === 0) {
                 showNoBikesMessage();
