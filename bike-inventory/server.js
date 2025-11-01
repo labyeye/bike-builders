@@ -8,7 +8,27 @@ const path = require("path");
 const cors = require("cors");
 const multer = require("multer");
 const fs = require("fs");
-const upload = multer({ dest: "uploads/" });
+const os = require("os");
+
+// Determine an upload directory. Prefer a writable temp directory (common in
+// serverless environments). Allow override via UPLOAD_DIR env var.
+const uploadDir =
+  process.env.UPLOAD_DIR || path.join(os.tmpdir(), "bike-builders-uploads");
+
+let upload;
+try {
+  // Try to create the upload directory. If this environment is read-only this
+  // will throw and we'll fall back to memory storage.
+  fs.mkdirSync(uploadDir, { recursive: true });
+  upload = multer({ dest: uploadDir });
+  console.log("Upload directory set to:", uploadDir);
+} catch (e) {
+  console.warn(
+    "Could not use disk uploads, falling back to memory storage:",
+    e.message
+  );
+  upload = multer({ storage: multer.memoryStorage() });
+}
 const cloudinary = require("cloudinary");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -32,10 +52,7 @@ app.use(bodyParser.json());
 
 // If the app is behind a proxy (Render, Heroku, etc.) allow Express to
 // trust the proxy so secure cookies and req.protocol are handled correctly.
-app.set("trust proxy", 1); // trust first proxy
-// CORS configuration
-// In development we allow any origin to simplify local testing (avoids common CORB/CORS issues).
-// In production we restrict to a known allowlist.
+app.set("trust proxy", 1);
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5500",
@@ -43,11 +60,9 @@ const allowedOrigins = [
   "https://www.bikebuilders.in",
   "https://bike-builders-ii74.vercel.app",
   "https://bike-builders-lfn5tcmcq-labyeyes-projects.vercel.app",
-  // Add your actual deployment URLs here
 ];
 
 if (process.env.NODE_ENV !== "production") {
-  // Development: allow any origin (keeps credentials enabled)
   app.use(
     cors({
       origin: true,
@@ -58,11 +73,9 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 } else {
-  // Production: strict allowlist
   app.use(
     cors({
       origin: function (origin, callback) {
-        // Allow requests with no origin (like server-to-server or curl requests)
         if (!origin) return callback(null, true);
 
         if (allowedOrigins.indexOf(origin) !== -1) {
@@ -86,10 +99,7 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 }
-
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Cloudinary configuration (optional). If not provided, server will fall back to local uploads.
+app.use("/uploads", express.static(uploadDir));
 const CLOUDINARY_ENABLED =
   !!process.env.CLOUDINARY_CLOUD_NAME &&
   !!process.env.CLOUDINARY_API_KEY &&
@@ -106,21 +116,45 @@ if (CLOUDINARY_ENABLED) {
   console.log("Cloudinary not configured - falling back to local uploads");
 }
 
-// Helper to upload a local file to Cloudinary and remove the local file afterwards.
-async function uploadFileToCloudinary(localPath, options = {}) {
-  try {
-    const res = await cloudinary.uploader.upload(localPath, options);
-    // remove local file after upload if it exists
+async function uploadFileToCloudinary(source, options = {}) {
+  if (!CLOUDINARY_ENABLED) return null;
+  if (typeof source === "string") {
     try {
-      if (fs.existsSync(localPath)) fs.unlinkSync(localPath);
-    } catch (e) {
-      console.warn("Could not remove temp file:", localPath, e.message);
+      const res = await cloudinary.uploader.upload(source, options);
+      try {
+        if (fs.existsSync(source)) fs.unlinkSync(source);
+      } catch (e) {
+        console.warn("Could not remove temp file:", source, e.message);
+      }
+      return { url: res.secure_url, public_id: res.public_id };
+    } catch (err) {
+      console.error("Cloudinary upload failed:", err.message || err);
+      return null;
     }
-    return { url: res.secure_url, public_id: res.public_id };
-  } catch (err) {
-    console.error("Cloudinary upload failed:", err.message || err);
-    return null;
   }
+
+  // If source is an object with a buffer (multer memoryStorage), upload via stream
+  if (source && source.buffer) {
+    return new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        options,
+        (error, result) => {
+          if (error) return reject(error);
+          resolve({ url: result.secure_url, public_id: result.public_id });
+        }
+      );
+      uploadStream.end(source.buffer);
+    }).catch((err) => {
+      console.error("Cloudinary upload_stream failed:", err.message || err);
+      return null;
+    });
+  }
+
+  console.warn(
+    "uploadFileToCloudinary received unsupported source",
+    typeof source
+  );
+  return null;
 }
 
 // Attempt to extract Cloudinary public_id from a hosted URL.
@@ -575,7 +609,7 @@ app.put(
         for (const file of req.files) {
           try {
             if (CLOUDINARY_ENABLED) {
-              const up = await uploadFileToCloudinary(file.path, {
+              const up = await uploadFileToCloudinary(file.path || file, {
                 folder: "bike-builders",
               });
               if (up && up.url) uploadedUrls.push(up.url);
@@ -746,7 +780,7 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
       for (const file of req.files) {
         try {
           if (CLOUDINARY_ENABLED) {
-            const up = await uploadFileToCloudinary(file.path, {
+            const up = await uploadFileToCloudinary(file.path || file, {
               folder: "bike-builders/sell-requests",
             });
             if (up && up.url) images.push(up.url);
@@ -799,7 +833,7 @@ app.post(
         for (const file of req.files) {
           try {
             if (CLOUDINARY_ENABLED) {
-              const up = await uploadFileToCloudinary(file.path, {
+              const up = await uploadFileToCloudinary(file.path || file, {
                 folder: "bike-builders",
               });
               if (up && up.url) imageUrls.push(up.url);
@@ -1056,7 +1090,7 @@ app.post(
 
       let posterUrl = `/uploads/${req.file.filename}`;
       if (CLOUDINARY_ENABLED) {
-        const up = await uploadFileToCloudinary(req.file.path, {
+        const up = await uploadFileToCloudinary(req.file.path || req.file, {
           folder: "bike-builders/updates",
         });
         if (up && up.url) posterUrl = up.url;
