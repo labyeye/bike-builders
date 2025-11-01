@@ -833,7 +833,19 @@
         };
         let currentSort = "default"; // Declare this ONCE at the top level
 
-        const API_BASE = "https://bike-builders-1.onrender.com"; // change if your API runs on a different host/port
+        // Determine API base dynamically: use local backend on localhost during dev, otherwise use deployed host
+        const API_BASE = (function () {
+          try {
+            const host = window.location.hostname;
+            if (host === "localhost" || host === "127.0.0.1") {
+              // local backend default port used by the Node server
+              return `${window.location.protocol}//${host}:2500`;
+            }
+          } catch (e) {
+            // fallback
+          }
+          return "http://localhost:2500";
+        })();
 
         // If a brand is specified in the URL (e.g. inventory.html?brand=Royal%20Enfield)
         // apply it to the initial filters so the page loads filtered.
@@ -856,10 +868,14 @@
 
                 // Mark any matching brand logo as active (if logos exist on the page)
                 document.querySelectorAll(".brand-logo").forEach((el) => {
-                  if (el.dataset && el.dataset.brand === decoded) {
-                    el.classList.add("active");
-                  } else {
-                    el.classList.remove("active");
+                  try {
+                    if (el.dataset && normalizeBrand(el.dataset.brand) === normalizeBrand(decoded)) {
+                      el.classList.add("active");
+                    } else {
+                      el.classList.remove("active");
+                    }
+                  } catch (e) {
+                    // ignore
                   }
                 });
               }
@@ -1672,11 +1688,16 @@
                 // Update brand logos
                 document.querySelectorAll(".brand-logo").forEach((logo) => {
                   logo.classList.remove("active");
-                  if (
-                    currentFilters.brand &&
-                    logo.dataset.brand === currentFilters.brand
-                  ) {
-                    logo.classList.add("active");
+                  try {
+                    if (
+                      currentFilters.brand &&
+                      normalizeBrand(logo.dataset.brand) ===
+                        normalizeBrand(currentFilters.brand)
+                    ) {
+                      logo.classList.add("active");
+                    }
+                  } catch (e) {
+                    // ignore
                   }
                 });
               });
@@ -2426,7 +2447,7 @@
           .join("");
       }
       function fetchTestimonials() {
-        fetch("https://bike-builders-1.onrender.com/api/reviews")
+        fetch(API_BASE + "/api/reviews")
           .then((res) => res.json())
           .then((data) => {
             if (data.success && Array.isArray(data.reviews)) {
@@ -2475,7 +2496,7 @@
           alert("Please fill all fields and select a rating.");
           return;
         }
-        fetch("https://bike-builders-1.onrender.com/api/reviews", {
+        fetch(API_BASE + "/api/reviews", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ name, message, rating }),

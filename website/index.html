@@ -1790,7 +1790,18 @@
       });
 
       function fetchFeaturedBikes() {
-        const API_BASE = "https://bike-builders-1.onrender.com"; // change if your API runs elsewhere
+        // Determine API base dynamically for local development vs deployed
+        const API_BASE = (function () {
+          try {
+            const host = window.location.hostname;
+            if (host === "localhost") {
+              return `${window.location.protocol}//${host}:2500`;
+            }
+          } catch (e) {
+            // ignore
+          }
+          return "http://localhost:2500";
+        })();
 
         function normalizeImageUrl(url) {
           if (!url) return url;
@@ -2174,7 +2185,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         // Fetch reviews from backend
         function fetchReviews() {
-          fetch("https://bike-builders-1.onrender.com/api/reviews")
+          fetch(API_BASE + "/api/reviews")
             .then((res) => res.json())
             .then((reviews) => {
               displayTestimonials(reviews);
@@ -2281,7 +2292,7 @@
             text: reviewForm.reviewText.value,
             rating: parseInt(reviewForm.reviewRating.value) || 5,
           };
-          fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          fetch(API_BASE + "/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

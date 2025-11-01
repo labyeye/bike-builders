@@ -31,35 +31,52 @@ app.use(bodyParser.json());
 // If the app is behind a proxy (Render, Heroku, etc.) allow Express to
 // trust the proxy so secure cookies and req.protocol are handled correctly.
 app.set('trust proxy', 1); // trust first proxy
-// Updated CORS configuration
+// CORS configuration
+// In development we allow any origin to simplify local testing (avoids common CORB/CORS issues).
+// In production we restrict to a known allowlist.
 const allowedOrigins = [
   "http://localhost:3000",
   "http://127.0.0.1:5500",
+  "http://localhost:5500",
   "https://www.bikebuilders.in",
   "https://bike-builders-ii74.vercel.app",
   "https://bike-builders-lfn5tcmcq-labyeyes-projects.vercel.app",
   // Add your actual deployment URLs here
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
+if (process.env.NODE_ENV !== "production") {
+  // Development: allow any origin (keeps credentials enabled)
+  app.use(
+    cors({
+      origin: true,
+      credentials: true,
+      optionsSuccessStatus: 200,
+      allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    })
+  );
+} else {
+  // Production: strict allowlist
+  app.use(
+    cors({
+      origin: function (origin, callback) {
+        // Allow requests with no origin (like server-to-server or curl requests)
+        if (!origin) return callback(null, true);
 
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        console.log("Blocked by CORS:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    optionsSuccessStatus: 200,
-    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+        if (allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          console.log("Blocked by CORS:", origin);
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
+      credentials: true,
+      optionsSuccessStatus: 200,
+      allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    })
+  );
+}
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 

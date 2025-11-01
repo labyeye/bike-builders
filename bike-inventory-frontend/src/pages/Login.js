@@ -27,7 +27,7 @@ const AdminLogin = ({ setUser }) => {
     setError("");
 
     try {
-      const response = await fetch("https://bike-builders-1.onrender.com/api/admin/login", {
+      const response = await fetch("http://localhost:2500/api/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

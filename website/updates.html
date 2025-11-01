@@ -246,7 +246,7 @@
             .join("");
         }
         function fetchTestimonials() {
-          fetch("https://bike-builders-1.onrender.com/api/reviews")
+          fetch("http://localhost:2500/api/reviews")
             .then((res) => res.json())
             .then((data) => {
               if (data.success && Array.isArray(data.reviews)) {
@@ -295,7 +295,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          fetch("http://localhost:2500/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating })
@@ -412,7 +412,7 @@
         translateText();
 
         // Fetch offers from backend
-        fetch('https://bike-builders-1.onrender.com/api/offers')
+        fetch('http://localhost:2500/api/offers')
           .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
