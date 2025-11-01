@@ -246,16 +246,17 @@
             .join("");
         }
         function fetchTestimonials() {
-          fetch("http://localhost:2500/api/reviews")
+          fetch("https://bike-builders-1.onrender.com/api/reviews")
             .then((res) => res.json())
             .then((data) => {
-              if (data.success && Array.isArray(data.reviews)) {
+              if (data && data.success && Array.isArray(data.reviews)) {
                 renderTestimonials(data.reviews);
               } else {
                 renderTestimonials([]);
               }
             })
-            .catch(() => {
+            .catch((error) => {
+              console.error('Error fetching reviews:', error);
               renderTestimonials([]);
             });
         }
@@ -295,7 +296,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("http://localhost:2500/api/reviews", {
+          fetch("https://bike-builders-1.onrender.com/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating })
@@ -376,7 +377,8 @@
             "Sale": "Sale",
             "Event": "Event",
             "Festival": "Festival",
-            "No current offers available. Check back later!": "No current offers available. Check back later!",
+            "No current offers available. Check back later!": "Stay tuned for updates.",
+            "Stay tuned for updates.": "Stay tuned for updates.",
             "Failed to load updates. Please try again later.": "Failed to load updates. Please try again later."
           },
           hi: {
@@ -389,7 +391,8 @@
             "Sale": "बिक्री",
             "Event": "कार्यक्रम",
             "Festival": "त्योहार",
-            "No current offers available. Check back later!": "कोई वर्तमान ऑफर उपलब्ध नहीं है। बाद में पुनः जांचें!",
+            "No current offers available. Check back later!": "जल्द ही अपडेट के लिए बने रहें।",
+            "Stay tuned for updates.": "जल्द ही अपडेट के लिए बने रहें।",
             "Failed to load updates. Please try again later.": "अपडेट लोड करने में विफल। कृपया बाद में पुनः प्रयास करें।"
           }
         };
@@ -411,28 +414,19 @@
 
         translateText();
 
-        // Fetch offers from backend
-        fetch('http://localhost:2500/api/offers')
-          .then(response => {
+        // Fetch updates from backend
+        fetch('https://bike-builders-1.onrender.com/api/updates')
+          .then((response) => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
             return response.json();
           })
-          .then(offers => {
+          .then((updates) => {
             const container = document.getElementById('updates-container');
             container.innerHTML = '';
-            
-            if (offers.error) {
-              container.innerHTML = `
-                <p class="error-message" data-translate="Failed to load updates. Please try again later.">
-                  ${translations[preferredLanguage]["Failed to load updates. Please try again later."]}
-                </p>
-              `;
-              return;
-            }
 
-            if (offers.length === 0) {
+            if (!updates || updates.length === 0) {
               container.innerHTML = `
                 <p class="no-offers" data-translate="No current offers available. Check back later!">
                   ${translations[preferredLanguage]["No current offers available. Check back later!"]}
@@ -441,35 +435,27 @@
               return;
             }
 
-            offers.forEach((offer, index) => {
-              const offerDate = new Date(offer.startDate).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
+            updates.forEach((u, index) => {
+              const date = new Date(u.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric', month: 'long', day: 'numeric'
               });
-              
-              const offerCard = document.createElement('div');
-              offerCard.className = 'update-card';
-              offerCard.dataset.type = offer.type;
-              offerCard.style.animationDelay = `${index * 0.1}s`;
-              
-              const typeTranslation = translations[preferredLanguage][offer.type.charAt(0).toUpperCase() + offer.type.slice(1)] || offer.type;
-              
-              offerCard.innerHTML = `
-                <span class="offer-badge offer-type-${offer.type}">${typeTranslation}</span>
-                <div class="update-date">${offerDate}</div>
-                <h3 class="update-title">${offer.title}</h3>
-                <p class="update-description">${offer.description}</p>
-                <a href="${offer.link || '#'}" class="update-link">
-                  ${offer.cta || translations[preferredLanguage]["Learn More"]}
-                </a>
+
+              const card = document.createElement('div');
+              card.className = 'update-card';
+              card.style.animationDelay = `${index * 0.05}s`;
+              card.innerHTML = `
+                <img src="${u.poster}" alt="${u.title}" class="update-poster" />
+                <div class="update-meta">
+                  <div class="update-date">${date}</div>
+                  <h3 class="update-title">${u.title}</h3>
+                  ${u.link ? `<a href="${u.link}" class="update-link">Learn more</a>` : ''}
+                </div>
               `;
-              
-              container.appendChild(offerCard);
+              container.appendChild(card);
             });
           })
-          .catch(error => {
-            console.error('Error fetching offers:', error);
+          .catch((error) => {
+            console.error('Error fetching updates:', error);
             const container = document.getElementById('updates-container');
             container.innerHTML = `
               <p class="error-message" data-translate="Failed to load updates. Please try again later.">

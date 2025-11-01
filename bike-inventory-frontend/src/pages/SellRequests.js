@@ -17,7 +17,7 @@ const SellRequests = ({ user }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('http://localhost:2500/api/admin/check-auth', {
+        const response = await fetch('https://bike-builders-1.onrender.com/api/admin/check-auth', {
           credentials: 'include',
         });
         if (!response.ok) return navigate('/login');
@@ -35,7 +35,7 @@ const SellRequests = ({ user }) => {
     if (!authChecked) return;
     const fetchRequests = async () => {
       try {
-        const response = await fetch('http://localhost:2500/api/admin/sell-requests', {
+        const response = await fetch('https://bike-builders-1.onrender.com/api/admin/sell-requests', {
           credentials: 'include',
         });
         const data = await response.json();
@@ -49,7 +49,7 @@ const SellRequests = ({ user }) => {
 
   const updateStatus = async (id, status) => {
     try {
-      const response = await fetch(`http://localhost:2500/api/sell-requests/${id}/status`, {
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/sell-requests/${id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -115,7 +115,7 @@ const SellRequests = ({ user }) => {
                         {request.images.map((image, index) => (
                           <img
                             key={index}
-                            src={`http://localhost:2500/uploads/${image}`}
+                            src={`https://bike-builders-1.onrender.com/uploads/${image}`}
                             style={{
                               maxWidth: '50px',
                               maxHeight: '50px',
@@ -124,7 +124,7 @@ const SellRequests = ({ user }) => {
                               cursor: 'pointer',
                               border: '1px solid #eee',
                             }}
-                            onClick={() => window.open(`http://localhost:2500/uploads/${image}`, '_blank')}
+                            onClick={() => window.open(`https://bike-builders-1.onrender.com/uploads/${image}`, '_blank')}
                             alt={`Bike ${index + 1}`}
                           />
                         ))}

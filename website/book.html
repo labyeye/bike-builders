@@ -422,7 +422,7 @@
             .join("");
         }
         function fetchTestimonials() {
-          fetch("http://localhost:2500/api/reviews")
+          fetch("https://bike-builders-1.onrender.com/api/reviews")
             .then((res) => res.json())
             .then((data) => {
               if (data.success && Array.isArray(data.reviews)) {
@@ -471,7 +471,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("http://localhost:2500/api/reviews", {
+          fetch("https://bike-builders-1.onrender.com/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating })
@@ -501,7 +501,7 @@
         const urlParams = new URLSearchParams(window.location.search);
         const bikeIdFromUrl = urlParams.get("bikeId");
 
-        fetch("http://localhost:2500/api/available-bikes")
+        fetch("https://bike-builders-1.onrender.com/api/available-bikes")
           .then((response) => response.json())
           .then((bikes) => {
             const select = document.getElementById("book-bike");
@@ -546,7 +546,7 @@
             });
 
             const response = await fetch(
-              "http://localhost:2500/api/book-bike",
+              "https://bike-builders-1.onrender.com/api/book-bike",
               {
                 method: "POST",
                 headers: {

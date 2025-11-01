@@ -12,7 +12,7 @@ const Bookings = ({ user }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('http://localhost:2500/api/admin/check-auth', {
+        const response = await fetch('https://bike-builders-1.onrender.com/api/admin/check-auth', {
           credentials: 'include',
         });
         if (!response.ok) return navigate('/login');
@@ -33,7 +33,7 @@ const Bookings = ({ user }) => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('http://localhost:2500/api/admin/bookings', {
+      const response = await fetch('https://bike-builders-1.onrender.com/api/admin/bookings', {
         credentials: 'include',
       });
       const data = await response.json();
@@ -45,7 +45,7 @@ const Bookings = ({ user }) => {
 
   const updateBookingStatus = async (id, status) => {
     try {
-      const response = await fetch(`http://localhost:2500/api/admin/booking/${id}`, {
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/booking/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -61,7 +61,7 @@ const Bookings = ({ user }) => {
   const deleteBooking = async (id) => {
     if (!window.confirm('Are you sure you want to delete this booking?')) return;
     try {
-      const response = await fetch(`http://localhost:2500/api/admin/booking/${id}`, {
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/booking/${id}`, {
         method: 'DELETE',
         credentials: 'include',
       });

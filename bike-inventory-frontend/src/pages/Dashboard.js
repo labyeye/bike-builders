@@ -23,6 +23,7 @@ const Dashboard = ({ user }) => {
     comingSoon: 0,
     sold: 0,
   });
+  const [bookingCount, setBookingCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [authChecked, setAuthChecked] = useState(false);
 
@@ -30,7 +31,7 @@ const Dashboard = ({ user }) => {
     const checkAuth = async () => {
       try {
         const response = await fetch(
-          "http://localhost:2500/api/admin/check-auth",
+          "https://bike-builders-1.onrender.com/api/admin/check-auth",
           {
             credentials: "include",
           }
@@ -52,15 +53,22 @@ const Dashboard = ({ user }) => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:2500/api/admin/dashboard", {
-          credentials: "include",
-        });
 
-        if (!response.ok) throw new Error("Failed to fetch dashboard data");
-        const data = await response.json();
-        
-        setBikes(data.bikes);
-        setStats(data.stats);
+        // fetch dashboard and bookings in parallel
+        const [dashRes, bookingsRes] = await Promise.all([
+          fetch("https://bike-builders-1.onrender.com/api/admin/dashboard", { credentials: "include" }),
+          fetch("https://bike-builders-1.onrender.com/api/admin/bookings", { credentials: "include" }),
+        ]);
+
+        if (!dashRes.ok) throw new Error("Failed to fetch dashboard data");
+        if (!bookingsRes.ok) throw new Error("Failed to fetch bookings");
+
+        const dashData = await dashRes.json();
+        const bookingsData = await bookingsRes.json();
+
+        setBikes(dashData.bikes || []);
+        setStats(dashData.stats || { total: 0, available: 0, comingSoon: 0, sold: 0 });
+        setBookingCount(Array.isArray(bookingsData.bookings) ? bookingsData.bookings.length : 0);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -74,7 +82,7 @@ const Dashboard = ({ user }) => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this bike?")) return;
     try {
-      const response = await fetch(`http://localhost:2500/api/admin/bike/${id}`, {
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/bike/${id}`, {
         method: "DELETE",
         credentials: "include",
       });
@@ -140,33 +148,39 @@ const Dashboard = ({ user }) => {
               <Add />
               <span>Add Bike</span>
             </button>
+            <button
+              className="btn"
+              onClick={() => navigate("/admin/updates")}
+            >
+              Updates Page
+            </button>
           </div>
         </div>
 
         <div className="stats-grid">
           <StatsCard
-            title="Total Bikes"
+            title="No of Bikes"
             value={stats.total}
             icon={<DirectionsBike />}
             color="primary"
           />
           <StatsCard
-            title="Available"
+            title="No of Bikes Sold"
+            value={stats.sold}
+            icon={<Cancel />}
+            color="error"
+          />
+          <StatsCard
+            title="No of Bikes Available"
             value={stats.available}
             icon={<CheckCircle />}
             color="success"
           />
           <StatsCard
-            title="Coming Soon"
-            value={stats.comingSoon}
+            title="No. of Bookings"
+            value={bookingCount}
             icon={<MoreVert />}
             color="warning"
-          />
-          <StatsCard
-            title="Sold"
-            value={stats.sold}
-            icon={<Cancel />}
-            color="error"
           />
         </div>
 
@@ -176,7 +190,6 @@ const Dashboard = ({ user }) => {
             <table className="bike-table">
               <thead>
                 <tr>
-                  <th>Image</th>
                   <th>Model</th>
                   <th>Brand</th>
                   <th>Price</th>
@@ -189,18 +202,7 @@ const Dashboard = ({ user }) => {
                 {bikes.length > 0 ? (
                   bikes.map((bike) => (
                     <tr key={bike._id}>
-                      <td data-label="Image">
-                        {bike.imageUrl && bike.imageUrl.length > 0 ? (
-                          <img
-                            src={bike.imageUrl[0]}
-                            alt={bike.model}
-                            className="bike-thumbnail"
-                            onError={handleImageError}
-                          />
-                        ) : (
-                          <div className="no-image"><ImageIcon /></div>
-                        )}
-                      </td>
+                      
                       <td data-label="Model">{bike.model}</td>
                       <td data-label="Brand">{bike.brand}</td>
                       <td data-label="Price">{formatPrice(bike.price)}</td>

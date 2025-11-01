@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 const path = require("path");
 const cors = require("cors");
 const multer = require("multer");
+const fs = require("fs");
 const upload = multer({ dest: "uploads/" });
 const app = express();
 const port = process.env.PORT || 5000;
@@ -200,6 +201,16 @@ const offerSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// Updates (for site updates/posters)
+const updateSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  poster: { type: String, required: true }, // stored as /uploads/<filename>
+  link: { type: String },
+  createdAt: { type: Date, default: Date.now },
+});
+
+const Update = mongoose.model("Update", updateSchema);
+
 const reviewSchema = new mongoose.Schema({
   name: String,
   message: String,
@@ -389,20 +400,126 @@ app.get("/api/admin/bike/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-app.put("/api/admin/bike/:id", isAuthenticated, async (req, res) => {
-  try {
-    const bike = await Bike.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (!bike) {
-      return res.status(404).json({ success: false, error: "Bike not found" });
+app.put(
+  "/api/admin/bike/:id",
+  isAuthenticated,
+  upload.array("images", 5),
+  async (req, res) => {
+    try {
+      const bike = await Bike.findById(req.params.id);
+      if (!bike) {
+        return res.status(404).json({ success: false, error: "Bike not found" });
+      }
+
+      // Parse fields that may come as strings
+      // removeImages can be sent as multiple fields (removeImages[]) or a single string
+      let removeImages = [];
+      if (req.body.removeImages) {
+        if (Array.isArray(req.body.removeImages)) removeImages = req.body.removeImages;
+        else {
+          // It may be a JSON string or a single value
+          try {
+            removeImages = JSON.parse(req.body.removeImages);
+            if (!Array.isArray(removeImages)) removeImages = [removeImages];
+          } catch (e) {
+            removeImages = [req.body.removeImages];
+          }
+        }
+      }
+
+      // existingOrder is expected to be a JSON stringified array of existing image URLs
+      let existingOrder = null;
+      if (req.body.existingOrder) {
+        try {
+          existingOrder = JSON.parse(req.body.existingOrder);
+        } catch (e) {
+          existingOrder = null;
+        }
+      }
+
+      // Normalize removal list to full paths (if filenames provided, convert to /uploads/filename)
+      const normalizeToUrl = (val) => {
+        if (!val) return val;
+        if (val.startsWith("/uploads/")) return val;
+        if (val.includes("/uploads/")) return val.substring(val.indexOf("/uploads/"));
+        return `/uploads/${val.split("/").pop()}`;
+      };
+
+      const removeUrls = removeImages.map(normalizeToUrl);
+
+      // Delete files from disk for any removed images
+      for (const url of removeUrls) {
+        try {
+          const filename = url.split("/").pop();
+          const filepath = path.join(__dirname, "uploads", filename);
+          if (fs.existsSync(filepath)) {
+            fs.unlinkSync(filepath);
+          }
+        } catch (err) {
+          console.warn("Failed to delete file:", url, err.message);
+        }
+      }
+
+      // Filter out removed images from current list
+      let existingImages = Array.isArray(bike.imageUrl) ? bike.imageUrl.slice() : [];
+      existingImages = existingImages.filter((u) => !removeUrls.includes(u));
+
+      // Reorder existing images if an order was provided
+      if (existingOrder && Array.isArray(existingOrder)) {
+        const ordered = [];
+        for (const u of existingOrder) {
+          const nu = normalizeToUrl(u);
+          if (existingImages.includes(nu)) ordered.push(nu);
+        }
+        // append any remaining existing images that weren't included in the order
+        for (const u of existingImages) {
+          if (!ordered.includes(u)) ordered.push(u);
+        }
+        existingImages = ordered;
+      }
+
+      // Handle newly uploaded files
+      let uploadedUrls = [];
+      if (req.files && req.files.length > 0) {
+        uploadedUrls = req.files.map((file) => `/uploads/${file.filename}`);
+      }
+
+      // Build the final image array and cap to 5
+      let finalImages = [...existingImages, ...uploadedUrls].slice(0, 5);
+
+      // Update bike fields from body (allow both multipart/form-data and JSON)
+      const updated = {
+        brand: req.body.brand || bike.brand,
+        model: req.body.model || bike.model,
+        modelYear: req.body.modelYear ? Number(req.body.modelYear) : bike.modelYear,
+        kmDriven: req.body.kmDriven ? Number(req.body.kmDriven) : bike.kmDriven,
+        ownership: req.body.ownership || bike.ownership,
+        fuelType: req.body.fuelType || bike.fuelType,
+        daysOld: req.body.daysOld ? Number(req.body.daysOld) : bike.daysOld,
+        price: req.body.price ? Number(req.body.price) : bike.price,
+        downPayment: req.body.downPayment ? Number(req.body.downPayment) : bike.downPayment,
+        emiAvailable:
+          req.body.emiAvailable === "true" || req.body.emiAvailable === true
+            ? true
+            : req.body.emiAvailable === "false"
+            ? false
+            : bike.emiAvailable,
+        emiAmount: req.body.emiAmount ? Number(req.body.emiAmount) : bike.emiAmount,
+        imageUrl: finalImages,
+        status: req.body.status || bike.status,
+      };
+
+      // Assign and save
+      Object.assign(bike, updated);
+      await bike.save();
+
+      res.json({ success: true, bike });
+    } catch (err) {
+      console.error("Error updating bike:", err);
+      res.status(500).json({ success: false, error: "Error updating bike" });
     }
-    res.json({ success: true, bike });
-  } catch (err) {
-    console.error("Error updating bike:", err);
-    res.status(500).json({ success: false, error: "Error updating bike" });
   }
-});
+);
 
 app.delete(
   "/api/admin/bike/:id",
@@ -735,6 +852,61 @@ app.get("/api/offers", async (req, res) => {
   } catch (err) {
     console.error("Error fetching offers:", err);
     res.status(500).json({ success: false, error: "Failed to fetch offers" });
+  }
+});
+
+// Public updates endpoint for website
+app.get("/api/updates", async (req, res) => {
+  try {
+    const updates = await Update.find().sort({ createdAt: -1 });
+    // Return array directly for older static pages expecting an array
+    res.json(updates);
+  } catch (err) {
+    console.error("Error fetching updates:", err);
+    res.status(500).json({ success: false, error: "Failed to fetch updates" });
+  }
+});
+
+// Admin: create an update (title + poster)
+app.post(
+  "/api/admin/updates",
+  isAuthenticated,
+  isAdmin,
+  upload.single("poster"),
+  async (req, res) => {
+    try {
+      const { title, link } = req.body;
+      if (!title) return res.status(400).json({ success: false, error: "Title is required" });
+      if (!req.file) return res.status(400).json({ success: false, error: "Poster image is required" });
+
+      const posterUrl = `/uploads/${req.file.filename}`;
+      const update = new Update({ title, link: link || null, poster: posterUrl });
+      await update.save();
+      res.json({ success: true, update });
+    } catch (err) {
+      console.error("Error creating update:", err);
+      res.status(500).json({ success: false, error: "Failed to create update" });
+    }
+  }
+);
+
+// Admin: delete update
+app.delete("/api/admin/updates/:id", isAuthenticated, isAdmin, async (req, res) => {
+  try {
+    const upd = await Update.findByIdAndDelete(req.params.id);
+    if (!upd) return res.status(404).json({ success: false, error: "Update not found" });
+    // delete poster file from disk
+    try {
+      const filename = upd.poster.split("/").pop();
+      const filepath = path.join(__dirname, "uploads", filename);
+      if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
+    } catch (e) {
+      console.warn("Failed deleting poster file:", e.message);
+    }
+    res.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting update:", err);
+    res.status(500).json({ success: false, error: "Failed to delete update" });
   }
 });
 

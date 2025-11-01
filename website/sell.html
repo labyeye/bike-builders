@@ -464,7 +464,7 @@
             .join("");
         }
         function fetchTestimonials() {
-          fetch("http://localhost:2500/api/reviews")
+          fetch("https://bike-builders-1.onrender.com/api/reviews")
             .then((res) => res.json())
             .then((data) => {
               if (data.success && Array.isArray(data.reviews)) {
@@ -513,7 +513,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("http://localhost:2500/api/reviews", {
+          fetch("https://bike-builders-1.onrender.com/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating })
@@ -948,7 +948,7 @@
 
             // Submit to server
             const response = await fetch(
-              "http://localhost:2500/api/sell-request",
+              "https://bike-builders-1.onrender.com/api/sell-request",
               {
                 method: "POST",
                 body: formData,

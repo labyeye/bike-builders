@@ -20,6 +20,9 @@ const EditBike = ({ user }) => {
     imageUrl: ["", "", "", "", ""],
     status: "Available",
   });
+  const [existingImages, setExistingImages] = useState([]); // URLs currently saved on server
+  const [removedImages, setRemovedImages] = useState([]); // URLs marked for removal
+  const [newFiles, setNewFiles] = useState([]); // Files selected to upload
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,7 +30,7 @@ const EditBike = ({ user }) => {
     const fetchBike = async () => {
       try {
         const response = await fetch(
-          `http://localhost:2500/api/admin/bike/${id}`,
+          `https://bike-builders-1.onrender.com/api/admin/bike/${id}`,
           {
             credentials: "include",
           }
@@ -61,6 +64,13 @@ const EditBike = ({ user }) => {
               : [data.bike.imageUrl || "", "", "", "", ""].slice(0, 5),
           };
           setBike(formattedBike);
+          // keep a separate list of actual existing image URLs (non-empty)
+          const existing = Array.isArray(data.bike.imageUrl)
+            ? data.bike.imageUrl.filter((u) => u && u.trim() !== "")
+            : data.bike.imageUrl
+            ? [data.bike.imageUrl]
+            : [];
+          setExistingImages(existing);
         } else {
           throw new Error("Bike not found");
         }
@@ -76,19 +86,44 @@ const EditBike = ({ user }) => {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+    const newVal = type === "checkbox" ? checked : value;
     setBike((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: newVal,
     }));
   };
-  const handleImageUrlChange = (index, value) => {
-    const newImageUrls = [...bike.imageUrl];
-    newImageUrls[index] = value;
-    setBike((prev) => ({
-      ...prev,
-      imageUrl: newImageUrls,
-    }));
+  // image management helpers
+  const handleRemoveExisting = (index) => {
+    const url = existingImages[index];
+    setRemovedImages((prev) => [...prev, url]);
+    setExistingImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const moveExisting = (index, dir) => {
+    setExistingImages((prev) => {
+      const arr = prev.slice();
+      const to = index + dir;
+      if (to < 0 || to >= arr.length) return arr;
+      const tmp = arr[to];
+      arr[to] = arr[index];
+      arr[index] = tmp;
+      return arr;
+    });
+  };
+
+  const handleNewFilesChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    // limit total images to 5
+    const slots = Math.max(0, 5 - existingImages.length - newFiles.length);
+    const toAdd = files.slice(0, slots);
+    setNewFiles((prev) => [...prev, ...toAdd]);
+    // clear input
+    e.target.value = null;
+  };
+
+  const removeNewFile = (index) => {
+    setNewFiles((prev) => prev.filter((_, i) => i !== index));
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,7 +132,7 @@ const EditBike = ({ user }) => {
     try {
       // Check authentication first
       const authResponse = await fetch(
-        "http://localhost:2500/api/admin/check-auth",
+        "https://bike-builders-1.onrender.com/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -117,32 +152,37 @@ const EditBike = ({ user }) => {
         return;
       }
 
-      // Filter out empty image URLs before sending
-      const filteredImageUrls = bike.imageUrl.filter(
-        (url) => url && url.trim() !== ""
-      );
+      // Build FormData to allow file uploads and removal instructions
+      const formData = new FormData();
+      formData.append("brand", bike.brand);
+      formData.append("model", bike.model);
+      formData.append("modelYear", Number(bike.modelYear));
+      formData.append("kmDriven", Number(bike.kmDriven));
+      formData.append("ownership", bike.ownership);
+      formData.append("fuelType", bike.fuelType);
+      formData.append("daysOld", Number(bike.daysOld));
+      formData.append("price", Number(bike.price));
+      formData.append("downPayment", Number(bike.downPayment));
+      formData.append("emiAvailable", bike.emiAvailable === true ? "true" : "false");
+      if (bike.emiAmount) formData.append("emiAmount", Number(bike.emiAmount));
+      formData.append("status", bike.status);
 
-      const bikeData = {
-        ...bike,
-        modelYear: Number(bike.modelYear),
-        kmDriven: Number(bike.kmDriven),
-        daysOld: Number(bike.daysOld),
-        price: Number(bike.price),
-        downPayment: Number(bike.downPayment),
-        imageUrl: filteredImageUrls,
-      };
+      // Send existing image order so server can reorder existing images
+      formData.append("existingOrder", JSON.stringify(existingImages));
 
-      const response = await fetch(
-        `http://localhost:2500/api/admin/bike/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(bikeData),
-        }
-      );
+      // Send removed images list (URLs)
+      removedImages.forEach((u) => formData.append("removeImages[]", u));
+
+      // Append new files
+      newFiles.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/bike/${id}`, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -428,6 +468,7 @@ const EditBike = ({ user }) => {
     {/* Numeric Input */}
     <input
       type="number"
+      name="ageValue"
       min="0"
       value={bike.ageValue}
       onChange={handleChange}
@@ -534,6 +575,7 @@ const EditBike = ({ user }) => {
                   >
                     <input
                       type="checkbox"
+                      name="emiAvailable"
                       checked={bike.emiAvailable}
                       onChange={handleChange}
                     />
@@ -550,6 +592,7 @@ const EditBike = ({ user }) => {
                     <label>Monthly EMI Amount (₹)</label>
                     <input
                       type="number"
+                      name="emiAmount"
                       min="0"
                       value={bike.emiAmount}
                       onChange={handleChange}
@@ -572,28 +615,68 @@ const EditBike = ({ user }) => {
                       color: "#2d3748",
                     }}
                   >
-                    Image URLs (Up to 5)
+                    Images (up to 5)
                   </label>
-                  {[0, 1, 2, 3, 4].map((index) => (
+
+                  {/* Existing images list with reorder/remove */}
+                  {existingImages.length > 0 && (
+                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                      {existingImages.map((url, idx) => (
+                        <div key={url} style={{ position: "relative", width: 120 }}>
+                          <img
+                            src={url}
+                            alt={`img-${idx}`}
+                            style={{ width: 120, height: 90, objectFit: "cover", borderRadius: 8, border: "1px solid #e2e8f0" }}
+                            onError={(e) => { e.target.src = "https://via.placeholder.com/150" }}
+                          />
+                          <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+                            <button type="button" className="btn" onClick={() => moveExisting(idx, -1)} disabled={idx === 0}>
+                              ←
+                            </button>
+                            <button type="button" className="btn" onClick={() => moveExisting(idx, 1)} disabled={idx === existingImages.length - 1}>
+                              →
+                            </button>
+                            <button type="button" className="btn" onClick={() => handleRemoveExisting(idx)}>
+                              <Close />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* New files preview */}
+                  {newFiles.length > 0 && (
+                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                      {newFiles.map((file, idx) => (
+                        <div key={idx} style={{ position: "relative", width: 120 }}>
+                          <img
+                            src={URL.createObjectURL(file)}
+                            alt={file.name}
+                            style={{ width: 120, height: 90, objectFit: "cover", borderRadius: 8, border: "1px solid #e2e8f0" }}
+                          />
+                          <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
+                            <button type="button" className="btn" onClick={() => removeNewFile(idx)}>
+                              <Close />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 6 }}>
                     <input
-                      key={index}
-                      type="text"
-                      placeholder={`Image URL ${index + 1} (optional)`}
-                      style={{
-                        width: "100%",
-                        padding: "0.75rem",
-                        border: "1px solid #e2e8f0",
-                        borderRadius: "8px",
-                        fontSize: "1rem",
-                        transition: "border-color 0.2s",
-                        marginBottom: "0.5rem",
-                      }}
-                      value={bike.imageUrl[index] || ""}
-                      onChange={(e) =>
-                        handleImageUrlChange(index, e.target.value)
-                      }
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleNewFilesChange}
                     />
-                  ))}
+                    <small style={{ color: "#718096" }}>
+                      {existingImages.length + newFiles.length} / 5 images used
+                    </small>
+                  </div>
+
                   <small
                     style={{
                       display: "block",
@@ -602,29 +685,8 @@ const EditBike = ({ user }) => {
                       fontSize: "0.875rem",
                     }}
                   >
-                    You can add up to 5 images for the bike
+                    You can remove or reorder existing images. New files will be uploaded on save.
                   </small>
-                  {/* Show preview of the first image if available */}
-                  {bike.imageUrl[0] && (
-                    <div
-                      className="image-preview"
-                      style={{ marginTop: "0.5rem" }}
-                    >
-                      <img
-                        src={bike.imageUrl[0]}
-                        alt="Bike preview"
-                        style={{
-                          maxWidth: "100%",
-                          maxHeight: "200px",
-                          borderRadius: "8px",
-                          border: "1px solid #e2e8f0",
-                        }}
-                        onError={(e) => {
-                          e.target.src = "https://via.placeholder.com/300";
-                        }}
-                      />
-                    </div>
-                  )}
                 </div>
 
                 <div className="form-group">
