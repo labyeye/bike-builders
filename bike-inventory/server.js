@@ -74,7 +74,14 @@ if (process.env.NODE_ENV !== "production") {
       },
       credentials: true,
       optionsSuccessStatus: 200,
-      allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+      allowedHeaders: [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "X-Forwarded-Proto",
+        "Access-Control-Allow-Credentials",
+        "Access-Control-Allow-Origin",
+      ],
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     })
   );
@@ -848,12 +855,10 @@ app.post(
         isNaN(bikeData.downPayment) ||
         !bikeData.status
       ) {
-        return res
-          .status(400)
-          .json({
-            success: false,
-            error: "Invalid data. Please check all required fields.",
-          });
+        return res.status(400).json({
+          success: false,
+          error: "Invalid data. Please check all required fields.",
+        });
       }
 
       const bike = new Bike(bikeData);
