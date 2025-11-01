@@ -409,7 +409,7 @@
 
       <div class="brands-grid">
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Royal%20Enfield"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -424,7 +424,7 @@
         </a>
 
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Bajaj"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -438,7 +438,7 @@
           <h3>Bajaj</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Hero"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -452,7 +452,7 @@
           <h3>Hero</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Yamaha"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -466,7 +466,7 @@
           <h3>Yamaha</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=KTM"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -481,7 +481,7 @@
         </a>
 
         <a
-          href="inventory.html"
+          href="inventory.html?brand=TVS"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -495,7 +495,7 @@
           <h3>TVS Motor</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Honda"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -509,7 +509,7 @@
           <h3>Honda</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Suzuki"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -523,7 +523,7 @@
           <h3>Suzuki</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Jawa"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -537,7 +537,7 @@
           <h3>Jawa</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=BMW"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -551,7 +551,7 @@
           <h3>BMW</h3>
         </a>
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Harley-Davidson"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -566,7 +566,7 @@
         </a>
 
         <a
-          href="inventory.html"
+          href="inventory.html?brand=Kawasaki"
           class="brand-card"
           style="text-decoration: none"
         >
@@ -1794,7 +1794,12 @@
 
         function normalizeImageUrl(url) {
           if (!url) return url;
-          if (/^https?:\/\//i.test(url) || url.startsWith("data:") || url.startsWith("//")) return url;
+          if (
+            /^https?:\/\//i.test(url) ||
+            url.startsWith("data:") ||
+            url.startsWith("//")
+          )
+            return url;
           if (url.startsWith("/")) return API_BASE + url;
           return API_BASE + "/" + url;
         }
@@ -1813,8 +1818,13 @@
                 const copy = Object.assign({}, b);
                 try {
                   if (Array.isArray(copy.imageUrl)) {
-                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u));
-                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = copy.imageUrl.map((u) =>
+                      normalizeImageUrl(u)
+                    );
+                  } else if (
+                    typeof copy.imageUrl === "string" &&
+                    copy.imageUrl.trim() !== ""
+                  ) {
                     copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
                   } else {
                     copy.imageUrl = [];

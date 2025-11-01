@@ -619,7 +619,11 @@
         <h3>Leave a Review</h3>
         <form id="reviewForm">
           <input type="text" id="reviewName" placeholder="Your Name" required />
-          <textarea id="reviewMessage" placeholder="Your Review" required></textarea>
+          <textarea
+            id="reviewMessage"
+            placeholder="Your Review"
+            required
+          ></textarea>
           <div class="star-rating">
             <span class="star" data-value="1"><i class="fa fa-star"></i></span>
             <span class="star" data-value="2"><i class="fa fa-star"></i></span>
@@ -687,9 +691,7 @@
             Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
             842002
           </p>
-          <span itemprop="telephone"
-            >+91 8210283582 /  9835844897</span
-          >
+          <span itemprop="telephone">+91 8210283582 / 9835844897</span>
         </div>
       </div>
       <div class="footer-bottom">
@@ -833,10 +835,59 @@
 
         const API_BASE = "https://bike-builders-1.onrender.com"; // change if your API runs on a different host/port
 
+        // If a brand is specified in the URL (e.g. inventory.html?brand=Royal%20Enfield)
+        // apply it to the initial filters so the page loads filtered.
+        (function applyBrandFromUrl() {
+          try {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("brand")) {
+              const brandParam = params.get("brand");
+              if (brandParam && brandParam.trim() !== "") {
+                const decoded = decodeURIComponent(brandParam);
+                currentFilters.brand = decoded;
+
+                // Update the Brand filter button text if present
+                const brandBtn = document.querySelector(
+                  '[data-filter="brand"]'
+                );
+                if (brandBtn) {
+                  brandBtn.innerHTML = `${decoded} <i class="fas fa-chevron-down"></i>`;
+                }
+
+                // Mark any matching brand logo as active (if logos exist on the page)
+                document.querySelectorAll(".brand-logo").forEach((el) => {
+                  if (el.dataset && el.dataset.brand === decoded) {
+                    el.classList.add("active");
+                  } else {
+                    el.classList.remove("active");
+                  }
+                });
+              }
+            }
+          } catch (e) {
+            // ignore URL parse errors and continue
+            console.warn("Failed to read brand from URL:", e);
+          }
+        })();
+
+        // Normalize brand strings for robust comparison (trim, collapse spaces, lowercase)
+        function normalizeBrand(str) {
+          if (!str) return "";
+          return String(str)
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+        }
+
         function normalizeImageUrl(url) {
           if (!url) return url;
           // already absolute
-          if (/^https?:\/\//i.test(url) || url.startsWith("data:") || url.startsWith("//")) return url;
+          if (
+            /^https?:\/\//i.test(url) ||
+            url.startsWith("data:") ||
+            url.startsWith("//")
+          )
+            return url;
           // server-relative path like /uploads/abc -> prefix with API_BASE
           if (url.startsWith("/")) return API_BASE + url;
           // relative path (uploads/abc)
@@ -858,7 +909,7 @@
               } else if (data && Array.isArray(data.bikes)) {
                 bikes = data.bikes;
               } else {
-                console.warn('Unexpected bikes response:', data);
+                console.warn("Unexpected bikes response:", data);
               }
 
               // ensure bikes' image paths are normalized to point to the backend
@@ -866,8 +917,13 @@
                 try {
                   const copy = Object.assign({}, b);
                   if (Array.isArray(copy.imageUrl)) {
-                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u));
-                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = copy.imageUrl.map((u) =>
+                      normalizeImageUrl(u)
+                    );
+                  } else if (
+                    typeof copy.imageUrl === "string" &&
+                    copy.imageUrl.trim() !== ""
+                  ) {
                     copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
                   } else {
                     copy.imageUrl = [];
@@ -1781,7 +1837,7 @@
               const price = bike.price || 0;
               const year = bike.modelYear || new Date().getFullYear();
               const km = bike.kmDriven || 0;
-              const brand = (bike.brand || "").toLowerCase();
+              const brand = normalizeBrand(bike.brand || "");
               const owner = bike.ownership || "";
               const fuel = bike.fuelType || "";
               const priceMatch =
@@ -1797,9 +1853,10 @@
                 (!currentFilters.minKm || km >= currentFilters.minKm) &&
                 (!currentFilters.maxKm || km <= currentFilters.maxKm);
 
-              const brandMatch =
-                !currentFilters.brand ||
-                brand === currentFilters.brand.toLowerCase();
+              const brandMatch = (function () {
+                if (!currentFilters.brand) return true;
+                return normalizeBrand(currentFilters.brand) === brand;
+              })();
 
               const ownerMatch =
                 !currentFilters.owner || owner.includes(currentFilters.owner);
@@ -2255,7 +2312,7 @@
       >
         <i class="fa-solid fa-phone-volume fa-shake"></i>
       </a>
-       <a
+      <a
         href="https://www.google.com/maps/place/Bike+builders/@26.1159711,85.3999381,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11b964ff11bf:0x188a2d7e1473af0b!8m2!3d26.1159664!4d85.404809!16s%2Fg%2F11wftsdzy6?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D"
         class="floating-btn call-btn"
         data-tooltip="Visit Us"
@@ -2265,7 +2322,6 @@
       </a>
     </div>
 
-    
     <div id="whatsappModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -2279,7 +2335,6 @@
       </div>
     </div>
 
-    
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -2293,138 +2348,160 @@
       </div>
     </div>
   </body>
-    <!-- 5-Star Rating Display in Footer -->
-    <footer class="footer">
-      <div class="footer-stars" style="margin: 10px 0; text-align:center;">
-        <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-        <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-        <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-        <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-        <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-      </div>
-    </footer>
-    <script>
-      // Dynamic testimonials fetch
-      document.addEventListener("DOMContentLoaded", function () {
-        function getInitials(name) {
-          if (!name) return "U";
-          return name
-            .split(" ")
-            .map((n) => n[0].toUpperCase())
-            .join("")
-            .slice(0, 2);
+  <!-- 5-Star Rating Display in Footer -->
+  <footer class="footer">
+    <div class="footer-stars" style="margin: 10px 0; text-align: center">
+      <span class="star" style="color: gold; font-size: 1.5em"
+        ><i class="fa fa-star"></i
+      ></span>
+      <span class="star" style="color: gold; font-size: 1.5em"
+        ><i class="fa fa-star"></i
+      ></span>
+      <span class="star" style="color: gold; font-size: 1.5em"
+        ><i class="fa fa-star"></i
+      ></span>
+      <span class="star" style="color: gold; font-size: 1.5em"
+        ><i class="fa fa-star"></i
+      ></span>
+      <span class="star" style="color: gold; font-size: 1.5em"
+        ><i class="fa fa-star"></i
+      ></span>
+    </div>
+  </footer>
+  <script>
+    // Dynamic testimonials fetch
+    document.addEventListener("DOMContentLoaded", function () {
+      function getInitials(name) {
+        if (!name) return "U";
+        return name
+          .split(" ")
+          .map((n) => n[0].toUpperCase())
+          .join("")
+          .slice(0, 2);
+      }
+      function randomAvatar(name) {
+        // Use dicebear for demo, fallback to initials
+        const seed = name ? name.replace(/\s/g, "") : "user";
+        return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+          seed
+        )}`;
+      }
+      function renderTestimonials(reviews) {
+        const container = document.getElementById("dynamic-testimonials");
+        if (!reviews || reviews.length === 0) {
+          container.innerHTML = '<div class="no-reviews">No reviews yet.</div>';
+          return;
         }
-        function randomAvatar(name) {
-          // Use dicebear for demo, fallback to initials
-          const seed = name ? name.replace(/\s/g, "") : "user";
-          return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(seed)}`;
-        }
-        function renderTestimonials(reviews) {
-          const container = document.getElementById("dynamic-testimonials");
-          if (!reviews || reviews.length === 0) {
-            container.innerHTML = '<div class="no-reviews">No reviews yet.</div>';
-            return;
-          }
-          container.innerHTML = reviews
-            .map((r) => `
+        container.innerHTML = reviews
+          .map(
+            (r) => `
               <div class="testimonial" itemscope itemtype="https://schema.org/Review">
                 <div class="quote-icon">
                   <i class="fas fa-quote-right" aria-hidden="true"></i>
                 </div>
                 <div class="testimonial-header">
-                  <img src="${randomAvatar(r.name)}" alt="${r.name}" class="user-avatar" width="60" height="60" loading="lazy" />
+                  <img src="${randomAvatar(r.name)}" alt="${
+              r.name
+            }" class="user-avatar" width="60" height="60" loading="lazy" />
                   <div class="user-info">
                     <h4 class="user-name" itemprop="author">${r.name}</h4>
                     <div class="rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
                       <meta itemprop="ratingValue" content="${r.rating}" />
-                      ${'<i class="fas fa-star"></i>'.repeat(r.rating)}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
+                      ${'<i class="fas fa-star"></i>'.repeat(
+                        r.rating
+                      )}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
                     </div>
                   </div>
                 </div>
                 <div class="quote" itemprop="reviewBody">${r.message}</div>
                 <div class="testimonial-footer">
-                  <span class="testimonial-date">${new Date(r.date).toLocaleDateString()}</span>
+                  <span class="testimonial-date">${new Date(
+                    r.date
+                  ).toLocaleDateString()}</span>
                 </div>
                 <meta itemprop="itemReviewed" content="Bike Builders" />
               </div>
-            `)
-            .join("");
-        }
-        function fetchTestimonials() {
-          fetch("https://bike-builders-1.onrender.com/api/reviews")
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.success && Array.isArray(data.reviews)) {
-                renderTestimonials(data.reviews);
-              } else {
-                renderTestimonials([]);
-              }
-            })
-            .catch(() => {
+            `
+          )
+          .join("");
+      }
+      function fetchTestimonials() {
+        fetch("https://bike-builders-1.onrender.com/api/reviews")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && Array.isArray(data.reviews)) {
+              renderTestimonials(data.reviews);
+            } else {
               renderTestimonials([]);
-            });
-        }
-        fetchTestimonials();
+            }
+          })
+          .catch(() => {
+            renderTestimonials([]);
+          });
+      }
+      fetchTestimonials();
 
-        // Review Modal logic
-        const reviewModal = document.getElementById("reviewModal");
-        const closeReviewModalBtn = reviewModal.querySelector(".close");
-        closeReviewModalBtn.addEventListener("click", () => {
+      // Review Modal logic
+      const reviewModal = document.getElementById("reviewModal");
+      const closeReviewModalBtn = reviewModal.querySelector(".close");
+      closeReviewModalBtn.addEventListener("click", () => {
+        reviewModal.style.display = "none";
+      });
+      window.addEventListener("click", function (event) {
+        if (event.target == reviewModal) {
           reviewModal.style.display = "none";
-        });
-        window.addEventListener("click", function (event) {
-          if (event.target == reviewModal) {
-            reviewModal.style.display = "none";
-          }
-        });
-        // Star rating logic
-        const stars = reviewModal.querySelectorAll(".star");
-        const ratingInput = document.getElementById("reviewRating");
-        stars.forEach((star) => {
-          star.addEventListener("click", function () {
-            const val = this.getAttribute("data-value");
-            ratingInput.value = val;
-            stars.forEach((s, i) => {
-              s.classList.toggle("selected", i < val);
-            });
+        }
+      });
+      // Star rating logic
+      const stars = reviewModal.querySelectorAll(".star");
+      const ratingInput = document.getElementById("reviewRating");
+      stars.forEach((star) => {
+        star.addEventListener("click", function () {
+          const val = this.getAttribute("data-value");
+          ratingInput.value = val;
+          stars.forEach((s, i) => {
+            s.classList.toggle("selected", i < val);
           });
         });
-        // Submit review
-        const reviewForm = document.getElementById("reviewForm");
-        reviewForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const name = document.getElementById("reviewName").value.trim();
-          const message = document.getElementById("reviewMessage").value.trim();
-          const rating = Number(document.getElementById("reviewRating").value);
-          if (!name || !message || !rating) {
-            alert("Please fill all fields and select a rating.");
-            return;
-          }
-          fetch("https://bike-builders-1.onrender.com/api/reviews", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, message, rating })
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.success) {
-                reviewModal.style.display = "none";
-                reviewForm.reset();
-                ratingInput.value = 0;
-                stars.forEach((s) => s.classList.remove("selected"));
-                fetchTestimonials();
-              } else {
-                alert("Failed to submit review.");
-              }
-            })
-            .catch(() => alert("Failed to submit review."));
-        });
-        // Open modal button (add anywhere you want, e.g. after testimonials)
-        const openBtn = document.createElement("button");
-        openBtn.textContent = "Leave a Review";
-        openBtn.className = "review-btn";
-        openBtn.onclick = () => { reviewModal.style.display = "block"; };
-        document.querySelector(".testimonials-section").appendChild(openBtn);
       });
-    </script>
+      // Submit review
+      const reviewForm = document.getElementById("reviewForm");
+      reviewForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("reviewName").value.trim();
+        const message = document.getElementById("reviewMessage").value.trim();
+        const rating = Number(document.getElementById("reviewRating").value);
+        if (!name || !message || !rating) {
+          alert("Please fill all fields and select a rating.");
+          return;
+        }
+        fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, message, rating }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              reviewModal.style.display = "none";
+              reviewForm.reset();
+              ratingInput.value = 0;
+              stars.forEach((s) => s.classList.remove("selected"));
+              fetchTestimonials();
+            } else {
+              alert("Failed to submit review.");
+            }
+          })
+          .catch(() => alert("Failed to submit review."));
+      });
+      // Open modal button (add anywhere you want, e.g. after testimonials)
+      const openBtn = document.createElement("button");
+      openBtn.textContent = "Leave a Review";
+      openBtn.className = "review-btn";
+      openBtn.onclick = () => {
+        reviewModal.style.display = "block";
+      };
+      document.querySelector(".testimonials-section").appendChild(openBtn);
+    });
+  </script>
 </html>
