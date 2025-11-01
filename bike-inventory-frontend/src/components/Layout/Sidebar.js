@@ -9,6 +9,7 @@ import {
   RequestQuote,
   People,
   Logout,
+  Notifications,
   BookOnline
 } from '@mui/icons-material';
 import '../../css/Sidebar.css';
@@ -91,6 +92,13 @@ const DashSidebar = ({ user }) => {
             
             <div className="sidebar-heading">Admin</div>
             
+            <div className="nav-item">
+              <NavLink className="nav-link" to="/admin/updates">
+                <Notifications />
+                <span>Updates</span>
+              </NavLink>
+            </div>
+
             <div className="nav-item">
               <NavLink className="nav-link" to="/admin/staff">
                 <People />

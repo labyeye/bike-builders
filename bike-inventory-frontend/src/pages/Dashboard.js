@@ -148,12 +148,6 @@ const Dashboard = ({ user }) => {
               <Add />
               <span>Add Bike</span>
             </button>
-            <button
-              className="btn"
-              onClick={() => navigate("/admin/updates")}
-            >
-              Updates Page
-            </button>
           </div>
         </div>
 

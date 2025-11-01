@@ -528,7 +528,6 @@ const EditBike = ({ user }) => {
                       transition: "border-color 0.2s",
                     }}
                     min="0"
-                    step="1000"
                     required
                     value={bike.price}
                     onChange={handleChange}
@@ -558,7 +557,6 @@ const EditBike = ({ user }) => {
                       transition: "border-color 0.2s",
                     }}
                     min="0"
-                    step="1000"
                     required
                     value={bike.downPayment}
                     onChange={handleChange}
