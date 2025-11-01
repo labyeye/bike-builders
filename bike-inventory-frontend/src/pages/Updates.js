@@ -5,7 +5,7 @@ import "../css/Dashboard.css";
 
 const Updates = ({ user }) => {
   const navigate = useNavigate();
-  const API_BASE = process.env.REACT_APP_API_BASE || "https://bike-builders-1.onrender.com";
+  const API_BASE = process.env.REACT_APP_API_BASE || "https://bike-builders-backend.vercel.app";
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [file, setFile] = useState(null);

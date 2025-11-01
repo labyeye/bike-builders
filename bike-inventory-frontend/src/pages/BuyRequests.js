@@ -17,7 +17,7 @@ const BuyRequests = ({ user }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('https://bike-builders-1.onrender.com/api/admin/check-auth', {
+        const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/check-auth', {
           credentials: 'include',
         });
         if (!response.ok) return navigate('/login');
@@ -35,7 +35,7 @@ const BuyRequests = ({ user }) => {
     if (!authChecked) return;
     const fetchRequests = async () => {
       try {
-        const response = await fetch('https://bike-builders-1.onrender.com/api/admin/quote-requests', {
+        const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/quote-requests', {
           credentials: 'include',
         });
         const data = await response.json();
@@ -49,7 +49,7 @@ const BuyRequests = ({ user }) => {
 
   const updateStatus = async (id, status) => {
     try {
-      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/quote-request/${id}`, {
+      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/quote-request/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

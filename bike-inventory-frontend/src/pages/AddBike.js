@@ -55,7 +55,7 @@ const AddBike = ({ user }) => {
 
     try {
       const authResponse = await fetch(
-        "https://bike-builders-1.onrender.com/api/admin/check-auth",
+        "https://bike-builders-backend.vercel.app/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -112,7 +112,7 @@ const AddBike = ({ user }) => {
         form.append("images", file);
       });
 
-      const response = await fetch("https://bike-builders-1.onrender.com/api/admin/bike", {
+      const response = await fetch("https://bike-builders-backend.vercel.app/api/admin/bike", {
         method: "POST",
         credentials: "include",
         body: form,

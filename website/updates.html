@@ -45,7 +45,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://code.jquery.com" crossorigin />
-    <link rel="preconnect" href="https://bike-builders-1.onrender.com" />
+    <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
     <link rel="stylesheet" href="./globals.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./updates.css" />
@@ -385,7 +385,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          fetch("https://bike-builders-backend.vercel.app/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating }),
@@ -534,7 +534,7 @@
           } catch (e) {
             // ignore
           }
-          return "https://bike-builders-1.onrender.com";
+          return "https://bike-builders-backend.vercel.app";
         })();
 
         function normalizeImageUrl(url) {

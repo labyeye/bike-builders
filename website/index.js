@@ -348,7 +348,7 @@ window.API_BASE = (function () {
   } catch (e) {
     // ignore
   }
-  return "https://bike-builders-1.onrender.com";
+  return "https://bike-builders-backend.vercel.app";
 })();
 
 // Google Analytics
@@ -698,7 +698,7 @@ function fetchFeaturedBikes() {
     } catch (e) {
       // ignore
     }
-    return "https://bike-builders-1.onrender.com";
+    return "https://bike-builders-backend.vercel.app";
   })();
 
   function normalizeImageUrl(url) {

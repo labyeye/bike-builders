@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://code.jquery.com" crossorigin>
-    <link rel="preconnect" href="https://bike-builders-1.onrender.com">
+    <link rel="preconnect" href="https://bike-builders-backend.vercel.app">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="quote.css" />
 
@@ -495,7 +495,7 @@
             .join("");
         }
         function fetchTestimonials() {
-          fetch("https://bike-builders-1.onrender.com/api/reviews")
+          fetch("https://bike-builders-backend.vercel.app/api/reviews")
             .then((res) => res.json())
             .then((data) => {
               if (data.success && Array.isArray(data.reviews)) {
@@ -544,7 +544,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("https://bike-builders-1.onrender.com/api/reviews", {
+          fetch("https://bike-builders-backend.vercel.app/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating })
@@ -780,7 +780,7 @@
 
             // Send data to server
             const response = await fetch(
-              "https://bike-builders-1.onrender.com/api/quote-request",
+              "https://bike-builders-backend.vercel.app/api/quote-request",
               {
                 method: "POST",
                 headers: {

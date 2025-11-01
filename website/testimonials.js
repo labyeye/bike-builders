@@ -14,7 +14,7 @@
         return `${window.location.protocol}//${host}:2500`;
       }
     } catch (e) {}
-    return "https://bike-builders-1.onrender.com";
+    return "https://bike-builders-backend.vercel.app";
   }
 
   const API_BASE = computeApiBase();

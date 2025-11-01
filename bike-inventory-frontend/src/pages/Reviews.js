@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../css/Dashboard.css";
 
 const Reviews = ({ user }) => {
-  const API_BASE = process.env.REACT_APP_API_BASE || "https://bike-builders-1.onrender.com";
+  const API_BASE = process.env.REACT_APP_API_BASE || "https://bike-builders-backend.vercel.app";
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

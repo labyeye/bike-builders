@@ -30,7 +30,7 @@ const EditBike = ({ user }) => {
     const fetchBike = async () => {
       try {
         const response = await fetch(
-          `https://bike-builders-1.onrender.com/api/admin/bike/${id}`,
+          `https://bike-builders-backend.vercel.app/api/admin/bike/${id}`,
           {
             credentials: "include",
           }
@@ -132,7 +132,7 @@ const EditBike = ({ user }) => {
     try {
       // Check authentication first
       const authResponse = await fetch(
-        "https://bike-builders-1.onrender.com/api/admin/check-auth",
+        "https://bike-builders-backend.vercel.app/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -178,7 +178,7 @@ const EditBike = ({ user }) => {
         formData.append("images", file);
       });
 
-      const response = await fetch(`https://bike-builders-1.onrender.com/api/admin/bike/${id}`, {
+      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/bike/${id}`, {
         method: "PUT",
         credentials: "include",
         body: formData,
