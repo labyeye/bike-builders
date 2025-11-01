@@ -47,6 +47,11 @@
       name="twitter:image"
       content="https://www.bikebuilders.in/assets/social-preview.jpg"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin />
+    <link rel="preconnect" href="https://bike-builders-1.onrender.com" />
     <link rel="icon" type="image/svg+xml" href="./assets/logo2.svg" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link
@@ -286,9 +291,9 @@
             <div class="style-content">
               <h3 data-translate="Sport">Sport</h3>
               <p
-                data-translate="High-performance machines for adrenaline seekers."
+                data-translate="High-performance machines."
               >
-                High-performance machines for adrenaline seekers.
+                High-performance machines.
               </p>
               <span data-translate="View Sports Bikes">View Sports Bikes</span>
               <i class="fas fa-arrow-right"></i>
@@ -342,10 +347,9 @@
           <i class="fas fa-motorcycle"></i>
           <h3 data-translate="Buy Bike">Buy Bike</h3>
           <p
-            data-translate="Find your perfect pre-owned bike from our certified collection with warranty."
+            data-translate="Find your perfect pre-owned bike from our certified collection."
           >
-            Find your perfect pre-owned bike from our certified collection with
-            warranty.
+            Find your perfect pre-owned bike from our certified collection.
           </p>
           <a href="inventory.html"
             ><span data-translate="Explore">Explore</span>
@@ -353,16 +357,12 @@
           ></a>
         </div>
         <div class="service-card">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Indian_Rupee_symbol.svg/1200px-Indian_Rupee_symbol.svg.png"
-            style="width: 35px"
-          />
+          <i class="fa-solid fa-indian-rupee-sign"></i>
           <h3 data-translate="Sell Bike">Sell Bike</h3>
           <p
-            data-translate="Get the best price for your bike with our free valuation and quick payment."
+            data-translate="Get the best price for your bike with our free valuation."
           >
-            Get the best price for your bike with our free valuation and quick
-            payment.
+            Get the best price for your bike with our free valuation.
           </p>
           <a href="sell.html"
             ><span data-translate="Get Valuation">Get Valuation</span>
@@ -373,32 +373,16 @@
           <i class="fas fa-tools"></i>
           <h3 data-translate="Bike Service">Bike Service</h3>
           <p
-            data-translate="Professional servicing and maintenance by certified technicians."
+            data-translate="Professional and Best servicing, maintenance by certified technicians."
           >
-            Professional servicing and maintenance by certified technicians.
+            Professional and Best servicing, maintenance by certified technicians.
           </p>
           <a href="contact.html"
             ><span data-translate="Book Service">Book Service</span>
             <i class="fas fa-arrow-right"></i
           ></a>
         </div>
-        <div class="service-card">
-          <img
-            src="https://icons.veryicon.com/png/o/miscellaneous/ios-apple-icon/ios-calculator-9.png"
-            style="width: 50px"
-          />
-          <h3 data-translate="Price Calculator">Price Calculator</h3>
-          <p
-            data-translate="Estimate your bike's value instantly based on model, year and condition."
-          >
-            Estimate your bike's value instantly based on model, year and
-            condition.
-          </p>
-          <a href="getquote.html"
-            ><span data-translate="Calculate Now">Calculate Now</span>
-            <i class="fas fa-arrow-right"></i
-          ></a>
-        </div>
+        
       </div>
     </section>
 
@@ -868,23 +852,6 @@
         id="testimonialNav"
         aria-label="Testimonial navigation"
       ></div>
-      <button
-        id="openReviewModal"
-        class="add-review-btn"
-        style="
-          margin: 30px auto 0;
-          display: block;
-          background: #ff6b00;
-          color: #fff;
-          border: none;
-          border-radius: 5px;
-          padding: 10px 24px;
-          font-size: 1rem;
-          cursor: pointer;
-        "
-      >
-        Share Your Experience
-      </button>
     </section>
     <!-- <section class="testimonials-section">
       <h2 data-translate="What Our Riders Say">What Our Riders Say</h2>
@@ -1150,970 +1117,14 @@
           &copy; 2023 Bike Builders. All rights reserved.
         </p>
         <a
-          href="www.pixelatenest.com"
+          href="https://www.pixelatenest.com//"
           style="color: #a9a9a9"
           data-translate="Designed By Pixelate Nest"
           >Designed By Pixelate Nest</a
         >
       </div>
     </footer>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const heroSlider = document.createElement("div");
-        heroSlider.className = "hero-slider";
-
-        const slides = [
-          "https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG",
-          "https://images.unsplash.com/photo-1662788019531-89849ebb754a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29udGluZW50YWwlMjBndCUyMDY1MHxlbnwwfHwwfHx8MA%3D%3D",
-          "https://wallpapercg.com/media/ts_orig/18582.webp",
-          "https://images.pexels.com/photos/17227166/pexels-photo-17227166.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
-          "https://c4.wallpaperflare.com/wallpaper/780/625/239/motorcycles-other-wallpaper-preview.jpg",
-        ];
-
-        slides.forEach((slide, index) => {
-          const slideDiv = document.createElement("div");
-          slideDiv.className = `hero-slide ${index === 0 ? "active" : ""}`;
-          slideDiv.style.backgroundImage = `url(${slide})`;
-          heroSlider.appendChild(slideDiv);
-        });
-
-        const backgroundImageDiv = document.querySelector(".background-image");
-        backgroundImageDiv.parentNode.replaceChild(
-          heroSlider,
-          backgroundImageDiv
-        );
-        const dotsContainer = document.createElement("div");
-        dotsContainer.className = "slider-dots";
-
-        slides.forEach((_, index) => {
-          const dot = document.createElement("div");
-          dot.className = `slider-dot ${index === 0 ? "active" : ""}`;
-          dot.dataset.index = index;
-          dotsContainer.appendChild(dot);
-        });
-
-        document.querySelector(".hero-section").appendChild(dotsContainer);
-
-        const slidesElements = document.querySelectorAll(".hero-slide");
-        const dots = document.querySelectorAll(".slider-dot");
-        let currentSlide = 0;
-
-        function showSlide(index) {
-          slidesElements.forEach((slide) => slide.classList.remove("active"));
-          dots.forEach((dot) => dot.classList.remove("active"));
-
-          slidesElements[index].classList.add("active");
-          dots[index].classList.add("active");
-          currentSlide = index;
-        }
-
-        function nextSlide() {
-          const nextIndex = (currentSlide + 1) % slides.length;
-          showSlide(nextIndex);
-        }
-
-        let slideInterval = setInterval(nextSlide, 2000);
-
-        heroSlider.addEventListener("mouseenter", () => {
-          clearInterval(slideInterval);
-        });
-
-        heroSlider.addEventListener("mouseleave", () => {
-          slideInterval = setInterval(nextSlide, 5000);
-        });
-        dots.forEach((dot) => {
-          dot.addEventListener("click", () => {
-            clearInterval(slideInterval);
-            showSlide(parseInt(dot.dataset.index));
-            slideInterval = setInterval(nextSlide, 5000);
-          });
-        });
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggleBtn = document.createElement("button");
-        toggleBtn.className = "mobile-menu-toggle";
-        toggleBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
-        toggleBtn.setAttribute("aria-label", "Toggle mobile menu");
-
-        const navbar = document.querySelector(".navbar");
-        navbar.appendChild(toggleBtn);
-
-        const mobileMenu = document.createElement("div");
-        mobileMenu.className = "mobile-menu";
-        mobileMenu.innerHTML = `
-        <button class="close-btn" aria-label="Close mobile menu">
-          <i class="fas fa-times" aria-hidden="true"></i>
-        </button>
-        <ul class="nav-links">
-          <li>
-            <a href="index.html" class="active" aria-current="page">
-              <i class="fas fa-home"></i> 
-              <span data-translate="Home">Home</span>
-            </a>
-          </li>
-          <li>
-            <a href="inventory.html">
-              <i class="fas fa-motorcycle"></i> 
-              <span data-translate="Buy Bike">Buy Bike</span>
-            </a>
-          </li>
-          <li>
-            <a href="sell.html">
-              <i class="fas fa-dollar-sign"></i>
-              <span data-translate="Sell Your Bike">Sell Your Bike</span>
-            </a>
-          </li>
-          <li>
-            <a href="about.html">
-              <i class="fas fa-info-circle"></i>
-              <span data-translate="About Us">About Us</span>
-            </a>
-          </li>
-          <li>
-            <a href="updates.html" class="updates-link"> <!-- Changed to stay as # -->
-              <i class="fas fa-bell"></i> 
-              <span data-translate="Updates">Updates</span>
-            </a>
-          </li>
-          <li>
-            <a href="contact.html">
-              <i class="fas fa-envelope"></i>
-              <span data-translate="Contact">Contact</span>
-            </a>
-          </li>
-        </ul>
-        <div class="login-btn">
-          <a href="/getquote.html">
-            <button aria-label="Get a quote for your bike" data-translate="Get the Quote">
-              Get the Quote
-            </button>
-          </a>
-        </div>
-        <div class="theme-toggle mobile-theme-toggle">
-          <label for="mobileDarkModeToggle" class="toggle-label">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <span class="toggle-ball"></span>
-          </label>
-        </div>
-      `;
-
-        document.body.appendChild(mobileMenu);
-
-        toggleBtn.addEventListener("click", function () {
-          mobileMenu.classList.add("active");
-          document.body.style.overflow = "hidden";
-        });
-
-        mobileMenu
-          .querySelector(".close-btn")
-          .addEventListener("click", function () {
-            mobileMenu.classList.remove("active");
-            document.body.style.overflow = "auto";
-          });
-        // Add this to your existing mobile menu script
-        const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle"
-        );
-        mobileDarkModeToggle.addEventListener("change", function () {
-          darkModeToggle.checked = this.checked;
-          darkModeToggle.dispatchEvent(new Event("change"));
-        });
-
-        // Sync the mobile toggle when desktop toggle changes
-        darkModeToggle.addEventListener("change", function () {
-          mobileDarkModeToggle.checked = this.checked;
-        });
-      });
-    </script>
-
-    <script defer>
-      document.addEventListener("DOMContentLoaded", function () {
-        if ("IntersectionObserver" in window) {
-          const lazyImages = [].slice.call(
-            document.querySelectorAll("img.lazy")
-          );
-
-          let lazyImageObserver = new IntersectionObserver(function (
-            entries,
-            observer
-          ) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                let lazyImage = entry.target;
-                lazyImage.src = lazyImage.dataset.src;
-                lazyImage.classList.remove("lazy");
-                lazyImageObserver.unobserve(lazyImage);
-              }
-            });
-          });
-
-          lazyImages.forEach(function (lazyImage) {
-            lazyImageObserver.observe(lazyImage);
-          });
-        }
-      });
-
-      const preconnectUrls = [
-        "https://cdnjs.cloudflare.com",
-        "https://randomuser.me",
-        "https://imgd.aeplcdn.com",
-      ];
-
-      preconnectUrls.forEach((url) => {
-        const link = document.createElement("link");
-        link.rel = "preconnect";
-        link.href = url;
-        document.head.appendChild(link);
-      });
-    </script>
-
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-ETL311CBE6"
-    ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-ETL311CBE6");
-    </script>
-    <script>
-      function animateStats(element) {
-        const counters = document.querySelectorAll(".stat-number");
-
-        counters.forEach((counter) => {
-          const target = parseInt(counter.getAttribute("data-count"));
-          let current = 0;
-          const increment = target / 50;
-
-          const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-              counter.textContent = target + "+";
-              clearInterval(timer);
-            } else {
-              counter.textContent = Math.floor(current);
-            }
-          }, 30);
-        });
-      }
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              animateStats();
-              observer.unobserve(entry.target);
-            }
-          });
-        },
-        { threshold: 0.5 }
-      );
-
-      observer.observe(document.querySelector(".stats-section"));
-    </script>
-    <script>
-      const translations = {
-        en: {
-          "Bike Builders | Premium Pre-Owned Motorcycles in India":
-            "Bike Builders | Premium Pre-Owned Motorcycles in India",
-          Home: "Home",
-          Updates: "Updates",
-          "Book Bike": "Book Bike",
-          "Buy Bike": "Buy Bike",
-          "Sell Your Bike": "Sell Your Bike",
-          "About Us": "About Us",
-          Contact: "Contact",
-          "Get the Quote": "Get the Quote",
-          "Choose your preferred language": "Choose your preferred language",
-          "Ride Into Freedom with the Bike You've Always Wanted":
-            "Ride Into Freedom with the Bike You've Always Wanted",
-          "Get Your": "Get Your",
-          "Dream Bike": "Dream Bike",
-          Bike: "Bike",
-          "Refurbished Bikes": "Refurbished Bikes",
-          "Sell Bike": "Sell Bike",
-          "Bike Service": "Bike Service",
-          "Price Calculator": "Price Calculator",
-          "Bikes Sold": "Bikes Sold",
-          "Bikes Available": "Bikes Available",
-          "Happy Customers": "Happy Customers",
-          "Years Experience": "Years Experience",
-          "Our Services": "Our Services",
-          "Find your perfect pre-owned bike from our certified collection with warranty.":
-            "Find your perfect pre-owned bike from our certified collection with warranty.",
-          Explore: "Explore",
-          "Get the best price for your bike with our free valuation and quick payment.":
-            "Get the best price for your bike with our free valuation and quick payment.",
-          "Get Valuation": "Get Valuation",
-          "Professional servicing and maintenance by certified technicians.":
-            "Professional servicing and maintenance by certified technicians.",
-          "Book Service": "Book Service",
-          "Estimate your bike's value instantly based on model, year and condition.":
-            "Estimate your bike's value instantly based on model, year and condition.",
-          "Calculate Now": "Calculate Now",
-          "Choose Your Style": "Choose Your Style",
-          Scooter: "Scooter",
-          "Practical and fuel-efficient for city commuting.":
-            "Practical and fuel-efficient for city commuting.",
-          "View Scooters": "View Scooters",
-          Commuter: "Commuter",
-          "Reliable daily riders with great mileage.":
-            "Reliable daily riders with great mileage.",
-          "View Commuters": "View Commuters",
-          Sport: "Sport",
-          "High-performance machines for adrenaline seekers.":
-            "High-performance machines for adrenaline seekers.",
-          "View Sports Bikes": "View Sports Bikes",
-          Tourer: "Tourer",
-          "Comfortable long-distance companions.":
-            "Comfortable long-distance companions.",
-          "View Tourers": "View Tourers",
-          "Featured Bikes": "Featured Bikes",
-          "View All": "View All",
-          "1st Owner": "1st Owner",
-          Petrol: "Petrol",
-          "6 months old": "6 months old",
-          "2 months old": "2 months old",
-          "View Details": "View Details",
-          "EMI: ₹8,999/month": "EMI: ₹8,999/month",
-          "Other Brands": "Other Brands",
-          "Ather Energy": "Ather Energy",
-          Bajaj: "Bajaj",
-          BMW: "BMW",
-          "Harley-Davidson": "Harley-Davidson",
-          Hero: "Hero",
-          Honda: "Honda",
-          Jawa: "Jawa",
-          Kawasaki: "Kawasaki",
-          KTM: "KTM",
-          "Mahindra Two Wheelers": "Mahindra Two Wheelers",
-          "Royal Enfield": "Royal Enfield",
-          Suzuki: "Suzuki",
-          "TVS Motor": "TVS Motor",
-          Yamaha: "Yamaha",
-          "HOW TO BUY YOUR DREAM BIKE": "HOW TO BUY YOUR DREAM BIKE",
-          "OUR HAPPY CUSTOMERS": "OUR HAPPY CUSTOMERS",
-          "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.":
-            "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.",
-          "BROWSE INVENTORY": "BROWSE INVENTORY",
-          "BOOK TEST RIDE": "BOOK TEST RIDE",
-          "GET TO KNOW YOUR RIDE": "GET TO KNOW YOUR RIDE",
-          "PAY & BOOK ONLINE OR VISIT SHOWROOM":
-            "PAY & BOOK ONLINE OR VISIT SHOWROOM",
-          "COMPLETE PURCHASE": "COMPLETE PURCHASE",
-          "HOW TO SELL YOUR USED BIKE": "HOW TO SELL YOUR USED BIKE",
-          "At Bike Builders, we provide the quickest and most hassle-free bike selling service. Getting a great deal on your bike can be tricky, which is why we value your bike based on its condition and current market value.":
-            "At Bike Builders, we provide the quickest and most hassle-free bike selling service. Getting a great deal on your bike can be tricky, which is why we value your bike based on its condition and current market value.",
-          "INSTANT VALUATION": "INSTANT VALUATION",
-          "BOOK INSPECTION": "BOOK INSPECTION",
-          "SELL YOUR BIKE": "SELL YOUR BIKE",
-          "What Our Riders Say": "What Our Riders Say",
-          "Mumbai, Maharashtra": "Mumbai, Maharashtra",
-          "Bangalore, Karnataka": "Bangalore, Karnataka",
-          "Delhi, NCR": "Delhi, NCR",
-          "Purchased: 3 months ago": "Purchased: 3 months ago",
-          "Verified Owner": "Verified Owner",
-          "Purchased: 6 months ago": "Purchased: 6 months ago",
-          "Sold: 1 month ago": "Sold: 1 month ago",
-          "Verified Seller": "Verified Seller",
-          "The buying process was completely transparent. I got a certified KTM Duke 390 at 15% below market price. The 150-point inspection report gave me complete confidence in my purchase.":
-            "The buying process was completely transparent. I got a certified KTM Duke 390 at 15% below market price. The 150-point inspection report gave me complete confidence in my purchase.",
-          "Excellent customer service and the bike quality is outstanding. The warranty coverage gave me peace of mind. Worth every rupee I spent!":
-            "Excellent customer service and the bike quality is outstanding. The warranty coverage gave me peace of mind. Worth every rupee I spent!",
-          "I sold my old bike through them and got ₹15,000 more than other dealers offered. The process was smooth and payment was instant. Highly recommended!":
-            "I sold my old bike through them and got ₹15,000 more than other dealers offered. The process was smooth and payment was instant. Highly recommended!",
-          "India's most trusted marketplace for premium pre-owned bikes since 2018.":
-            "India's most trusted marketplace for premium pre-owned bikes since 2018.",
-          "Quick Links": "Quick Links",
-          "Contact Us": "Contact Us",
-          "All rights reserved.": "All rights reserved.",
-          "Designed By Pixelate Nest": "Designed By Pixelate Nest",
-        },
-        hi: {
-          "Bike Builders | Premium Pre-Owned Motorcycles in India":
-            "बाइक बिल्डर्स | भारत में प्रीमियम सेकेंड हैंड बाइक्स",
-          Home: "होम",
-          Updates: "अपडेट्स",
-          "Buy Bike": "बाइक खरीदें",
-          "Sell Your Bike": "बाइक बेचें",
-          "About Us": "हमारे बारे में",
-          "Book Bike": "बाइक बुक करें",
-          Contact: "संपर्क करें",
-          "Get the Quote": "कीमत पता करें",
-          "Choose your preferred language": "अपनी पसंदीदा भाषा चुनें",
-
-          "Get Your": "अपनी पसंद ",
-          "Dream Bike": "की बाइक पाएं",
-          "Ride Into Freedom with the Bike You've Always Wanted":
-            "आपकी पसंद की बाइक के साथ आज़ादी की सवारी करें",
-          Bike: "बाइक",
-          "Refurbished Bikes": "पुनर्निर्मित बाइक्स",
-          "Sell Bike": "बाइक बेचें",
-          "Bike Service": "बाइक सर्विस",
-          "Price Calculator": "कीमत कैलकुलेटर",
-          "Bikes Sold": "बाइक बिक चुकी",
-          "Bikes Available": "बाइक उपलब्ध",
-          "Happy Customers": "खुश ग्राहक",
-          "Years Experience": "सालों का अनुभव",
-
-          "Our Services": "हमारी सेवाएं",
-          "Find your perfect pre-owned bike from our certified collection with warranty.":
-            "हमारे प्रमाणित संग्रह से वारंटी के साथ अपनी पसंद की बाइक खोजें",
-          Explore: "देखें",
-          "Get the best price for your bike with our free valuation and quick payment.":
-            "हमारे मुफ्त मूल्यांकन और तुरंत भुगतान के साथ अपनी बाइक का सबसे अच्छा दाम पाएं",
-          "Get Valuation": "मूल्यांकन करें",
-          "Professional servicing and maintenance by certified technicians.":
-            "प्रमाणित तकनीशियनों द्वारा पेशेवर सर्विसिंग और रखरखाव",
-          "Book Service": "सर्विस बुक करें",
-          "Estimate your bike's value instantly based on model, year and condition.":
-            "मॉडल, साल और हालत के आधार पर अपनी बाइक की कीमत का अनुमान लगाएं",
-          "Calculate Now": "अभी गणना करें",
-
-          "Choose Your Style": "अपनी पसंद चुनें",
-          Scooter: "स्कूटर",
-          "Practical and fuel-efficient for city commuting.":
-            "शहर में चलाने के लिए व्यावहारिक और कम ईंधन खपत",
-          "View Scooters": "स्कूटर देखें",
-          Commuter: "कम्यूटर",
-          "Reliable daily riders with great mileage.":
-            "रोजमर्रा की सवारी के लिए विश्वसनीय, बेहतर माइलेज",
-          "View Commuters": "कम्यूटर देखें",
-          Sport: "स्पोर्ट",
-          "High-performance machines for adrenaline seekers.":
-            "एड्रेनालाईन के शौकीनों के लिए हाई-परफॉरमेंस बाइक",
-          "View Sports Bikes": "स्पोर्ट्स बाइक देखें",
-          Tourer: "टूरर",
-          "Comfortable long-distance companions.":
-            "लंबी दूरी के लिए आरामदायक साथी",
-          "View Tourers": "टूरर देखें",
-
-          "Featured Bikes": "फीचर्ड बाइक्स",
-          "View All": "सभी देखें",
-          "1st Owner": "पहला मालिक",
-          Petrol: "पेट्रोल",
-          "6 months old": "6 महीने पुरानी",
-          "2 months old": "2 महीने पुरानी",
-          "View Details": "विवरण देखें",
-          "EMI: ₹8,999/month": "ईएमआई: ₹8,999/महीना",
-
-          "Other Brands": "अन्य ब्रांड्स",
-          "Ather Energy": "आदर एनर्जी",
-          Bajaj: "बजाज",
-          BMW: "बीएमडब्ल्यू",
-          "Harley-Davidson": "हार्ले-डेविडसन",
-          Hero: "हीरो",
-          Honda: "होंडा",
-          Jawa: "जावा",
-          Kawasaki: "कावासाकी",
-          KTM: "केटीएम",
-          "Mahindra Two Wheelers": "महिंद्रा टू व्हीलर्स",
-          "Royal Enfield": "रॉयल एनफील्ड",
-          Suzuki: "सुजुकी",
-          "TVS Motor": "टीवीएस मोटर",
-          Yamaha: "यामाहा",
-          "OUR HAPPY CUSTOMERS": "हमारे खुश ग्राहक",
-          "HOW TO BUY YOUR DREAM BIKE": "अपनी पसंद की बाइक कैसे खरीदें",
-          "At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind.":
-            "बाइक बिल्डर्स में, हम बाइक खरीदने को आसान और पारदर्शी बनाते हैं। हमारी प्रमाणित बाइक्स के साथ पूरी जांच रिपोर्ट और वारंटी मिलती है",
-          "BROWSE INVENTORY": "बाइक देखें",
-          "BOOK TEST RIDE": "टेस्ट राइड बुक करें",
-          "GET TO KNOW YOUR RIDE": "अपनी बाइक को जानें",
-          "PAY & BOOK ONLINE OR VISIT SHOWROOM":
-            "ऑनलाइन भुगतान करें या शोरूम आएं",
-          "COMPLETE PURCHASE": "खरीदारी पूरी करें",
-
-          "HOW TO SELL YOUR USED BIKE": "अपनी पुरानी बाइक कैसे बेचें",
-          "At Bike Builders, we provide the quickest and most hassle-free bike selling service. Getting a great deal on your bike can be tricky, which is why we value your bike based on its condition and current market value.":
-            "बाइक बिल्डर्स में, हम सबसे तेज और आसान बाइक बेचने की सेवा देते हैं। हम आपकी बाइक की हालत और बाजार भाव के आधार पर सही कीमत देते हैं",
-          "INSTANT VALUATION": "तुरंत मूल्यांकन",
-          "BOOK INSPECTION": "जांच बुक करें",
-          "SELL YOUR BIKE": "अपनी बाइक बेचें",
-
-          "What Our Riders Say": "हमारे ग्राहक क्या कहते हैं",
-          "Mumbai, Maharashtra": "मुंबई, महाराष्ट्र",
-          "Bangalore, Karnataka": "बैंगलोर, कर्नाटक",
-          "Delhi, NCR": "दिल्ली, एनसीआर",
-          "Purchased: 3 months ago": "खरीदी: 3 महीने पहले",
-          "Verified Owner": "प्रमाणित मालिक",
-          "Purchased: 6 months ago": "खरीदी: 6 महीने पहले",
-          "Sold: 1 month ago": "बेची: 1 महीने पहले",
-          "Verified Seller": "प्रमाणित विक्रेता",
-          "The buying process was completely transparent. I got a certified KTM Duke 390 at 15% below market price. The 150-point inspection report gave me complete confidence in my purchase.":
-            "खरीद प्रक्रिया पूरी तरह पारदर्शी थी। मुझे KTM Duke 390 बाजार भाव से 15% कम में मिली। 150-पॉइंट जांच रिपोर्ट ने पूरा विश्वास दिलाया",
-          "Excellent customer service and the bike quality is outstanding. The warranty coverage gave me peace of mind. Worth every rupee I spent!":
-            "ग्राहक सेवा बेहतरीन और बाइक की क्वालिटी शानदार। वारंटी ने मन को शांति दी। हर पैसे के लायक!",
-          "I sold my old bike through them and got ₹15,000 more than other dealers offered. The process was smooth and payment was instant. Highly recommended!":
-            "मैंने अपनी पुरानी बाइक इनके जरिए बेची और ₹15,000 ज्यादा पाए। प्रक्रिया आसान थी और भुगतान तुरंत मिला। जरूर सलाह देंगे!",
-
-          "India's most trusted marketplace for premium pre-owned bikes since 2018.":
-            "2018 से प्रीमियम सेकेंड हैंड बाइक्स का सबसे भरोसेमंद प्लेटफॉर्म",
-          "Quick Links": "जल्दी लिंक्स",
-          "Contact Us": "संपर्क करें",
-          "All rights reserved.": "सभी अधिकार सुरक्षित",
-          "Designed By Pixelate Nest": "पिक्सेलेट नेस्ट द्वारा डिज़ाइन",
-        },
-      };
-
-      function translatePage(language) {
-        if (language === "hi") {
-          document.body.classList.add("hindi-font");
-        } else {
-          document.body.classList.remove("hindi-font");
-        }
-        const elements = document.querySelectorAll("[data-translate]");
-        elements.forEach((element) => {
-          const key = element.getAttribute("data-translate");
-          if (translations[language] && translations[language][key]) {
-            element.textContent = translations[language][key];
-          }
-        });
-        const mobileMenu = document.querySelector(".mobile-menu");
-        if (mobileMenu) {
-          const mobileElements =
-            mobileMenu.querySelectorAll("[data-translate]");
-          mobileElements.forEach((element) => {
-            const key = element.getAttribute("data-translate");
-            if (translations[language] && translations[language][key]) {
-              element.textContent = translations[language][key];
-            }
-          });
-        }
-        const bikeCards = document.querySelectorAll(".bike-card");
-        if (language === "hi") {
-          bikeCards.forEach((card) => {
-            const bikeName = card.querySelector("h3");
-            if (bikeName) {
-              switch (bikeName.textContent.trim()) {
-                case "KTM Duke 390":
-                  bikeName.textContent = "केटीएम ड्यूक 390";
-                  break;
-                case "Suzuki Hayabusa":
-                  bikeName.textContent = "सुजुकी हयाबुसा";
-                  break;
-                case "Royal Enfield GT 650":
-                  bikeName.textContent = "रॉयल एनफील्ड जीटी 650";
-                  break;
-              }
-            }
-          });
-        } else {
-          bikeCards.forEach((card) => {
-            const bikeName = card.querySelector("h3");
-            if (bikeName) {
-              switch (bikeName.textContent.trim()) {
-                case "केटीएम ड्यूक 390":
-                  bikeName.textContent = "KTM Duke 390";
-                  break;
-                case "सुजुकी हयाबुसा":
-                  bikeName.textContent = "Suzuki Hayabusa";
-                  break;
-                case "रॉयल एनफील्ड जीटी 650":
-                  bikeName.textContent = "Royal Enfield GT 650";
-                  break;
-              }
-            }
-          });
-        }
-        const emiElements = document.querySelectorAll(".emi");
-        emiElements.forEach((element) => {
-          if (language === "hi") {
-            element.textContent = element.textContent.replace("EMI:", "ईएमआई:");
-          } else {
-            element.textContent = element.textContent.replace("ईएमआई:", "EMI:");
-          }
-        });
-        const brandCards = document.querySelectorAll(".brand-card h3");
-        brandCards.forEach((brand) => {
-          const key = brand.textContent.trim();
-          if (translations[language] && translations[language][key]) {
-            brand.textContent = translations[language][key];
-          }
-        });
-        document.getElementById("languagePopup").style.display = "none";
-        localStorage.setItem("preferredLanguage", language);
-      }
-      document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll(".language-btn").forEach((button) => {
-          button.addEventListener("click", function () {
-            const lang = this.getAttribute("data-lang");
-            translatePage(lang);
-          });
-        });
-
-        const updateMobileMenu = () => {
-          const mobileMenu = document.querySelector(".mobile-menu");
-          if (mobileMenu) {
-            const links = mobileMenu.querySelectorAll("a");
-            links[0].setAttribute("data-translate", "Home");
-            links[1].setAttribute("data-translate", "Buy Bike");
-            links[2].setAttribute("data-translate", "Sell Your Bike");
-            links[3].setAttribute("data-translate", "About Us");
-            links[4].setAttribute("data-translate", "Updates");
-            links[5].setAttribute("data-translate", "Contact");
-
-            const button = mobileMenu.querySelector(".login-btn button");
-            if (button) button.setAttribute("data-translate", "Get the Quote");
-          }
-        };
-
-        updateMobileMenu();
-        setTimeout(updateMobileMenu, 500);
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const bikeSlider = document.querySelector(".bike-slider");
-        const prevBtn = document.querySelector(".slider-nav.prev");
-        const nextBtn = document.querySelector(".slider-nav.next");
-
-        fetchFeaturedBikes();
-        prevBtn.addEventListener("click", () => {
-          bikeSlider.scrollBy({ left: -300, behavior: "smooth" });
-        });
-
-        nextBtn.addEventListener("click", () => {
-          bikeSlider.scrollBy({ left: 300, behavior: "smooth" });
-        });
-        bikeSlider.addEventListener("scroll", () => {
-          prevBtn.disabled = bikeSlider.scrollLeft <= 10;
-          nextBtn.disabled =
-            bikeSlider.scrollLeft >=
-            bikeSlider.scrollWidth - bikeSlider.clientWidth - 10;
-        });
-      });
-
-      function fetchFeaturedBikes() {
-        // Determine API base dynamically for local development vs deployed
-        const API_BASE = (function () {
-          try {
-            const host = window.location.hostname;
-            if (host === "localhost") {
-              return `${window.location.protocol}//${host}:2500`;
-            }
-          } catch (e) {
-            // ignore
-          }
-          return "https://bike-builders-1.onrender.com";
-        })();
-
-        function normalizeImageUrl(url) {
-          if (!url) return url;
-          if (
-            /^https?:\/\//i.test(url) ||
-            url.startsWith("data:") ||
-            url.startsWith("//")
-          )
-            return url;
-          if (url.startsWith("/")) return API_BASE + url;
-          return API_BASE + "/" + url;
-        }
-
-        fetch(API_BASE + "/api/featured-bikes")
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            if (data.success && data.data) {
-              // normalize image URLs
-              const bikes = data.data.map((b) => {
-                const copy = Object.assign({}, b);
-                try {
-                  if (Array.isArray(copy.imageUrl)) {
-                    copy.imageUrl = copy.imageUrl.map((u) =>
-                      normalizeImageUrl(u)
-                    );
-                  } else if (
-                    typeof copy.imageUrl === "string" &&
-                    copy.imageUrl.trim() !== ""
-                  ) {
-                    copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
-                  } else {
-                    copy.imageUrl = [];
-                  }
-                } catch (e) {
-                  copy.imageUrl = copy.imageUrl || [];
-                }
-                return copy;
-              });
-              displayFeaturedBikes(bikes);
-            } else {
-              showFeaturedBikesError();
-            }
-          })
-          .catch((error) => {
-            console.error("Error fetching featured bikes:", error);
-            showFeaturedBikesError();
-          });
-      }
-
-      function displayFeaturedBikes(bikes) {
-        const bikeSlider = document.querySelector(".bike-slider");
-        bikeSlider.innerHTML = "";
-
-        if (!bikes || bikes.length === 0) {
-          bikeSlider.innerHTML = `
-      <div class="no-bikes" style="width: 100%; text-align: center; padding: 40px;">
-        <i class="fas fa-motorcycle" style="font-size: 3rem; color: #ccc;"></i>
-        <p style="margin-top: 15px; color: #666;">No featured bikes available at the moment</p>
-      </div>
-    `;
-          return;
-        }
-
-        bikes.forEach((bike) => {
-          const bikeCard = document.createElement("div");
-          bikeCard.className = "bike-card";
-
-          let statusClass = "status-available";
-          let statusText = "Available";
-          let isDisabled = false;
-
-          if (bike.status === "Sold Out") {
-            statusClass = "status-sold";
-            statusText = "Sold Out";
-            isDisabled = true;
-          } else if (bike.status === "Coming Soon") {
-            statusClass = "status-coming-soon";
-            statusText = "Coming Soon";
-            isDisabled = true;
-          }
-
-          // Handle image URLs - ensure it's always an array
-          const images = Array.isArray(bike.imageUrl)
-            ? bike.imageUrl.filter((url) => url && url.trim() !== "")
-            : [];
-
-          const firstImage =
-            images.length > 0
-              ? images[0]
-              : "https://via.placeholder.com/300?text=No+Image";
-
-          bikeCard.innerHTML = `
-      <div class="image-container">
-        <img src="${firstImage}" 
-            alt="${bike.brand} ${bike.model}" 
-            loading="lazy">
-        <div class="status-badge ${statusClass}">${statusText}</div>
-      </div>
-      <div class="card-content">
-        <h3>${bike.brand} ${bike.model}</h3>
-        <span class="model">${bike.modelYear || bike.year || "N/A"} Model</span>
-        <div class="details">
-          <div class="detail-item">
-            <i class="fas fa-tachometer-alt"></i>
-            <span>${(bike.kmDriven || 0).toLocaleString()} km</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-user"></i>
-            <span>${formatOwnership(bike.ownership || "1")}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-gas-pump"></i>
-            <span>${bike.fuelType || "Petrol"}</span>
-          </div>
-          <div class="detail-item">
-            <i class="fas fa-calendar-alt"></i>
-            <span>${bike.year || bike.modelYear || "N/A"}</span>
-          </div>
-        </div>
-        <div class="price-container">
-          <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
-          <div class="emi">Down: ₹${(
-            bike.downPayment || 0
-          ).toLocaleString()} | EMI: ₹${Math.round(
-            ((bike.price || 0) - (bike.downPayment || 0)) / 36
-          ).toLocaleString()}/month</div>
-          <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>
-            ${isDisabled ? bike.status : "View Details"}
-          </button>
-        </div>
-      </div>
-    `;
-
-          bikeSlider.appendChild(bikeCard);
-
-          if (!isDisabled) {
-            bikeCard
-              .querySelector(".view-details-btn")
-              .addEventListener("click", () => {
-                window.location.href = `inventory.html#${bike._id || ""}`;
-              });
-          }
-        });
-      }
-      function showFeaturedBikesError() {
-        const bikeSlider = document.querySelector(".bike-slider");
-        bikeSlider.innerHTML = `
-      <div class="error-message" style="width: 100%; text-align: center; padding: 40px;">
-        <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ff6b00;"></i>
-        <p style="margin-top: 15px; color: #666;">Failed to load featured bikes. Please try again later.</p>
-        <button onclick="fetchFeaturedBikes()" style="margin-top: 10px; padding: 8px 15px; background: #ff6b00; color: white; border: none; border-radius: 4px; cursor: pointer;">
-          Retry
-        </button>
-      </div>
-    `;
-      }
-
-      function formatOwnership(owner) {
-        if (owner === "1") return "1st Owner";
-        if (owner === "2") return "2nd Owner";
-        if (owner === "3") return "3+ Owner";
-        return owner;
-      }
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Get modal elements
-        const whatsappModal = document.getElementById("whatsappModal");
-        const callModal = document.getElementById("callModal");
-
-        // Get trigger buttons
-        const whatsappTrigger = document.getElementById("whatsappTrigger");
-        const callTrigger = document.getElementById("callTrigger");
-
-        // Get close buttons
-        const closeButtons = document.getElementsByClassName("close");
-
-        // When user clicks WhatsApp button
-        whatsappTrigger.addEventListener("click", function (e) {
-          e.preventDefault();
-          whatsappModal.style.display = "block";
-        });
-
-        // When user clicks Call button
-        callTrigger.addEventListener("click", function (e) {
-          e.preventDefault();
-          callModal.style.display = "block";
-        });
-
-        // When user clicks on close button
-        Array.from(closeButtons).forEach((button) => {
-          button.addEventListener("click", function () {
-            whatsappModal.style.display = "none";
-            callModal.style.display = "none";
-          });
-        });
-
-        // When user clicks outside the modal
-        window.addEventListener("click", function (event) {
-          if (event.target == whatsappModal) {
-            whatsappModal.style.display = "none";
-          }
-          if (event.target == callModal) {
-            callModal.style.display = "none";
-          }
-        });
-
-        // Handle number selection for WhatsApp
-        const whatsappOptions =
-          whatsappModal.querySelectorAll(".number-option");
-        whatsappOptions.forEach((option) => {
-          option.addEventListener("click", function () {
-            const number = this.getAttribute("data-number");
-            window.open(`https://wa.me/${number}`, "_blank");
-            whatsappModal.style.display = "none";
-          });
-        });
-
-        // Handle number selection for Call
-        const callOptions = callModal.querySelectorAll(".number-option");
-        callOptions.forEach((option) => {
-          option.addEventListener("click", function () {
-            const number = this.getAttribute("data-number");
-            window.location.href = `tel:${number}`;
-            callModal.style.display = "none";
-          });
-        });
-      });
-    </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle"
-        );
-
-        // Check for saved user preference or system preference
-        function checkDarkModePreference() {
-          const savedTheme = localStorage.getItem("theme");
-          const systemPrefersDark =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
-            document.body.classList.add("dark-mode");
-            if (darkModeToggle) darkModeToggle.checked = true;
-            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-          }
-        }
-
-        // Initialize dark mode
-        checkDarkModePreference();
-
-        // Desktop toggle
-        if (darkModeToggle) {
-          darkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            // Sync mobile toggle
-            if (mobileDarkModeToggle) {
-              mobileDarkModeToggle.checked = this.checked;
-            }
-          });
-        }
-
-        // Mobile toggle
-        if (mobileDarkModeToggle) {
-          mobileDarkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            // Sync desktop toggle
-            if (darkModeToggle) {
-              darkModeToggle.checked = this.checked;
-            }
-          });
-        }
-
-        // Watch for system theme changes
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", (e) => {
-            const newColorScheme = e.matches ? "dark" : "light";
-            if (!localStorage.getItem("theme")) {
-              // Only if user hasn't set a preference
-              if (newColorScheme === "dark") {
-                document.body.classList.add("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = true;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-              } else {
-                document.body.classList.remove("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = false;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
-              }
-            }
-          });
-      });
-    </script>
+    <script src="./index.js"></script>
     <div class="floating-buttons">
       <a
         href="#"
@@ -2168,6 +1179,28 @@
       </div>
     </div>
 
+    <!-- Review Modal (used on several pages; added to index for footer star clicks) -->
+    <div id="reviewModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeReviewModal">&times;</span>
+        <h3>Leave a Review</h3>
+        <form id="reviewForm">
+          <input type="text" id="reviewName" name="reviewName" placeholder="Your Name" required />
+          <textarea id="reviewMessage" name="reviewMessage" placeholder="Your Review" required></textarea>
+          <div id="starRating" class="star-rating">
+            <span class="star" data-value="1"><i class="fa fa-star"></i></span>
+            <span class="star" data-value="2"><i class="fa fa-star"></i></span>
+            <span class="star" data-value="3"><i class="fa fa-star"></i></span>
+            <span class="star" data-value="4"><i class="fa fa-star"></i></span>
+            <span class="star" data-value="5"><i class="fa fa-star"></i></span>
+          </div>
+          <input type="hidden" id="reviewRating" name="reviewRating" value="0" required />
+          <div style="text-align:right;margin-top:12px;"><button type="submit" class="submit-btn">Submit</button></div>
+          <div id="reviewSuccess" style="display:none;color:green;margin-top:8px">Thanks for your feedback!</div>
+        </form>
+      </div>
+    </div>
+
     <div id="callModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -2181,137 +1214,179 @@
       </div>
     </div>
     <script>
-      // --- Dynamic Testimonials & Review Modal ---
+      // Dynamic Testimonials & Review Modal (improved)
       document.addEventListener("DOMContentLoaded", function () {
-        // Fetch reviews from backend
+        // compute API base (same logic used elsewhere)
+        const API_BASE = (function () {
+          try {
+            const host = window.location.hostname;
+            if (host === "localhost") {
+              return `${window.location.protocol}//${host}:2500`;
+            }
+          } catch (e) {}
+          return "https://bike-builders-1.onrender.com";
+        })();
+
+        const testimonialsContainer = document.getElementById("testimonialsContainer");
+        const testimonialNav = document.getElementById("testimonialNav");
+
         function fetchReviews() {
           fetch(API_BASE + "/api/reviews")
             .then((res) => res.json())
-            .then((reviews) => {
-              displayTestimonials(reviews);
+            .then((data) => {
+              const reviews = data && data.success && Array.isArray(data.reviews) ? data.reviews : (Array.isArray(data) ? data : []);
+              renderTestimonialsSlider(reviews);
             })
-            .catch(() => {
-              displayTestimonials([]);
-            });
+            .catch(() => renderTestimonialsSlider([]));
         }
 
-        // Display testimonials
-        function displayTestimonials(reviews) {
-          const container = document.getElementById("testimonialsContainer");
-          const nav = document.getElementById("testimonialNav");
-          container.innerHTML = "";
-          nav.innerHTML = "";
-          if (!reviews || reviews.length === 0) {
-            container.innerHTML = `<div style='text-align:center;color:#888;padding:30px;'>No reviews yet. Be the first to share your experience!</div>`;
+        function createTestimonialEl(r) {
+          const div = document.createElement("div");
+          div.className = "testimonial";
+          const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(r.name||'Rider')}`;
+          const ratingStars = ("<i class=\"fas fa-star\"></i>").repeat(r.rating||5) + ("<i class=\"far fa-star\"></i>").repeat(Math.max(0,5-(r.rating||5)));
+          div.innerHTML = `
+            <div class="quote-icon"><i class="fa fa-quote-left" style="color:#ff6b00;"></i></div>
+            <div class="testimonial-header">
+              <img src="${avatar}" alt="${(r.name||'')}" class="user-avatar" />
+              <div class="user-info">
+                <h4 class="user-name">${escapeHtml(r.name||'Anonymous')}</h4>
+                <div class="rating">${ratingStars}</div>
+              </div>
+            </div>
+            <div class="quote">${escapeHtml(r.message||r.text||'')}</div>
+            <div class="testimonial-footer"><span class="testimonial-date">${new Date(r.date||Date.now()).toLocaleDateString()}</span></div>
+          `;
+          return div;
+        }
+
+        function escapeHtml(str){
+          return String(str)
+            .replace(/&/g,'&amp;')
+            .replace(/</g,'&lt;')
+            .replace(/>/g,'&gt;')
+            .replace(/"/g,'&quot;')
+            .replace(/'/g,'&#39;');
+        }
+
+        // builds slider grouping reviews into slides (slideSize items)
+        function renderTestimonialsSlider(reviews){
+          testimonialsContainer.innerHTML = '';
+          testimonialNav.innerHTML = '';
+          if(!reviews || reviews.length===0){
+            testimonialsContainer.innerHTML = '<div style="text-align:center;color:#888;padding:30px;">No reviews yet. Be the first to share your experience!</div>';
             return;
           }
-          reviews.forEach((review, idx) => {
-            const testimonial = document.createElement("div");
-            testimonial.className = "testimonial";
-            testimonial.innerHTML = `
-              <div class="quote-icon"><i class="fa fa-quote-left" style="color:#ff6b00;"></i></div>
-              <div class="testimonial-header">
-                <img src="https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
-                  review.name || "Rider"
-                )}&backgroundColor=ffb400,fff&radius=50" alt="avatar" style="width:40px;height:40px;border-radius:50%;margin-right:10px;vertical-align:middle;">
-                <span style="font-weight:bold;">${
-                  review.name || "Anonymous"
-                }</span>
-                <span style="color:#888;margin-left:8px;">${
-                  review.location || "India"
-                }</span>
-                <span style="margin-left:8px;color:#ffb400;">
-                  ${"★".repeat(review.rating || 5)}
-                </span>
-              </div>
-              <div style="margin:12px 0;">${review.text || ""}</div>
-              <div class="testimonial-footer" style="color:#aaa;font-size:0.9em;">${new Date(
-                review.date || Date.now()
-              ).toLocaleDateString()}</div>
-            `;
-            container.appendChild(testimonial);
-            // Nav dots
-            const dot = document.createElement("div");
-            dot.className = "testimonial-dot" + (idx === 0 ? " active" : "");
-            dot.dataset.idx = idx;
-            nav.appendChild(dot);
-          });
-          // Simple slider logic
-          let current = 0;
-          function showTestimonial(idx) {
-            Array.from(container.children).forEach((el, i) => {
-              el.style.display = i === idx ? "block" : "none";
-            });
-            Array.from(nav.children).forEach((el, i) => {
-              el.classList.toggle("active", i === idx);
-            });
-            current = idx;
+
+          // determine slide size responsive
+          const slideSize = window.innerWidth >= 900 ? 3 : 1;
+          const slides = [];
+          for(let i=0;i<reviews.length;i+=slideSize){
+            slides.push(reviews.slice(i,i+slideSize));
           }
-          showTestimonial(0);
-          Array.from(nav.children).forEach((dot, i) => {
-            dot.addEventListener("click", () => showTestimonial(i));
+
+          const slider = document.createElement('div');
+          slider.className = 'testimonial-slider';
+
+          slides.forEach((group, sidx) => {
+            const slide = document.createElement('div');
+            slide.className = 'testimonial-slide';
+            group.forEach(r => slide.appendChild(createTestimonialEl(r)));
+            slider.appendChild(slide);
+            // dot
+            const dot = document.createElement('div');
+            dot.className = 'testimonial-dot' + (sidx===0? ' active': '');
+            dot.dataset.idx = sidx;
+            testimonialNav.appendChild(dot);
+          });
+
+          // controls
+          const controls = document.createElement('div');
+          controls.className = 'testimonial-controls';
+          controls.innerHTML = `<button class="testimonial-prev" aria-label="Previous reviews">&#10094;</button><button class="testimonial-next" aria-label="Next reviews">&#10095;</button>`;
+
+          testimonialsContainer.appendChild(slider);
+          testimonialsContainer.appendChild(controls);
+
+          let current = 0;
+          const slidesEls = Array.from(slider.children);
+          function showSlide(n){
+            current = (n + slidesEls.length) % slidesEls.length;
+            slidesEls.forEach((el,i)=> el.style.display = i===current ? 'flex' : 'none');
+            Array.from(testimonialNav.children).forEach((d,i)=> d.classList.toggle('active', i===current));
+          }
+
+          showSlide(0);
+
+          controls.querySelector('.testimonial-prev').addEventListener('click', ()=> showSlide(current-1));
+          controls.querySelector('.testimonial-next').addEventListener('click', ()=> showSlide(current+1));
+          Array.from(testimonialNav.children).forEach((d,i)=> d.addEventListener('click', ()=> showSlide(i)));
+
+          // rebuild on resize (debounced)
+          let resizeTimer;
+          window.addEventListener('resize', ()=>{
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(()=> renderTestimonialsSlider(reviews),250);
           });
         }
 
-        // Modal logic
-        const reviewModal = document.getElementById("reviewModal");
-        const openReviewModal = document.getElementById("openReviewModal");
-        const closeReviewModal = document.getElementById("closeReviewModal");
-        openReviewModal.onclick = () => {
-          reviewModal.style.display = "block";
-        };
-        closeReviewModal.onclick = () => {
-          reviewModal.style.display = "none";
-        };
-        window.onclick = (e) => {
-          if (e.target === reviewModal) reviewModal.style.display = "none";
-        };
+        // wire review modal open/close and footer stars
+        const reviewModal = document.getElementById('reviewModal');
+        const openReviewModalBtn = document.getElementById('openReviewModal');
+        const closeReviewModalBtn = document.getElementById('closeReviewModal');
+        const footerStars = document.querySelectorAll('.footer-stars .star');
 
-        // Star rating logic
-        const starRating = document.getElementById("starRating");
-        const reviewRating = document.getElementById("reviewRating");
-        if (starRating) {
-          Array.from(starRating.children).forEach((star) => {
-            star.onclick = function () {
-              const val = this.getAttribute("data-value");
-              reviewRating.value = val;
-              Array.from(starRating.children).forEach((s, i) => {
-                s.style.color = i < val ? "#ffb400" : "#ccc";
-              });
-            };
-          });
-        }
+        if(openReviewModalBtn) openReviewModalBtn.addEventListener('click', ()=> reviewModal.style.display = 'block');
+        if(closeReviewModalBtn) closeReviewModalBtn.addEventListener('click', ()=> reviewModal.style.display = 'none');
+        window.addEventListener('click', (e)=> { if(e.target===reviewModal) reviewModal.style.display='none'; });
+        footerStars.forEach(s=> s.addEventListener('click', ()=> reviewModal.style.display='block'));
 
-        // Submit review
-        const reviewForm = document.getElementById("reviewForm");
-        reviewForm.onsubmit = function (e) {
-          e.preventDefault();
-          const data = {
-            name: reviewForm.reviewName.value,
-            location: reviewForm.reviewLocation.value,
-            text: reviewForm.reviewText.value,
-            rating: parseInt(reviewForm.reviewRating.value) || 5,
-          };
-          fetch(API_BASE + "/api/reviews", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          })
-            .then((res) => res.json())
-            .then(() => {
-              document.getElementById("reviewSuccess").style.display = "block";
-              setTimeout(() => {
-                reviewModal.style.display = "none";
-                document.getElementById("reviewSuccess").style.display = "none";
-                reviewForm.reset();
-                fetchReviews();
-              }, 1200);
-            })
-            .catch(() => {
-              alert("Failed to submit review. Please try again later.");
+        // star rating inside modal
+        const starRating = document.getElementById('starRating');
+        const reviewRatingInput = document.getElementById('reviewRating');
+        if(starRating){
+          Array.from(starRating.querySelectorAll('.star')).forEach(st => {
+            st.addEventListener('click', function(){
+              const v = Number(this.getAttribute('data-value'));
+              reviewRatingInput.value = v;
+              Array.from(starRating.children).forEach((s, i)=> s.classList.toggle('selected', i < v));
             });
-        };
+          });
+        }
 
+        // submit review
+        const reviewForm = document.getElementById('reviewForm');
+        reviewForm.addEventListener('submit', function(e){
+          e.preventDefault();
+          const name = document.getElementById('reviewName').value.trim();
+          const message = document.getElementById('reviewMessage').value.trim();
+          const rating = Number(document.getElementById('reviewRating').value);
+          if(!name || !message || !rating){
+            alert('Please fill all fields and select a rating.');
+            return;
+          }
+          fetch(API_BASE + '/api/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, message, rating })
+          }).then(r=> r.json()).then(data=>{
+            if(data && data.success){
+              document.getElementById('reviewSuccess').style.display = 'block';
+              setTimeout(()=>{
+                document.getElementById('reviewSuccess').style.display = 'none';
+                reviewModal.style.display = 'none';
+                reviewForm.reset();
+                // clear star selection
+                if(starRating) Array.from(starRating.children).forEach(s=> s.classList.remove('selected'));
+                fetchReviews();
+              },900);
+            } else {
+              alert('Failed to submit review.');
+            }
+          }).catch(()=> alert('Failed to submit review.'));
+        });
+
+        // initial load
         fetchReviews();
       });
     </script>

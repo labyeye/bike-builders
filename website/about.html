@@ -13,8 +13,14 @@
   <meta property="og:description" content="Learn about Bike Builders — Muzaffarpur's trusted pre-owned motorcycle specialists." />
   <meta property="og:url" content="https://www.bikebuilders.in/about.html" />
   <meta property="og:image" content="https://www.bikebuilders.in/assets/logo2.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link rel="preconnect" href="https://bike-builders-1.onrender.com">
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="about.css" />
+  <link rel="stylesheet" href="about.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -394,7 +400,7 @@
           &copy; 2023 Bike Builders. All rights reserved.
         </p>
         <a
-          href="www.pixelatenest.com"
+          href="www.https://www.pixelatenest.com/"
           style="color: #a9a9a9"
           data-translate="Designed By Pixelate Nest"
           >Designed By Pixelate Nest</a
@@ -519,10 +525,21 @@
         });
         // Open modal button (add anywhere you want, e.g. after testimonials)
         const openBtn = document.createElement("button");
-        openBtn.textContent = "Leave a Review";
         openBtn.className = "review-btn";
         openBtn.onclick = () => { reviewModal.style.display = "block"; };
         document.querySelector(".testimonials-section").appendChild(openBtn);
+        // Make footer stars open the review modal and pre-select rating
+        const footerStars = document.querySelectorAll('.footer-stars .star');
+        footerStars.forEach((fs, idx) => {
+          fs.addEventListener('click', () => {
+            reviewModal.style.display = 'block';
+            const ratingInput = document.getElementById('reviewRating');
+            const modalStars = reviewModal.querySelectorAll('.star');
+            const val = idx + 1;
+            if (ratingInput) ratingInput.value = val;
+            modalStars.forEach((s, i) => s.classList.toggle('selected', i < val));
+          });
+        });
       });
       document.addEventListener("DOMContentLoaded", function () {
         const translations = {
@@ -965,5 +982,6 @@
         </button>
       </div>
     </div>
+    <script src="./testimonials.js"></script>
   </body>
 </html>

@@ -3,6 +3,9 @@
   height: 100px;
   overflow: hidden;
 }
+.nav-links :hover{
+  color: black !important;
+}
 .nav-links a.active{
   color: black !important;
 }

@@ -23,8 +23,14 @@
     "keywords": "second hand bike in muzaffarpur, used bikes muzaffarpur, pre-owned motorcycles"
   }
   </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link rel="preconnect" href="https://bike-builders-1.onrender.com">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="inventory.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -659,6 +665,13 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
+          <div class="footer-stars" style="margin: 10px 0;">
+            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          </div>
           <div class="logo">
             <img
               src="./assets/logo2.svg"
@@ -715,7 +728,7 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2023 Bike Builders. All rights reserved.</p>
-        <a href="www.pixelatenest.com" style="color: #a9a9a9"
+        <a href="www.https://www.pixelatenest.com/" style="color: #a9a9a9"
           >Designed By Pixelate Nest</a
         >
       </div>
@@ -836,6 +849,8 @@
         }
       });
     </script>
+      <script src="./testimonials.js"></script>
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         let allBikes = [];
@@ -925,19 +940,32 @@
             return url;
           // server-relative path like /uploads/abc -> prefix with API_BASE
           if (url.startsWith("/")) return API_BASE + url;
-          // relative path (uploads/abc)
-          return API_BASE + "/" + url;
+          // plain filename or relative path: treat as uploads/<filename>
+          // e.g. old records may contain just the filename (abc.jpg)
+          return API_BASE + "/uploads/" + url.replace(/^\/+/, "");
         }
 
         function loadBikes() {
-          fetch(API_BASE + "/api/bikes")
-            .then((response) => {
-              if (!response.ok) {
-                throw new Error("Network response was not ok");
-              }
-              return response.json();
+          // Fetch backend config first to see if Cloudinary is enabled. If config fetch fails,
+          // fall back to fetching bikes without cloud filtering.
+          fetch(API_BASE + "/api/config")
+            .then((r) => r.json())
+            .then((cfg) => {
+              const USE_CLOUDINARY = cfg && cfg.success && cfg.cloudinary;
+
+              return fetch(API_BASE + "/api/bikes").then((response) => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+              }).then((data) => ({ data, USE_CLOUDINARY }));
             })
-            .then((data) => {
+            .catch((configErr) => {
+              // couldn't read config; proceed without cloudinary preference
+              return fetch(API_BASE + "/api/bikes").then((response) => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.json();
+              }).then((data) => ({ data, USE_CLOUDINARY: false }));
+            })
+            .then(({ data, USE_CLOUDINARY }) => {
               let bikes = [];
               if (Array.isArray(data)) {
                 bikes = data;
@@ -952,14 +980,19 @@
                 try {
                   const copy = Object.assign({}, b);
                   if (Array.isArray(copy.imageUrl)) {
-                    copy.imageUrl = copy.imageUrl.map((u) =>
-                      normalizeImageUrl(u)
-                    );
+                    copy.imageUrl = copy.imageUrl
+                      .map((u) => normalizeImageUrl(u))
+                      .filter((u) => {
+                        if (!u) return false;
+                        if (USE_CLOUDINARY) return /^https?:\/\//i.test(u);
+                        return true;
+                      });
                   } else if (
                     typeof copy.imageUrl === "string" &&
                     copy.imageUrl.trim() !== ""
                   ) {
-                    copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
+                    const nu = normalizeImageUrl(copy.imageUrl);
+                    copy.imageUrl = (!USE_CLOUDINARY || /^https?:\/\//i.test(nu)) ? [nu] : [];
                   } else {
                     copy.imageUrl = [];
                   }
@@ -2388,26 +2421,6 @@
       </div>
     </div>
   </body>
-  <!-- 5-Star Rating Display in Footer -->
-  <footer class="footer">
-    <div class="footer-stars" style="margin: 10px 0; text-align: center">
-      <span class="star" style="color: gold; font-size: 1.5em"
-        ><i class="fa fa-star"></i
-      ></span>
-      <span class="star" style="color: gold; font-size: 1.5em"
-        ><i class="fa fa-star"></i
-      ></span>
-      <span class="star" style="color: gold; font-size: 1.5em"
-        ><i class="fa fa-star"></i
-      ></span>
-      <span class="star" style="color: gold; font-size: 1.5em"
-        ><i class="fa fa-star"></i
-      ></span>
-      <span class="star" style="color: gold; font-size: 1.5em"
-        ><i class="fa fa-star"></i
-      ></span>
-    </div>
-  </footer>
   <script>
     // Dynamic testimonials fetch
     document.addEventListener("DOMContentLoaded", function () {
@@ -2536,12 +2549,23 @@
       });
       // Open modal button (add anywhere you want, e.g. after testimonials)
       const openBtn = document.createElement("button");
-      openBtn.textContent = "Leave a Review";
       openBtn.className = "review-btn";
       openBtn.onclick = () => {
         reviewModal.style.display = "block";
       };
       document.querySelector(".testimonials-section").appendChild(openBtn);
+      // Make footer stars open the review modal and pre-select rating
+      const footerStars = document.querySelectorAll('.footer-stars .star');
+      footerStars.forEach((fs, idx) => {
+        fs.addEventListener('click', () => {
+          reviewModal.style.display = 'block';
+          const ratingInput = document.getElementById('reviewRating');
+          const modalStars = reviewModal.querySelectorAll('.star');
+          const val = idx + 1;
+          if (ratingInput) ratingInput.value = val;
+          modalStars.forEach((s, i) => s.classList.toggle('selected', i < val));
+        });
+      });
     });
   </script>
 </html>

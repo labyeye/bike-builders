@@ -10,6 +10,7 @@ import BuyRequests from "./pages/BuyRequests";
 import AdminLogin from "./pages/Login";
 import Bookings from "./pages/Bookings";
 import Updates from "./pages/Updates";
+import Reviews from "./pages/Reviews";
 
 function App() {
   // You would typically manage user authentication state here
@@ -31,6 +32,7 @@ function App() {
           element={<SellRequests user={user} />}
         />
         <Route path="/admin/updates" element={<Updates user={user} />} />
+        <Route path="/admin/reviews" element={<Reviews user={user} />} />
         <Route
           path="/admin/quote-requests"
           element={<BuyRequests user={user} />}

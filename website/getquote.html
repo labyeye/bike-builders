@@ -4,6 +4,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>Get a Quote | Bike Builders</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+    <link rel="preconnect" href="https://bike-builders-1.onrender.com">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="quote.css" />
 
@@ -439,7 +444,7 @@
       </div>
       <div class="footer-bottom">
         <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">&copy; 2023 Bike Builders. All rights reserved.</p>
-        <a href="www.pixelatenest.com" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed By Pixelate Nest</a>
+        <a href="www.https://www.pixelatenest.com/" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed By Pixelate Nest</a>
       </div>
     </footer>
     <script>
@@ -560,10 +565,21 @@
         });
         // Open modal button (add anywhere you want, e.g. after testimonials)
         const openBtn = document.createElement("button");
-        openBtn.textContent = "Leave a Review";
         openBtn.className = "review-btn";
         openBtn.onclick = () => { reviewModal.style.display = "block"; };
         document.querySelector(".testimonials-section").appendChild(openBtn);
+        // Make footer stars open the review modal and pre-select rating
+        const footerStars = document.querySelectorAll('.footer-stars .star');
+        footerStars.forEach((fs, idx) => {
+          fs.addEventListener('click', () => {
+            reviewModal.style.display = 'block';
+            const ratingInput = document.getElementById('reviewRating');
+            const modalStars = reviewModal.querySelectorAll('.star');
+            const val = idx + 1;
+            if (ratingInput) ratingInput.value = val;
+            modalStars.forEach((s, i) => s.classList.toggle('selected', i < val));
+          });
+        });
       });
       document.addEventListener("DOMContentLoaded", function () {
         const translations = {

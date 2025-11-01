@@ -9,6 +9,7 @@ const cors = require("cors");
 const multer = require("multer");
 const fs = require("fs");
 const upload = multer({ dest: "uploads/" });
+const cloudinary = require("cloudinary");
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -31,7 +32,7 @@ app.use(bodyParser.json());
 
 // If the app is behind a proxy (Render, Heroku, etc.) allow Express to
 // trust the proxy so secure cookies and req.protocol are handled correctly.
-app.set('trust proxy', 1); // trust first proxy
+app.set("trust proxy", 1); // trust first proxy
 // CORS configuration
 // In development we allow any origin to simplify local testing (avoids common CORB/CORS issues).
 // In production we restrict to a known allowlist.
@@ -80,6 +81,58 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+// Cloudinary configuration (optional). If not provided, server will fall back to local uploads.
+const CLOUDINARY_ENABLED =
+  !!process.env.CLOUDINARY_CLOUD_NAME &&
+  !!process.env.CLOUDINARY_API_KEY &&
+  !!process.env.CLOUDINARY_API_SECRET;
+
+if (CLOUDINARY_ENABLED) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+  console.log("Cloudinary configured: ", process.env.CLOUDINARY_CLOUD_NAME);
+} else {
+  console.log("Cloudinary not configured - falling back to local uploads");
+}
+
+// Helper to upload a local file to Cloudinary and remove the local file afterwards.
+async function uploadFileToCloudinary(localPath, options = {}) {
+  try {
+    const res = await cloudinary.uploader.upload(localPath, options);
+    // remove local file after upload if it exists
+    try {
+      if (fs.existsSync(localPath)) fs.unlinkSync(localPath);
+    } catch (e) {
+      console.warn("Could not remove temp file:", localPath, e.message);
+    }
+    return { url: res.secure_url, public_id: res.public_id };
+  } catch (err) {
+    console.error("Cloudinary upload failed:", err.message || err);
+    return null;
+  }
+}
+
+// Attempt to extract Cloudinary public_id from a hosted URL.
+function extractCloudinaryPublicId(url) {
+  try {
+    const u = new URL(url);
+    const parts = u.pathname.split("/");
+    const uploadIndex = parts.findIndex((p) => p === "upload");
+    if (uploadIndex === -1) return null;
+    let publicPath = parts.slice(uploadIndex + 1).join("/");
+    // remove version prefix like v123456
+    publicPath = publicPath.replace(/^v\d+\//, "");
+    // strip extension
+    publicPath = publicPath.replace(/\.[a-zA-Z0-9]+$/, "");
+    return publicPath;
+  } catch (e) {
+    return null;
+  }
+}
 
 // Updated session configuration
 app.use(
@@ -387,6 +440,15 @@ app.get("/api/admin/dashboard", isAuthenticated, async (req, res) => {
   }
 });
 
+// Public config endpoint so frontends can detect whether Cloudinary is enabled
+app.get("/api/config", (req, res) => {
+  try {
+    res.json({ success: true, cloudinary: CLOUDINARY_ENABLED });
+  } catch (e) {
+    res.status(500).json({ success: false, error: "Failed to fetch config" });
+  }
+});
+
 app.get("/api/admin/bike/:id", isAuthenticated, async (req, res) => {
   try {
     const bike = await Bike.findById(req.params.id);
@@ -408,14 +470,17 @@ app.put(
     try {
       const bike = await Bike.findById(req.params.id);
       if (!bike) {
-        return res.status(404).json({ success: false, error: "Bike not found" });
+        return res
+          .status(404)
+          .json({ success: false, error: "Bike not found" });
       }
 
       // Parse fields that may come as strings
       // removeImages can be sent as multiple fields (removeImages[]) or a single string
       let removeImages = [];
       if (req.body.removeImages) {
-        if (Array.isArray(req.body.removeImages)) removeImages = req.body.removeImages;
+        if (Array.isArray(req.body.removeImages))
+          removeImages = req.body.removeImages;
         else {
           // It may be a JSON string or a single value
           try {
@@ -441,19 +506,36 @@ app.put(
       const normalizeToUrl = (val) => {
         if (!val) return val;
         if (val.startsWith("/uploads/")) return val;
-        if (val.includes("/uploads/")) return val.substring(val.indexOf("/uploads/"));
+        if (val.includes("/uploads/"))
+          return val.substring(val.indexOf("/uploads/"));
         return `/uploads/${val.split("/").pop()}`;
       };
 
       const removeUrls = removeImages.map(normalizeToUrl);
 
-      // Delete files from disk for any removed images
+      // Delete files from disk for any removed images, and attempt Cloudinary deletion when configured
       for (const url of removeUrls) {
         try {
-          const filename = url.split("/").pop();
-          const filepath = path.join(__dirname, "uploads", filename);
-          if (fs.existsSync(filepath)) {
-            fs.unlinkSync(filepath);
+          if (url && url.startsWith("/uploads/")) {
+            const filename = url.split("/").pop();
+            const filepath = path.join(__dirname, "uploads", filename);
+            if (fs.existsSync(filepath)) {
+              fs.unlinkSync(filepath);
+            }
+          } else if (url && url.startsWith("http") && CLOUDINARY_ENABLED) {
+            // Try to derive public_id and remove from Cloudinary
+            const publicId = extractCloudinaryPublicId(url);
+            if (publicId) {
+              try {
+                await cloudinary.uploader.destroy(publicId);
+              } catch (e) {
+                console.warn(
+                  "Failed to delete Cloudinary resource:",
+                  publicId,
+                  e.message || e
+                );
+              }
+            }
           }
         } catch (err) {
           console.warn("Failed to delete file:", url, err.message);
@@ -461,7 +543,9 @@ app.put(
       }
 
       // Filter out removed images from current list
-      let existingImages = Array.isArray(bike.imageUrl) ? bike.imageUrl.slice() : [];
+      let existingImages = Array.isArray(bike.imageUrl)
+        ? bike.imageUrl.slice()
+        : [];
       existingImages = existingImages.filter((u) => !removeUrls.includes(u));
 
       // Reorder existing images if an order was provided
@@ -478,10 +562,32 @@ app.put(
         existingImages = ordered;
       }
 
-      // Handle newly uploaded files
+      // Handle newly uploaded files (upload to Cloudinary when configured)
       let uploadedUrls = [];
       if (req.files && req.files.length > 0) {
-        uploadedUrls = req.files.map((file) => `/uploads/${file.filename}`);
+        for (const file of req.files) {
+          try {
+            if (CLOUDINARY_ENABLED) {
+              const up = await uploadFileToCloudinary(file.path, {
+                folder: "bike-builders",
+              });
+              if (up && up.url) uploadedUrls.push(up.url);
+              else uploadedUrls.push(`/uploads/${file.filename}`);
+            } else {
+              uploadedUrls.push(`/uploads/${file.filename}`);
+            }
+          } catch (e) {
+            console.warn(
+              "Error handling uploaded file:",
+              file.path,
+              e.message || e
+            );
+            // still include local path as fallback
+            uploadedUrls.push(`/uploads/${file.filename}`);
+          } finally {
+            // ensure temp file removed when Cloudinary used; uploadFileToCloudinary removes it; otherwise keep file on disk for static serving
+          }
+        }
       }
 
       // Build the final image array and cap to 5
@@ -491,20 +597,26 @@ app.put(
       const updated = {
         brand: req.body.brand || bike.brand,
         model: req.body.model || bike.model,
-        modelYear: req.body.modelYear ? Number(req.body.modelYear) : bike.modelYear,
+        modelYear: req.body.modelYear
+          ? Number(req.body.modelYear)
+          : bike.modelYear,
         kmDriven: req.body.kmDriven ? Number(req.body.kmDriven) : bike.kmDriven,
         ownership: req.body.ownership || bike.ownership,
         fuelType: req.body.fuelType || bike.fuelType,
         daysOld: req.body.daysOld ? Number(req.body.daysOld) : bike.daysOld,
         price: req.body.price ? Number(req.body.price) : bike.price,
-        downPayment: req.body.downPayment ? Number(req.body.downPayment) : bike.downPayment,
+        downPayment: req.body.downPayment
+          ? Number(req.body.downPayment)
+          : bike.downPayment,
         emiAvailable:
           req.body.emiAvailable === "true" || req.body.emiAvailable === true
             ? true
             : req.body.emiAvailable === "false"
             ? false
             : bike.emiAvailable,
-        emiAmount: req.body.emiAmount ? Number(req.body.emiAmount) : bike.emiAmount,
+        emiAmount: req.body.emiAmount
+          ? Number(req.body.emiAmount)
+          : bike.emiAmount,
         imageUrl: finalImages,
         status: req.body.status || bike.status,
       };
@@ -540,8 +652,6 @@ app.delete(
     }
   }
 );
-
-
 
 // Staff management routes
 app.get("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
@@ -623,7 +733,30 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
         .json({ success: false, error: "Missing required fields" });
     }
 
-    const images = req.files ? req.files.map((file) => file.filename) : [];
+    // Upload files to Cloudinary when available, otherwise store local filenames
+    const images = [];
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        try {
+          if (CLOUDINARY_ENABLED) {
+            const up = await uploadFileToCloudinary(file.path, {
+              folder: "bike-builders/sell-requests",
+            });
+            if (up && up.url) images.push(up.url);
+            else images.push(file.filename);
+          } else {
+            images.push(file.filename);
+          }
+        } catch (e) {
+          console.warn(
+            "Failed to process sell-request file:",
+            file.path,
+            e.message || e
+          );
+          images.push(file.filename);
+        }
+      }
+    }
 
     const sellRequest = new SellRequest({
       brand,
@@ -647,60 +780,91 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
 });
 
 // Accept multipart/form-data for image uploads
-app.post("/api/admin/bike", isAuthenticated, upload.array("images", 5), async (req, res) => {
-  try {
-    // Build imageUrl array from uploaded files (if any)
-    let imageUrls = [];
-    if (req.files && req.files.length > 0) {
-      imageUrls = req.files.map((file) => `/uploads/${file.filename}`);
-    } else if (req.body.imageUrls) {
-      // fallback to any imageUrls provided in body
-      imageUrls = Array.isArray(req.body.imageUrls) ? req.body.imageUrls : [req.body.imageUrls];
-      imageUrls = imageUrls.filter((u) => u && u.trim() !== "");
+app.post(
+  "/api/admin/bike",
+  isAuthenticated,
+  upload.array("images", 5),
+  async (req, res) => {
+    try {
+      // Build imageUrl array from uploaded files (if any). Upload to Cloudinary when configured.
+      let imageUrls = [];
+      if (req.files && req.files.length > 0) {
+        for (const file of req.files) {
+          try {
+            if (CLOUDINARY_ENABLED) {
+              const up = await uploadFileToCloudinary(file.path, {
+                folder: "bike-builders",
+              });
+              if (up && up.url) imageUrls.push(up.url);
+              else imageUrls.push(`/uploads/${file.filename}`);
+            } else {
+              imageUrls.push(`/uploads/${file.filename}`);
+            }
+          } catch (e) {
+            console.warn(
+              "Failed to handle uploaded bike image:",
+              file.path,
+              e.message || e
+            );
+            imageUrls.push(`/uploads/${file.filename}`);
+          }
+        }
+      } else if (req.body.imageUrls) {
+        // fallback to any imageUrls provided in body
+        imageUrls = Array.isArray(req.body.imageUrls)
+          ? req.body.imageUrls
+          : [req.body.imageUrls];
+        imageUrls = imageUrls.filter((u) => u && u.trim() !== "");
+      }
+
+      const bikeData = {
+        brand: req.body.brand,
+        model: req.body.model,
+        modelYear: Number(req.body.modelYear),
+        kmDriven: Number(req.body.kmDriven),
+        ownership: req.body.ownership,
+        fuelType: req.body.fuelType,
+        daysOld: Number(req.body.daysOld),
+        price: Number(req.body.price),
+        downPayment: Number(req.body.downPayment),
+        emiAvailable:
+          req.body.emiAvailable === "true" || req.body.emiAvailable === true,
+        emiAmount: req.body.emiAvailable ? Number(req.body.emiAmount) : null,
+        imageUrl: imageUrls,
+        status: req.body.status,
+        stock: req.body.stock ? Number(req.body.stock) : 1,
+      };
+
+      // Validation
+      if (
+        !bikeData.brand ||
+        !bikeData.model ||
+        isNaN(bikeData.modelYear) ||
+        isNaN(bikeData.kmDriven) ||
+        !bikeData.ownership ||
+        !bikeData.fuelType ||
+        isNaN(bikeData.daysOld) ||
+        isNaN(bikeData.price) ||
+        isNaN(bikeData.downPayment) ||
+        !bikeData.status
+      ) {
+        return res
+          .status(400)
+          .json({
+            success: false,
+            error: "Invalid data. Please check all required fields.",
+          });
+      }
+
+      const bike = new Bike(bikeData);
+      await bike.save();
+      res.json({ success: true, bike });
+    } catch (err) {
+      console.error("Error adding bike:", err);
+      res.status(500).json({ success: false, error: "Failed to add bike" });
     }
-
-    const bikeData = {
-      brand: req.body.brand,
-      model: req.body.model,
-      modelYear: Number(req.body.modelYear),
-      kmDriven: Number(req.body.kmDriven),
-      ownership: req.body.ownership,
-      fuelType: req.body.fuelType,
-      daysOld: Number(req.body.daysOld),
-      price: Number(req.body.price),
-      downPayment: Number(req.body.downPayment),
-      emiAvailable: req.body.emiAvailable === 'true' || req.body.emiAvailable === true,
-      emiAmount: req.body.emiAvailable ? Number(req.body.emiAmount) : null,
-      imageUrl: imageUrls,
-      status: req.body.status,
-      stock: req.body.stock ? Number(req.body.stock) : 1,
-    };
-
-    // Validation
-    if (
-      !bikeData.brand ||
-      !bikeData.model ||
-      isNaN(bikeData.modelYear) ||
-      isNaN(bikeData.kmDriven) ||
-      !bikeData.ownership ||
-      !bikeData.fuelType ||
-      isNaN(bikeData.daysOld) ||
-      isNaN(bikeData.price) ||
-      isNaN(bikeData.downPayment) ||
-      !bikeData.status
-    ) {
-      return res.status(400).json({ success: false, error: "Invalid data. Please check all required fields." });
-    }
-
-    const bike = new Bike(bikeData);
-    await bike.save();
-    res.json({ success: true, bike });
-  } catch (err) {
-    console.error("Error adding bike:", err);
-    res.status(500).json({ success: false, error: "Failed to add bike" });
   }
-});
-
+);
 
 app.get("/api/admin/quote-requests", isAuthenticated, async (req, res) => {
   try {
@@ -876,39 +1040,86 @@ app.post(
   async (req, res) => {
     try {
       const { title, link } = req.body;
-      if (!title) return res.status(400).json({ success: false, error: "Title is required" });
-      if (!req.file) return res.status(400).json({ success: false, error: "Poster image is required" });
+      if (!title)
+        return res
+          .status(400)
+          .json({ success: false, error: "Title is required" });
+      if (!req.file)
+        return res
+          .status(400)
+          .json({ success: false, error: "Poster image is required" });
 
-      const posterUrl = `/uploads/${req.file.filename}`;
-      const update = new Update({ title, link: link || null, poster: posterUrl });
+      let posterUrl = `/uploads/${req.file.filename}`;
+      if (CLOUDINARY_ENABLED) {
+        const up = await uploadFileToCloudinary(req.file.path, {
+          folder: "bike-builders/updates",
+        });
+        if (up && up.url) posterUrl = up.url;
+      }
+      const update = new Update({
+        title,
+        link: link || null,
+        poster: posterUrl,
+      });
       await update.save();
       res.json({ success: true, update });
     } catch (err) {
       console.error("Error creating update:", err);
-      res.status(500).json({ success: false, error: "Failed to create update" });
+      res
+        .status(500)
+        .json({ success: false, error: "Failed to create update" });
     }
   }
 );
 
 // Admin: delete update
-app.delete("/api/admin/updates/:id", isAuthenticated, isAdmin, async (req, res) => {
-  try {
-    const upd = await Update.findByIdAndDelete(req.params.id);
-    if (!upd) return res.status(404).json({ success: false, error: "Update not found" });
-    // delete poster file from disk
+app.delete(
+  "/api/admin/updates/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
     try {
-      const filename = upd.poster.split("/").pop();
-      const filepath = path.join(__dirname, "uploads", filename);
-      if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
-    } catch (e) {
-      console.warn("Failed deleting poster file:", e.message);
+      const upd = await Update.findByIdAndDelete(req.params.id);
+      if (!upd)
+        return res
+          .status(404)
+          .json({ success: false, error: "Update not found" });
+      // delete poster resource (local file or Cloudinary) if possible
+      try {
+        if (upd.poster && upd.poster.startsWith("/uploads/")) {
+          const filename = upd.poster.split("/").pop();
+          const filepath = path.join(__dirname, "uploads", filename);
+          if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
+        } else if (
+          upd.poster &&
+          upd.poster.startsWith("http") &&
+          CLOUDINARY_ENABLED
+        ) {
+          const publicId = extractCloudinaryPublicId(upd.poster);
+          if (publicId) {
+            try {
+              await cloudinary.uploader.destroy(publicId);
+            } catch (e) {
+              console.warn(
+                "Failed deleting Cloudinary poster:",
+                publicId,
+                e.message || e
+              );
+            }
+          }
+        }
+      } catch (e) {
+        console.warn("Failed deleting poster file:", e.message);
+      }
+      res.json({ success: true });
+    } catch (err) {
+      console.error("Error deleting update:", err);
+      res
+        .status(500)
+        .json({ success: false, error: "Failed to delete update" });
     }
-    res.json({ success: true });
-  } catch (err) {
-    console.error("Error deleting update:", err);
-    res.status(500).json({ success: false, error: "Failed to delete update" });
   }
-});
+);
 
 app.get("/api/admin/offers", isAuthenticated, async (req, res) => {
   try {
@@ -1014,6 +1225,62 @@ app.get("/api/reviews", async (req, res) => {
     res.status(500).json({ success: false, error: "Failed to fetch reviews" });
   }
 });
+
+// Admin: update a review
+app.put(
+  "/api/admin/reviews/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name, message, rating } = req.body;
+      if (!name || !message || !rating) {
+        return res
+          .status(400)
+          .json({ success: false, error: "Missing fields" });
+      }
+      const updated = await Review.findByIdAndUpdate(
+        id,
+        { name, message, rating, date: new Date() },
+        { new: true }
+      );
+      if (!updated)
+        return res
+          .status(404)
+          .json({ success: false, error: "Review not found" });
+      res.json({ success: true, review: updated });
+    } catch (err) {
+      console.error("Error updating review:", err);
+      res
+        .status(500)
+        .json({ success: false, error: "Failed to update review" });
+    }
+  }
+);
+
+// Admin: delete a review
+app.delete(
+  "/api/admin/reviews/:id",
+  isAuthenticated,
+  isAdmin,
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const removed = await Review.findByIdAndDelete(id);
+      if (!removed)
+        return res
+          .status(404)
+          .json({ success: false, error: "Review not found" });
+      res.json({ success: true });
+    } catch (err) {
+      console.error("Error deleting review:", err);
+      res
+        .status(500)
+        .json({ success: false, error: "Failed to delete review" });
+    }
+  }
+);
 
 // Error handling middleware
 app.use((err, req, res, next) => {

@@ -14,10 +14,15 @@
   <meta property="og:description" content="Get in touch with Bike Builders for second hand bikes in Muzaffarpur, support, and showroom visits." />
   <meta property="og:url" content="https://www.bikebuilders.in/contact.html" />
   <meta property="og:image" content="https://www.bikebuilders.in/assets/logo2.svg" />
-  <link rel="stylesheet" href="globals.css" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="contact.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+   <link rel="preconnect" href="https://code.jquery.com" crossorigin>
+   <link rel="preconnect" href="https://bike-builders-1.onrender.com">
+   <link rel="stylesheet" href="globals.css" />
+   <link rel="stylesheet" href="style.css" />
+   <link rel="stylesheet" href="contact.css" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 </head>
 
 <body>
@@ -240,73 +245,13 @@
     </div>
     <div class="footer-bottom">
       <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">&copy; 2023 Bike Builders. All rights reserved.</p>
-      <a href="www.pixelatenest.com" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed By Pixelate Nest</a>
+      <a href="www.https://www.pixelatenest.com/" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed By Pixelate Nest</a>
     </div>
   </footer>
-  <script>
-    // Dynamic testimonials fetch
-    document.addEventListener("DOMContentLoaded", function () {
-      function getInitials(name) {
-        if (!name) return "U";
-        return name
-          .split(" ")
-          .map((n) => n[0].toUpperCase())
-          .join("")
-          .slice(0, 2);
-      }
-      function randomAvatar(name) {
-        // Use dicebear for demo, fallback to initials
-        const seed = name ? name.replace(/\s/g, "") : "user";
-        return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(seed)}`;
-      }
-      function renderTestimonials(reviews) {
-        const container = document.getElementById("dynamic-testimonials");
-        if (!reviews || reviews.length === 0) {
-          container.innerHTML = '<div class="no-reviews">No reviews yet.</div>';
-          return;
-        }
-        container.innerHTML = reviews
-          .map((r) => `
-            <div class="testimonial" itemscope itemtype="https://schema.org/Review">
-              <div class="quote-icon">
-                <i class="fas fa-quote-right" aria-hidden="true"></i>
-              </div>
-              <div class="testimonial-header">
-                <img src="${randomAvatar(r.name)}" alt="${r.name}" class="user-avatar" width="60" height="60" loading="lazy" />
-                <div class="user-info">
-                  <h4 class="user-name" itemprop="author">${r.name}</h4>
-                  <div class="rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
-                    <meta itemprop="ratingValue" content="${r.rating}" />
-                    ${'<i class="fas fa-star"></i>'.repeat(r.rating)}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
-                  </div>
-                </div>
-              </div>
-              <div class="quote" itemprop="reviewBody">${r.message}</div>
-              <div class="testimonial-footer">
-                <span class="testimonial-date">${new Date(r.date).toLocaleDateString()}</span>
-              </div>
-              <meta itemprop="itemReviewed" content="Bike Builders" />
-            </div>
-          `)
-          .join("");
-      }
-      function fetchTestimonials() {
-        fetch("https://bike-builders-1.onrender.com/api/reviews")
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success && Array.isArray(data.reviews)) {
-              renderTestimonials(data.reviews);
-            } else {
-              renderTestimonials([]);
-            }
-          })
-          .catch(() => {
-            renderTestimonials([]);
-          });
-      }
-      fetchTestimonials();
+      <script src="./testimonials.js"></script>
 
-      // Review Modal logic
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
       const reviewModal = document.getElementById("reviewModal");
       const closeReviewModalBtn = reviewModal.querySelector(".close");
       closeReviewModalBtn.addEventListener("click", () => {
@@ -317,7 +262,6 @@
           reviewModal.style.display = "none";
         }
       });
-      // Star rating logic
       const stars = reviewModal.querySelectorAll(".star");
       const ratingInput = document.getElementById("reviewRating");
       stars.forEach((star) => {
@@ -361,10 +305,21 @@
       });
       // Open modal button (add anywhere you want, e.g. after testimonials)
       const openBtn = document.createElement("button");
-      openBtn.textContent = "Leave a Review";
       openBtn.className = "review-btn";
       openBtn.onclick = () => { reviewModal.style.display = "block"; };
       document.querySelector(".testimonials-section").appendChild(openBtn);
+      // Make footer stars open the review modal and pre-select rating
+      const footerStars = document.querySelectorAll('.footer-stars .star');
+      footerStars.forEach((fs, idx) => {
+        fs.addEventListener('click', () => {
+          reviewModal.style.display = 'block';
+          const ratingInput = document.getElementById('reviewRating');
+          const modalStars = reviewModal.querySelectorAll('.star');
+          const val = idx + 1;
+          if (ratingInput) ratingInput.value = val;
+          modalStars.forEach((s, i) => s.classList.toggle('selected', i < val));
+        });
+      });
     });
     document.addEventListener("DOMContentLoaded", function () {
       const translations = {

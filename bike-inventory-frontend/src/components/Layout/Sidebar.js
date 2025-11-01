@@ -12,6 +12,7 @@ import {
   Notifications,
   BookOnline
 } from '@mui/icons-material';
+import { RateReview } from '@mui/icons-material';
 import '../../css/Sidebar.css';
 
 const DashSidebar = ({ user }) => {
@@ -103,6 +104,12 @@ const DashSidebar = ({ user }) => {
               <NavLink className="nav-link" to="/admin/staff">
                 <People />
                 <span>Manage Users</span>
+              </NavLink>
+            </div>
+            <div className="nav-item">
+              <NavLink className="nav-link" to="/admin/reviews">
+                <RateReview />
+                <span>Manage Reviews</span>
               </NavLink>
             </div>
           </>
