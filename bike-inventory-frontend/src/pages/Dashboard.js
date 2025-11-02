@@ -23,7 +23,7 @@ const Dashboard = ({ user }) => {
     comingSoon: 0,
     sold: 0,
   });
-  const [bookingCount, setBookingCount] = useState(0);
+  const [bookingCount, setBookingCount] = useState(null);
   const [loading, setLoading] = useState(true);
   const [authChecked, setAuthChecked] = useState(false);
 
@@ -61,7 +61,18 @@ const Dashboard = ({ user }) => {
           );
           if (bikesRes.ok) {
             const bikesData = await bikesRes.json();
-            setBikes(bikesData.bikes || []);
+            const bikesList = bikesData.bikes || [];
+            setBikes(bikesList);
+
+            // Derive stats from the public bikes list so the cards show meaningful
+            // values even if the admin dashboard endpoint is unauthorized.
+            const derivedStats = {
+              total: bikesList.length,
+              available: bikesList.filter((b) => b.status === "Available").length,
+              comingSoon: bikesList.filter((b) => b.status === "Coming Soon").length,
+              sold: bikesList.filter((b) => b.status === "Sold Out").length,
+            };
+            setStats(derivedStats);
           } else {
             console.warn("Failed to fetch bikes, status:", bikesRes.status);
             setBikes([]);
