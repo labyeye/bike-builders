@@ -956,6 +956,57 @@
         }
 
         function loadBikes() {
+          // Use cached bikes from homepage prefetch if available (short TTL)
+          try {
+            const cacheKey = 'cachedBikes';
+            const tsKey = 'cachedBikesTS';
+            const maxAge = 5 * 60 * 1000; // 5 minutes
+            const now = Date.now();
+            const cached = localStorage.getItem(cacheKey);
+            const cachedTS = localStorage.getItem(tsKey);
+            if (cached && cachedTS && now - parseInt(cachedTS, 10) <= maxAge) {
+              let bikes = JSON.parse(cached || '[]');
+              // Normalize image URLs (assume non-cloudinary cached data)
+              bikes = (bikes || []).map((b) => {
+                try {
+                  const copy = Object.assign({}, b);
+                  if (Array.isArray(copy.imageUrl)) {
+                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u)).filter(Boolean);
+                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
+                  } else {
+                    copy.imageUrl = [];
+                  }
+                  return copy;
+                } catch (e) {
+                  return b;
+                }
+              });
+              allBikes = bikes;
+              try { if (typeof renderBrandCounts === 'function') renderBrandCounts(bikes); } catch (e) {}
+              if (bikes.length === 0) showNoBikesMessage(); else applyAllFilters();
+
+              // Refresh cache in background
+              try {
+                fetch(API_BASE + '/api/config')
+                  .then((r) => r.json())
+                  .then(() => fetch(API_BASE + '/api/bikes'))
+                  .then((r) => r.json())
+                  .then((data) => {
+                    let fresh = [];
+                    if (Array.isArray(data)) fresh = data;
+                    else if (data && Array.isArray(data.bikes)) fresh = data.bikes;
+                    localStorage.setItem(cacheKey, JSON.stringify(fresh));
+                    localStorage.setItem(tsKey, String(Date.now()));
+                  })
+                  .catch(() => {});
+              } catch (e) {}
+
+              return;
+            }
+          } catch (e) {
+            /* ignore cache errors */
+          }
           fetch(API_BASE + "/api/config")
             .then((r) => r.json())
             .then((cfg) => {

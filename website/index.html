@@ -1407,6 +1407,43 @@
           }catch(e){/* ignore */}
         }
         updateViewAllCount();
+        // Prefetch bikes/featured data into localStorage so inventory can read it later
+        function prefetchInventoryCache(){
+          try{
+            const maxAge = 5 * 60 * 1000; // 5 minutes
+            const now = Date.now();
+            // bikes
+            const bikesTS = localStorage.getItem('cachedBikesTS');
+            if (!bikesTS || now - parseInt(bikesTS,10) > maxAge) {
+              fetch(API_BASE + '/api/bikes')
+                .then(r => r.json())
+                .then(data => {
+                  let bikes = [];
+                  if (data && data.success && Array.isArray(data.bikes)) bikes = data.bikes;
+                  else if (Array.isArray(data)) bikes = data;
+                  localStorage.setItem('cachedBikes', JSON.stringify(bikes));
+                  localStorage.setItem('cachedBikesTS', String(Date.now()));
+                })
+                .catch(()=>{});
+            }
+
+            // featured bikes
+            const featTS = localStorage.getItem('cachedFeaturedTS');
+            if (!featTS || now - parseInt(featTS,10) > maxAge) {
+              fetch(API_BASE + '/api/featured-bikes')
+                .then(r => r.json())
+                .then(data => {
+                  let bikes = [];
+                  if (data && data.success && Array.isArray(data.data)) bikes = data.data;
+                  else if (Array.isArray(data)) bikes = data;
+                  localStorage.setItem('cachedFeaturedBikes', JSON.stringify(bikes));
+                  localStorage.setItem('cachedFeaturedTS', String(Date.now()));
+                })
+                .catch(()=>{});
+            }
+          }catch(e){/* ignore */}
+        }
+        prefetchInventoryCache();
       });
     </script>
   </body>
