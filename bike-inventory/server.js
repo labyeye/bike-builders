@@ -374,13 +374,20 @@ app.post("/api/admin/login", async (req, res) => {
     // Update last login
     await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
 
-    console.log(
-      "Login successful for:",
-      user.username,
-      "Session:",
-      req.session.user
-    ); // Add logging
-    res.json({ success: true, user: req.session.user });
+    // Ensure the session is saved before sending the response. Some stores
+    // or environments may not persist the session immediately which can
+    // cause subsequent requests (from the client) to arrive without the
+    // session cookie/session data available.
+    req.session.save((err) => {
+      if (err) {
+        console.error("Session save error after login:", err);
+        // Still respond, but log the problem for diagnostics.
+        return res.status(500).json({ success: false, message: "Server error" });
+      }
+
+      console.log("Login successful for:", user.username, "Session:", req.session.user, "SessionID:", req.sessionID);
+      res.json({ success: true, user: req.session.user });
+    });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ success: false, message: "Server error" });
@@ -398,6 +405,13 @@ app.get("/api/admin/check-auth", (req, res) => {
     req.session.isAuthenticated,
     req.session.user
   ); // Add logging
+
+  // Helpful debug output: show incoming Cookie header and current session id.
+  // This will help determine whether the browser sent the cookie with the request.
+  try {
+    console.log("Request cookies:", req.headers.cookie);
+    console.log("Current sessionID:", req.sessionID);
+  } catch (e) {}
 
   if (req.session.isAuthenticated && req.session.user) {
     res.json({ isAuthenticated: true, user: req.session.user });
