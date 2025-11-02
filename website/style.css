@@ -826,6 +826,11 @@ body.dark-mode .bike-slider .bike-card h3 {
   z-index: 2;
 }
 
+/* Status colors (copied from inventory.css so homepage badges render correctly) */
+.status-available { background-color: #28a745; }
+.status-sold { background-color: #dc3545; }
+.status-coming-soon { background-color: #ffc107; color: #000; }
+
 
 
 /* View Details Button - Updated */
@@ -3016,19 +3021,19 @@ body.dark-mode .section-header h2 {
   position: absolute;
   left: 18px;
   right: 18px;
-  bottom: 28px;
-  text-align: center;
+  bottom: 260px;
+  text-align: right;
   color: #cfcfcf;
   font-size: 0.95rem;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: center;
+  align-items: flex-end;
 }
 
 .mobile-menu .contact-bottom .phone {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 10px;
   color: #cfcfcf;
 }

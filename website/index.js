@@ -176,7 +176,6 @@ document.addEventListener("DOMContentLoaded", function () {
           <div class="login-btn">
             <button data-translate="Get the Quote">Get the Quote</button>
           </div>
-          
           `;
 
   document.body.appendChild(mobileMenu);

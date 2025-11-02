@@ -10,25 +10,7 @@ const multer = require("multer");
 const fs = require("fs");
 const os = require("os");
 
-// Determine an upload directory. Prefer a writable temp directory (common in
-// serverless environments). Allow override via UPLOAD_DIR env var.
-const uploadDir =
-  process.env.UPLOAD_DIR || path.join(os.tmpdir(), "bike-builders-uploads");
-
-let upload;
-try {
-  // Try to create the upload directory. If this environment is read-only this
-  // will throw and we'll fall back to memory storage.
-  fs.mkdirSync(uploadDir, { recursive: true });
-  upload = multer({ dest: uploadDir });
-  console.log("Upload directory set to:", uploadDir);
-} catch (e) {
-  console.warn(
-    "Could not use disk uploads, falling back to memory storage:",
-    e.message
-  );
-  upload = multer({ storage: multer.memoryStorage() });
-}
+const upload = multer({ storage: multer.memoryStorage() });
 const cloudinary = require("cloudinary");
 const app = express();
 const port = process.env.PORT || 5000;
@@ -99,7 +81,6 @@ if (process.env.NODE_ENV !== "production") {
     })
   );
 }
-app.use("/uploads", express.static(uploadDir));
 const CLOUDINARY_ENABLED =
   !!process.env.CLOUDINARY_CLOUD_NAME &&
   !!process.env.CLOUDINARY_API_KEY &&
@@ -382,11 +363,27 @@ app.post("/api/admin/login", async (req, res) => {
       if (err) {
         console.error("Session save error after login:", err);
         // Still respond, but log the problem for diagnostics.
-        return res.status(500).json({ success: false, message: "Server error" });
+        return res
+          .status(500)
+          .json({ success: false, message: "Server error" });
       }
 
-      console.log("Login successful for:", user.username, "Session:", req.session.user, "SessionID:", req.sessionID);
-      res.json({ success: true, user: req.session.user });
+      console.log(
+        "Login successful for:",
+        user.username,
+        "Session:",
+        req.session.user,
+        "SessionID:",
+        req.sessionID
+      );
+      // In development return the sessionID in the JSON to help debug mobile cookie issues.
+      const resp = { success: true, user: req.session.user };
+      if (process.env.NODE_ENV !== "production")
+        resp._sessionID = req.sessionID;
+      // Also expose a simple header that clients can read if needed.
+      res.set("Access-Control-Expose-Headers", "X-Session-ID");
+      res.set("X-Session-ID", req.sessionID);
+      res.json(resp);
     });
   } catch (error) {
     console.error("Login error:", error);
@@ -412,6 +409,19 @@ app.get("/api/admin/check-auth", (req, res) => {
     console.log("Request cookies:", req.headers.cookie);
     console.log("Current sessionID:", req.sessionID);
   } catch (e) {}
+
+  // Expose session id for debugging in non-production so the client can confirm
+  // whether the same session is maintained across requests. We still send the
+  // normal JSON shape expected by clients.
+  const responsePayload =
+    req.session.isAuthenticated && req.session.user
+      ? { isAuthenticated: true, user: req.session.user }
+      : { isAuthenticated: false };
+  if (process.env.NODE_ENV !== "production")
+    responsePayload._sessionID = req.sessionID;
+  res.set("Access-Control-Expose-Headers", "X-Session-ID");
+  res.set("X-Session-ID", req.sessionID);
+  return res.json(responsePayload);
 
   if (req.session.isAuthenticated && req.session.user) {
     res.json({ isAuthenticated: true, user: req.session.user });

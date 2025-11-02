@@ -322,9 +322,6 @@
     <section class="featured-bikes-section">
       <div class="section-header">
         <h2 data-translate="Refurbished Bikes">Refurbished Bikes</h2>
-        <a href="inventory.html" class="view-all" data-translate="View All"
-          >View All</a
-        >
       </div>
 
       <div class="bike-slider-container">
@@ -337,6 +334,10 @@
         <button class="slider-nav next" aria-label="Next bikes">
           <i class="fas fa-chevron-right"></i>
         </button>
+      </div>
+      <!-- View all with live count -->
+      <div class="featured-footer" style="text-align:center;margin-top:18px;">
+        <a id="viewAllBikesBtn" class="view-all view-all-count" href="inventory.html" aria-label="View all bikes">View All</a>
       </div>
     </section>
 
@@ -1388,6 +1389,24 @@
 
         // initial load
         fetchReviews();
+        // update 'View All' with live bike count (falls back to plain "View All" on error)
+        function updateViewAllCount(){
+          try{
+            const btn = document.getElementById('viewAllBikesBtn');
+            if(!btn) return;
+            fetch(API_BASE + '/api/bikes')
+              .then(r => r.json())
+              .then(data => {
+                let count = 0;
+                if(data && data.success && Array.isArray(data.bikes)) count = data.bikes.length;
+                else if(Array.isArray(data)) count = data.length;
+                btn.textContent = `View All (${count}) Bikes`;
+                btn.setAttribute('aria-label', `View all bikes (${count})`);
+              })
+              .catch(() => {/* ignore - keep default text */});
+          }catch(e){/* ignore */}
+        }
+        updateViewAllCount();
       });
     </script>
   </body>
