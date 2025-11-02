@@ -7,9 +7,7 @@
 .nav-links :hover{
   color: black !important;
 }
-.nav-links a.active{
-  color: black !important;
-}
+
 .dark-mode .nav-links a.active{
   color: lightgray !important;
 }

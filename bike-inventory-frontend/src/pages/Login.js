@@ -369,31 +369,8 @@ const AdminLogin = ({ setUser }) => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            {/* Forgot Password Link */}
-            <div style={forgotPasswordStyle}>
-              <button
-                type="button"
-                style={linkStyle}
-                onMouseEnter={(e) => (e.target.style.color = "#1565c0")}
-                onMouseLeave={(e) => (e.target.style.color = "#1976d2")}
-              >
-                Forgot password?
-              </button>
-            </div>
-            {/* Action Buttons */}
             <div style={buttonContainerStyle}>
-              <button
-                type="button"
-                style={createAccountButtonStyle}
-                onMouseEnter={(e) =>
-                  (e.target.style.backgroundColor = "#e3f2fd")
-                }
-                onMouseLeave={(e) =>
-                  (e.target.style.backgroundColor = "transparent")
-                }
-              >
-                Create account
-              </button>
+              
               <button
                 type="submit"
                 disabled={isLoading}

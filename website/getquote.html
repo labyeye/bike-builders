@@ -923,53 +923,7 @@
           });
       });
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const toggleBtn = document.createElement("button");
-        toggleBtn.className = "mobile-menu-toggle";
-        toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
-        const navbar = document.querySelector(".navbar");
-        navbar.appendChild(toggleBtn);
-
-        const mobileMenu = document.createElement("div");
-        mobileMenu.className = "mobile-menu";
-        mobileMenu.innerHTML = `
-      <button class="close-btn"><i class="fas fa-times"></i></button>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="inventory.html">Buy Bike</a></li>
-        <li><a href="sell.html">Sell Your Bike</a></li>
-        <li><a href="getquote.html" class="active">Get a Quote</a></li>
-        <li><a href="about.html">About Us</a></li>
-                  <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-          <li><a href="contact.html" data-translate="Contact">Contact</a></li>
-      </ul>
-      <div class="login-btn">
-        <button>Get the Quote</button>
-      </div>
-      <div class="theme-toggle mobile-theme-toggle">
-          <label for="mobileDarkModeToggle" class="toggle-label">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <span class="toggle-ball"></span>
-          </label>
-        </div>
-    `;
-
-        document.body.appendChild(mobileMenu);
-
-        toggleBtn.addEventListener("click", function () {
-          mobileMenu.classList.add("active");
-        });
-
-        mobileMenu
-          .querySelector(".close-btn")
-          .addEventListener("click", function () {
-            mobileMenu.classList.remove("active");
-          });
-      });
-    </script>
+    <script src="./index.js"></script>
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-ETL311CBE6"

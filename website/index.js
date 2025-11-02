@@ -70,64 +70,6 @@ function animateStats() {
   });
 }
 
-// Mobile menu functionality
-document.addEventListener("DOMContentLoaded", function () {
-  const toggleBtn = document.createElement("button");
-  toggleBtn.className = "mobile-menu-toggle";
-  toggleBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
-  toggleBtn.setAttribute("aria-label", "Toggle mobile menu");
-
-  const navbar = document.querySelector(".navbar");
-  navbar.appendChild(toggleBtn);
-
-  const mobileMenu = document.createElement("div");
-  mobileMenu.className = "mobile-menu";
-  mobileMenu.innerHTML = `
-    <button class="close-btn" aria-label="Close mobile menu"><i class="fas fa-times" aria-hidden="true"></i></button>
-    <ul class="nav-links">
-      <li><a href="index.html" class="active" aria-current="page">Home</a></li>
-      <li><a href="inventory.html">Buy Bike</a></li>
-      <li><a href="sell.html">Sell Your Bike</a></li>
-      <li><a href="about.html">About Us</a></li>
-      <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-      <li><a href="contact.html" data-translate="Contact">Contact</a></li>
-    </ul>
-    <div class="login-btn">
-      <button aria-label="Get a quote for your bike">Get the Quote</button>
-    </div>
-  `;
-
-  document.body.appendChild(mobileMenu);
-
-  toggleBtn.addEventListener("click", function () {
-    mobileMenu.classList.add("active");
-    document.body.style.overflow = "hidden";
-  });
-
-  const closeBtn = mobileMenu.querySelector(".close-btn");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", function () {
-      mobileMenu.classList.remove("active");
-      document.body.style.overflow = "auto";
-    });
-  }
-
-  // Safely wire mobile <-> desktop theme toggles if they exist
-  const mobileDarkModeToggle = document.getElementById("mobileDarkModeToggle");
-  const darkModeToggle = document.getElementById("darkModeToggle");
-
-  if (mobileDarkModeToggle && darkModeToggle) {
-    mobileDarkModeToggle.addEventListener("change", function () {
-      darkModeToggle.checked = this.checked;
-      darkModeToggle.dispatchEvent(new Event("change"));
-    });
-
-    darkModeToggle.addEventListener("change", function () {
-      mobileDarkModeToggle.checked = this.checked;
-    });
-  }
-});
-
 // Hero slider functionality
 document.addEventListener("DOMContentLoaded", function () {
   const heroSlider = document.createElement("div");
@@ -197,104 +139,65 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
-
-// Enhanced mobile menu with icons
 document.addEventListener("DOMContentLoaded", function () {
   const toggleBtn = document.createElement("button");
   toggleBtn.className = "mobile-menu-toggle";
-  toggleBtn.innerHTML = '<i class="fas fa-bars" aria-hidden="true"></i>';
-  toggleBtn.setAttribute("aria-label", "Toggle mobile menu");
+  toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
 
   const navbar = document.querySelector(".navbar");
   navbar.appendChild(toggleBtn);
 
   const mobileMenu = document.createElement("div");
   mobileMenu.className = "mobile-menu";
-  mobileMenu.innerHTML = `
-    <button class="close-btn" aria-label="Close mobile menu">
-      <i class="fas fa-times" aria-hidden="true"></i>
-    </button>
-    <ul class="nav-links">
-      <li>
-        <a href="index.html" class="active" aria-current="page">
-          <i class="fas fa-home"></i> 
-          <span data-translate="Home">Home</span>
-        </a>
-      </li>
-      <li>
-        <a href="inventory.html">
-          <i class="fas fa-motorcycle"></i> 
-          <span data-translate="Buy Bike">Buy Bike</span>
-        </a>
-      </li>
-      <li>
-        <a href="sell.html">
-          <i class="fas fa-dollar-sign"></i>
-          <span data-translate="Sell Your Bike">Sell Your Bike</span>
-        </a>
-      </li>
-      <li>
-        <a href="about.html">
-          <i class="fas fa-info-circle"></i>
-          <span data-translate="About Us">About Us</span>
-        </a>
-      </li>
-      <li>
-        <a href="updates.html" class="updates-link">
-          <i class="fas fa-bell"></i> 
-          <span data-translate="Updates">Updates</span>
-        </a>
-      </li>
-      <li>
-        <a href="contact.html">
-          <i class="fas fa-envelope"></i>
-          <span data-translate="Contact">Contact</span>
-        </a>
-      </li>
-    </ul>
-    <div class="login-btn">
-      <a href="/getquote.html">
-        <button aria-label="Get a quote for your bike" data-translate="Get the Quote">
-          Get the Quote
-        </button>
-      </a>
-    </div>
-    <div class="theme-toggle mobile-theme-toggle">
-      <label for="mobileDarkModeToggle" class="toggle-label">
-        <i class="fas fa-sun"></i>
-        <i class="fas fa-moon"></i>
-        <span class="toggle-ball"></span>
-      </label>
-    </div>
-  `;
+  mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
+          <ul class="nav-links">
+            <li><a href="index.html" class="active" data-translate="Home">Home</a></li>
+            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li>
+                  <a
+                    href="about.html"
+                    aria-label="About Bike Builders"
+                    data-translate="About Us"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="book.html"
+                    aria-label="Book Bike"
+                    data-translate="Book Bike"
+                    >Book Bike</a
+                  >
+                </li>
+                      <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
+              <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+          </ul>
+          <div class="login-btn">
+            <button data-translate="Get the Quote">Get the Quote</button>
+          </div>
+          
+          `;
 
   document.body.appendChild(mobileMenu);
 
+  // add bottom contact block to mobile menu
+  const contactBottom = document.createElement("div");
+  contactBottom.className = "contact-bottom";
+  contactBottom.innerHTML = `
+          <div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div>
+                    <div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>
+
+        `;
+  mobileMenu.appendChild(contactBottom);
+
   toggleBtn.addEventListener("click", function () {
     mobileMenu.classList.add("active");
-    document.body.style.overflow = "hidden";
   });
 
-  const closeBtn2 = mobileMenu.querySelector(".close-btn");
-  if (closeBtn2) {
-    closeBtn2.addEventListener("click", function () {
-      mobileMenu.classList.remove("active");
-      document.body.style.overflow = "auto";
-    });
-  }
-
-  // Safely wire mobile <-> desktop theme toggles if they exist (guarded)
-  const mobileDarkModeToggle2 = document.getElementById("mobileDarkModeToggle");
-  const darkModeToggle2 = document.getElementById("darkModeToggle");
-  if (mobileDarkModeToggle2 && darkModeToggle2) {
-    mobileDarkModeToggle2.addEventListener("change", function () {
-      darkModeToggle2.checked = this.checked;
-      darkModeToggle2.dispatchEvent(new Event("change"));
-    });
-    darkModeToggle2.addEventListener("change", function () {
-      mobileDarkModeToggle2.checked = this.checked;
-    });
-  }
+  mobileMenu.querySelector(".close-btn").addEventListener("click", function () {
+    mobileMenu.classList.remove("active");
+  });
 });
 
 // Lazy loading images
@@ -444,8 +347,7 @@ const translations = {
       "Reliable daily riders with great mileage.",
     "View Commuters": "View Commuters",
     Sport: "Sport",
-    "High-performance machines.":
-      "High-performance machines.",
+    "High-performance machines.": "High-performance machines.",
     "View Sports Bikes": "View Sports Bikes",
     Tourer: "Tourer",
     "Comfortable long-distance companions.":
@@ -717,17 +619,21 @@ function fetchFeaturedBikes() {
     .then((r) => r.json())
     .then((cfg) => {
       const USE_CLOUDINARY = cfg && cfg.success && cfg.cloudinary;
-      return fetch(API_BASE + "/api/featured-bikes").then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      }).then((data) => ({ data, USE_CLOUDINARY }));
+      return fetch(API_BASE + "/api/featured-bikes")
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then((data) => ({ data, USE_CLOUDINARY }));
     })
     .catch((cfgErr) => {
       // couldn't read config; proceed without cloudinary preference
-      return fetch(API_BASE + "/api/featured-bikes").then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      }).then((data) => ({ data, USE_CLOUDINARY: false }));
+      return fetch(API_BASE + "/api/featured-bikes")
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then((data) => ({ data, USE_CLOUDINARY: false }));
     })
     .then(({ data, USE_CLOUDINARY }) => {
       if (data.success && data.data) {
@@ -748,7 +654,8 @@ function fetchFeaturedBikes() {
               copy.imageUrl.trim() !== ""
             ) {
               const nu = normalizeImageUrl(copy.imageUrl);
-              copy.imageUrl = (!USE_CLOUDINARY || /^https?:\/\//i.test(nu)) ? [nu] : [];
+              copy.imageUrl =
+                !USE_CLOUDINARY || /^https?:\/\//i.test(nu) ? [nu] : [];
             } else {
               copy.imageUrl = [];
             }
@@ -1026,79 +933,79 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Mobile Carousel for Choose Your Style
 function initStyleCarousel() {
-  const stylesContainer = document.querySelector('.styles-container');
-  const styleCards = document.querySelectorAll('.style-card-link');
-  
+  const stylesContainer = document.querySelector(".styles-container");
+  const styleCards = document.querySelectorAll(".style-card-link");
+
   // Only initialize carousel on mobile
   if (window.innerWidth > 768 || styleCards.length === 0) return;
-  
+
   // Create mobile carousel structure
-  const mobileContainer = document.createElement('div');
-  mobileContainer.className = 'styles-container-mobile';
-  
+  const mobileContainer = document.createElement("div");
+  mobileContainer.className = "styles-container-mobile";
+
   // Move existing cards to mobile container
-  styleCards.forEach(card => {
+  styleCards.forEach((card) => {
     mobileContainer.appendChild(card);
   });
-  
+
   // Replace original container with mobile version
-  stylesContainer.innerHTML = '';
+  stylesContainer.innerHTML = "";
   stylesContainer.appendChild(mobileContainer);
-  
+
   // Create navigation elements
-  const carouselNav = document.createElement('div');
-  carouselNav.className = 'carousel-nav';
-  
+  const carouselNav = document.createElement("div");
+  carouselNav.className = "carousel-nav";
+
   // Previous arrow
-  const prevArrow = document.createElement('button');
-  prevArrow.className = 'carousel-arrow prev';
+  const prevArrow = document.createElement("button");
+  prevArrow.className = "carousel-arrow prev";
   prevArrow.innerHTML = '<i class="fas fa-chevron-left"></i>';
-  prevArrow.setAttribute('aria-label', 'Previous style');
-  
+  prevArrow.setAttribute("aria-label", "Previous style");
+
   // Next arrow
-  const nextArrow = document.createElement('button');
-  nextArrow.className = 'carousel-arrow next';
+  const nextArrow = document.createElement("button");
+  nextArrow.className = "carousel-arrow next";
   nextArrow.innerHTML = '<i class="fas fa-chevron-right"></i>';
-  nextArrow.setAttribute('aria-label', 'Next style');
-  
+  nextArrow.setAttribute("aria-label", "Next style");
+
   // Dots container
-  const dotsContainer = document.createElement('div');
-  dotsContainer.className = 'carousel-dots';
-  
+  const dotsContainer = document.createElement("div");
+  dotsContainer.className = "carousel-dots";
+
   // Create dots
   for (let i = 0; i < styleCards.length; i++) {
-    const dot = document.createElement('div');
-    dot.className = `carousel-dot ${i === 0 ? 'active' : ''}`;
+    const dot = document.createElement("div");
+    dot.className = `carousel-dot ${i === 0 ? "active" : ""}`;
     dot.dataset.index = i;
     dotsContainer.appendChild(dot);
   }
-  
+
   // Assemble navigation
   carouselNav.appendChild(prevArrow);
   carouselNav.appendChild(dotsContainer);
   carouselNav.appendChild(nextArrow);
-  
+
   // Add navigation to container
   stylesContainer.appendChild(carouselNav);
-  
+
   // Carousel state
   let currentIndex = 0;
   const totalSlides = styleCards.length;
-  
+
   // Update carousel position
   function updateCarousel() {
     mobileContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
-    
+
     // Update dots
-    document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
-      dot.classList.toggle('active', index === currentIndex);
+    document.querySelectorAll(".carousel-dot").forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
     });
-    
+
     // Update arrow states
     prevArrow.disabled = currentIndex === 0;
     nextArrow.disabled = currentIndex === totalSlides - 1;
   }
-  
+
   // Next slide
   function nextSlide() {
     if (currentIndex < totalSlides - 1) {
@@ -1106,7 +1013,7 @@ function initStyleCarousel() {
       updateCarousel();
     }
   }
-  
+
   // Previous slide
   function prevSlide() {
     if (currentIndex > 0) {
@@ -1114,40 +1021,40 @@ function initStyleCarousel() {
       updateCarousel();
     }
   }
-  
+
   // Go to specific slide
   function goToSlide(index) {
     currentIndex = index;
     updateCarousel();
   }
-  
+
   // Event listeners
-  nextArrow.addEventListener('click', nextSlide);
-  prevArrow.addEventListener('click', prevSlide);
-  
+  nextArrow.addEventListener("click", nextSlide);
+  prevArrow.addEventListener("click", prevSlide);
+
   // Dot click events
-  document.querySelectorAll('.carousel-dot').forEach(dot => {
-    dot.addEventListener('click', function() {
+  document.querySelectorAll(".carousel-dot").forEach((dot) => {
+    dot.addEventListener("click", function () {
       goToSlide(parseInt(this.dataset.index));
     });
   });
-  
+
   // Swipe support for touch devices
   let startX = 0;
   let currentX = 0;
-  
-  mobileContainer.addEventListener('touchstart', (e) => {
+
+  mobileContainer.addEventListener("touchstart", (e) => {
     startX = e.touches[0].clientX;
   });
-  
-  mobileContainer.addEventListener('touchmove', (e) => {
+
+  mobileContainer.addEventListener("touchmove", (e) => {
     currentX = e.touches[0].clientX;
   });
-  
-  mobileContainer.addEventListener('touchend', () => {
+
+  mobileContainer.addEventListener("touchend", () => {
     const diff = startX - currentX;
     const threshold = 50;
-    
+
     if (Math.abs(diff) > threshold) {
       if (diff > 0 && currentIndex < totalSlides - 1) {
         nextSlide();
@@ -1156,20 +1063,23 @@ function initStyleCarousel() {
       }
     }
   });
-  
+
   // Initialize
   updateCarousel();
 }
 
 // Initialize carousel on page load and window resize
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   initStyleCarousel();
-  
+
   // Reinitialize on window resize
-  window.addEventListener('resize', function() {
+  window.addEventListener("resize", function () {
     // Only reinitialize if crossing the mobile breakpoint
-    const stylesContainer = document.querySelector('.styles-container');
-    if (stylesContainer && stylesContainer.querySelector('.styles-container-mobile')) {
+    const stylesContainer = document.querySelector(".styles-container");
+    if (
+      stylesContainer &&
+      stylesContainer.querySelector(".styles-container-mobile")
+    ) {
       // Remove mobile carousel and restore original layout
       if (window.innerWidth > 768) {
         location.reload(); // Simple solution to restore original layout

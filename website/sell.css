@@ -3,16 +3,16 @@
   height: 100px;
   overflow: hidden;
 }
-.nav-links :hover{
+
+.nav-links :hover {
   color: black !important;
 }
-.nav-links a.active{
-  color: black !important;
-}
-.dark-mode .nav-links a.active{
+
+.dark-mode .nav-links a.active {
   color: lightgray !important;
 }
-.login-btn button{
+
+.login-btn button {
   background-color: white !important;
   color: black !important;
   border: 1px solid var(--primary-color);
@@ -26,6 +26,7 @@
   overflow: hidden;
   z-index: 1;
 }
+
 .dark-mode .login-btn button {
   background-color: var(--secondary-color) !important;
   color: white !important;
@@ -40,6 +41,7 @@
   overflow: hidden;
   z-index: 1;
 }
+
 .sell-section {
   display: flex;
   flex-wrap: wrap;
@@ -51,6 +53,7 @@
   overflow: visible;
 
 }
+
 .dark-mode .sell-section {
   display: flex;
   flex-wrap: wrap;
@@ -64,7 +67,7 @@
 }
 
 .sell-section::before {
-  display:none
+  display: none
 }
 
 .sell-content {
@@ -83,6 +86,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .dark-mode .sell-content h2 {
   text-align: left;
   margin-bottom: 20px;
@@ -147,6 +151,7 @@
   margin: 0 0 5px 0;
   font-size: 1.1rem;
 }
+
 .dark-mode .step-content h4 {
   color: white;
   margin: 0 0 5px 0;
@@ -158,6 +163,7 @@
   margin: 0;
   font-size: 0.95rem;
 }
+
 .dark-mode .step-content p {
   color: rgba(255, 255, 255, 0.7);
   margin: 0;
@@ -208,6 +214,7 @@
 .sell-cta .cta-button:hover::before {
   opacity: 1;
 }
+
 .hero-section {
   position: relative;
   width: 100%;
@@ -219,17 +226,17 @@
 .sell-form-container {
   flex: 1;
   min-width: 280px;
-  max-width: 100%; 
+  max-width: 100%;
   position: relative;
   z-index: 1;
-  background: rgba(255, 255, 255, 0.9); 
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); 
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
   padding: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.1);
-  margin: 20px 0; 
+  margin: 20px 0;
 }
 
 .dark-mode .sell-form-container {
@@ -243,9 +250,9 @@
   border-radius: 15px;
   padding: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  margin: 20px 0; 
+  margin: 20px 0;
   background: rgba(30, 30, 30, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .sell-form {
@@ -263,6 +270,7 @@
   position: relative;
   padding-bottom: 10px;
 }
+
 .dark-mode .sell-form h3 {
   color: white;
   margin: 0 0 20px 0;
@@ -291,6 +299,7 @@
   color: black;
   font-size: 0.95rem;
 }
+
 .dark-mode .form-group label {
   color: white;
   font-size: 0.95rem;
@@ -317,6 +326,7 @@
   font-size: 1rem;
   transition: all 0.3s;
 }
+
 .dark-mode .form-group input,
 .dark-mode .form-group select,
 .dark-mode .form-group textarea {

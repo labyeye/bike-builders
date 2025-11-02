@@ -36,7 +36,24 @@ const AddBike = ({ user }) => {
     }));
   };
   const handleFilesChange = (e) => {
+    const MAX_FILE_SIZE = 2.5 * 1024 * 1024; // 2.5 MB per file
+    const MAX_TOTAL_SIZE = 8 * 1024 * 1024; // 8 MB total payload heuristic
     const files = Array.from(e.target.files).slice(0, 5);
+
+    // Per-file size check
+    const tooLarge = files.filter((f) => f.size > MAX_FILE_SIZE);
+    if (tooLarge.length > 0) {
+      setError(`Please select images smaller than ${Math.round(MAX_FILE_SIZE / (1024 * 1024))} MB each.`);
+      return;
+    }
+
+    // Total size check (simple heuristic to avoid 413 from serverless limits)
+    const totalSize = files.reduce((s, f) => s + f.size, 0);
+    if (totalSize > MAX_TOTAL_SIZE) {
+      setError(`Total image size is too large. Please select fewer images or smaller files.`);
+      return;
+    }
+
     setImageFiles(files);
     const urls = files.map((f) => URL.createObjectURL(f));
     setPreviews(urls);

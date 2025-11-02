@@ -4,9 +4,7 @@
   height: auto;
   overflow: hidden;
 }
-.nav-links a.active{
-  color: black !important;
-}
+
 .nav-links :hover{
   color: black !important;
 }
@@ -427,12 +425,12 @@
     color: white;
 }
 
-/* Mobile Menu Styles */
+/* Mobile Menu Styles (updated for new mobile nav design) */
 .mobile-menu-toggle {
     display: none;
     background: none;
     border: none;
-    color: white;
+    color: #FFB000;
     font-size: 1.5rem;
     cursor: pointer;
     position: absolute;
@@ -445,14 +443,16 @@
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
-    max-width: 300px;
+    width: 82%;
+    max-width: 360px;
     height: 100vh;
-    background: var(--secondary-color);
-    z-index: 1000;
-    transition: right 0.3s ease;
-    padding: 20px;
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    background: #0f1214;
+    color: #fff;
+    z-index: 10000;
+    transition: right 0.28s cubic-bezier(.2,.9,.2,1);
+    padding: 22px 18px 120px 18px;
+    box-shadow: -8px 0 24px rgba(0, 0, 0, 0.55);
+    overflow: hidden;
 }
 
 .mobile-menu.active {
@@ -461,30 +461,42 @@
 
 .mobile-menu .close-btn {
     position: absolute;
-    right: 20px;
-    top: 20px;
+    left: 18px;
+    top: 18px;
     background: none;
     border: none;
-    color: white;
-    font-size: 1.5rem;
+    color: #FFB000;
+    font-size: 1.9rem;
     cursor: pointer;
+    padding: 6px;
 }
 
 .mobile-menu .nav-links {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 50px;
+    margin-top: 64px;
+    padding: 0;
+    list-style: none;
+    overflow-y: auto;
+}
+
+.mobile-menu .nav-links li {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
 }
 
 .mobile-menu .nav-links a {
-    color: white;
+    display: block;
+    padding: 20px 10px;
+    color: #ffffff !important;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
 }
 
 .mobile-menu .login-btn {
-    margin-top: 30px;
+    margin-top: 18px;
 }
 
 /* Responsive Styles */

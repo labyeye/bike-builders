@@ -538,39 +538,53 @@ input[type="range"]::-webkit-slider-thumb {
 
 .brand-logo {
   flex: 0 0 auto;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #2a2a2a;
   display: flex;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: 2px solid transparent;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  overflow: visible;
+  /* ensure badges aren't clipped */
+  min-width: 72px;
 }
 
-.brand-logo:hover {
-  transform: scale(1.1);
-  border-color: #444;
+.brand-simple-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: column;
+  padding: 6px 8px;
+  border-radius: 10px;
+  position: relative;
+  /* ensure badge can be layered and not clipped */
 }
 
-.brand-logo.active {
-  border-color: #ff6b00;
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
-}
-
-.brand-logo img {
-  width: 90%;
-  height: 90%;
+.brand-simple-inner img {
+  width: 42px;
+  height: 42px;
   object-fit: contain;
-  transition: all 0.2s ease;
+  display: block;
 }
 
-.brand-logo:hover img,
-.brand-logo.active img {
-  filter: grayscale(0) brightness(1);
+.brand-count-badge {
+  display: inline-block;
+  min-width: 26px;
+  padding: 6px 8px;
+  background: #ff8a00;
+  color: white;
+  border-radius: 999px;
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 1 !important;
+  visibility: visible !important;
+  position: relative;
+  z-index: 2;
+}
+
+.brand-logo:hover .brand-simple-inner,
+.brand-logo.active .brand-simple-inner {
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 @media (max-width: 768px) {
@@ -583,6 +597,17 @@ input[type="range"]::-webkit-slider-thumb {
     width: 45px;
     height: 45px;
   }
+
+  .brand-simple-inner img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-count-badge {
+    min-width: 24px;
+    padding: 4px 6px;
+    font-size: 0.8rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -594,6 +619,65 @@ input[type="range"]::-webkit-slider-thumb {
   .brand-logo {
     width: 40px;
     height: 40px;
+  }
+
+  .brand-simple-inner {
+    gap: 6px;
+    padding: 4px 6px;
+  }
+
+  .brand-simple-inner img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .brand-count-badge {
+    min-width: 20px;
+    padding: 4px 6px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Mobile bottom action bar for filters & sort */
+.inventory-bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 56px;
+  display: none;
+  /* shown only on small screens */
+  background: var(--page-bg, #ffffff);
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
+  z-index: 12000;
+  padding: 8px 12px;
+  justify-content: center;
+  gap: 12px;
+}
+
+.inventory-bottom-bar .mobile-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #ff6b00;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .inventory-bottom-bar {
+    display: flex;
+  }
+}
+
+@media (min-width: 901px) {
+  .inventory-bottom-bar {
+    display: none;
   }
 }
 

@@ -1,23 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta charset="utf-8" />
-  <title>Sell Your Bike | Bike Builders — Sell second hand bike in Muzaffarpur</title>
-  <meta name="description" content="Sell your second hand bike in Muzaffarpur quickly with Bike Builders. Get a fair price, free inspection and fast pickup." />
-  <meta name="keywords" content="sell bike muzaffarpur, second hand bike in muzaffarpur, sell used bike, Bike Builders" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://www.bikebuilders.in/sell.html" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Sell Your Bike | Bike Builders — Sell second hand bike in Muzaffarpur" />
-  <meta property="og:description" content="Sell your bike to Bike Builders — quick inspection and fair valuation in Muzaffarpur." />
-  <meta property="og:url" content="https://www.bikebuilders.in/sell.html" />
-  <meta property="og:image" content="https://www.bikebuilders.in/assets/social-preview.jpg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://code.jquery.com" crossorigin>
-    <link rel="preconnect" href="https://bike-builders-backend.vercel.app">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>
+      Sell Your Bike | Bike Builders — Sell second hand bike in Muzaffarpur
+    </title>
+    <meta
+      name="description"
+      content="Sell your second hand bike in Muzaffarpur quickly with Bike Builders. Get a fair price, free inspection and fast pickup."
+    />
+    <meta
+      name="keywords"
+      content="sell bike muzaffarpur, second hand bike in muzaffarpur, sell used bike, Bike Builders"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.bikebuilders.in/sell.html" />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Sell Your Bike | Bike Builders — Sell second hand bike in Muzaffarpur"
+    />
+    <meta
+      property="og:description"
+      content="Sell your bike to Bike Builders — quick inspection and fair valuation in Muzaffarpur."
+    />
+    <meta property="og:url" content="https://www.bikebuilders.in/sell.html" />
+    <meta
+      property="og:image"
+      content="https://www.bikebuilders.in/assets/social-preview.jpg"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://code.jquery.com" crossorigin />
+    <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
     <link rel="stylesheet" href="sell.css" />
     <link rel="stylesheet" href="style.css" />
 
@@ -319,7 +336,11 @@
         <h3>Leave a Review</h3>
         <form id="reviewForm">
           <input type="text" id="reviewName" placeholder="Your Name" required />
-          <textarea id="reviewMessage" placeholder="Your Review" required></textarea>
+          <textarea
+            id="reviewMessage"
+            placeholder="Your Review"
+            required
+          ></textarea>
           <div class="star-rating">
             <span class="star" data-value="1"><i class="fa fa-star"></i></span>
             <span class="star" data-value="2"><i class="fa fa-star"></i></span>
@@ -336,12 +357,22 @@
       <div class="footer-content">
         <div class="footer-section">
           <!-- 5-Star Rating Display -->
-          <div class="footer-stars" style="margin: 10px 0;">
-            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
-            <span class="star" style="color: gold; font-size: 1.5em;"><i class="fa fa-star"></i></span>
+          <div class="footer-stars" style="margin: 10px 0">
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
           </div>
           <div class="logo">
             <img
@@ -362,7 +393,8 @@
               aria-label="Visit our Instagram profile"
               ><img
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                style="width: 20px" alt="Instagram — Bike Builders"
+                style="width: 20px"
+                alt="Instagram — Bike Builders"
             /></a>
             <a
               href="https://wa.me/918210283582"
@@ -466,7 +498,7 @@
           fetch("https://bike-builders-backend.vercel.app/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, message, rating })
+            body: JSON.stringify({ name, message, rating }),
           })
             .then((res) => res.json())
             .then((data) => {
@@ -484,18 +516,22 @@
         });
         const openBtn = document.createElement("button");
         openBtn.className = "review-btn";
-        openBtn.onclick = () => { reviewModal.style.display = "block"; };
+        openBtn.onclick = () => {
+          reviewModal.style.display = "block";
+        };
         document.querySelector(".testimonials-section").appendChild(openBtn);
         // Make footer stars open the review modal and pre-select rating
-        const footerStars = document.querySelectorAll('.footer-stars .star');
+        const footerStars = document.querySelectorAll(".footer-stars .star");
         footerStars.forEach((fs, idx) => {
-          fs.addEventListener('click', () => {
-            reviewModal.style.display = 'block';
-            const ratingInput = document.getElementById('reviewRating');
-            const modalStars = reviewModal.querySelectorAll('.star');
+          fs.addEventListener("click", () => {
+            reviewModal.style.display = "block";
+            const ratingInput = document.getElementById("reviewRating");
+            const modalStars = reviewModal.querySelectorAll(".star");
             const val = idx + 1;
             if (ratingInput) ratingInput.value = val;
-            modalStars.forEach((s, i) => s.classList.toggle('selected', i < val));
+            modalStars.forEach((s, i) =>
+              s.classList.toggle("selected", i < val)
+            );
           });
         });
       });
@@ -723,29 +759,47 @@
 
         const mobileMenu = document.createElement("div");
         mobileMenu.className = "mobile-menu";
-        mobileMenu.innerHTML = `
-          <button class="close-btn"><i class="fas fa-times"></i></button>
+        mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
           <ul class="nav-links">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="inventory.html">Buy Bike</a></li>
-            <li><a href="sell.html">Sell Your Bike</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-            <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+            <li><a href="index.html" class="active" data-translate="Home">Home</a></li>
+            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li>
+                  <a
+                    href="about.html"
+                    aria-label="About Bike Builders"
+                    data-translate="About Us"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="book.html"
+                    aria-label="Book Bike"
+                    data-translate="Book Bike"
+                    >Book Bike</a
+                  >
+                </li>
+                      <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
+              <li><a href="contact.html" data-translate="Contact">Contact</a></li>
           </ul>
           <div class="login-btn">
-            <button>Get the Quote</button>
+            <button data-translate="Get the Quote">Get the Quote</button>
           </div>
-          <div class="theme-toggle mobile-theme-toggle">
-          <label for="mobileDarkModeToggle" class="toggle-label">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <span class="toggle-ball"></span>
-          </label>
-        </div>
-        `;
+          
+          `;
 
         document.body.appendChild(mobileMenu);
+
+        // add bottom contact block to mobile menu
+        const contactBottom = document.createElement("div");
+        contactBottom.className = "contact-bottom";
+        contactBottom.innerHTML = `
+          <div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div>
+                    <div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>
+
+        `;
+        mobileMenu.appendChild(contactBottom);
 
         toggleBtn.addEventListener("click", function () {
           mobileMenu.classList.add("active");
