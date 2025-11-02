@@ -8,7 +8,7 @@ import {
   Edit,
   Delete,
   MoreVert,
-  Image as ImageIcon
+  Image as ImageIcon,
 } from "@mui/icons-material";
 import StatsCard from "../components/common/StatsCard";
 import Sidebar from "../components/Layout/Sidebar";
@@ -49,51 +49,70 @@ const Dashboard = ({ user }) => {
 
   useEffect(() => {
     if (!authChecked) return;
-    
+
     const fetchData = async () => {
       try {
         setLoading(true);
 
-        // fetch dashboard and bookings in parallel
-        const [dashRes, bookingsRes] = await Promise.all([
-          fetch("https://bike-builders-backend.vercel.app/api/admin/dashboard", { credentials: "include" }),
-          fetch("https://bike-builders-backend.vercel.app/api/admin/bookings", { credentials: "include" }),
+        // fetch dashboard stats, bikes list (public), and bookings in parallel
+        const [dashRes, bikesRes, bookingsRes] = await Promise.all([
+          fetch(
+            "https://bike-builders-backend.vercel.app/api/admin/dashboard",
+            { credentials: "include" }
+          ),
+          // Use the public bikes endpoint so the list comes from the bikes collection
+          fetch("https://bike-builders-backend.vercel.app/api/bikes"),
+          fetch("https://bike-builders-backend.vercel.app/api/admin/bookings", {
+            credentials: "include",
+          }),
         ]);
 
         if (!dashRes.ok) throw new Error("Failed to fetch dashboard data");
+        if (!bikesRes.ok) throw new Error("Failed to fetch bikes");
         if (!bookingsRes.ok) throw new Error("Failed to fetch bookings");
 
         const dashData = await dashRes.json();
+        const bikesData = await bikesRes.json();
         const bookingsData = await bookingsRes.json();
 
-        setBikes(dashData.bikes || []);
-        setStats(dashData.stats || { total: 0, available: 0, comingSoon: 0, sold: 0 });
-        setBookingCount(Array.isArray(bookingsData.bookings) ? bookingsData.bookings.length : 0);
+        // bikesData comes from the public /api/bikes endpoint
+        setBikes(bikesData.bikes || []);
+        setStats(
+          dashData.stats || { total: 0, available: 0, comingSoon: 0, sold: 0 }
+        );
+        setBookingCount(
+          Array.isArray(bookingsData.bookings)
+            ? bookingsData.bookings.length
+            : 0
+        );
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
         setLoading(false);
       }
     };
-    
+
     fetchData();
   }, [authChecked]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this bike?")) return;
     try {
-      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/bike/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      
+      const response = await fetch(
+        `https://bike-builders-backend.vercel.app/api/admin/bike/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
+
       if (!response.ok) throw new Error("Failed to delete bike");
-      
+
       setBikes((prev) => prev.filter((b) => b._id !== id));
-      setStats(prev => ({
+      setStats((prev) => ({
         ...prev,
         total: prev.total - 1,
-        available: prev.available - 1
+        available: prev.available - 1,
       }));
     } catch (error) {
       console.error("Delete error:", error);
@@ -114,17 +133,17 @@ const Dashboard = ({ user }) => {
   };
 
   const formatPrice = (price) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      maximumFractionDigits: 0,
     }).format(price);
   };
 
   const handleImageError = (e) => {
     e.target.onerror = null;
-    e.target.style.display = 'none';
+    e.target.style.display = "none";
     const parent = e.target.parentElement;
     parent.innerHTML = '<div class="no-image">No Image</div>';
   };
@@ -133,13 +152,19 @@ const Dashboard = ({ user }) => {
 
   return (
     <div className="app-container">
-      <Sidebar user={user || { role: 'staff' }} />
+      <Sidebar user={user || { role: "staff" }} />
       <div className="main-content">
         <div className="dashboard-header">
           <h1>Bike Inventory Overview</h1>
           <div className="header-actions">
             <div className="update-time">
-              <span>Last update: {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+              <span>
+                Last update:{" "}
+                {new Date().toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
+              </span>
             </div>
             <button
               className="btn primary"
@@ -196,7 +221,6 @@ const Dashboard = ({ user }) => {
                 {bikes.length > 0 ? (
                   bikes.map((bike) => (
                     <tr key={bike._id}>
-                      
                       <td data-label="Model">{bike.model}</td>
                       <td data-label="Brand">{bike.brand}</td>
                       <td data-label="Price">{formatPrice(bike.price)}</td>
@@ -210,7 +234,9 @@ const Dashboard = ({ user }) => {
                         <div className="action-buttons">
                           <button
                             className="btn-icon edit"
-                            onClick={() => navigate(`/admin/bike/edit/${bike._id}`)}
+                            onClick={() =>
+                              navigate(`/admin/bike/edit/${bike._id}`)
+                            }
                           >
                             <Edit />
                           </button>
