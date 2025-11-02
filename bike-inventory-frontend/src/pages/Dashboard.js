@@ -54,37 +54,65 @@ const Dashboard = ({ user }) => {
       try {
         setLoading(true);
 
-        // fetch dashboard stats, bikes list (public), and bookings in parallel
-        const [dashRes, bikesRes, bookingsRes] = await Promise.all([
-          fetch(
-            "https://bike-builders-backend.vercel.app/api/admin/dashboard",
-            { credentials: "include" }
-          ),
-          // Use the public bikes endpoint so the list comes from the bikes collection
-          fetch("https://bike-builders-backend.vercel.app/api/bikes"),
+        // Fetch the public bikes endpoint first (don't require admin auth)
+        try {
+          const bikesRes = await fetch(
+            "https://bike-builders-backend.vercel.app/api/bikes"
+          );
+          if (bikesRes.ok) {
+            const bikesData = await bikesRes.json();
+            setBikes(bikesData.bikes || []);
+          } else {
+            console.warn("Failed to fetch bikes, status:", bikesRes.status);
+            setBikes([]);
+          }
+        } catch (err) {
+          console.error("Error fetching bikes:", err);
+          setBikes([]);
+        }
+
+        // Fetch admin-only endpoints (dashboard stats and bookings) but don't
+        // let failures here block the bikes list — handle them gracefully.
+        const adminFetches = await Promise.allSettled([
+          fetch("https://bike-builders-backend.vercel.app/api/admin/dashboard", {
+            credentials: "include",
+          }),
           fetch("https://bike-builders-backend.vercel.app/api/admin/bookings", {
             credentials: "include",
           }),
         ]);
 
-        if (!dashRes.ok) throw new Error("Failed to fetch dashboard data");
-        if (!bikesRes.ok) throw new Error("Failed to fetch bikes");
-        if (!bookingsRes.ok) throw new Error("Failed to fetch bookings");
+        // dashboard stats
+        if (adminFetches[0].status === "fulfilled") {
+          const dashRes = adminFetches[0].value;
+          if (dashRes.ok) {
+            const dashData = await dashRes.json();
+            setStats(
+              dashData.stats || { total: 0, available: 0, comingSoon: 0, sold: 0 }
+            );
+          } else {
+            console.warn("Dashboard fetch returned status", dashRes.status);
+          }
+        } else {
+          console.warn("Dashboard fetch failed:", adminFetches[0].reason);
+        }
 
-        const dashData = await dashRes.json();
-        const bikesData = await bikesRes.json();
-        const bookingsData = await bookingsRes.json();
-
-        // bikesData comes from the public /api/bikes endpoint
-        setBikes(bikesData.bikes || []);
-        setStats(
-          dashData.stats || { total: 0, available: 0, comingSoon: 0, sold: 0 }
-        );
-        setBookingCount(
-          Array.isArray(bookingsData.bookings)
-            ? bookingsData.bookings.length
-            : 0
-        );
+        // bookings count
+        if (adminFetches[1].status === "fulfilled") {
+          const bookingsRes = adminFetches[1].value;
+          if (bookingsRes.ok) {
+            const bookingsData = await bookingsRes.json();
+            setBookingCount(
+              Array.isArray(bookingsData.bookings) ? bookingsData.bookings.length : 0
+            );
+          } else {
+            console.warn("Bookings fetch returned status", bookingsRes.status);
+            setBookingCount(0);
+          }
+        } else {
+          console.warn("Bookings fetch failed:", adminFetches[1].reason);
+          setBookingCount(0);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
