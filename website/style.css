@@ -103,19 +103,19 @@ body {
   display: none;
 }
 
-#darkModeToggle:checked+.toggle-label {
+#darkModeToggle:checked + .toggle-label {
   background-color: #333;
 }
 
-#darkModeToggle:checked+.toggle-label .toggle-ball {
+#darkModeToggle:checked + .toggle-label .toggle-ball {
   transform: translateX(30px);
 }
 
-#darkModeToggle:checked+.toggle-label .fa-sun {
+#darkModeToggle:checked + .toggle-label .fa-sun {
   color: #ffcc00;
 }
 
-#darkModeToggle:checked+.toggle-label .fa-moon {
+#darkModeToggle:checked + .toggle-label .fa-moon {
   color: #fff;
 }
 
@@ -198,15 +198,15 @@ body.dark-mode {
 }
 
 .dark-mode .process-section h2 {
-  color: white
+  color: white;
 }
 
 .dark-mode .process-section p {
-  color: white
+  color: white;
 }
 
 .dark-mode .process-section h3 {
-  color: white
+  color: white;
 }
 
 .gallery-section {
@@ -319,7 +319,6 @@ body.dark-mode {
 }
 
 @media (max-width: 768px) {
-
   /* hide the desktop theme toggle when on small screens */
   .theme-toggle {
     display: none !important;
@@ -623,7 +622,6 @@ body.dark-mode .featured-bikes-section {
   background-color: var(--secondary-color);
 }
 
-
 .featured-bikes-section h2 {
   color: #333;
 }
@@ -826,12 +824,16 @@ body.dark-mode .bike-slider .bike-card h3 {
   z-index: 2;
 }
 
-/* Status colors (copied from inventory.css so homepage badges render correctly) */
-.status-available { background-color: #28a745; }
-.status-sold { background-color: #dc3545; }
-.status-coming-soon { background-color: #ffc107; color: #000; }
-
-
+.status-available {
+  background-color: #28a745;
+}
+.status-sold {
+  background-color: #dc3545;
+}
+.status-coming-soon {
+  background-color: #ffc107;
+  color: #000;
+}
 
 /* View Details Button - Updated */
 .bike-slider .bike-card .view-details-btn {
@@ -863,14 +865,12 @@ body.dark-mode .bike-slider .bike-card h3 {
   box-shadow: none;
 }
 
-/* Image Container with Status Overlay */
 .bike-slider .bike-card .image-container {
   position: relative;
   overflow: hidden;
   height: 200px;
 }
 
-/* Responsive styles */
 @media (max-width: 1024px) {
   .bike-slider .bike-card {
     flex: 0 0 calc(33.333% - 14px);
@@ -955,10 +955,12 @@ body.dark-mode .bike-slider .bike-card h3 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at center,
+  background-image: radial-gradient(
+      circle at center,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%),
+      rgba(0, 0, 0, 0.95) 100%
+    ),
     url("https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG");
   background-size: cover;
   background-position: center;
@@ -973,7 +975,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Hero Slider Styles */
 .hero-slider {
   position: absolute;
   width: 100%;
@@ -1032,9 +1033,11 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(50% 50% at 77% 49%,
-      rgba(48, 46, 46, 1) 0%,
-      rgba(1, 1, 1, 0) 100%);
+  background: radial-gradient(
+    50% 50% at 77% 49%,
+    rgba(48, 46, 46, 1) 0%,
+    rgba(1, 1, 1, 0) 100%
+  );
 }
 
 .navbar {
@@ -1081,11 +1084,6 @@ body {
   transform: translateY(-3px);
 }
 
-.nav-links a.active,
-.nav-links a:hover {
-  color: var(--text-color);
-}
-
 .login-btn button {
   background-color: var(--secondary-color);
   color: white;
@@ -1123,10 +1121,12 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
   transition: left 0.7s ease;
   z-index: -1;
 }
@@ -1161,9 +1161,11 @@ body {
 
 .hero-line {
   display: block;
-  background: linear-gradient(188deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.7) 100%);
+  background: linear-gradient(
+    188deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1199,9 +1201,11 @@ body {
 @media only screen and (max-width: 768px) {
   .hero-line {
     display: block;
-    background: linear-gradient(188deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0.7) 100%);
+    background: linear-gradient(
+      188deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -1335,9 +1339,11 @@ body.dark-mode .brands-section {
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle,
-      rgba(163, 41, 25, 0.1) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1627,7 +1633,6 @@ body.dark-mode .stats-section {
   overflow: hidden;
 }
 
-
 .stats-section::before {
   content: "";
   position: absolute;
@@ -1635,9 +1640,11 @@ body.dark-mode .stats-section {
   right: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle,
-      rgba(163, 41, 25, 0.1) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1786,9 +1793,11 @@ body.dark-mode .services-section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%,
-      rgba(163, 41, 25, 0.1) 0%,
-      transparent 50%);
+  background: radial-gradient(
+    circle at 20% 50%,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 50%
+  );
   z-index: 0;
 }
 
@@ -1892,9 +1901,11 @@ body.dark-mode .service-card p {
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(circle,
-      rgba(163, 41, 25, 0.1) 0%,
-      transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 70%
+  );
   z-index: 0;
 }
 
@@ -1908,7 +1919,6 @@ body.dark-mode .service-card p {
   position: relative;
   z-index: 1;
 }
-
 
 .style-card {
   flex: 1;
@@ -2149,9 +2159,11 @@ body.dark-mode .service-card p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%,
-      rgba(163, 41, 25, 0.1) 0%,
-      transparent 50%);
+  background: radial-gradient(
+    circle at 20% 50%,
+    rgba(163, 41, 25, 0.1) 0%,
+    transparent 50%
+  );
   z-index: 0;
 }
 
@@ -2160,7 +2172,7 @@ body.dark-mode .service-card p {
   margin-bottom: 70px;
   position: relative;
   display: inline-block;
-  color: black
+  color: black;
 }
 
 .dark-mode .testimonials-section h2 {
@@ -2216,9 +2228,11 @@ body.dark-mode .service-card p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg,
-      rgba(255, 255, 255, 0.03) 0%,
-      rgba(255, 255, 255, 0) 50%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.03) 0%,
+    rgba(255, 255, 255, 0) 50%
+  );
   z-index: -1;
 }
 
@@ -2750,7 +2764,6 @@ body.dark-mode .section-header h2 {
   color: #ffb400;
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -2886,10 +2899,12 @@ body.dark-mode .section-header h2 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(circle at center,
-      rgba(0, 0, 0, 0.7) 0%,
-      rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%);
+  background-image: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0.7) 0%,
+    rgba(0, 0, 0, 0.85) 60%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
 }
 
 .social-icons {
@@ -2932,7 +2947,7 @@ body.dark-mode .section-header h2 {
   display: none;
   background: none;
   border: none;
-  color: #B94918;
+  color: #b94918;
   /* warm orange hamburger */
   font-size: 2rem;
   cursor: pointer;
@@ -2954,7 +2969,7 @@ body.dark-mode .section-header h2 {
   /* deep charcoal */
   color: #fff;
   z-index: 10000;
-  transition: right 0.28s cubic-bezier(.2, .9, .2, 1);
+  transition: right 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
   padding: 22px 18px 120px 18px;
   /* leave bottom space for contact area */
   box-shadow: -8px 0 24px rgba(0, 0, 0, 0.55);
@@ -2972,7 +2987,7 @@ body.dark-mode .section-header h2 {
   top: 18px;
   background: none;
   border: none;
-  color: #FFB000;
+  color: #ffb000;
   /* orange X */
   font-size: 1.9rem;
   cursor: pointer;
@@ -3006,7 +3021,7 @@ body.dark-mode .section-header h2 {
 
 .mobile-menu .nav-links a .fa,
 .mobile-menu .nav-links a i {
-  color: #FFB000;
+  color: #ffb000;
   margin-right: 12px;
   width: 22px;
 }
@@ -3039,12 +3054,12 @@ body.dark-mode .section-header h2 {
 }
 
 .mobile-menu .contact-bottom .phone i {
-  color: #FFB000;
+  color: #ffb000;
   font-size: 1.1rem;
 }
 
 .mobile-menu .contact-bottom .email i {
-  color: #FFB000;
+  color: #ffb000;
   font-size: 1.05rem;
 }
 

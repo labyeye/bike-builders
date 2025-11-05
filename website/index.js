@@ -151,12 +151,12 @@ document.addEventListener("DOMContentLoaded", function () {
   mobileMenu.className = "mobile-menu";
   mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
           <ul class="nav-links">
-            <li><a href="index.html" class="active" data-translate="Home">Home</a></li>
-            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/" class="active" data-translate="Home">Home</a></li>
+            <li><a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
             <li>
                   <a
-                    href="about.html"
+                    href="https://www.bikebuilders.in/about.html"
                     aria-label="About Bike Builders"
                     data-translate="About Us"
                     >About Us</a
@@ -164,14 +164,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 </li>
                 <li>
                   <a
-                    href="book.html"
+                    href="https://www.bikebuilders.in/book.html"
                     aria-label="Book Bike"
                     data-translate="Book Bike"
                     >Book Bike</a
                   >
                 </li>
-                      <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-              <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+                      <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
+              <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
           </ul>
           <div class="login-btn">
             <button data-translate="Get the Quote">Get the Quote</button>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>City — Bike Builders</title>
+    <meta
+      name="description"
+      content="Bike Builders — city listings for second hand bikes."
+    />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./location-bihar.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <script>
+      // Helper to parse query params
+      function getQueryParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name);
+      }
+
+      async function renderCity() {
+        const slug = getQueryParam("city");
+        const dataUrl = "./location-bihar-cities.json";
+        try {
+          const res = await fetch(dataUrl);
+          const cities = await res.json();
+          const city = cities.find(
+            (c) => c.slug === slug || c.slug === (slug || "").toLowerCase()
+          );
+          if (!city) {
+            document.title = "City not found — Bike Builders";
+            document.getElementById("main").innerHTML =
+              '<p>City not found. <a href="https://www.bikebuilders.in/locations-bihar.html">Back to locations</a></p>';
+            return;
+          }
+
+          // Update title and meta
+          document.title = city.name + " — Second Hand Bikes | Bike Builders";
+          const desc = document.querySelector('meta[name="description"]');
+          if (desc)
+            desc.setAttribute(
+              "content",
+              city.description ||
+                `Find second hand bikes in ${city.name}. Verified pre-owned bikes, local inspections and finance options.`
+            );
+          // set meta keywords
+          let kw = document.querySelector('meta[name="keywords"]');
+          if (!kw) {
+            kw = document.createElement("meta");
+            kw.setAttribute("name", "keywords");
+            document.head.appendChild(kw);
+          }
+          kw.setAttribute(
+            "content",
+            city.keywords ||
+              `second hand bike in ${city.name}, used bike ${city.name}`
+          );
+          // Set canonical
+          let link = document.querySelector('link[rel="canonical"]');
+          if (!link) {
+            link = document.createElement("link");
+            link.setAttribute("rel", "canonical");
+            document.head.appendChild(link);
+          }
+          link.setAttribute(
+            "href",
+            `https://www.bikebuilders.in/second-hand-bikes-${city.slug}.html`
+          );
+
+          // Render content (include description, keywords and CTA to inventory)
+          const container = document.getElementById("main");
+          // build an extended SEO paragraph by combining the provided description and keywords
+          const keywordsText = (city.keywords || "")
+            .split(",")
+            .map((k) => k.trim())
+            .filter(Boolean);
+          const seoExtra = keywordsText.length
+            ? `People often search for ${keywordsText
+                .slice(0, 5)
+                .join(", ")} and related terms when looking for bikes in ${
+                city.name
+              }. We list a wide range of models, from commuter bikes to touring motorcycles, all thoroughly inspected and available with flexible finance options.`
+            : `We list a wide range of inspected pre-owned bikes, with local inspections, transparent pricing and finance options.`;
+
+          const descriptionHtml = `<p class="city-description">${
+            city.description || ""
+          }</p><p class="city-description-more">${seoExtra}</p>`;
+
+          container.innerHTML = `
+            <header class="city-header">
+              <h1>Second Hand Bikes in ${city.name}</h1>
+              ${descriptionHtml}
+            </header>
+            <section class="city-actions">
+              <a href="/inventory.html?city=${city.slug}" class="btn">Want a bike? View inventory</a>
+              <a href="/contact.html" class="btn-outline">Contact us for ${city.name}</a>
+            </section>
+            
+          `;
+        } catch (err) {
+          document.getElementById("main").innerHTML =
+            "<p>Failed to load city data. Please try again later.</p>";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", renderCity);
+    </script>
+  </head>
+  <body>
+    <nav class="navbar" aria-label="Main navigation">
+      <a href="https://www.bikebuilders.in/" class="logo-link"
+        ><div class="logo">
+          <img
+            src="./assets/logo2.svg"
+            class="logo-img"
+            alt="Bike Builders Logo"
+            itemprop="logo"
+          /></div
+      ></a>
+      <ul class="nav-links">
+        <li>
+          <a
+            href="https://www.bikebuilders.in/"
+            class="active"
+            aria-current="page"
+            data-translate="Home"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/inventory.html"
+            data-translate="Buy Bike"
+            >Buy Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/sell.html"
+            data-translate="Sell Your Bike"
+            >Sell Your Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/about.html"
+            aria-label="About Bike Builders"
+            data-translate="About Us"
+            >About Us</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/book.html"
+            aria-label="Book Bike"
+            data-translate="Book Bike"
+            >Book Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/finance.html"
+            aria-label="Bike Finance"
+            data-translate="Bike Finance"
+            >Bike Finance</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/updates.html"
+            data-translate="Updates"
+            >Updates</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/contact.html"
+            data-translate="Contact"
+            >Contact</a
+          >
+        </li>
+      </ul>
+
+      <div class="theme-toggle">
+        <input
+          type="checkbox"
+          id="darkModeToggle"
+          aria-label="Toggle dark mode"
+        />
+        <label for="darkModeToggle" class="toggle-label">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <span class="toggle-ball"></span>
+        </label>
+      </div>
+    </nav>
+
+    <main id="main" class="wrap">
+      <div class="loading">Loading...</div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <!-- 5-Star Rating Display -->
+          <div class="footer-stars" style="margin: 10px 0">
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+            <span class="star" style="color: gold; font-size: 1.5em"
+              ><i class="fa fa-star"></i
+            ></span>
+          </div>
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Bike Builders Logo"
+            />
+          </div>
+          <p data-translate="Bringing the future of bike riding to you today.">
+            Bringing the future of bike riding to you today.
+          </p>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/share/1Ao18FYX8e/"
+              ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+              aria-label="Visit our Instagram profile"
+              ><img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                style="width: 20px"
+            /></a>
+            <a href="https://wa.me/918210283582"
+              ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
+            ></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h3 data-translate="Quick Links">Quick Links</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/" data-translate="Home"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/inventory.html"
+                data-translate="Buy Bike"
+                >Buy Bike</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/sell.html"
+                data-translate="Sell Your Bike"
+                >Sell Your Bike</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/about.html"
+                aria-label="About Bike Builders"
+                data-translate="About Us"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/book.html"
+                aria-label="Book Bike"
+                data-translate="Book Bike"
+                >Book Bike</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/updates.html"
+                data-translate="Updates"
+                >Updates</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/contact.html"
+                data-translate="Contact"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 data-translate="Resources">Resources</h3>
+          <ul>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/finance.html"
+                data-translate="Bike Finance"
+                >Bike Finance</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/locations-bihar.html"
+                data-translate="Locations"
+                >Locations</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Contact Us">Contact Us</h3>
+          <p
+            data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
+          >
+            <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
+            Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
+            842002
+          </p>
+          <span itemprop="telephone">+91 8210283582 / 9835844897</span>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
+          &copy; 2023 Bike Builders. All rights reserved.
+        </p>
+        <a
+          href="https://www.pixelatenest.com/"
+          style="color: #a9a9a9"
+          data-translate="Designed By Pixelate Nest"
+          >Designed By Pixelate Nest</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>

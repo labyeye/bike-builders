@@ -73,7 +73,7 @@
       </div>
 
       <nav class="navbar">
-        <a href="index.html" class="logo-link">
+        <a href="https://www.bikebuilders.in/" class="logo-link">
           <div class="logo">
             <img
               src="./assets/logo2.svg"
@@ -84,18 +84,18 @@
           </div>
         </a>
         <ul class="nav-links">
-          <li><a href="index.html" data-translate="Home">Home</a></li>
+          <li><a href="https://www.bikebuilders.in/" data-translate="Home">Home</a></li>
           <li>
-            <a href="inventory.html" data-translate="Buy Bike">Buy Bike</a>
+            <a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a>
           </li>
           <li>
-            <a href="sell.html" data-translate="Sell Your Bike"
+            <a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike"
               >Sell Your Bike</a
             >
           </li>
           <li>
             <a
-              href="about.html"
+              href="https://www.bikebuilders.in/about.html"
               aria-label="About Bike Builders"
               data-translate="About Us"
               >About Us</a
@@ -103,7 +103,7 @@
           </li>
           <li>
             <a
-              href="book.html"
+              href="https://www.bikebuilders.in/book.html"
               aria-label="Book Bike"
               data-translate="Book Bike"
               >Book Bike</a
@@ -111,20 +111,16 @@
           </li>
           <li>
             <a
-              href="finance.html"
+              href="https://www.bikebuilders.in/finance.html"
               aria-label="Bike Finance"
               data-translate="Bike Finance"
               >Bike Finance</a
             >
           </li>
-          <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-          <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+          <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
+          <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
         </ul>
-        <div class="login-btn">
-          <a href="/getquote.html">
-            <button data-translate="Get the Quote">Get the Quote</button>
-          </a>
-        </div>
+
         <div class="theme-toggle">
           <input
             type="checkbox"
@@ -738,16 +734,52 @@
           </div>
         </div>
         <div class="footer-section">
-          <h3>Quick Links</h3>
+          <h3 data-translate="Quick Links">Quick Links</h3>
           <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="inventory.html">Buy Bike</a></li>
-            <li><a href="sell.html">Sell Your Bike</a></li>
-            <li><a href="about.html">About Us</a></li>
+            <li><a href="https://www.bikebuilders.in/" data-translate="Home">Home</a></li>
             <li>
-              <a href="./updates.html" data-translate="Updates">Updates</a>
+              <a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a>
             </li>
-            <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+            <li>
+              <a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike"
+                >Sell Your Bike</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/about.html"
+                aria-label="About Bike Builders"
+                data-translate="About Us"
+                >About Us</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/book.html"
+                aria-label="Book Bike"
+                data-translate="Book Bike"
+                >Book Bike</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a>
+            </li>
+            <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3 data-translate="Resources">Resources</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/finance.html" data-translate="Bike Finance"
+                >Bike Finance</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html" data-translate="Locations"
+                >Locations</a
+              >
+            </li>
           </ul>
         </div>
         <div class="footer-section">
@@ -966,21 +998,26 @@
         function loadBikes() {
           // Use cached bikes from homepage prefetch if available (short TTL)
           try {
-            const cacheKey = 'cachedBikes';
-            const tsKey = 'cachedBikesTS';
+            const cacheKey = "cachedBikes";
+            const tsKey = "cachedBikesTS";
             const maxAge = 5 * 60 * 1000; // 5 minutes
             const now = Date.now();
             const cached = localStorage.getItem(cacheKey);
             const cachedTS = localStorage.getItem(tsKey);
             if (cached && cachedTS && now - parseInt(cachedTS, 10) <= maxAge) {
-              let bikes = JSON.parse(cached || '[]');
+              let bikes = JSON.parse(cached || "[]");
               // Normalize image URLs (assume non-cloudinary cached data)
               bikes = (bikes || []).map((b) => {
                 try {
                   const copy = Object.assign({}, b);
                   if (Array.isArray(copy.imageUrl)) {
-                    copy.imageUrl = copy.imageUrl.map((u) => normalizeImageUrl(u)).filter(Boolean);
-                  } else if (typeof copy.imageUrl === 'string' && copy.imageUrl.trim() !== '') {
+                    copy.imageUrl = copy.imageUrl
+                      .map((u) => normalizeImageUrl(u))
+                      .filter(Boolean);
+                  } else if (
+                    typeof copy.imageUrl === "string" &&
+                    copy.imageUrl.trim() !== ""
+                  ) {
                     copy.imageUrl = [normalizeImageUrl(copy.imageUrl)];
                   } else {
                     copy.imageUrl = [];
@@ -991,19 +1028,24 @@
                 }
               });
               allBikes = bikes;
-              try { if (typeof renderBrandCounts === 'function') renderBrandCounts(bikes); } catch (e) {}
-              if (bikes.length === 0) showNoBikesMessage(); else applyAllFilters();
+              try {
+                if (typeof renderBrandCounts === "function")
+                  renderBrandCounts(bikes);
+              } catch (e) {}
+              if (bikes.length === 0) showNoBikesMessage();
+              else applyAllFilters();
 
               // Refresh cache in background
               try {
-                fetch(API_BASE + '/api/config')
+                fetch(API_BASE + "/api/config")
                   .then((r) => r.json())
-                  .then(() => fetch(API_BASE + '/api/bikes'))
+                  .then(() => fetch(API_BASE + "/api/bikes"))
                   .then((r) => r.json())
                   .then((data) => {
                     let fresh = [];
                     if (Array.isArray(data)) fresh = data;
-                    else if (data && Array.isArray(data.bikes)) fresh = data.bikes;
+                    else if (data && Array.isArray(data.bikes))
+                      fresh = data.bikes;
                     localStorage.setItem(cacheKey, JSON.stringify(fresh));
                     localStorage.setItem(tsKey, String(Date.now()));
                   })
@@ -1498,7 +1540,7 @@
 
               // Clear any existing search term from URL
               if (window.location.search.includes("search=")) {
-                window.history.pushState({}, "", "inventory.html");
+                window.history.pushState({}, "", "https://www.bikebuilders.in/inventory.html");
               }
 
               applyAllFilters();
@@ -2123,7 +2165,7 @@
           clearBtn.innerHTML = "&times;";
           clearBtn.title = "Clear search";
           clearBtn.addEventListener("click", () => {
-            window.location.href = "inventory.html";
+            window.location.href = "https://www.bikebuilders.in/inventory.html";
           });
 
           searchContainer.appendChild(searchText);
@@ -2220,12 +2262,12 @@
         mobileMenu.className = "mobile-menu";
         mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
           <ul class="nav-links">
-            <li><a href="index.html" class="active" data-translate="Home">Home</a></li>
-            <li><a href="inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-            <li><a href="sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/" class="active" data-translate="Home">Home</a></li>
+            <li><a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
             <li>
                   <a
-                    href="about.html"
+                    href="https://www.bikebuilders.in/about.html"
                     aria-label="About Bike Builders"
                     data-translate="About Us"
                     >About Us</a
@@ -2233,14 +2275,14 @@
                 </li>
                 <li>
                   <a
-                    href="book.html"
+                    href="https://www.bikebuilders.in/book.html"
                     aria-label="Book Bike"
                     data-translate="Book Bike"
                     >Book Bike</a
                   >
                 </li>
-                      <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
-              <li><a href="contact.html" data-translate="Contact">Contact</a></li>
+                      <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
+              <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
           </ul>
           <div class="login-btn">
             <button data-translate="Get the Quote">Get the Quote</button>

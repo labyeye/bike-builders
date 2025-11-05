@@ -54,4 +54,22 @@
 		<changefreq>monthly</changefreq>
 		<priority>0.4</priority>
 	</url>
+	<url>
+		<loc>https://www.bikebuilders.in/finance.html</loc>
+		<lastmod>2025-11-05</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.6</priority>
+	</url>
+	<url>
+		<loc>https://www.bikebuilders.in/locations-bihar.html</loc>
+		<lastmod>2025-11-05</lastmod>
+		<changefreq>weekly</changefreq>
+		<priority>0.8</priority>
+	</url>
+	<url>
+		<loc>https://www.bikebuilders.in/location-bihar-city.html</loc>
+		<lastmod>2025-11-05</lastmod>
+		<changefreq>monthly</changefreq>
+		<priority>0.5</priority>
+	</url>
 </urlset>
