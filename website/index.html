@@ -172,6 +172,14 @@
               >Book Bike</a
             >
           </li>
+          <li>
+            <a
+              href="finance.html"
+              aria-label="Bike Finance"
+              data-translate="Bike Finance"
+              >Bike Finance</a
+            >
+          </li>
           <li><a href="./updates.html" data-translate="Updates">Updates</a></li>
           <li><a href="contact.html" data-translate="Contact">Contact</a></li>
         </ul>
@@ -290,9 +298,7 @@
             />
             <div class="style-content">
               <h3 data-translate="Sport">Sport</h3>
-              <p
-                data-translate="High-performance machines."
-              >
+              <p data-translate="High-performance machines.">
                 High-performance machines.
               </p>
               <span data-translate="View Sports Bikes">View Sports Bikes</span>
@@ -336,8 +342,14 @@
         </button>
       </div>
       <!-- View all with live count -->
-      <div class="featured-footer" style="text-align:center;margin-top:18px;">
-        <a id="viewAllBikesBtn" class="view-all view-all-count" href="inventory.html" aria-label="View all bikes">View All</a>
+      <div class="featured-footer" style="text-align: center; margin-top: 18px">
+        <a
+          id="viewAllBikesBtn"
+          class="view-all view-all-count"
+          href="inventory.html"
+          aria-label="View all bikes"
+          >View All</a
+        >
       </div>
     </section>
 
@@ -376,14 +388,14 @@
           <p
             data-translate="Professional and Best servicing, maintenance by certified technicians."
           >
-            Professional and Best servicing, maintenance by certified technicians.
+            Professional and Best servicing, maintenance by certified
+            technicians.
           </p>
           <a href="contact.html"
             ><span data-translate="Book Service">Book Service</span>
             <i class="fas fa-arrow-right"></i
           ></a>
         </div>
-        
       </div>
     </section>
 
@@ -1186,8 +1198,19 @@
         <span class="close" id="closeReviewModal">&times;</span>
         <h3>Leave a Review</h3>
         <form id="reviewForm">
-          <input type="text" id="reviewName" name="reviewName" placeholder="Your Name" required />
-          <textarea id="reviewMessage" name="reviewMessage" placeholder="Your Review" required></textarea>
+          <input
+            type="text"
+            id="reviewName"
+            name="reviewName"
+            placeholder="Your Name"
+            required
+          />
+          <textarea
+            id="reviewMessage"
+            name="reviewMessage"
+            placeholder="Your Review"
+            required
+          ></textarea>
           <div id="starRating" class="star-rating">
             <span class="star" data-value="1"><i class="fa fa-star"></i></span>
             <span class="star" data-value="2"><i class="fa fa-star"></i></span>
@@ -1195,9 +1218,22 @@
             <span class="star" data-value="4"><i class="fa fa-star"></i></span>
             <span class="star" data-value="5"><i class="fa fa-star"></i></span>
           </div>
-          <input type="hidden" id="reviewRating" name="reviewRating" value="0" required />
-          <div style="text-align:right;margin-top:12px;"><button type="submit" class="submit-btn">Submit</button></div>
-          <div id="reviewSuccess" style="display:none;color:green;margin-top:8px">Thanks for your feedback!</div>
+          <input
+            type="hidden"
+            id="reviewRating"
+            name="reviewRating"
+            value="0"
+            required
+          />
+          <div style="text-align: right; margin-top: 12px">
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+          <div
+            id="reviewSuccess"
+            style="display: none; color: green; margin-top: 8px"
+          >
+            Thanks for your feedback!
+          </div>
         </form>
       </div>
     </div>
@@ -1228,14 +1264,21 @@
           return "https://bike-builders-backend.vercel.app";
         })();
 
-        const testimonialsContainer = document.getElementById("testimonialsContainer");
+        const testimonialsContainer = document.getElementById(
+          "testimonialsContainer"
+        );
         const testimonialNav = document.getElementById("testimonialNav");
 
         function fetchReviews() {
           fetch(API_BASE + "/api/reviews")
             .then((res) => res.json())
             .then((data) => {
-              const reviews = data && data.success && Array.isArray(data.reviews) ? data.reviews : (Array.isArray(data) ? data : []);
+              const reviews =
+                data && data.success && Array.isArray(data.reviews)
+                  ? data.reviews
+                  : Array.isArray(data)
+                  ? data
+                  : [];
               renderTestimonialsSlider(reviews);
             })
             .catch(() => renderTestimonialsSlider([]));
@@ -1244,66 +1287,75 @@
         function createTestimonialEl(r) {
           const div = document.createElement("div");
           div.className = "testimonial";
-          const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(r.name||'Rider')}`;
-          const ratingStars = ("<i class=\"fas fa-star\"></i>").repeat(r.rating||5) + ("<i class=\"far fa-star\"></i>").repeat(Math.max(0,5-(r.rating||5)));
+          const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
+            r.name || "Rider"
+          )}`;
+          const ratingStars =
+            '<i class="fas fa-star"></i>'.repeat(r.rating || 5) +
+            '<i class="far fa-star"></i>'.repeat(
+              Math.max(0, 5 - (r.rating || 5))
+            );
           div.innerHTML = `
             <div class="quote-icon"><i class="fa fa-quote-left" style="color:#ff6b00;"></i></div>
             <div class="testimonial-header">
-              <img src="${avatar}" alt="${(r.name||'')}" class="user-avatar" />
+              <img src="${avatar}" alt="${r.name || ""}" class="user-avatar" />
               <div class="user-info">
-                <h4 class="user-name">${escapeHtml(r.name||'Anonymous')}</h4>
+                <h4 class="user-name">${escapeHtml(r.name || "Anonymous")}</h4>
                 <div class="rating">${ratingStars}</div>
               </div>
             </div>
-            <div class="quote">${escapeHtml(r.message||r.text||'')}</div>
-            <div class="testimonial-footer"><span class="testimonial-date">${new Date(r.date||Date.now()).toLocaleDateString()}</span></div>
+            <div class="quote">${escapeHtml(r.message || r.text || "")}</div>
+            <div class="testimonial-footer"><span class="testimonial-date">${new Date(
+              r.date || Date.now()
+            ).toLocaleDateString()}</span></div>
           `;
           return div;
         }
 
-        function escapeHtml(str){
+        function escapeHtml(str) {
           return String(str)
-            .replace(/&/g,'&amp;')
-            .replace(/</g,'&lt;')
-            .replace(/>/g,'&gt;')
-            .replace(/"/g,'&quot;')
-            .replace(/'/g,'&#39;');
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
         }
 
         // builds slider grouping reviews into slides (slideSize items)
-        function renderTestimonialsSlider(reviews){
-          testimonialsContainer.innerHTML = '';
-          testimonialNav.innerHTML = '';
-          if(!reviews || reviews.length===0){
-            testimonialsContainer.innerHTML = '<div style="text-align:center;color:#888;padding:30px;">No reviews yet. Be the first to share your experience!</div>';
+        function renderTestimonialsSlider(reviews) {
+          testimonialsContainer.innerHTML = "";
+          testimonialNav.innerHTML = "";
+          if (!reviews || reviews.length === 0) {
+            testimonialsContainer.innerHTML =
+              '<div style="text-align:center;color:#888;padding:30px;">No reviews yet. Be the first to share your experience!</div>';
             return;
           }
 
           // determine slide size responsive
           const slideSize = window.innerWidth >= 900 ? 3 : 1;
           const slides = [];
-          for(let i=0;i<reviews.length;i+=slideSize){
-            slides.push(reviews.slice(i,i+slideSize));
+          for (let i = 0; i < reviews.length; i += slideSize) {
+            slides.push(reviews.slice(i, i + slideSize));
           }
 
-          const slider = document.createElement('div');
-          slider.className = 'testimonial-slider';
+          const slider = document.createElement("div");
+          slider.className = "testimonial-slider";
 
           slides.forEach((group, sidx) => {
-            const slide = document.createElement('div');
-            slide.className = 'testimonial-slide';
-            group.forEach(r => slide.appendChild(createTestimonialEl(r)));
+            const slide = document.createElement("div");
+            slide.className = "testimonial-slide";
+            group.forEach((r) => slide.appendChild(createTestimonialEl(r)));
             slider.appendChild(slide);
             // dot
-            const dot = document.createElement('div');
-            dot.className = 'testimonial-dot' + (sidx===0? ' active': '');
+            const dot = document.createElement("div");
+            dot.className = "testimonial-dot" + (sidx === 0 ? " active" : "");
             dot.dataset.idx = sidx;
             testimonialNav.appendChild(dot);
           });
 
           // controls
-          const controls = document.createElement('div');
-          controls.className = 'testimonial-controls';
+          const controls = document.createElement("div");
+          controls.className = "testimonial-controls";
           controls.innerHTML = `<button class="testimonial-prev" aria-label="Previous reviews">&#10094;</button><button class="testimonial-next" aria-label="Next reviews">&#10095;</button>`;
 
           testimonialsContainer.appendChild(slider);
@@ -1311,137 +1363,187 @@
 
           let current = 0;
           const slidesEls = Array.from(slider.children);
-          function showSlide(n){
+          function showSlide(n) {
             current = (n + slidesEls.length) % slidesEls.length;
-            slidesEls.forEach((el,i)=> el.style.display = i===current ? 'flex' : 'none');
-            Array.from(testimonialNav.children).forEach((d,i)=> d.classList.toggle('active', i===current));
+            slidesEls.forEach(
+              (el, i) => (el.style.display = i === current ? "flex" : "none")
+            );
+            Array.from(testimonialNav.children).forEach((d, i) =>
+              d.classList.toggle("active", i === current)
+            );
           }
 
           showSlide(0);
 
-          controls.querySelector('.testimonial-prev').addEventListener('click', ()=> showSlide(current-1));
-          controls.querySelector('.testimonial-next').addEventListener('click', ()=> showSlide(current+1));
-          Array.from(testimonialNav.children).forEach((d,i)=> d.addEventListener('click', ()=> showSlide(i)));
+          controls
+            .querySelector(".testimonial-prev")
+            .addEventListener("click", () => showSlide(current - 1));
+          controls
+            .querySelector(".testimonial-next")
+            .addEventListener("click", () => showSlide(current + 1));
+          Array.from(testimonialNav.children).forEach((d, i) =>
+            d.addEventListener("click", () => showSlide(i))
+          );
 
           // rebuild on resize (debounced)
           let resizeTimer;
-          window.addEventListener('resize', ()=>{
+          window.addEventListener("resize", () => {
             clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(()=> renderTestimonialsSlider(reviews),250);
+            resizeTimer = setTimeout(
+              () => renderTestimonialsSlider(reviews),
+              250
+            );
           });
         }
 
         // wire review modal open/close and footer stars
-        const reviewModal = document.getElementById('reviewModal');
-        const openReviewModalBtn = document.getElementById('openReviewModal');
-        const closeReviewModalBtn = document.getElementById('closeReviewModal');
-        const footerStars = document.querySelectorAll('.footer-stars .star');
+        const reviewModal = document.getElementById("reviewModal");
+        const openReviewModalBtn = document.getElementById("openReviewModal");
+        const closeReviewModalBtn = document.getElementById("closeReviewModal");
+        const footerStars = document.querySelectorAll(".footer-stars .star");
 
-        if(openReviewModalBtn) openReviewModalBtn.addEventListener('click', ()=> reviewModal.style.display = 'block');
-        if(closeReviewModalBtn) closeReviewModalBtn.addEventListener('click', ()=> reviewModal.style.display = 'none');
-        window.addEventListener('click', (e)=> { if(e.target===reviewModal) reviewModal.style.display='none'; });
-        footerStars.forEach(s=> s.addEventListener('click', ()=> reviewModal.style.display='block'));
+        if (openReviewModalBtn)
+          openReviewModalBtn.addEventListener(
+            "click",
+            () => (reviewModal.style.display = "block")
+          );
+        if (closeReviewModalBtn)
+          closeReviewModalBtn.addEventListener(
+            "click",
+            () => (reviewModal.style.display = "none")
+          );
+        window.addEventListener("click", (e) => {
+          if (e.target === reviewModal) reviewModal.style.display = "none";
+        });
+        footerStars.forEach((s) =>
+          s.addEventListener(
+            "click",
+            () => (reviewModal.style.display = "block")
+          )
+        );
 
         // star rating inside modal
-        const starRating = document.getElementById('starRating');
-        const reviewRatingInput = document.getElementById('reviewRating');
-        if(starRating){
-          Array.from(starRating.querySelectorAll('.star')).forEach(st => {
-            st.addEventListener('click', function(){
-              const v = Number(this.getAttribute('data-value'));
+        const starRating = document.getElementById("starRating");
+        const reviewRatingInput = document.getElementById("reviewRating");
+        if (starRating) {
+          Array.from(starRating.querySelectorAll(".star")).forEach((st) => {
+            st.addEventListener("click", function () {
+              const v = Number(this.getAttribute("data-value"));
               reviewRatingInput.value = v;
-              Array.from(starRating.children).forEach((s, i)=> s.classList.toggle('selected', i < v));
+              Array.from(starRating.children).forEach((s, i) =>
+                s.classList.toggle("selected", i < v)
+              );
             });
           });
         }
 
         // submit review
-        const reviewForm = document.getElementById('reviewForm');
-        reviewForm.addEventListener('submit', function(e){
+        const reviewForm = document.getElementById("reviewForm");
+        reviewForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          const name = document.getElementById('reviewName').value.trim();
-          const message = document.getElementById('reviewMessage').value.trim();
-          const rating = Number(document.getElementById('reviewRating').value);
-          if(!name || !message || !rating){
-            alert('Please fill all fields and select a rating.');
+          const name = document.getElementById("reviewName").value.trim();
+          const message = document.getElementById("reviewMessage").value.trim();
+          const rating = Number(document.getElementById("reviewRating").value);
+          if (!name || !message || !rating) {
+            alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch(API_BASE + '/api/reviews', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, message, rating })
-          }).then(r=> r.json()).then(data=>{
-            if(data && data.success){
-              document.getElementById('reviewSuccess').style.display = 'block';
-              setTimeout(()=>{
-                document.getElementById('reviewSuccess').style.display = 'none';
-                reviewModal.style.display = 'none';
-                reviewForm.reset();
-                // clear star selection
-                if(starRating) Array.from(starRating.children).forEach(s=> s.classList.remove('selected'));
-                fetchReviews();
-              },900);
-            } else {
-              alert('Failed to submit review.');
-            }
-          }).catch(()=> alert('Failed to submit review.'));
+          fetch(API_BASE + "/api/reviews", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, message, rating }),
+          })
+            .then((r) => r.json())
+            .then((data) => {
+              if (data && data.success) {
+                document.getElementById("reviewSuccess").style.display =
+                  "block";
+                setTimeout(() => {
+                  document.getElementById("reviewSuccess").style.display =
+                    "none";
+                  reviewModal.style.display = "none";
+                  reviewForm.reset();
+                  // clear star selection
+                  if (starRating)
+                    Array.from(starRating.children).forEach((s) =>
+                      s.classList.remove("selected")
+                    );
+                  fetchReviews();
+                }, 900);
+              } else {
+                alert("Failed to submit review.");
+              }
+            })
+            .catch(() => alert("Failed to submit review."));
         });
 
         // initial load
         fetchReviews();
         // update 'View All' with live bike count (falls back to plain "View All" on error)
-        function updateViewAllCount(){
-          try{
-            const btn = document.getElementById('viewAllBikesBtn');
-            if(!btn) return;
-            fetch(API_BASE + '/api/bikes')
-              .then(r => r.json())
-              .then(data => {
+        function updateViewAllCount() {
+          try {
+            const btn = document.getElementById("viewAllBikesBtn");
+            if (!btn) return;
+            fetch(API_BASE + "/api/bikes")
+              .then((r) => r.json())
+              .then((data) => {
                 let count = 0;
-                if(data && data.success && Array.isArray(data.bikes)) count = data.bikes.length;
-                else if(Array.isArray(data)) count = data.length;
+                if (data && data.success && Array.isArray(data.bikes))
+                  count = data.bikes.length;
+                else if (Array.isArray(data)) count = data.length;
                 btn.textContent = `View All (${count}) Bikes`;
-                btn.setAttribute('aria-label', `View all bikes (${count})`);
+                btn.setAttribute("aria-label", `View all bikes (${count})`);
               })
-              .catch(() => {/* ignore - keep default text */});
-          }catch(e){/* ignore */}
+              .catch(() => {
+                /* ignore - keep default text */
+              });
+          } catch (e) {
+            /* ignore */
+          }
         }
         updateViewAllCount();
         // Prefetch bikes/featured data into localStorage so inventory can read it later
-        function prefetchInventoryCache(){
-          try{
+        function prefetchInventoryCache() {
+          try {
             const maxAge = 5 * 60 * 1000; // 5 minutes
             const now = Date.now();
             // bikes
-            const bikesTS = localStorage.getItem('cachedBikesTS');
-            if (!bikesTS || now - parseInt(bikesTS,10) > maxAge) {
-              fetch(API_BASE + '/api/bikes')
-                .then(r => r.json())
-                .then(data => {
+            const bikesTS = localStorage.getItem("cachedBikesTS");
+            if (!bikesTS || now - parseInt(bikesTS, 10) > maxAge) {
+              fetch(API_BASE + "/api/bikes")
+                .then((r) => r.json())
+                .then((data) => {
                   let bikes = [];
-                  if (data && data.success && Array.isArray(data.bikes)) bikes = data.bikes;
+                  if (data && data.success && Array.isArray(data.bikes))
+                    bikes = data.bikes;
                   else if (Array.isArray(data)) bikes = data;
-                  localStorage.setItem('cachedBikes', JSON.stringify(bikes));
-                  localStorage.setItem('cachedBikesTS', String(Date.now()));
+                  localStorage.setItem("cachedBikes", JSON.stringify(bikes));
+                  localStorage.setItem("cachedBikesTS", String(Date.now()));
                 })
-                .catch(()=>{});
+                .catch(() => {});
             }
 
             // featured bikes
-            const featTS = localStorage.getItem('cachedFeaturedTS');
-            if (!featTS || now - parseInt(featTS,10) > maxAge) {
-              fetch(API_BASE + '/api/featured-bikes')
-                .then(r => r.json())
-                .then(data => {
+            const featTS = localStorage.getItem("cachedFeaturedTS");
+            if (!featTS || now - parseInt(featTS, 10) > maxAge) {
+              fetch(API_BASE + "/api/featured-bikes")
+                .then((r) => r.json())
+                .then((data) => {
                   let bikes = [];
-                  if (data && data.success && Array.isArray(data.data)) bikes = data.data;
+                  if (data && data.success && Array.isArray(data.data))
+                    bikes = data.data;
                   else if (Array.isArray(data)) bikes = data;
-                  localStorage.setItem('cachedFeaturedBikes', JSON.stringify(bikes));
-                  localStorage.setItem('cachedFeaturedTS', String(Date.now()));
+                  localStorage.setItem(
+                    "cachedFeaturedBikes",
+                    JSON.stringify(bikes)
+                  );
+                  localStorage.setItem("cachedFeaturedTS", String(Date.now()));
                 })
-                .catch(()=>{});
+                .catch(() => {});
             }
-          }catch(e){/* ignore */}
+          } catch (e) {
+            /* ignore */
+          }
         }
         prefetchInventoryCache();
       });
