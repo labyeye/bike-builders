@@ -10,7 +10,7 @@
     />
     <meta
       name="keywords"
-      content="second hand bike in muzaffarpur, used bikes muzaffarpur, pre-owned motorcycles, buy used bike Muzaffarpur, Bike Builders"
+      content="second hand bike in Muzaffarpur, used bikes Muzaffarpur, pre-owned motorcycles Bihar, buy used bike Muzaffarpur, refurbished Royal Enfield, KTM used bikes Muzaffarpur, used Honda bikes, certified used motorcycles, inspected second hand bikes, Bike Builders inventory"
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.bikebuilders.in/inventory.html" />
@@ -39,6 +39,27 @@
         "name": "Inventory — Bike Builders",
         "description": "Inventory of pre-owned and second hand bikes in Muzaffarpur. Search by brand, price, year and more.",
         "keywords": "second hand bike in muzaffarpur, used bikes muzaffarpur, pre-owned motorcycles"
+      }
+    </script>
+    <!-- LocalBusiness JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Bike Builders",
+        "url": "https://www.bikebuilders.in/inventory.html",
+        "telephone": "+918210283582",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rambag Chowk, Rambag Road, Gaushala Chowk",
+          "addressLocality": "Muzaffarpur",
+          "addressRegion": "Bihar",
+          "postalCode": "842002",
+          "addressCountry": "IN"
+        },
+        "description": "Browse our large inventory of inspected pre-owned bikes in Muzaffarpur. Filter by brand, year, km driven and price.",
+        "image": "https://www.bikebuilders.in/assets/social-preview.jpg",
+        "areaServed": ["Muzaffarpur", "Bihar"]
       }
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -1320,7 +1341,13 @@
               viewDetailsBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const bikeData = JSON.parse(card.dataset.bikeData);
-                showBikePopup(bikeData);
+                // Navigate to vehicle detail page by id
+                if (bikeData && bikeData._id) {
+                  window.location.href = `vehicledetail.html?id=${encodeURIComponent(bikeData._id)}`;
+                } else {
+                  // fallback to popup if id missing
+                  showBikePopup(bikeData);
+                }
               });
             }
 

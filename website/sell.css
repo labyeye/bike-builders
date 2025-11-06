@@ -11,7 +11,12 @@
 .dark-mode .nav-links a.active {
   color: lightgray !important;
 }
-
+.dark-mode .page-title{
+  color: white !important;
+}
+.page-title{
+  color: black !important;
+}
 .login-btn button {
   background-color: white !important;
   color: black !important;

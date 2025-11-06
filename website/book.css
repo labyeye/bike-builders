@@ -3,13 +3,7 @@
   height: 100px;
   overflow: hidden;
 }
-.nav-links :hover{
-  color: black !important;
-}
 
-.dark-mode .nav-links a.active{
-  color: lightgray !important;
-}
 .login-btn button {
   background-color: white;
   color: black;
@@ -39,9 +33,16 @@
   z-index: 1;
 }
 
-
-
 .book-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  color: black;
+  z-index: 2;
+}
+.dark-mode .book-section {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -61,25 +62,25 @@
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  color:black;
+  color: black;
 }
 .dark-mode .book-content h2 {
   font-size: 2.5rem;
   margin-bottom: 1.5rem;
   font-weight: 700;
-  color:white;
+  color: white;
 }
 .book-content p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color:black;
+  color: black;
 }
 .dark-mode .book-content p {
   font-size: 1.1rem;
   margin-bottom: 2rem;
   line-height: 1.6;
-  color:white;
+  color: white;
 }
 
 .book-steps {
@@ -114,13 +115,13 @@
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color:black
+  color: black;
 }
 .dark-mode .step-content h4 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   font-weight: 600;
-  color:white
+  color: white;
 }
 
 .step-content p {
@@ -139,7 +140,7 @@
   padding: 2.5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  height:100%;
+  height: 100%;
   max-width: 600px;
 }
 

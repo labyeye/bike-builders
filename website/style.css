@@ -65,18 +65,6 @@ body {
   transition: transform 0.3s;
 }
 
-.bike-slider {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  gap: 20px;
-  padding: 20px;
-  scrollbar-width: none;
-  /* For Firefox */
-  -ms-overflow-style: none;
-  /* For IE and Edge */
-}
-
 .bike-slider::-webkit-scrollbar {
   display: none;
   /* For Chrome, Safari, and Opera */
@@ -293,6 +281,101 @@ body.dark-mode {
     100% {
       transform: translateX(calc(-200px * 6));
     }
+  }
+}
+
+/* Services carousel behavior on small screens */
+@media (max-width: 768px) {
+  .services-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 10px 10px;
+  }
+
+  .services-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .service-card {
+    flex: 0 0 90%;
+    max-width: 90%;
+    min-width: 260px;
+    scroll-snap-align: start;
+    margin: 0 auto;
+    min-height: 320px;
+  }
+
+  /* show arrows (we inject them via JS) */
+  /* mobile-specific sizes for nav handled by global .services-nav-btn */
+
+  /* Nav buttons for services (visible on all sizes) */
+  .services-nav-btn {
+    /* No arrows required — hide navigation buttons */
+    display: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    cursor: pointer;
+  }
+
+  .services-nav-btn:focus {
+    outline: 2px solid #fff;
+  }
+
+  .services-nav-btn.prev {
+    left: 8px;
+  }
+  .services-nav-btn.next {
+    right: 8px;
+  }
+  /* reduce heading size for mobile */
+  .services-section h2 {
+    font-size: 1.6rem;
+  }
+
+  /* Mobile-only pagination dots for services carousel */
+  .services-dots {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 40px;
+    display: flex;
+    gap: 8px;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+  }
+
+  .services-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.22s ease;
+  }
+
+  .services-dot.active {
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    box-shadow: 0 0 0 4px rgba(163, 41, 25, 0.08);
   }
 }
 
@@ -700,12 +783,14 @@ body.dark-mode .featured-bikes-section {
 .bike-slider .bike-card {
   flex: 0 0 calc(25% - 15px);
   min-width: 280px;
-  background: white;
+  /* remove solid background so slider blends with section */
+  background: transparent;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  /* keep a light outline for separation on light backgrounds */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
-  border: 1px solid #eee;
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 body.dark-mode .bike-slider .bike-card {
@@ -721,7 +806,7 @@ body.dark-mode .bike-slider .bike-card {
 
 .bike-slider .bike-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
 }
 
 .bike-slider .bike-card img {
@@ -855,7 +940,7 @@ body.dark-mode .bike-slider .bike-card h3 {
 .bike-slider .bike-card .view-details-btn:hover {
   background: #e05d00;
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .bike-slider .bike-card .view-details-btn:disabled {
@@ -889,7 +974,7 @@ body.dark-mode .bike-slider .bike-card h3 {
 
 @media (max-width: 480px) {
   .bike-slider .bike-card {
-    flex: 0 0 85%;
+    flex: 0 0 90%;
   }
 
   .section-header {
@@ -1766,14 +1851,14 @@ body.dark-mode .stats-section {
 /* Services Section */
 .services-section {
   background-color: white;
-  padding: 80px 5%;
+  padding: 30px 5%;
   position: relative;
   overflow: hidden;
 }
 
 body.dark-mode .services-section {
   background-color: #100f0f;
-  padding: 80px 5%;
+  padding: 30px 5%;
   position: relative;
   overflow: hidden;
 }
@@ -1781,7 +1866,6 @@ body.dark-mode .services-section {
 .services-section h2 {
   color: var(--primary-color);
   text-align: center;
-  margin-bottom: 50px;
   font-size: 2.5rem;
   font-weight: 600;
 }
@@ -1802,29 +1886,38 @@ body.dark-mode .services-section {
 }
 
 .services-container {
+  /* Desktop / tablet: wrap cards into multiple rows; carousel only on mobile */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
-  max-width: 1200px;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px; /* constrain content width and center */
   margin: 0 auto;
-  position: relative;
-  z-index: 1;
+  overflow: visible;
 }
 
 .service-card {
-  flex: 1;
-  min-width: 210px;
-  max-width: 220px;
-  padding: 40px 25px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* keep CTA at bottom */
+  flex: 0 0 260px; /* fixed card width so cards sit in one row */
+  min-width: 220px;
+  padding: 28px 20px;
+  /* remove semi-white overlay so cards blend with section background */
+  background: transparent;
+  /* keep subtle backdrop filter optional for supported browsers */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* softer shadow and faint border for separation */
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: all 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   text-align: center;
+  min-height: 260px; /* ensure enough height so CTA sits at bottom */
+  scroll-snap-align: start;
 }
 
 .service-card:hover {
@@ -1863,7 +1956,9 @@ body.dark-mode .service-card h3 {
   color: rgba(0, 0, 0, 0.7);
   line-height: 1.6;
   font-size: 0.95rem;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
+  text-align: justify;
+  flex: 1 1 auto; /* grow so CTA stays at bottom */
 }
 
 body.dark-mode .service-card p {
@@ -1871,16 +1966,19 @@ body.dark-mode .service-card p {
   line-height: 1.6;
   font-size: 0.95rem;
   margin-bottom: 20px;
+  text-align: justify;
 }
 
 .service-card a {
   color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
-  display: inline-flex;
+  display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: center;
+  gap: 8px;
   transition: color 0.3s;
+  margin-top: 12px;
 }
 
 .service-card a:hover {
@@ -2136,6 +2234,16 @@ body.dark-mode .service-card p {
   align-items: center;
   color: var(--text-color);
   margin-bottom: 40px;
+}
+.section-subtitle {
+  font-size: 1rem;
+  color: black;
+  margin-top: -40px;
+}
+.dark-mode .section-subtitle {
+  font-size: 1rem;
+  color: white;
+  margin-top: -40px;
 }
 
 .testimonials-section {
@@ -2652,8 +2760,13 @@ body.dark-mode .section-header h2 {
 
   .section-header {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 15px;
+  }
+  .section-subtitle {
+    text-align: center;
+    color: black;
+    margin-top: -30px;
   }
 
   #filtered-count {
@@ -2965,9 +3078,9 @@ body.dark-mode .section-header h2 {
   width: 82%;
   max-width: 360px;
   height: 100vh;
-  background-color: #0f1214;
+  background-color: #fff;
   /* deep charcoal */
-  color: #fff;
+  color: #000;
   z-index: 10000;
   transition: right 0.28s cubic-bezier(0.2, 0.9, 0.2, 1);
   padding: 22px 18px 120px 18px;
@@ -3013,7 +3126,7 @@ body.dark-mode .section-header h2 {
 .mobile-menu .nav-links a {
   display: block;
   padding: 20px 10px;
-  color: #ffffff;
+  color: #000;
   text-decoration: none;
   font-size: 1.25rem;
   font-weight: 700;
@@ -3038,7 +3151,7 @@ body.dark-mode .section-header h2 {
   right: 18px;
   bottom: 260px;
   text-align: right;
-  color: #cfcfcf;
+  color: #000;
   font-size: 0.95rem;
   display: flex;
   flex-direction: column;
@@ -3050,7 +3163,7 @@ body.dark-mode .section-header h2 {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  color: #cfcfcf;
+  color: #000;
 }
 
 .mobile-menu .contact-bottom .phone i {

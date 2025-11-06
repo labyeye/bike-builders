@@ -1,14 +1,8 @@
 function translatePage(language) {
-  // Set the font family for Hindi
-  if (language === "hi") {
-    document.body.classList.add("hindi-font");
-  } else {
-    document.body.classList.remove("hindi-font");
-  }
+  if (language === "hi") document.body.classList.add("hindi-font");
+  else document.body.classList.remove("hindi-font");
 
-  // Get all elements with data-translate attribute
   const elements = document.querySelectorAll("[data-translate]");
-
   elements.forEach((element) => {
     const key = element.getAttribute("data-translate");
     if (translations[language] && translations[language][key]) {
@@ -16,65 +10,25 @@ function translatePage(language) {
     }
   });
 
-  // Store the selected language in localStorage
-  localStorage.setItem("selectedLanguage", language);
-
-  // Hide the popup
-  document.getElementById("languagePopup").style.display = "none";
+  const popup = document.getElementById("languagePopup");
+  if (popup) popup.style.display = "none";
 }
 
-// Check for previously selected language
-document.addEventListener("DOMContentLoaded", function () {
-  const savedLanguage = localStorage.getItem("selectedLanguage");
+function initLanguage() {
+  const popup = document.getElementById("languagePopup");
+  if (popup) popup.style.display = "flex";
 
-  if (!savedLanguage) {
-    // Show popup if no language is selected
-    document.getElementById("languagePopup").style.display = "flex";
-  } else {
-    // Apply saved language
-    translatePage(savedLanguage);
-  }
-
-  // Set up language buttons
   document.querySelectorAll(".language-btn").forEach((button) => {
     button.addEventListener("click", function () {
       const lang = this.getAttribute("data-lang");
       translatePage(lang);
     });
   });
-});
-
-window.dataLayer = window.dataLayer || [];
-function gtag() {
-  dataLayer.push(arguments);
-}
-gtag("js", new Date());
-
-gtag("config", "G-ETL311CBE6");
-
-function animateStats() {
-  const statNumbers = document.querySelectorAll(".stat-number");
-  const speed = 200; // Lower is faster
-
-  statNumbers.forEach((stat) => {
-    const target = +stat.getAttribute("data-count");
-    const count = +stat.innerText;
-    const increment = target / speed;
-
-    if (count < target) {
-      stat.innerText = Math.ceil(count + increment);
-      setTimeout(animateStats, 1);
-    } else {
-      stat.innerText = target;
-    }
-  });
 }
 
-// Hero slider functionality
-document.addEventListener("DOMContentLoaded", function () {
+function initHeroSlider() {
   const heroSlider = document.createElement("div");
   heroSlider.className = "hero-slider";
-
   const slides = [
     "https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG",
     "https://images.unsplash.com/photo-1662788019531-89849ebb754a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29udGluZW50YWwlMjBndCUyMDY1MHxlbnwwfHwwfHx8MA%3D%3D",
@@ -91,10 +45,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const backgroundImageDiv = document.querySelector(".background-image");
-  backgroundImageDiv.parentNode.replaceChild(heroSlider, backgroundImageDiv);
+  if (backgroundImageDiv && backgroundImageDiv.parentNode)
+    backgroundImageDiv.parentNode.replaceChild(heroSlider, backgroundImageDiv);
+
   const dotsContainer = document.createElement("div");
   dotsContainer.className = "slider-dots";
-
   slides.forEach((_, index) => {
     const dot = document.createElement("div");
     dot.className = `slider-dot ${index === 0 ? "active" : ""}`;
@@ -102,7 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
     dotsContainer.appendChild(dot);
   });
 
-  document.querySelector(".hero-section").appendChild(dotsContainer);
+  const heroSection = document.querySelector(".hero-section");
+  if (heroSection) heroSection.appendChild(dotsContainer);
 
   const slidesElements = document.querySelectorAll(".hero-slide");
   const dots = document.querySelectorAll(".slider-dot");
@@ -111,9 +67,8 @@ document.addEventListener("DOMContentLoaded", function () {
   function showSlide(index) {
     slidesElements.forEach((slide) => slide.classList.remove("active"));
     dots.forEach((dot) => dot.classList.remove("active"));
-
-    slidesElements[index].classList.add("active");
-    dots[index].classList.add("active");
+    if (slidesElements[index]) slidesElements[index].classList.add("active");
+    if (dots[index]) dots[index].classList.add("active");
     currentSlide = index;
   }
 
@@ -123,29 +78,25 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   let slideInterval = setInterval(nextSlide, 2000);
-
-  heroSlider.addEventListener("mouseenter", () => {
-    clearInterval(slideInterval);
-  });
-
+  heroSlider.addEventListener("mouseenter", () => clearInterval(slideInterval));
   heroSlider.addEventListener("mouseleave", () => {
     slideInterval = setInterval(nextSlide, 5000);
   });
+
   dots.forEach((dot) => {
     dot.addEventListener("click", () => {
       clearInterval(slideInterval);
-      showSlide(parseInt(dot.dataset.index));
+      showSlide(parseInt(dot.dataset.index, 10));
       slideInterval = setInterval(nextSlide, 5000);
     });
   });
-});
-document.addEventListener("DOMContentLoaded", function () {
+}
+function initMobileMenu() {
   const toggleBtn = document.createElement("button");
   toggleBtn.className = "mobile-menu-toggle";
   toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
-
   const navbar = document.querySelector(".navbar");
-  navbar.appendChild(toggleBtn);
+  if (navbar) navbar.appendChild(toggleBtn);
 
   const mobileMenu = document.createElement("div");
   mobileMenu.className = "mobile-menu";
@@ -154,102 +105,65 @@ document.addEventListener("DOMContentLoaded", function () {
             <li><a href="https://www.bikebuilders.in/" class="active" data-translate="Home">Home</a></li>
             <li><a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
             <li><a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
-            <li>
-                  <a
-                    href="https://www.bikebuilders.in/about.html"
-                    aria-label="About Bike Builders"
-                    data-translate="About Us"
-                    >About Us</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.bikebuilders.in/book.html"
-                    aria-label="Book Bike"
-                    data-translate="Book Bike"
-                    >Book Bike</a
-                  >
-                </li>
-                      <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
-              <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
+            <li><a href="https://www.bikebuilders.in/about.html" aria-label="About Bike Builders" data-translate="About Us">About Us</a></li>
+            <li><a href="https://www.bikebuilders.in/book.html" aria-label="Book Bike" data-translate="Book Bike">Book Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
+            <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
           </ul>
-          <div class="login-btn">
-            <button data-translate="Get the Quote">Get the Quote</button>
-          </div>
-          `;
+          <div class="login-btn"><button data-translate="Get the Quote">Get the Quote</button></div>`;
 
   document.body.appendChild(mobileMenu);
 
-  // add bottom contact block to mobile menu
   const contactBottom = document.createElement("div");
   contactBottom.className = "contact-bottom";
-  contactBottom.innerHTML = `
-          <div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div>
-                    <div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>
-
-        `;
+  contactBottom.innerHTML = `<div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div><div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>`;
   mobileMenu.appendChild(contactBottom);
 
-  toggleBtn.addEventListener("click", function () {
-    mobileMenu.classList.add("active");
-  });
+  toggleBtn.addEventListener("click", () => mobileMenu.classList.add("active"));
+  const closeBtn = mobileMenu.querySelector(".close-btn");
+  if (closeBtn)
+    closeBtn.addEventListener("click", () =>
+      mobileMenu.classList.remove("active")
+    );
+}
 
-  mobileMenu.querySelector(".close-btn").addEventListener("click", function () {
-    mobileMenu.classList.remove("active");
-  });
-});
-
-// Lazy loading images
-document.addEventListener("DOMContentLoaded", function () {
+function initLazyLoading() {
   if ("IntersectionObserver" in window) {
-    const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-    let lazyImageObserver = new IntersectionObserver(function (
-      entries,
-      observer
-    ) {
-      entries.forEach(function (entry) {
+    const lazyImages = Array.from(document.querySelectorAll("img.lazy"));
+    const lazyImageObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          let lazyImage = entry.target;
+          const lazyImage = entry.target;
           lazyImage.src = lazyImage.dataset.src;
           lazyImage.classList.remove("lazy");
           lazyImageObserver.unobserve(lazyImage);
         }
       });
     });
-
-    lazyImages.forEach(function (lazyImage) {
-      lazyImageObserver.observe(lazyImage);
-    });
+    lazyImages.forEach((img) => lazyImageObserver.observe(img));
   }
-});
+}
 
-// Preconnect URLs
-const preconnectUrls = [
-  "https://cdnjs.cloudflare.com",
-  "https://randomuser.me",
-  "https://imgd.aeplcdn.com",
-];
+function initPreconnect() {
+  const preconnectUrls = [
+    "https://cdnjs.cloudflare.com",
+    "https://randomuser.me",
+    "https://imgd.aeplcdn.com",
+  ];
+  preconnectUrls.forEach((url) => {
+    const link = document.createElement("link");
+    link.rel = "preconnect";
+    link.href = url;
+    document.head.appendChild(link);
+  });
+}
 
-preconnectUrls.forEach((url) => {
-  const link = document.createElement("link");
-  link.rel = "preconnect";
-  link.href = url;
-  document.head.appendChild(link);
-});
-
-// Expose a global API_BASE computed for this site so other scripts/pages
-// (or components that reuse this file) can resolve server-relative image paths.
-// Fallbacks to localhost:2500 for dev.
 window.API_BASE = (function () {
   try {
     const host = window.location.hostname;
-    if (host === "localhost") {
+    if (host === "localhost")
       return `${window.location.protocol}//${host}:2500`;
-    }
-  } catch (e) {
-    // ignore
-  }
+  } catch (e) {}
   return "https://bike-builders-backend.vercel.app";
 })();
 
@@ -264,39 +178,37 @@ gtag("config", "G-ETL311CBE6");
 // Stats animation
 function animateStatsCounter() {
   const counters = document.querySelectorAll(".stat-number");
-
   counters.forEach((counter) => {
-    const target = parseInt(counter.getAttribute("data-count"));
+    const target = parseInt(counter.getAttribute("data-count"), 10) || 0;
     let current = 0;
     const increment = target / 50;
-
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
         counter.textContent = target + "+";
         clearInterval(timer);
-      } else {
-        counter.textContent = Math.floor(current);
-      }
+      } else counter.textContent = Math.floor(current);
     }, 30);
   });
 }
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animateStatsCounter();
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.5 }
-);
+function initStatsObserver() {
+  const target = document.querySelector(".stats-section");
+  if (!target) return;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateStatsCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.5 }
+  );
+  observer.observe(target);
+}
 
-observer.observe(document.querySelector(".stats-section"));
-
-// Translations object
 const translations = {
   en: {
     "Bike Builders | Premium Pre-Owned Motorcycles in India":
@@ -537,71 +449,56 @@ const translations = {
   },
 };
 
-// Update mobile menu translations
-document.addEventListener("DOMContentLoaded", function () {
+function updateMobileMenuTranslations() {
   document.querySelectorAll(".language-btn").forEach((button) => {
     button.addEventListener("click", function () {
       const lang = this.getAttribute("data-lang");
       translatePage(lang);
     });
   });
-
   const updateMobileMenu = () => {
     const mobileMenu = document.querySelector(".mobile-menu");
-    if (mobileMenu) {
-      const links = mobileMenu.querySelectorAll("a");
-      links[0].setAttribute("data-translate", "Home");
-      links[1].setAttribute("data-translate", "Buy Bike");
-      links[2].setAttribute("data-translate", "Sell Your Bike");
-      links[3].setAttribute("data-translate", "About Us");
-      links[4].setAttribute("data-translate", "Updates");
-      links[5].setAttribute("data-translate", "Contact");
-
-      const button = mobileMenu.querySelector(".login-btn button");
-      if (button) button.setAttribute("data-translate", "Get the Quote");
-    }
+    if (!mobileMenu) return;
+    const links = mobileMenu.querySelectorAll("a");
+    if (links[0]) links[0].setAttribute("data-translate", "Home");
+    if (links[1]) links[1].setAttribute("data-translate", "Buy Bike");
+    if (links[2]) links[2].setAttribute("data-translate", "Sell Your Bike");
+    if (links[3]) links[3].setAttribute("data-translate", "About Us");
+    if (links[4]) links[4].setAttribute("data-translate", "Updates");
+    if (links[5]) links[5].setAttribute("data-translate", "Contact");
+    const button = mobileMenu.querySelector(".login-btn button");
+    if (button) button.setAttribute("data-translate", "Get the Quote");
   };
-
   updateMobileMenu();
   setTimeout(updateMobileMenu, 500);
-});
+}
 
 // Featured bikes slider
-document.addEventListener("DOMContentLoaded", function () {
+function initFeaturedBikeSlider() {
   const bikeSlider = document.querySelector(".bike-slider");
   const prevBtn = document.querySelector(".slider-nav.prev");
   const nextBtn = document.querySelector(".slider-nav.next");
-
   fetchFeaturedBikes();
-  prevBtn.addEventListener("click", () => {
-    bikeSlider.scrollBy({ left: -300, behavior: "smooth" });
-  });
-
-  nextBtn.addEventListener("click", () => {
-    bikeSlider.scrollBy({ left: 300, behavior: "smooth" });
-  });
-  bikeSlider.addEventListener("scroll", () => {
-    prevBtn.disabled = bikeSlider.scrollLeft <= 10;
-    nextBtn.disabled =
-      bikeSlider.scrollLeft >=
-      bikeSlider.scrollWidth - bikeSlider.clientWidth - 10;
-  });
-});
+  if (prevBtn && bikeSlider)
+    prevBtn.addEventListener("click", () =>
+      bikeSlider.scrollBy({ left: -300, behavior: "smooth" })
+    );
+  if (nextBtn && bikeSlider)
+    nextBtn.addEventListener("click", () =>
+      bikeSlider.scrollBy({ left: 300, behavior: "smooth" })
+    );
+  if (bikeSlider && prevBtn && nextBtn)
+    bikeSlider.addEventListener("scroll", () => {
+      prevBtn.disabled = bikeSlider.scrollLeft <= 10;
+      nextBtn.disabled =
+        bikeSlider.scrollLeft >=
+        bikeSlider.scrollWidth - bikeSlider.clientWidth - 10;
+    });
+}
 
 function fetchFeaturedBikes() {
-  // Determine API base dynamically for local development vs deployed
-  const API_BASE = (function () {
-    try {
-      const host = window.location.hostname;
-      if (host === "localhost") {
-        return `${window.location.protocol}//${host}:2500`;
-      }
-    } catch (e) {
-      // ignore
-    }
-    return "https://bike-builders-backend.vercel.app";
-  })();
-
+  const API_BASE =
+    window.API_BASE || "https://bike-builders-backend.vercel.app";
   function normalizeImageUrl(url) {
     if (!url) return url;
     if (
@@ -613,41 +510,32 @@ function fetchFeaturedBikes() {
     if (url.startsWith("/")) return API_BASE + url;
     return API_BASE + "/" + url;
   }
-  // First read backend config then featured bikes so we can filter local uploads when cloud is enabled
+
   fetch(API_BASE + "/api/config")
     .then((r) => r.json())
     .then((cfg) => {
-      const USE_CLOUDINARY = cfg && cfg.success && cfg.cloudinary;
-      return fetch(API_BASE + "/api/featured-bikes")
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          return response.json();
-        })
-        .then((data) => ({ data, USE_CLOUDINARY }));
+      const USE_CLOUDINARY = !!(cfg && cfg.success && cfg.cloudinary);
+      return fetch(API_BASE + "/api/featured-bikes").then((response) => {
+        if (!response.ok) throw new Error("Network response was not ok");
+        return response.json().then((data) => ({ data, USE_CLOUDINARY }));
+      });
     })
-    .catch((cfgErr) => {
-      // couldn't read config; proceed without cloudinary preference
-      return fetch(API_BASE + "/api/featured-bikes")
-        .then((response) => {
-          if (!response.ok) throw new Error("Network response was not ok");
-          return response.json();
-        })
-        .then((data) => ({ data, USE_CLOUDINARY: false }));
-    })
+    .catch(() =>
+      fetch(API_BASE + "/api/featured-bikes")
+        .then((r) => r.json())
+        .then((data) => ({ data, USE_CLOUDINARY: false }))
+    )
     .then(({ data, USE_CLOUDINARY }) => {
       if (data.success && data.data) {
-        // normalize image URLs
         const bikes = data.data.map((b) => {
           const copy = Object.assign({}, b);
           try {
             if (Array.isArray(copy.imageUrl)) {
               copy.imageUrl = copy.imageUrl
                 .map((u) => normalizeImageUrl(u))
-                .filter((u) => {
-                  if (!u) return false;
-                  if (USE_CLOUDINARY) return /^https?:\/\//i.test(u);
-                  return true;
-                });
+                .filter(
+                  (u) => u && (!USE_CLOUDINARY || /^https?:\/\//i.test(u))
+                );
             } else if (
               typeof copy.imageUrl === "string" &&
               copy.imageUrl.trim() !== ""
@@ -655,18 +543,14 @@ function fetchFeaturedBikes() {
               const nu = normalizeImageUrl(copy.imageUrl);
               copy.imageUrl =
                 !USE_CLOUDINARY || /^https?:\/\//i.test(nu) ? [nu] : [];
-            } else {
-              copy.imageUrl = [];
-            }
+            } else copy.imageUrl = [];
           } catch (e) {
             copy.imageUrl = copy.imageUrl || [];
           }
           return copy;
         });
         displayFeaturedBikes(bikes);
-      } else {
-        showFeaturedBikesError();
-      }
+      } else showFeaturedBikesError();
     })
     .catch((error) => {
       console.error("Error fetching featured bikes:", error);
@@ -789,83 +673,66 @@ function formatOwnership(owner) {
   if (owner === "3") return "3+ Owner";
   return owner;
 }
-
-// WhatsApp and Call modals
-document.addEventListener("DOMContentLoaded", function () {
-  // Get modal elements
+function initModals() {
   const whatsappModal = document.getElementById("whatsappModal");
   const callModal = document.getElementById("callModal");
+  if (!whatsappModal || !callModal) return;
 
-  // Get trigger buttons
   const whatsappTrigger = document.getElementById("whatsappTrigger");
   const callTrigger = document.getElementById("callTrigger");
-
-  // Get close buttons
   const closeButtons = document.getElementsByClassName("close");
 
-  // When user clicks WhatsApp button
-  whatsappTrigger.addEventListener("click", function (e) {
-    e.preventDefault();
-    whatsappModal.style.display = "block";
-  });
-
-  // When user clicks Call button
-  callTrigger.addEventListener("click", function (e) {
-    e.preventDefault();
-    callModal.style.display = "block";
-  });
-
-  // When user clicks on close button
-  Array.from(closeButtons).forEach((button) => {
-    button.addEventListener("click", function () {
-      whatsappModal.style.display = "none";
-      callModal.style.display = "none";
+  if (whatsappTrigger)
+    whatsappTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      whatsappModal.style.display = "block";
     });
+  if (callTrigger)
+    callTrigger.addEventListener("click", (e) => {
+      e.preventDefault();
+      callModal.style.display = "block";
+    });
+
+  Array.from(closeButtons).forEach((button) =>
+    button.addEventListener("click", () => {
+      if (whatsappModal) whatsappModal.style.display = "none";
+      if (callModal) callModal.style.display = "none";
+    })
+  );
+
+  window.addEventListener("click", (event) => {
+    if (event.target === whatsappModal) whatsappModal.style.display = "none";
+    if (event.target === callModal) callModal.style.display = "none";
   });
 
-  // When user clicks outside the modal
-  window.addEventListener("click", function (event) {
-    if (event.target == whatsappModal) {
-      whatsappModal.style.display = "none";
-    }
-    if (event.target == callModal) {
-      callModal.style.display = "none";
-    }
-  });
-
-  // Handle number selection for WhatsApp
   const whatsappOptions = whatsappModal.querySelectorAll(".number-option");
-  whatsappOptions.forEach((option) => {
+  whatsappOptions.forEach((option) =>
     option.addEventListener("click", function () {
       const number = this.getAttribute("data-number");
-      window.open(`https://wa.me/${number}`, "_blank");
+      if (number) window.open(`https://wa.me/${number}`, "_blank");
       whatsappModal.style.display = "none";
-    });
-  });
+    })
+  );
 
-  // Handle number selection for Call
   const callOptions = callModal.querySelectorAll(".number-option");
-  callOptions.forEach((option) => {
+  callOptions.forEach((option) =>
     option.addEventListener("click", function () {
       const number = this.getAttribute("data-number");
-      window.location.href = `tel:${number}`;
+      if (number) window.location.href = `tel:${number}`;
       callModal.style.display = "none";
-    });
-  });
-});
+    })
+  );
+}
 
-// Dark mode functionality
-document.addEventListener("DOMContentLoaded", function () {
+function initDarkMode() {
   const darkModeToggle = document.getElementById("darkModeToggle");
   const mobileDarkModeToggle = document.getElementById("mobileDarkModeToggle");
 
-  // Check for saved user preference or system preference
   function checkDarkModePreference() {
     const savedTheme = localStorage.getItem("theme");
     const systemPrefersDark =
       window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: dark)").matches;
-
     if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
       document.body.classList.add("dark-mode");
       if (darkModeToggle) darkModeToggle.checked = true;
@@ -873,11 +740,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Initialize dark mode
   checkDarkModePreference();
 
-  // Desktop toggle
-  if (darkModeToggle) {
+  if (darkModeToggle)
     darkModeToggle.addEventListener("change", function () {
       if (this.checked) {
         document.body.classList.add("dark-mode");
@@ -886,15 +751,10 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.remove("dark-mode");
         localStorage.setItem("theme", "light");
       }
-      // Sync mobile toggle
-      if (mobileDarkModeToggle) {
-        mobileDarkModeToggle.checked = this.checked;
-      }
+      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = this.checked;
     });
-  }
 
-  // Mobile toggle
-  if (mobileDarkModeToggle) {
+  if (mobileDarkModeToggle)
     mobileDarkModeToggle.addEventListener("change", function () {
       if (this.checked) {
         document.body.classList.add("dark-mode");
@@ -903,20 +763,14 @@ document.addEventListener("DOMContentLoaded", function () {
         document.body.classList.remove("dark-mode");
         localStorage.setItem("theme", "light");
       }
-      // Sync desktop toggle
-      if (darkModeToggle) {
-        darkModeToggle.checked = this.checked;
-      }
+      if (darkModeToggle) darkModeToggle.checked = this.checked;
     });
-  }
 
-  // Watch for system theme changes
-  window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", (e) => {
+  const mql = window.matchMedia("(prefers-color-scheme: dark)");
+  if (mql && mql.addEventListener) {
+    mql.addEventListener("change", (e) => {
       const newColorScheme = e.matches ? "dark" : "light";
       if (!localStorage.getItem("theme")) {
-        // Only if user hasn't set a preference
         if (newColorScheme === "dark") {
           document.body.classList.add("dark-mode");
           if (darkModeToggle) darkModeToggle.checked = true;
@@ -928,7 +782,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       }
     });
-});
+  }
+}
 
 // Mobile Carousel for Choose Your Style
 function initStyleCarousel() {
@@ -1067,24 +922,31 @@ function initStyleCarousel() {
   updateCarousel();
 }
 
-// Initialize carousel on page load and window resize
-document.addEventListener("DOMContentLoaded", function () {
+function attachStyleCarouselResizeHandler() {
   initStyleCarousel();
-
-  // Reinitialize on window resize
   window.addEventListener("resize", function () {
-    // Only reinitialize if crossing the mobile breakpoint
     const stylesContainer = document.querySelector(".styles-container");
     if (
       stylesContainer &&
       stylesContainer.querySelector(".styles-container-mobile")
     ) {
-      // Remove mobile carousel and restore original layout
-      if (window.innerWidth > 768) {
-        location.reload(); // Simple solution to restore original layout
-      }
-    } else if (window.innerWidth <= 768) {
-      initStyleCarousel();
-    }
+      if (window.innerWidth > 768) location.reload();
+    } else if (window.innerWidth <= 768) initStyleCarousel();
   });
-});
+}
+
+function init() {
+  initLanguage();
+  initHeroSlider();
+  initMobileMenu();
+  updateMobileMenuTranslations();
+  initLazyLoading();
+  initPreconnect();
+  initFeaturedBikeSlider();
+  initStatsObserver();
+  initModals();
+  initDarkMode();
+  attachStyleCarouselResizeHandler();
+}
+
+document.addEventListener("DOMContentLoaded", init);

@@ -1,13 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import {
-  Check,
-  Close,
-  Visibility,
-  Sell
-} from '@mui/icons-material';
-import Sidebar from '../components/Layout/Sidebar';
-import '../css/Dashboard.css';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Check, Close, Visibility, Sell } from "@mui/icons-material";
+import Sidebar from "../components/Layout/Sidebar";
+import "../css/Dashboard.css";
 
 const SellRequests = ({ user }) => {
   const navigate = useNavigate();
@@ -17,15 +12,18 @@ const SellRequests = ({ user }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/check-auth', {
-          credentials: 'include',
-        });
-        if (!response.ok) return navigate('/login');
+        const response = await fetch(
+          "https://bike-builders-backend.vercel.app/api/admin/check-auth",
+          {
+            credentials: "include",
+          }
+        );
+        if (!response.ok) return navigate("/login");
         const data = await response.json();
-        if (!data.isAuthenticated) return navigate('/login');
+        if (!data.isAuthenticated) return navigate("/login");
         setAuthChecked(true);
       } catch {
-        navigate('/login');
+        navigate("/login");
       }
     };
     checkAuth();
@@ -35,13 +33,16 @@ const SellRequests = ({ user }) => {
     if (!authChecked) return;
     const fetchRequests = async () => {
       try {
-        const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/sell-requests', {
-          credentials: 'include',
-        });
+        const response = await fetch(
+          "https://bike-builders-backend.vercel.app/api/admin/sell-requests",
+          {
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setRequests(data.requests || []);
       } catch (error) {
-        console.error('Error fetching sell requests:', error);
+        console.error("Error fetching sell requests:", error);
       }
     };
     fetchRequests();
@@ -49,31 +50,40 @@ const SellRequests = ({ user }) => {
 
   const updateStatus = async (id, status) => {
     try {
-      const response = await fetch(`https://bike-builders-backend.vercel.app/api/sell-requests/${id}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify({ status })
-      });
+      const response = await fetch(
+        `https://bike-builders-backend.vercel.app/api/sell-requests/${id}/status`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({ status }),
+        }
+      );
       if (!response.ok) {
-        throw new Error('Failed to update status');
+        throw new Error("Failed to update status");
       }
-      setRequests(requests.map(request =>
-        request._id === id ? { ...request, status } : request
-      ));
+      setRequests(
+        requests.map((request) =>
+          request._id === id ? { ...request, status } : request
+        )
+      );
     } catch (error) {
-      console.error('Error updating status:', error);
+      console.error("Error updating status:", error);
     }
   };
 
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
-      case 'pending': return 'status-pending';
-      case 'approved': return 'status-approved';
-      case 'rejected': return 'status-rejected';
-      default: return '';
+      case "pending":
+        return "status-pending";
+      case "approved":
+        return "status-approved";
+      case "rejected":
+        return "status-rejected";
+      default:
+        return "";
     }
   };
 
@@ -98,69 +108,100 @@ const SellRequests = ({ user }) => {
             </thead>
             <tbody>
               {requests.map((request, idx) => (
-                <tr key={request._id} className={idx % 2 === 0 ? 'table-row-striped' : ''}>
+                <tr
+                  key={request._id}
+                  className={idx % 2 === 0 ? "table-row-striped" : ""}
+                >
                   <td>
-                    <strong>{request.brand}</strong><br />
+                    <strong>{request.brand}</strong>
+                    <br />
                     {request.model}
                   </td>
                   <td>
-                    {request.sellerName}<br />
-                    {request.sellerPhone}<br />
+                    {request.sellerName}
+                    <br />
+                    {request.sellerPhone}
+                    <br />
                     {request.sellerEmail}
                   </td>
                   <td>₹{request.expectedPrice?.toLocaleString()}</td>
                   <td>
                     {request.images && request.images.length > 0 ? (
-                      <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap' }}>
-                        {request.images.map((image, index) => (
-                          <img
-                            key={index}
-                            src={`https://bike-builders-backend.vercel.app/uploads/${image}`}
-                            style={{
-                              maxWidth: '50px',
-                              maxHeight: '50px',
-                              borderRadius: '6px',
-                              boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
-                              cursor: 'pointer',
-                              border: '1px solid #eee',
-                            }}
-                            onClick={() => window.open(`https://bike-builders-backend.vercel.app/uploads/${image}`, '_blank')}
-                            alt={`Bike ${index + 1}`}
-                          />
-                        ))}
+                      <div
+                        style={{
+                          display: "flex",
+                          gap: "5px",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        {request.images.map((image, index) => {
+                          const isUrl = /^https?:\/\//i.test(image);
+                          const src = isUrl
+                            ? image
+                            : `https://bike-builders-backend.vercel.app/uploads/${image}`;
+                          return (
+                            <img
+                              key={index}
+                              src={src}
+                              style={{
+                                maxWidth: "50px",
+                                maxHeight: "50px",
+                                borderRadius: "6px",
+                                boxShadow: "0 1px 4px rgba(0,0,0,0.08)",
+                                cursor: "pointer",
+                                border: "1px solid #eee",
+                              }}
+                              onClick={() => window.open(src, "_blank")}
+                              alt={`Bike ${index + 1}`}
+                            />
+                          );
+                        })}
                       </div>
                     ) : (
-                      <span style={{ color: '#aaa', fontStyle: 'italic' }}>No images</span>
+                      <span style={{ color: "#aaa", fontStyle: "italic" }}>
+                        No images
+                      </span>
                     )}
                   </td>
                   <td>
-                    <span className={`status-badge ${getStatusClass(request.status)}`}>
+                    <span
+                      className={`status-badge ${getStatusClass(
+                        request.status
+                      )}`}
+                    >
                       {request.status}
                     </span>
                   </td>
                   <td>
                     <div className="action-buttons">
-                      {request.status === 'Pending' && (
+                      {request.status === "Pending" && (
                         <>
                           <button
                             className="btn btn-success btn-sm"
-                            onClick={() => updateStatus(request._id, 'Approved')}
-                            style={{ borderRadius: '6px' }}
+                            onClick={() =>
+                              updateStatus(request._id, "Approved")
+                            }
+                            style={{ borderRadius: "6px" }}
                           >
                             <Check className="btn-icon" />
                             <span>Approve</span>
                           </button>
                           <button
                             className="btn btn-error btn-sm"
-                            onClick={() => updateStatus(request._id, 'Rejected')}
-                            style={{ borderRadius: '6px' }}
+                            onClick={() =>
+                              updateStatus(request._id, "Rejected")
+                            }
+                            style={{ borderRadius: "6px" }}
                           >
                             <Close className="btn-icon" />
                             <span>Reject</span>
                           </button>
                         </>
                       )}
-                      <button className="btn btn-primary btn-sm" style={{ borderRadius: '6px' }}>
+                      <button
+                        className="btn btn-primary btn-sm"
+                        style={{ borderRadius: "6px" }}
+                      >
                         <Visibility className="btn-icon" />
                         <span>View</span>
                       </button>
