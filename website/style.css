@@ -432,6 +432,7 @@ body.dark-mode {
   margin: 8% auto;
   padding: 20px 22px;
   border-radius: 12px;
+
   width: 90%;
   max-width: 520px;
   text-align: left;
@@ -1055,9 +1056,11 @@ body.dark-mode .bike-slider .bike-card h3 {
 body {
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Helvetica, sans-serif;
+  font-family: "Noto Sans Devanagari", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Segoe UI Emoji", "Segoe UI Symbol";
   color: var(--text-color);
   overflow-x: hidden;
+  background: linear-gradient(180deg, #fbfdff 0%, #ffffff 40%);
 }
 
 .hero-slider {
@@ -1079,6 +1082,45 @@ body {
 
 .floating-buttons {
   bottom: 70px;
+}
+
+/* Global simple container to center content */
+.container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 18px;
+  box-sizing: border-box;
+}
+
+/* Button and card utilities for a consistent look */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--primary-color, #a32919);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+.btn:hover,
+.btn:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+.btn.secondary {
+  background: #f5f7fb;
+  color: #222;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
 }
 
 @media (max-width: 768px) {
@@ -2238,12 +2280,12 @@ body.dark-mode .service-card p {
 .section-subtitle {
   font-size: 1rem;
   color: black;
-  margin-top: -40px;
+  margin-top: -15px;
 }
 .dark-mode .section-subtitle {
   font-size: 1rem;
   color: white;
-  margin-top: -40px;
+  margin-top: -15px;
 }
 
 .testimonials-section {
@@ -3423,4 +3465,316 @@ body.dark-mode .section-header h2 {
   .quote {
     font-size: 0.9rem;
   }
+}
+
+/* --- Styles for additional homepage sections added via index.html edits --- */
+.additional-info-section,
+.inspection-section,
+.finance-section,
+.tradein-section,
+.warranty-faq-section {
+  padding: 60px 5%;
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(15, 15, 15, 0.04);
+}
+
+.additional-info-section .section-header,
+.inspection-section .section-header,
+.finance-section .section-header,
+.tradein-section .section-header,
+.warranty-faq-section .section-header {
+  text-align: left;
+  margin-bottom: 18px;
+}
+
+.additional-info-section h2,
+.inspection-section h2,
+.finance-section h2,
+.tradein-section h2,
+.warranty-faq-section h2 {
+  color: var(--secondary-color, #100f0f);
+  font-size: 1.8rem;
+  margin: 0 0 6px;
+}
+
+.additional-info-section .section-subtitle,
+.inspection-section .section-subtitle,
+.finance-section .section-subtitle {
+  color: var(--light-gray, #a9a9a9);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.why-choose-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  align-items: stretch;
+}
+
+.why-card {
+  background: linear-gradient(180deg, #fff, #fff);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(16, 15, 15, 0.04);
+  text-align: left;
+}
+
+.why-card h3 {
+  color: var(--primary-color, #a32919);
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+}
+
+.why-card p {
+  color: var(--dark-gray, #464646);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Icon block for why-cards */
+.why-card .why-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  background: linear-gradient(180deg, rgba(162,41,27,0.08), rgba(162,41,27,0.04));
+  color: var(--primary-color, #a32919);
+  font-size: 22px;
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.why-card:hover .why-icon {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(16, 15, 15, 0.06);
+}
+
+.why-card {
+  transition: transform 260ms cubic-bezier(.2,.9,.3,1), box-shadow 260ms ease;
+}
+
+.why-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(16, 15, 15, 0.08);
+}
+.finance-content p{
+  color: var(--dark-gray, #464646);
+  line-height: 1.6;
+}
+/* CTA hover polish */
+.finance-content .cta:hover,
+.tradein-content .cta:hover,
+.featured-bikes-section .view-all:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(163, 41, 25, 0.12);
+}
+
+/* FAQ accordion visuals */
+.faq-item {
+  margin-bottom: 14px;
+  border-left: 3px solid rgba(163, 41, 25, 0.06);
+  padding: 10px 14px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.faq-item .faq-question {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-item .faq-question h4 {
+  margin: 0;
+}
+
+.faq-item .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 280ms ease, opacity 220ms ease;
+  opacity: 0;
+  margin-top: 8px;
+}
+
+.faq-item.open .faq-answer {
+  max-height: 420px;
+  opacity: 1;
+}
+
+.faq-toggle-icon {
+  font-size: 14px;
+  color: var(--secondary-color, #100f0f);
+  margin-left: 12px;
+}
+
+/* Tag cloud / keywords for new section */
+.section-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin: 8px 0 18px;
+}
+
+.section-keywords span {
+  background: rgba(163, 41, 25, 0.06);
+  color: var(--secondary-color, #100f0f);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.dark-mode .section-keywords span {
+  background: rgba(255,255,255,0.03);
+  color: #dfe6ea;
+}
+
+.inspection-content ul {
+  list-style: disc;
+  margin-left: 20px;
+  color: var(--dark-gray, #464646);
+}
+
+.finance-content .cta,
+.tradein-content .cta {
+  display: inline-block;
+  margin-top: 12px;
+  background: linear-gradient(90deg, var(--primary-color, #a32919), #ff8a3a);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.faq-list {
+  margin-top: 12px;
+}
+
+.faq-item {
+  margin-bottom: 14px;
+  border-left: 3px solid rgba(163, 41, 25, 0.06);
+  padding: 10px 14px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.faq-item h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  color: var(--secondary-color, #100f0f);
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--dark-gray, #464646);
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+  .why-choose-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .why-choose-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .additional-info-section,
+  .inspection-section,
+  .finance-section,
+  .tradein-section,
+  .warranty-faq-section {
+    padding: 28px 5%;
+  }
+
+  .finance-content .cta,
+  .tradein-content .cta {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+  }
+
+  /* smaller icon and text sizes on mobile for the new sections */
+  .why-card .why-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+
+  .additional-info-section h2,
+  .inspection-section h2,
+  .finance-section h2,
+  .tradein-section h2,
+  .warranty-faq-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .why-card h3 {
+    font-size: 1rem;
+  }
+}
+
+/* Dark mode tweaks for the added sections */
+.dark-mode .additional-info-section,
+.dark-mode .inspection-section,
+.dark-mode .finance-section,
+.dark-mode .tradein-section,
+.dark-mode .warranty-faq-section {
+  background: #0f1720;
+  color: #dfe6ea;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+}
+
+.dark-mode .why-card {
+  background: #121417;
+  box-shadow: none;
+}
+
+.dark-mode .faq-item {
+  background: #0b1114;
+  border-left-color: rgba(163,41,25,0.12);
+}
+
+/* Dark-mode color tweaks for new section text and icons */
+.dark-mode .additional-info-section h2,
+.dark-mode .inspection-section h2,
+.dark-mode .finance-section h2,
+.dark-mode .tradein-section h2,
+.dark-mode .warranty-faq-section h2 {
+  color: #e6f2f8;
+}
+
+.dark-mode .additional-info-section .section-subtitle,
+.dark-mode .inspection-section .section-subtitle,
+.dark-mode .finance-section .section-subtitle {
+  color: #9fb3bf;
+}
+
+.dark-mode .why-card h3 {
+  color: #ffd8c8; /* warm accent readable on dark background */
+}
+
+.dark-mode .why-card p,
+.dark-mode .inspection-content ul,
+.dark-mode .faq-item p {
+  color: #c7d6db;
+}
+
+.dark-mode .why-card .why-icon {
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: #ffbfa8;
+}
+
+.dark-mode .faq-item h4 {
+  color: #e6f2f8;
 }
