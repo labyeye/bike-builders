@@ -709,6 +709,7 @@
               ><img
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                 style="width: 20px"
+                alt="Instagram icon"
             /></a>
             <a href="https://wa.me/918210283582"
               ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
@@ -1069,7 +1070,8 @@
                 const bmin = btn.dataset.min ? Number(btn.dataset.min) : null;
                 const bmax = btn.dataset.max ? Number(btn.dataset.max) : null;
                 const matchesMin = bmin === (min === null ? null : Number(min));
-                const matchesMax = (bmax === null && max === null) || bmax === Number(max);
+                const matchesMax =
+                  (bmax === null && max === null) || bmax === Number(max);
                 btn.classList.toggle("active", matchesMin && matchesMax);
               });
             }
@@ -1716,7 +1718,8 @@
 
           const noun = count === 1 ? "bike" : "bikes";
           const rangePart = rangeLabel ? ` under ${rangeLabel}` : "";
-          document.getElementById("filtered-count").textContent = `${count} second hand ${noun} Available${rangePart}`;
+          document.getElementById("filtered-count").textContent =
+            `${count} second hand ${noun} Available${rangePart}`;
         }
 
         // Filter functionality
