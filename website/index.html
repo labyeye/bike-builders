@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title
-      data-translate="Bike Builders | Premium Pre-Owned Motorcycles in India"
+      data-translate="Bike Builders | Best Second Hand Bike Sell in Muzaffarpur, Bihar"
     >
-      Bike Builders | Premium Pre-Owned Motorcycles in India
+      Bike Builders | Best Second Hand Bike Sell in Muzaffarpur, Bihar
     </title>
     <meta
       name="description"
@@ -17,62 +17,201 @@
     <meta name="author" content="Bike Builders" />
     <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <link rel="canonical" href="https://www.bikebuilders.in" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.bikebuilders.in/" />
-    <meta
-      property="og:title"
-      content="Bike Builders | Premium Pre-Owned Motorcycles in India"
-    />
-    <meta
-      property="og:description"
-      content="India's trusted marketplace for buying and selling premium pre-owned bikes. Get the best deals on KTM, Royal Enfield, Suzuki Hayabusa & more."
-    />
-    <meta
-      property="og:image"
-      content="https://www.bikebuilders.in/assets/social-preview.jpg"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://www.bikebuilders.in/" />
-    <meta
-      name="twitter:title"
-      content="Bike Builders | Premium Pre-Owned Motorcycles in India"
-    />
-    <meta
-      name="twitter:description"
-      content="India's trusted marketplace for buying and selling premium pre-owned bikes. Get the best deals on KTM, Royal Enfield, Suzuki Hayabusa & more."
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.bikebuilders.in/assets/social-preview.jpg"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="preconnect" href="https://code.jquery.com" crossorigin />
-    <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
-    <link rel="icon" type="image/svg+xml" href="./assets/logo2.svg" />
-    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Replace the current Font Awesome links in <head> with this: -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="https://www.bikebuilders.in/sitemap.xml"
-    />
+    <link rel="canonical" href="https://www.bikebuilders.in/" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <meta property="og:site_name" content="Bike Builders" />
+    <meta name="application-name" content="Bike Builders" />
+    <meta name="apple-mobile-web-app-title" content="Bike Builders" />
+    <script>
+      (function () {
+        function debounce(fn, wait) {
+          let t;
+          return function () {
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(this, arguments), wait);
+          };
+        }
 
+        function computeSpan(item, img, rowHeight, gap) {
+          const height = item.getBoundingClientRect().height;
+          const span = Math.max(
+            1,
+            Math.ceil((height + gap) / (rowHeight + gap)),
+          );
+          item.style.gridRowEnd = "span " + span;
+        }
+
+        function applyPattern(items) {
+          const pattern = [
+            "square",
+            "wide",
+            "tall",
+            "square",
+            "square",
+            "tall",
+          ];
+          items.forEach((it, idx) => {
+            if (
+              !it.classList.contains("square") &&
+              !it.classList.contains("wide") &&
+              !it.classList.contains("tall")
+            ) {
+              const p = pattern[idx % pattern.length];
+              it.classList.add(p);
+            }
+          });
+        }
+
+        function layoutMasonry() {
+          const grid = document.querySelector(".masonry-grid");
+          if (!grid) return;
+          if (
+            window.matchMedia &&
+            window.matchMedia("(max-width:600px)").matches
+          )
+            return;
+          const rowHeight =
+            parseInt(
+              getComputedStyle(grid).getPropertyValue("grid-auto-rows"),
+            ) || 8;
+          const gap =
+            parseInt(getComputedStyle(grid).getPropertyValue("gap")) || 16;
+          const imgs = Array.from(grid.querySelectorAll("img"));
+          const items = imgs.map((img) => {
+            let item = img.closest(".masonry-item");
+            if (!item) {
+              item = document.createElement("div");
+              item.className = "masonry-item";
+              img.parentNode.insertBefore(item, img);
+              item.appendChild(img);
+            }
+            return item;
+          });
+
+          applyPattern(items);
+
+          items.forEach((item) => {
+            const img = item.querySelector("img");
+            if (!img) return;
+            if (!img.complete) {
+              img.addEventListener("load", function onload() {
+                img.removeEventListener("load", onload);
+                computeSpan(item, img, rowHeight, gap);
+              });
+            } else {
+              computeSpan(item, img, rowHeight, gap);
+            }
+          });
+        }
+
+        window.addEventListener("load", layoutMasonry);
+        window.addEventListener("resize", debounce(layoutMasonry, 150));
+
+        const observer = new MutationObserver(debounce(layoutMasonry, 200));
+        const gridEl = document.querySelector(".masonry-grid");
+        if (gridEl)
+          observer.observe(gridEl, { childList: true, subtree: true });
+      })();
+    </script>
+    <script>
+      (function () {
+        function debounce(fn, wait) {
+          let t;
+          return function () {
+            clearTimeout(t);
+            t = setTimeout(() => fn.apply(this, arguments), wait);
+          };
+        }
+
+        function buildMobileSlider() {
+          const mq = window.matchMedia("(max-width:600px)");
+          const section = document.querySelector(".gallery-section");
+          if (!section) return;
+
+          const grid = section.querySelector(".masonry-grid");
+
+          if (!mq.matches) {
+            const existing = section.querySelector(".gallery-slider");
+            if (existing) existing.remove();
+            const prevBtn = section.querySelector(".slider-nav.prev");
+            const nextBtn = section.querySelector(".slider-nav.next");
+            if (prevBtn) prevBtn.remove();
+            if (nextBtn) nextBtn.remove();
+            if (grid) grid.style.display = "";
+            if (window.layoutMasonry) window.layoutMasonry?.();
+            return;
+          }
+          if (section.querySelector(".gallery-slider")) {
+            if (grid) grid.style.display = "none";
+            return;
+          }
+
+          const prev = document.createElement("button");
+          prev.className = "slider-nav prev";
+          prev.setAttribute("aria-label", "Previous photos");
+          prev.innerHTML = '<i class="fas fa-chevron-left"></i>';
+
+          const next = document.createElement("button");
+          next.className = "slider-nav next";
+          next.setAttribute("aria-label", "Next photos");
+          next.innerHTML = '<i class="fas fa-chevron-right"></i>';
+
+          const slider = document.createElement("div");
+          slider.className = "gallery-slider";
+
+          const track = document.createElement("div");
+          track.className = "gallery-track";
+          if (grid) {
+            const imgs = Array.from(grid.querySelectorAll("img"));
+            imgs.forEach((img) => {
+              const clone = img.cloneNode();
+              clone.loading = "lazy";
+              track.appendChild(clone);
+            });
+            grid.style.display = "none";
+          }
+
+          slider.appendChild(track);
+          section.appendChild(prev);
+          section.appendChild(slider);
+          section.appendChild(next);
+          prev.addEventListener("click", () => {
+            track.scrollBy({
+              left: -track.clientWidth * 0.9,
+              behavior: "smooth",
+            });
+          });
+          next.addEventListener("click", () => {
+            track.scrollBy({
+              left: track.clientWidth * 0.9,
+              behavior: "smooth",
+            });
+          });
+          let isDown = false;
+          let startX;
+          let scrollLeft;
+          track.addEventListener("touchstart", (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+          });
+          track.addEventListener("touchmove", (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - track.offsetLeft;
+            const walk = (x - startX) * 1;
+            track.scrollLeft = scrollLeft - walk;
+          });
+          track.addEventListener("touchend", () => {
+            isDown = false;
+          });
+        }
+
+        const onResize = debounce(buildMobileSlider, 150);
+        window.addEventListener("load", buildMobileSlider);
+        window.addEventListener("resize", onResize);
+      })();
+    </script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -113,12 +252,57 @@
     </script>
     <link rel="stylesheet" href="style.css" />
 
+    <style>
+      /* Masonry gallery using CSS Grid + JS row-span calculation */
+      .masonry-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        grid-auto-rows: 8px; /* base row height used to compute spans */
+        gap: 16px;
+        padding: 0 8px;
+      }
+      .masonry-item {
+        break-inside: avoid;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 6px 18px rgba(17, 24, 39, 0.06);
+        display: block;
+      }
+      .masonry-item img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+      }
+
+      /* optional visual patterns for mixed tiles */
+      .masonry-item.square {
+        aspect-ratio: 1 / 1;
+      }
+      .masonry-item.tall {
+        aspect-ratio: 3 / 4;
+      }
+      .masonry-item.wide {
+        aspect-ratio: 16 / 9;
+      }
+      @media (max-width: 900px) {
+        .masonry-grid {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        }
+      }
+      @media (max-width: 600px) {
+        .masonry-grid {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+    </style>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
   </head>
-  <body itemscope itemtype="https://schema.org/WebPage">
+  <body class="index-page" itemscope itemtype="https://schema.org/WebPage">
     <div class="language-popup" id="languagePopup">
       <div class="popup-content">
         <h3>Choose your preferred language</h3>
@@ -128,7 +312,12 @@
         </div>
       </div>
     </div>
-    <div class="hero-section" itemscope itemtype="https://schema.org/WPHeader">
+    <div
+      class="hero-section"
+      itemscope
+      itemtype="https://schema.org/WPHeader"
+      style="position: relative"
+    >
       <div class="background-image"></div>
       <div class="overlay">
         <div class="rectangle"></div>
@@ -268,89 +457,98 @@
           </form>
         </div>
       </div>
+      <section
+        class="stats-section"
+        style="
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: -70px;
+          width: calc(100% - 40px);
+          z-index: 20;
+          margin-bottom: 60px;
+        "
+      >
+        <div class="stats-container">
+          <div class="stat-card">
+            <div class="stat-number" data-count="2000">0+</div>
+            <div class="stat-label" data-translate="Bikes Sold">Bikes Sold</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="40">0+</div>
+            <div class="stat-label" data-translate="Bikes Available">
+              Bikes Available
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="1500">0+</div>
+            <div class="stat-label" data-translate="Happy Customers">
+              Happy Customers
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" data-count="8">0+</div>
+            <div class="stat-label" data-translate="Years Experience">
+              Years Experience
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
-    <section class="styles-section">
-      <h2 data-translate="Choose Your Style">Choose Your Style</h2>
-      <div class="styles-container">
-        <a href="inventory.html?type=scooter" class="style-card-link">
-          <div class="style-card">
-            <img
-              src="https://rajastvs.com/wp-content/uploads/2024/02/tvs-jupiter-classic-autumn-brown-86695472-rgvnu.webp"
-              alt="Scooter"
-              loading="lazy"
-            />
-            <div class="style-content">
-              <h3 data-translate="Scooter">Scooter</h3>
-              <p
-                data-translate="Practical and fuel-efficient for city commuting."
-              >
-                Practical and fuel-efficient for city commuting.
-              </p>
-              <span data-translate="View Scooters">View Scooters</span>
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-        <a href="inventory.html?type=commuter" class="style-card-link">
-          <div class="style-card">
-            <img
-              src="https://imgd.aeplcdn.com/0X0/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0&q=80"
-              alt="Commuter"
-              loading="lazy"
-            />
-            <div class="style-content">
-              <h3 data-translate="Commuter">Commuter</h3>
-              <p data-translate="Reliable daily riders with great mileage.">
-                Reliable daily riders with great mileage.
-              </p>
-              <span data-translate="View Commuters">View Commuters</span>
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-        <a href="inventory.html?type=sport" class="style-card-link">
-          <div class="style-card">
-            <img
-              src="https://www.ktmmalaysia.com/wp-content/uploads/2021/03/315779_200-Duke-2020-ADDITIONAL-MODEL-IN-SOME-COUNTRIES.png"
-              alt="Sport"
-              loading="lazy"
-            />
-            <div class="style-content">
-              <h3 data-translate="Sport">Sport</h3>
-              <p data-translate="High-performance machines.">
-                High-performance machines.
-              </p>
-              <span data-translate="View Sports Bikes">View Sports Bikes</span>
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-        <a href="inventory.html?type=tourer" class="style-card-link">
-          <div class="style-card">
-            <img
-              src="https://www.royalenfield.com/content/dam/royal-enfield/india/motorcycles/continental-gt/new/colours/studio-shots/rocker-red/new/rocker_red_0000.png"
-              alt="Tourer"
-              loading="lazy"
-            />
-            <div class="style-content">
-              <h3 data-translate="Tourer">Tourer</h3>
-              <p data-translate="Comfortable long-distance companions.">
-                Comfortable long-distance companions.
-              </p>
-              <span data-translate="View Tourers">View Tourers</span>
-              <i class="fas fa-arrow-right"></i>
-            </div>
-          </div>
-        </a>
-      </div>
-    </section>
     <section class="featured-bikes-section">
+      <section class="range-section">
+        <div class="range-inner">
+          <h2 data-translate="Choose Your Range">Choose Your Range</h2>
+          <div class="range-container">
+            <a
+              class="range-card"
+              href="inventory.html?price=under-50000"
+              aria-label="Under 50,000"
+            >
+              <div class="range-title">Under ₹50,000</div>
+              <div class="range-sub">Affordable commuter and scooters</div>
+            </a>
+            <a
+              class="range-card"
+              href="inventory.html?price=50000-100000"
+              aria-label="50,000 to 1,00,000"
+            >
+              <div class="range-title">₹50,000 — ₹1,00,000</div>
+              <div class="range-sub">
+                Best value commuter and mid-range bikes
+              </div>
+            </a>
+            <a
+              class="range-card"
+              href="inventory.html?price=100000-200000"
+              aria-label="1,00,000 to 2,00,000"
+            >
+              <div class="range-title">₹1,00,000 — ₹2,00,000</div>
+              <div class="range-sub">
+                Performance and premium everyday bikes
+              </div>
+            </a>
+            <a
+              class="range-card"
+              href="inventory.html?price=200000-plus"
+              aria-label="Above 2,00,000"
+            >
+              <div class="range-title">Premium ₹2,00,000+</div>
+              <div class="range-sub">High-end and enthusiast motorcycles</div>
+            </a>
+          </div>
+        </div>
+      </section>
       <div class="section-header">
-        <h2 data-translate="Refurbished Bikes">Refurbished Bikes</h2>
+        <h2 data-translate="Second Hand Bikes">Second Hand Bikes</h2>
         <span
           class="section-subtitle"
-          data-translate="Best Second hand bike in Bihar"
-          >Best Second hand bike in Bihar</span
+          data-translate="Showcasing to you best second hand bikes in muzaffarpur. The vehicles presented here are very good in terms for value, performance, and quality. Every second hand bikes on this list went through full inspections and are ready for a ride. Find a bike which suits your needs and brings satisfaction to your ride."
+          >Showcasing to you best second hand bikes in muzaffarpur. The vehicles
+          presented here are very good in terms for value, performance, and
+          quality. Every second hand bikes on this list went through full
+          inspections and are ready for a ride. Find a bike which suits your
+          needs and brings satisfaction to your ride.</span
         >
       </div>
 
@@ -358,9 +556,7 @@
         <button class="slider-nav prev" aria-label="Previous bikes">
           <i class="fas fa-chevron-left"></i>
         </button>
-
         <div class="bike-slider"></div>
-
         <button class="slider-nav next" aria-label="Next bikes">
           <i class="fas fa-chevron-right"></i>
         </button>
@@ -376,13 +572,132 @@
       </div>
     </section>
 
+    <section class="styles-section">
+      <div
+        style="
+          align-items: center;
+          text-align: center;
+          flex-direction: column;
+          display: flex;
+          gap: 20px;
+        "
+      >
+        <span
+          data-translate="Choose Your Style"
+          style="font-size: 2.3rem; font-weight: 600"
+          >Choose Your Style</span
+        >
+        <span
+          data-translate="Explore our different range of second bike in muzaffarpur to find your perfect ride."
+          style="
+            font-size: 1rem;
+            color: #ffffff;
+            margin-bottom: 40px;
+            max-width: 800px;
+          "
+          >Explore a wide range of second hand bikes in Muzaffarpur, featuring
+          quality-checked used motorcycles to help you choose a ride that fits
+          your style, budget, and daily commute.</span
+        >
+      </div>
+      <div class="styles-container">
+        <a href="inventory.html?type=scooter" class="style-card-link">
+          <div class="style-card">
+            <img
+              src="https://imgd.aeplcdn.com/272x153/n/cw/ec/188491/access-125-right-side-view-20.png?isig=0&q=80"
+              alt="Second hand Scooter in Muzaffarpur"
+              loading="lazy"
+            />
+            <div class="style-content">
+              <h3 data-translate="Scooter">Scooter</h3>
+              <p
+                data-translate="Practical and fuel-efficient for city commuting."
+              >
+                Practical and fuel-efficient for city commuting.
+              </p>
+              <div class="view-btn">
+                <span data-translate="View Scooters">View Scooters</span>
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="inventory.html?type=commuter" class="style-card-link">
+          <div class="style-card">
+            <img
+              src="https://imgd.aeplcdn.com/0X0/n/cw/ec/15109/splendor-plus-right-side-view-2.png?isig=0&q=80"
+              alt="Second hand Commuter in Muzaffarpur"
+              loading="lazy"
+            />
+            <div class="style-content">
+              <h3 data-translate="Commuter">Commuter</h3>
+              <p data-translate="Reliable daily riders with great mileage.">
+                Reliable daily riders with great mileage.
+              </p>
+              <div class="view-btn">
+                <span data-translate="View Commuters">View Commuters</span>
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="inventory.html?type=sport" class="style-card-link">
+          <div class="style-card">
+            <img
+              src="https://www.ktmmalaysia.com/wp-content/uploads/2021/03/315779_200-Duke-2020-ADDITIONAL-MODEL-IN-SOME-COUNTRIES.png"
+              alt="Second hand Sport Bike in Muzaffarpur"
+              loading="lazy"
+            />
+            <div class="style-content">
+              <h3 data-translate="Sport">Sport</h3>
+              <p data-translate="High-performance machines.">
+                High-performance machines.
+              </p>
+              <div class="view-btn">
+                <span data-translate="View Sports Bikes"
+                  >View Sports Bikes</span
+                >
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="inventory.html?type=tourer" class="style-card-link">
+          <div class="style-card">
+            <img
+              src="https://www.royalenfield.com/content/dam/royal-enfield/india/motorcycles/continental-gt/new/colours/studio-shots/rocker-red/new/rocker_red_0000.png"
+              alt="Second hand Tourer in Muzaffarpur"
+              loading="lazy"
+            />
+            <div class="style-content">
+              <h3 data-translate="Tourer">Tourer</h3>
+              <p data-translate="Comfortable long-distance companions.">
+                Comfortable long-distance companions.
+              </p>
+              <div class="view-btn">
+                <span data-translate="View Tourers">View Tourers</span>
+                <i class="fas fa-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
     <section class="services-section">
       <div class="section-header">
         <h2 data-translate="Our Services">Our Services</h2>
         <span
           class="section-subtitle"
-          data-translate="Best Second hand bike in Bihar"
-          >Best Second hand bike in Bihar</span
+          data-translate="We provide a wide range of services for buying, selling, and servicing bicycles in Bihar. You can buy certified pre-owned bicycles, which are quality tested and ready for use. If you want to sell your bicycle, we provide a hassle-free way to sell your bicycle with attractive price offers. Our servicing and maintenance services for bicycles will keep your two-wheeler in the best condition with the best support. Whether you are buying, selling, or servicing your bicycle, we provide a hassle-free experience for you."
+          >We provide a wide range of services for buying, selling, and
+          servicing bicycles in Bihar. You can buy certified pre-owned bicycles,
+          which are quality tested and ready for use. If you want to sell your
+          bicycle, we provide a hassle-free way to sell your bicycle with
+          attractive price offers. Our servicing and maintenance services for
+          bicycles will keep your two-wheeler in the best condition with the
+          best support. Whether you are buying, selling, or servicing your
+          bicycle, we provide a hassle-free experience for you.</span
         >
       </div>
       <div class="services-container">
@@ -390,40 +705,44 @@
           class="service-card"
           data-keywords="buy second hand bike in bihar, used bike in bihar, buy second-hand motorcycle bihar, pre-owned bikes bihar"
         >
-          <i class="fas fa-motorcycle"></i>
-          <h3 data-translate="Buy Bike">Buy Bike</h3>
+          <img
+            src="./assets/services/buy.webp"
+            alt="Buy Second Hand Bike in Muzaffarpur"
+          />
+          <h3 data-translate="Buy Used Bike">Buy Used Bike</h3>
           <p
-            data-translate="Find your perfect pre-owned bike from our certified collection.
-            Looking to buy a second hand bike in Bihar? We list used bikes in
-            Bihar and certified pre-owned motorcycles across the state to help
-            you find the right ride."
+            data-translate="Find the best collection of second-hand bikes in Muzaffarpur. If you are looking for a second-hand bike in Bihar? We make it easy to find the best used bike that matches your needs, experience, and budget friendly, with our wide selection of certified pre-owned motorcycles throughout Bihar."
           >
-            Find your perfect pre-owned bike from our certified collection.
-            Looking to buy a second hand bike in Bihar? We list used bikes in
-            Bihar and certified pre-owned motorcycles across the state to help
-            you find the right ride.
+            Find the best collection of second-hand bikes in Muzaffarpur. If you
+            are looking for a second-hand bike in Bihar? We make it easy to find
+            the best used bike that matches your needs, experience, and budget
+            friendly, with our wide selection of certified pre-owned motorcycles
+            throughout Bihar.
           </p>
-          <a href="https://www.bikebuilders.in/inventory.html"
-            ><span data-translate="Explore">Explore</span>
-            <i class="fas fa-arrow-right"></i
-          ></a>
+          <div>
+            <a href="https://www.bikebuilders.in/inventory.html"
+              ><span data-translate="Explore">Explore</span>
+              <i class="fas fa-arrow-right"></i
+            ></a>
+          </div>
         </div>
         <div
           class="service-card"
           data-keywords="sell used bike in bihar, sell second hand bike bihar, sell bike online bihar, bike valuation bihar"
         >
-          <i class="fa-solid fa-indian-rupee-sign"></i>
-          <h3 data-translate="Sell Bike">Sell Bike</h3>
+          <img
+            src="./assets/services/sell.webp"
+            alt="Sell Used Bike in Muzaffarpur"
+          />
+          <h3 data-translate="Sell Used Bike">Sell Used Bike</h3>
           <p
-            data-translate="Get the best price for your bike with our free valuation. Want to
-            sell your used bike in Bihar? We provide instant valuation and a
-            smooth process to sell second hand bikes in Bihar with transparent
-            pricing. Easy and hassle-free selling experience."
+            data-translate="Get the best price for your bike with our free bike valuation service. Want to sell your used bike in Bihar? We offer instant bike valuation and a smooth, transparent process to sell second hand bikes in Bihar with fair pricing. Enjoy an easy, fast, and hassle-free bike-selling experience from start to finish."
           >
-            Get the best price for your bike with our free valuation. Want to
-            sell your used bike in Bihar? We provide instant valuation and a
-            smooth process to sell second hand bikes in Bihar with transparent
-            pricing. Easy and hassle-free selling experience.
+            Get the best price for your bike with our free bike valuation
+            service. Want to sell your used bike in Bihar? We offer instant bike
+            valuation and a smooth, transparent process to sell second hand
+            bikes in Bihar with fair pricing. Enjoy an easy, fast, and
+            hassle-free bike-selling experience from start to finish.
           </p>
           <a href="https://www.bikebuilders.in/sell.html"
             ><span data-translate="Get Valuation">Get Valuation</span>
@@ -434,18 +753,19 @@
           class="service-card"
           data-keywords="bike service in bihar, motorcycle service bihar, two wheeler service bihar, bike maintenance bihar"
         >
-          <i class="fas fa-tools"></i>
+          <img
+            src="./assets/services/service.webp"
+            alt="Bike Service in Muzaffarpur"
+          />
           <h3 data-translate="Bike Service">Bike Service</h3>
           <p
-            data-translate="Professional servicing and maintenance by certified technicians.
-            Find trusted bike service in Bihar — routine maintenance, repairs,
-            and motorcycle servicing to keep your used or new bike running its
-            best."
+            data-translate="Get professional bike service and maintenance done from experts you can trust. If you are looking for reliable bike service in Bihar, then we can help you with routine bike maintenance, bike repair, and all types of bike servicing to help you maintain your used or new bike in the best condition possible."
           >
-            Professional servicing and maintenance by certified technicians.
-            Find trusted bike service in Bihar — routine maintenance, repairs,
-            and motorcycle servicing to keep your used or new bike running its
-            best.
+            Get professional bike service and maintenance done from experts you
+            can trust. If you are looking for reliable bike service in Bihar,
+            then we can help you with routine bike maintenance, bike repair, and
+            all types of bike servicing to help you maintain your used or new
+            bike in the best condition possible.
           </p>
           <a href="https://www.bikebuilders.in/contact.html"
             ><span data-translate="Book Service">Book Service</span>
@@ -457,11 +777,16 @@
 
     <section class="brands-section">
       <div class="section-header">
-        <h2 data-translate="Other Brands">Other Brands</h2>
+        <h2 data-translate="Brands We Have">Brands We Have</h2>
         <span
           class="section-subtitle"
-          data-translate="Other Brands second hand bike in Muzaffarpur, Bihar"
-          >Other Brands second hand bike in Muzaffarpur, Bihar</span
+          data-translate="We have various popular and reliable bike brands to provide you with a wider range to choose from when you are planning to purchase a pre-owned bike in Bihar. We offer pre-owned bikes that are certified and of high quality from various popular motorcycle brands. We offer various types of bikes like commuting bikes, sports bikes, and high-end motorcycles to suit your needs and budget."
+          >We have various popular and reliable bike brands to provide you with
+          a wider range to choose from when you are planning to purchase a
+          pre-owned bike in Bihar. We offer pre-owned bikes that are certified
+          and of high quality from various popular motorcycle brands. We offer
+          various types of bikes like commuting bikes, sports bikes, and
+          high-end motorcycles to suit your needs and budget.</span
         >
       </div>
 
@@ -580,63 +905,6 @@
           </div>
           <h3>Suzuki</h3>
         </a>
-        <a
-          href="inventory.html?brand=Jawa"
-          class="brand-card"
-          style="text-decoration: none"
-        >
-          <div class="brand-logo">
-            <img
-              src="https://1000logos.net/wp-content/uploads/2021/04/Jawa-logo.png"
-              alt="Jawa logo"
-              loading="lazy"
-            />
-          </div>
-          <h3>Jawa</h3>
-        </a>
-        <a
-          href="inventory.html?brand=BMW"
-          class="brand-card"
-          style="text-decoration: none"
-        >
-          <div class="brand-logo">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1200px-BMW.svg.png"
-              alt="Audi logo"
-              loading="lazy"
-            />
-          </div>
-          <h3>BMW</h3>
-        </a>
-        <a
-          href="inventory.html?brand=Harley-Davidson"
-          class="brand-card"
-          style="text-decoration: none"
-        >
-          <div class="brand-logo">
-            <img
-              src="https://images.seeklogo.com/logo-png/21/2/harley-davidson-logo-png_seeklogo-216797.png"
-              alt="Harley-Davidson logo"
-              loading="lazy"
-            />
-          </div>
-          <h3>Harley-Davidson</h3>
-        </a>
-
-        <a
-          href="inventory.html?brand=Kawasaki"
-          class="brand-card"
-          style="text-decoration: none"
-        >
-          <div class="brand-logo">
-            <img
-              src="https://animationvisarts.com/wp-content/uploads/2023/11/image-16-1030x521.png"
-              alt="Kawasaki logo"
-              loading="lazy"
-            />
-          </div>
-          <h3>Kawasaki</h3>
-        </a>
       </div>
     </section>
     <section class="gallery-section">
@@ -645,133 +913,135 @@
         <span
           class="section-subtitle"
           data-translate="Our Happy Customers second hand bike in Bihar"
-          >Our Happy Customers second hand bike in Bihar</span
+          >We take pride in serving happy customers across Bihar who trust us
+          for quality second hand bikes at the best prices. From students and
+          office commuters to bike lovers looking for a budget-friendly ride,
+          our pre-owned bikes in Bihar have helped thousands ride with
+          confidence and peace of mind.</span
         >
       </div>
       <img src="./assets/images/heading-hr.jpg.png" alt="" />
-      <div class="gallery-slider">
-        <div class="gallery-track">
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0007.jpg"
-            alt="Wedding Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0008.jpg"
-            alt="Corporate Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0009.jpg"
-            alt="Birthday Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0010.jpg"
-            alt="Spiritual Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0011.jpg"
-            alt="Decoration"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0012.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0013.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0014.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0015.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0016.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0017.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0018.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0019.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0020.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0021.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0022.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0023.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0024.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0025.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0026.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0027.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0028.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0029.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0007.jpg"
-            alt="Wedding Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0008.jpg"
-            alt="Corporate Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0009.jpg"
-            alt="Birthday Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0010.jpg"
-            alt="Spiritual Event"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0011.jpg"
-            alt="Decoration"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0012.jpg"
-            alt="Stage Setup"
-          />
-          <img
-            src="./assets/images/gallery/IMG-20250715-WA0013.jpg"
-            alt="Stage Setup"
-          />
-        </div>
+      <div class="masonry-grid">
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0007.jpg"
+          alt="Wedding Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0008.jpg"
+          alt="Corporate Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0009.jpg"
+          alt="Birthday Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0010.jpg"
+          alt="Spiritual Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0011.jpg"
+          alt="Decoration"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0012.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0013.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0014.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0015.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0016.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0017.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0018.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0019.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0020.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0021.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0022.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0023.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0024.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0025.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0026.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0027.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0028.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0029.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0007.jpg"
+          alt="Wedding Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0008.jpg"
+          alt="Corporate Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0009.jpg"
+          alt="Birthday Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0010.jpg"
+          alt="Spiritual Event"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0011.jpg"
+          alt="Decoration"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0012.jpg"
+          alt="Stage Setup"
+        />
+        <img
+          src="./assets/images/gallery/IMG-20250715-WA0013.jpg"
+          alt="Stage Setup"
+        />
       </div>
     </section>
     <section class="process-sections">
@@ -890,39 +1160,6 @@
         </div>
       </div>
     </section>
-    <section class="stats-section">
-      <div class="stats-container">
-        <div class="stat-card">
-          <div class="stat-image"><img src="./assets/images/1.svg" /></div>
-          <div class="stat-number" data-count="2000">0+</div>
-          <div class="stat-label" data-translate="Bikes Sold">Bikes Sold</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-image"><img src="./assets/images/2.svg" /></div>
-
-          <div class="stat-number" data-count="40">0+</div>
-          <div class="stat-label" data-translate="Bikes Available">
-            Bikes Available
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-image"><img src="./assets/images/3.svg" /></div>
-
-          <div class="stat-number" data-count="1500">0+</div>
-          <div class="stat-label" data-translate="Happy Customers">
-            Happy Customers
-          </div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-image"><img src="./assets/images/4.svg" /></div>
-
-          <div class="stat-number" data-count="8">0+</div>
-          <div class="stat-label" data-translate="Years Experience">
-            Years Experience
-          </div>
-        </div>
-      </div>
-    </section>
     <section class="testimonials-section">
       <h2 data-translate="What Our Riders Say">What Our Riders Say</h2>
       <div class="testimonials-container" id="testimonialsContainer"></div>
@@ -932,306 +1169,71 @@
         aria-label="Testimonial navigation"
       ></div>
     </section>
-    <!-- <section class="testimonials-section">
-      <h2 data-translate="What Our Riders Say">What Our Riders Say</h2>
-      <div class="testimonials-container">
-        <div class="testimonial" itemscope itemtype="https://schema.org/Review">
-          <div class="quote-icon">
-            <i class="fas fa-quote-right" aria-hidden="true"></i>
-          </div>
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/women/44.jpg"
-              alt="Sarah J."
-              class="user-avatar"
-              width="60"
-              height="60"
-              loading="lazy"
-            />
-            <div class="user-info">
-              <h4 class="user-name" itemprop="author">Sarah J.</h4>
-              <p class="user-location">Mumbai, Maharashtra</p>
-              <div
-                class="rating"
-                itemprop="reviewRating"
-                itemscope
-                itemtype="https://schema.org/Rating"
-              >
-                <meta itemprop="ratingValue" content="5" />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-          </div>
-          <div
-            class="quote"
-            itemprop="reviewBody"
-            data-translate="The buying process was completely transparent. I got a certified KTM Duke 390 at 15% below market price. The 150-point inspection report gave me complete confidence in my purchase."
-          >
-            "The buying process was completely transparent. I got a certified
-            KTM Duke 390 at 15% below market price. The 150-point inspection
-            report gave me complete confidence in my purchase."
-          </div>
-          <div class="testimonial-footer">
-            <span
-              class="testimonial-date"
-              data-translate="Purchased: 3 months ago"
-              >Purchased: 3 months ago</span
-            >
-            <span class="social-proof" data-translate="Verified Owner"
-              >Verified Owner</span
-            >
-          </div>
-          <meta itemprop="itemReviewed" content="Bike Builders" />
-          <meta itemprop="datePublished" content="2023-08-15" />
-        </div>
 
-        <div class="testimonial" itemscope itemtype="https://schema.org/Review">
-          <div class="quote-icon">
-            <i class="fas fa-quote-right" aria-hidden="true"></i>
-          </div>
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/men/32.jpg"
-              alt="Michael T."
-              class="user-avatar"
-              width="60"
-              height="60"
-              loading="lazy"
-            />
-            <div class="user-info">
-              <h4 class="user-name" itemprop="author">Michael T.</h4>
-              <p class="user-location">Bangalore, Karnataka</p>
-              <div
-                class="rating"
-                itemprop="reviewRating"
-                itemscope
-                itemtype="https://schema.org/Rating"
-              >
-                <meta itemprop="ratingValue" content="4.5" />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star-half-alt"></i>
-              </div>
-            </div>
-          </div>
-          <div
-            class="quote"
-            itemprop="reviewBody"
-            data-translate="Excellent customer service and the bike quality is outstanding. The warranty coverage gave me peace of mind. Worth every rupee I spent!"
-          >
-            "Excellent customer service and the bike quality is outstanding. The
-            warranty coverage gave me peace of mind. Worth every rupee I spent!"
-          </div>
-          <div class="testimonial-footer">
-            <span
-              class="testimonial-date"
-              data-translate="Purchased: 6 months ago"
-              >Purchased: 6 months ago</span
-            >
-            <span class="social-proof" data-translate="Verified Owner"
-              >Verified Owner</span
-            >
-          </div>
-          <meta itemprop="itemReviewed" content="Bike Builders" />
-          <meta itemprop="datePublished" content="2023-05-10" />
-        </div>
-
-        <div class="testimonial" itemscope itemtype="https://schema.org/Review">
-          <div class="quote-icon">
-            <i class="fas fa-quote-right" aria-hidden="true"></i>
-          </div>
-          <div class="testimonial-header">
-            <img
-              src="https://randomuser.me/api/portraits/men/75.jpg"
-              alt="David L."
-              class="user-avatar"
-              width="60"
-              height="60"
-              loading="lazy"
-            />
-            <div class="user-info">
-              <h4 class="user-name" itemprop="author">David L.</h4>
-              <p class="user-location">Delhi, NCR</p>
-              <div
-                class="rating"
-                itemprop="reviewRating"
-                itemscope
-                itemtype="https://schema.org/Rating"
-              >
-                <meta itemprop="ratingValue" content="5" />
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-              </div>
-            </div>
-          </div>
-          <div
-            class="quote"
-            itemprop="reviewBody"
-            data-translate="I sold my old bike through them and got ₹15,000 more than other dealers offered. The process was smooth and payment was instant. Highly recommended!"
-          >
-            "I sold my old bike through them and got ₹15,000 more than other
-            dealers offered. The process was smooth and payment was instant.
-            Highly recommended!"
-          </div>
-          <div class="testimonial-footer">
-            <span class="testimonial-date">Sold: 1 month ago</span>
-            <span class="social-proof">Verified Seller</span>
-          </div>
-          <meta itemprop="itemReviewed" content="Bike Builders" />
-          <meta itemprop="datePublished" content="2023-09-20" />
-        </div>
-      </div>
-
-      <div class="testimonial-nav" aria-label="Testimonial navigation">
-        <div class="testimonial-dot active" aria-current="true"></div>
-        <div class="testimonial-dot"></div>
-        <div class="testimonial-dot"></div>
-      </div>
-    </section> -->
-
-    <!-- Added sections: Why Choose Us, Inspection & Certification, Financing, Trade-in & Warranty, FAQ -->
     <section class="additional-info-section">
       <div class="section-header">
         <h2>Why Choose Bike Builders</h2>
-        <span class="section-subtitle">Trusted pre-owned motorcycle experts in Bihar</span>
-      </div>
-      <!-- simple keyword/tag cloud to help users and for on-page relevance -->
-      <div class="section-keywords" aria-hidden="false">
-        <span>used bikes</span>
-        <span>buy used bike</span>
-        <span>sell bike</span>
-        <span>certified bikes</span>
-        <span>instant valuation</span>
-        <span>trade-in</span>
-        <span>EMI</span>
-        <span>warranty</span>
-        <span>Muzaffarpur</span>
-        <span>Bihar</span>
+        <span class="section-subtitle">
+          Most Trusted Used Bike Showroom in Muzaffarpur, Bihar
+        </span>
       </div>
       <div class="why-choose-grid">
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-clipboard-check"></i></div>
           <h3>Certified Inspection</h3>
-          <p>Every bike goes through a thorough 150-point inspection and a detailed condition report so you know exactly what you're buying.</p>
+          <p>
+            Every bike passes a strict 150-point quality inspection covering
+            engine health, chassis, tyres, electronics, and documentation to
+            ensure complete peace of mind.
+          </p>
         </div>
+
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-tags"></i></div>
           <h3>Transparent Pricing</h3>
-          <p>Clear pricing, no hidden charges, and real market-based valuations to make selling or buying simple and fair.</p>
+          <p>
+            We follow real-time market pricing with no hidden fees. Whether
+            buying or selling, you always get fair and honest value.
+          </p>
         </div>
+
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-shield-alt"></i></div>
           <h3>Warranty & Support</h3>
-          <p>Selected bikes come with short-term warranty options and a service support network in Muzaffarpur and nearby cities.</p>
+          <p>
+            Selected motorcycles come with warranty options and post-purchase
+            support from trusted service partners across Muzaffarpur.
+          </p>
         </div>
+
         <div class="why-card">
           <div class="why-icon"><i class="fas fa-credit-card"></i></div>
           <h3>Flexible Finance</h3>
-          <p>We help arrange EMI plans and used-bike financing through trusted partners so buying becomes affordable.</p>
+          <p>
+            Easy EMI plans, low down payments, and quick loan approvals help you
+            own your next bike without financial stress.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-exchange-alt"></i></div>
+          <h3>Easy Buy & Sell Process</h3>
+          <p>
+            From instant valuation to RC transfer, insurance handling, and final
+            delivery, we manage everything end-to-end.
+          </p>
+        </div>
+
+        <div class="why-card">
+          <div class="why-icon"><i class="fas fa-file-contract"></i></div>
+          <h3>Hassle-Free Documentation</h3>
+          <p>
+            Our team ensures smooth ownership transfer, RC updates, and complete
+            legal compliance for a worry-free transaction.
+          </p>
         </div>
       </div>
     </section>
-
-    <section class="inspection-section">
-      <div class="section-header">
-        <h2><i class="fas fa-wrench" aria-hidden="true"></i> Inspection & Certification</h2>
-        <span class="section-subtitle">Comprehensive checks by trained technicians</span>
-      </div>
-      <div class="inspection-content">
-        <ul>
-          <li>Engine health & compression check</li>
-          <li>Electricals & battery test</li>
-          <li>Brake, tyre & suspension inspection</li>
-          <li>Service history verification and documentation</li>
-        </ul>
-        <p>Each certified bike comes with a downloadable inspection report and photo log.</p>
-      </div>
-    </section>
-
-    <section class="finance-section">
-      <div class="section-header">
-        <h2><i class="fas fa-hand-holding-usd" aria-hidden="true"></i> Financing & EMI Options</h2>
-        <span class="section-subtitle">Easy EMIs and used-bike loans</span>
-      </div>
-      <div class="finance-content">
-        <p>We partner with NBFCs and banks to provide used-bike loans, low down-payments, and EMI calculators. Pre-approval available in minutes for eligible buyers.</p>
-        <a href="finance.html" class="cta">Check EMI Plans</a>
-      </div>
-    </section>
-
-    <section class="tradein-section">
-      <div class="section-header">
-        <h2><i class="fas fa-exchange-alt" aria-hidden="true"></i> Sell or Trade-in Your Bike</h2>
-        <span class="section-subtitle">Instant valuation & doorstep inspection</span>
-      </div>
-      <div class="tradein-content">
-        <p>Get a free instant valuation online, or book a doorstep inspection. We offer secure, immediate payment and can accept your old bike as part-exchange for your new ride.</p>
-        <a href="sell.html" class="cta">Get Valuation</a>
-      </div>
-    </section>
-
-    <section class="warranty-faq-section">
-      <div class="section-header">
-        <h2><i class="fas fa-shield-alt" aria-hidden="true"></i> Warranty & Returns</h2>
-        <span class="section-subtitle">Peace of mind with every purchase</span>
-      </div>
-      <div class="warranty-content">
-        <p>Selected bikes include limited warranty packages covering major components for a defined period. We also assist with transfer of registration and insurance.</p>
-      </div>
-
-      <div class="section-header" style="margin-top:20px;">
-        <h2>Frequently Asked Questions</h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item" id="faq-1">
-          <div class="faq-question">
-            <h4>Are the bikes inspected?</h4>
-            <span class="faq-toggle-icon"><i class="fas fa-plus"></i></span>
-          </div>
-          <div class="faq-answer">
-            <p>Yes — every bike is inspected under a multi-point checklist and we provide a downloadable inspection report.</p>
-          </div>
-        </div>
-        <div class="faq-item" id="faq-2">
-          <div class="faq-question">
-            <h4>Can I finance a used bike?</h4>
-            <span class="faq-toggle-icon"><i class="fas fa-plus"></i></span>
-          </div>
-          <div class="faq-answer">
-            <p>Yes — we offer financing through partners. Visit our finance page to check eligibility and EMI options.</p>
-          </div>
-        </div>
-        <div class="faq-item" id="faq-3">
-          <div class="faq-question">
-            <h4>Do you accept trade-ins?</h4>
-            <span class="faq-toggle-icon"><i class="fas fa-plus"></i></span>
-          </div>
-          <div class="faq-answer">
-            <p>We accept trade-ins based on valuation. Use our valuation tool to get an instant estimate.</p>
-          </div>
-        </div>
-        <div class="faq-item" id="faq-4">
-          <div class="faq-question">
-            <h4>What warranty do you offer?</h4>
-            <span class="faq-toggle-icon"><i class="fas fa-plus"></i></span>
-          </div>
-          <div class="faq-answer">
-            <p>Warranty options vary by bike — details are listed on each bike’s page. Contact us for specific bike warranty terms.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -1240,17 +1242,26 @@
           {
             "@type": "Question",
             "name": "Are the bikes inspected?",
-            "acceptedAnswer": {"@type": "Answer","text": "Yes — every bike is inspected under a multi-point checklist and we provide a downloadable inspection report."}
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — every bike is inspected under a multi-point checklist and we provide a downloadable inspection report."
+            }
           },
           {
             "@type": "Question",
             "name": "Can I finance a used bike?",
-            "acceptedAnswer": {"@type": "Answer","text": "Yes — we offer financing through partners. Visit our finance page to check eligibility and EMI options."}
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes — we offer financing through partners. Visit our finance page to check eligibility and EMI options."
+            }
           },
           {
             "@type": "Question",
             "name": "Do you accept trade-ins?",
-            "acceptedAnswer": {"@type": "Answer","text": "We accept trade-ins based on valuation. Use our valuation tool to get an instant estimate."}
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We accept trade-ins based on valuation. Use our valuation tool to get an instant estimate."
+            }
           }
         ]
       }
@@ -1259,7 +1270,22 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
-          <!-- 5-Star Rating Display -->
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Bike Builders Logo"
+            />
+          </div>
+          <p
+            data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride."
+          >
+            Bike Builder is bringing you the future of bike riding today. We are
+            providing best second-hand bikes, and easy buying and selling
+            experience. Find the best second-hand bikes at reasonable pricing,
+            and hassle-free ownership. From buying to selling to servicing, we
+            ensure all our bikes are safe and enjoyable to ride.
+          </p>
           <div class="footer-stars" style="margin: 10px 0">
             <span class="star" style="color: gold; font-size: 1.5em"
               ><i class="fa fa-star"></i
@@ -1277,16 +1303,6 @@
               ><i class="fa fa-star"></i
             ></span>
           </div>
-          <div class="logo">
-            <img
-              src="./assets/logo2.svg"
-              style="width: 50px"
-              alt="Bike Builders Logo"
-            />
-          </div>
-          <p data-translate="Bringing the future of bike riding to you today.">
-            Bringing the future of bike riding to you today.
-          </p>
           <div class="social-icons">
             <a href="https://www.facebook.com/share/1Ao18FYX8e/"
               ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
@@ -1372,6 +1388,61 @@
                 href="https://www.bikebuilders.in/locations-bihar.html"
                 data-translate="Locations"
                 >Locations</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h3>Brands</h3>
+          <ul>
+            <li><a href="https://www.bikebuilders.in/">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/">KTM</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Patna</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Gaya</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Bhagalpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Muzaffarpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Darbhanga</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Purnia</a
+              >
+            </li>
+            <li></li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Hajipur</a
               >
             </li>
           </ul>
@@ -1515,24 +1586,12 @@
       </div>
     </div>
     <script>
-      // Dynamic Testimonials & Review Modal (improved)
       document.addEventListener("DOMContentLoaded", function () {
-        // compute API base (same logic used elsewhere)
-        const API_BASE = (function () {
-          try {
-            const host = window.location.hostname;
-            if (host === "localhost") {
-              return `${window.location.protocol}//${host}:2500`;
-            }
-          } catch (e) {}
-          return "https://bike-builders-backend.vercel.app";
-        })();
-
+        const API_BASE = "https://bike-builders-backend.vercel.app";
         const testimonialsContainer = document.getElementById(
-          "testimonialsContainer"
+          "testimonialsContainer",
         );
         const testimonialNav = document.getElementById("testimonialNav");
-
         function fetchReviews() {
           fetch(API_BASE + "/api/reviews")
             .then((res) => res.json())
@@ -1541,23 +1600,22 @@
                 data && data.success && Array.isArray(data.reviews)
                   ? data.reviews
                   : Array.isArray(data)
-                  ? data
-                  : [];
+                    ? data
+                    : [];
               renderTestimonialsSlider(reviews);
             })
             .catch(() => renderTestimonialsSlider([]));
         }
-
         function createTestimonialEl(r) {
           const div = document.createElement("div");
           div.className = "testimonial";
           const avatar = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
-            r.name || "Rider"
+            r.name || "Rider",
           )}`;
           const ratingStars =
             '<i class="fas fa-star"></i>'.repeat(r.rating || 5) +
             '<i class="far fa-star"></i>'.repeat(
-              Math.max(0, 5 - (r.rating || 5))
+              Math.max(0, 5 - (r.rating || 5)),
             );
           div.innerHTML = `
             <div class="quote-icon"><i class="fa fa-quote-left" style="color:#ff6b00;"></i></div>
@@ -1570,12 +1628,11 @@
             </div>
             <div class="quote">${escapeHtml(r.message || r.text || "")}</div>
             <div class="testimonial-footer"><span class="testimonial-date">${new Date(
-              r.date || Date.now()
+              r.date || Date.now(),
             ).toLocaleDateString()}</span></div>
           `;
           return div;
         }
-
         function escapeHtml(str) {
           return String(str)
             .replace(/&/g, "&amp;")
@@ -1584,8 +1641,6 @@
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#39;");
         }
-
-        // builds slider grouping reviews into slides (slideSize items)
         function renderTestimonialsSlider(reviews) {
           testimonialsContainer.innerHTML = "";
           testimonialNav.innerHTML = "";
@@ -1630,10 +1685,10 @@
           function showSlide(n) {
             current = (n + slidesEls.length) % slidesEls.length;
             slidesEls.forEach(
-              (el, i) => (el.style.display = i === current ? "flex" : "none")
+              (el, i) => (el.style.display = i === current ? "flex" : "none"),
             );
             Array.from(testimonialNav.children).forEach((d, i) =>
-              d.classList.toggle("active", i === current)
+              d.classList.toggle("active", i === current),
             );
           }
 
@@ -1646,7 +1701,7 @@
             .querySelector(".testimonial-next")
             .addEventListener("click", () => showSlide(current + 1));
           Array.from(testimonialNav.children).forEach((d, i) =>
-            d.addEventListener("click", () => showSlide(i))
+            d.addEventListener("click", () => showSlide(i)),
           );
 
           // rebuild on resize (debounced)
@@ -1655,7 +1710,7 @@
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(
               () => renderTestimonialsSlider(reviews),
-              250
+              250,
             );
           });
         }
@@ -1669,12 +1724,12 @@
         if (openReviewModalBtn)
           openReviewModalBtn.addEventListener(
             "click",
-            () => (reviewModal.style.display = "block")
+            () => (reviewModal.style.display = "block"),
           );
         if (closeReviewModalBtn)
           closeReviewModalBtn.addEventListener(
             "click",
-            () => (reviewModal.style.display = "none")
+            () => (reviewModal.style.display = "none"),
           );
         window.addEventListener("click", (e) => {
           if (e.target === reviewModal) reviewModal.style.display = "none";
@@ -1682,8 +1737,8 @@
         footerStars.forEach((s) =>
           s.addEventListener(
             "click",
-            () => (reviewModal.style.display = "block")
-          )
+            () => (reviewModal.style.display = "block"),
+          ),
         );
 
         // star rating inside modal
@@ -1695,7 +1750,7 @@
               const v = Number(this.getAttribute("data-value"));
               reviewRatingInput.value = v;
               Array.from(starRating.children).forEach((s, i) =>
-                s.classList.toggle("selected", i < v)
+                s.classList.toggle("selected", i < v),
               );
             });
           });
@@ -1730,7 +1785,7 @@
                   // clear star selection
                   if (starRating)
                     Array.from(starRating.children).forEach((s) =>
-                      s.classList.remove("selected")
+                      s.classList.remove("selected"),
                     );
                   fetchReviews();
                 }, 900);
@@ -1787,24 +1842,7 @@
                 .catch(() => {});
             }
 
-            // featured bikes
-            const featTS = localStorage.getItem("cachedFeaturedTS");
-            if (!featTS || now - parseInt(featTS, 10) > maxAge) {
-              fetch(API_BASE + "/api/featured-bikes")
-                .then((r) => r.json())
-                .then((data) => {
-                  let bikes = [];
-                  if (data && data.success && Array.isArray(data.data))
-                    bikes = data.data;
-                  else if (Array.isArray(data)) bikes = data;
-                  localStorage.setItem(
-                    "cachedFeaturedBikes",
-                    JSON.stringify(bikes)
-                  );
-                  localStorage.setItem("cachedFeaturedTS", String(Date.now()));
-                })
-                .catch(() => {});
-            }
+            // (no featured-bikes prefetch — use main inventory cache instead)
           } catch (e) {
             /* ignore */
           }
@@ -1833,51 +1871,6 @@
           let cards = Array.from(container.querySelectorAll(".service-card"));
           let dotsEl = null;
           let scrollHandler = null;
-
-          function buildDots() {
-            // don't build twice
-            if (section.querySelector(".services-dots") || cards.length <= 1)
-              return;
-            dotsEl = document.createElement("div");
-            dotsEl.className = "services-dots";
-            cards.forEach((c, i) => {
-              const btn = document.createElement("button");
-              btn.type = "button";
-              btn.className = "services-dot";
-              btn.setAttribute("aria-label", `Show service ${i + 1}`);
-              btn.dataset.idx = i;
-              btn.addEventListener("click", function () {
-                container.scrollTo({ left: c.offsetLeft, behavior: "smooth" });
-              });
-              dotsEl.appendChild(btn);
-            });
-            section.appendChild(dotsEl);
-
-            // update active on scroll
-            scrollHandler = debounce(function () {
-              const scrollLeft = container.scrollLeft;
-              let closest = 0;
-              let best = Infinity;
-              cards.forEach((card, idx) => {
-                const diff = Math.abs(card.offsetLeft - scrollLeft);
-                if (diff < best) {
-                  best = diff;
-                  closest = idx;
-                }
-              });
-              Array.from(dotsEl.children).forEach((d, i) =>
-                d.classList.toggle("active", i === closest)
-              );
-            }, 80);
-
-            container.addEventListener("scroll", scrollHandler, {
-              passive: true,
-            });
-            // initial set
-            setTimeout(() => {
-              if (scrollHandler) scrollHandler();
-            }, 60);
-          }
 
           function removeDots() {
             const existing = section.querySelector(".services-dots");
@@ -1915,20 +1908,22 @@
     // FAQ accordion behavior for newly added FAQ section
     (function () {
       function initFaq() {
-        const faqItems = document.querySelectorAll('.faq-item');
+        const faqItems = document.querySelectorAll(".faq-item");
         if (!faqItems || faqItems.length === 0) return;
         faqItems.forEach((item) => {
-          const q = item.querySelector('.faq-question');
-          const icon = item.querySelector('.faq-toggle-icon i');
-          const answer = item.querySelector('.faq-answer');
+          const q = item.querySelector(".faq-question");
+          const icon = item.querySelector(".faq-toggle-icon i");
+          const answer = item.querySelector(".faq-answer");
           if (!q || !answer) return;
-          q.addEventListener('click', function () {
-            const isOpen = item.classList.toggle('open');
+          q.addEventListener("click", function () {
+            const isOpen = item.classList.toggle("open");
             // rotate icon
-            if (icon) icon.classList.toggle('fa-plus', !isOpen), icon.classList.toggle('fa-minus', isOpen);
+            if (icon)
+              (icon.classList.toggle("fa-plus", !isOpen),
+                icon.classList.toggle("fa-minus", isOpen));
             // if opening, set maxHeight to scrollHeight for transition
             if (isOpen) {
-              answer.style.maxHeight = answer.scrollHeight + 'px';
+              answer.style.maxHeight = answer.scrollHeight + "px";
             } else {
               answer.style.maxHeight = null;
             }
@@ -1936,10 +1931,10 @@
         });
       }
 
-      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initFaq);
+      if (document.readyState === "loading")
+        document.addEventListener("DOMContentLoaded", initFaq);
       else initFaq();
     })();
-
   </script>
   <script>
     // Client-side fallback: intercept internal link clicks to detect missing pages
@@ -2004,8 +1999,65 @@
               window.location.href = targetUrl;
             });
         },
-        { passive: false }
+        { passive: false },
       );
+    })();
+  </script>
+
+  <script>
+    // Enhanced masonry layout: compute grid-row spans so images form mixed square/rectangle layout
+    (function () {
+      function debounce(fn, wait) {
+        let t;
+        return function () {
+          clearTimeout(t);
+          t = setTimeout(() => fn.apply(this, arguments), wait);
+        };
+      }
+
+      function computeSpan(item, img, rowHeight, gap) {
+        const height = img.getBoundingClientRect().height;
+        const span = Math.max(1, Math.ceil((height + gap) / (rowHeight + gap)));
+        item.style.gridRowEnd = "span " + span;
+      }
+
+      function layoutMasonry() {
+        const grid = document.querySelector(".masonry-grid");
+        if (!grid) return;
+        const rowHeight =
+          parseInt(getComputedStyle(grid).getPropertyValue("grid-auto-rows")) ||
+          8;
+        const gap =
+          parseInt(getComputedStyle(grid).getPropertyValue("gap")) || 16;
+
+        Array.from(grid.querySelectorAll("img")).forEach((img) => {
+          // ensure each image is inside a .masonry-item wrapper
+          let item = img.closest(".masonry-item");
+          if (!item) {
+            item = document.createElement("div");
+            item.className = "masonry-item";
+            img.parentNode.insertBefore(item, img);
+            item.appendChild(img);
+          }
+
+          if (!img.complete) {
+            img.addEventListener("load", function onload() {
+              img.removeEventListener("load", onload);
+              computeSpan(item, img, rowHeight, gap);
+            });
+          } else {
+            computeSpan(item, img, rowHeight, gap);
+          }
+        });
+      }
+
+      window.addEventListener("load", layoutMasonry);
+      window.addEventListener("resize", debounce(layoutMasonry, 150));
+
+      // observe changes in the grid (useful if images are added dynamically)
+      const observer = new MutationObserver(debounce(layoutMasonry, 200));
+      const gridEl = document.querySelector(".masonry-grid");
+      if (gridEl) observer.observe(gridEl, { childList: true, subtree: true });
     })();
   </script>
 </html>

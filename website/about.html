@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,6 +16,11 @@
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.bikebuilders.in/about.html" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <meta property="og:site_name" content="Bike Builders" />
+    <meta name="application-name" content="Bike Builders" />
+    <meta name="apple-mobile-web-app-title" content="Bike Builders" />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -55,7 +60,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <!-- LocalBusiness JSON-LD -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -357,14 +361,6 @@
       </div>
     </section>
 
-    <!-- Review Section -->
-    <section class="testimonials-section">
-      <h2>What Our Riders Say</h2>
-      <div class="testimonials-container" id="dynamic-testimonials">
-        <div class="loading">Loading reviews...</div>
-      </div>
-    </section>
-    <!-- Review Modal -->
     <div id="reviewModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -391,7 +387,22 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
-          <!-- 5-Star Rating Display -->
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Bike Builders Logo"
+            />
+          </div>
+          <p
+            data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride."
+          >
+            Bike Builder is bringing you the future of bike riding today. We are
+            providing best second-hand bikes, and easy buying and selling
+            experience. Find the best second-hand bikes at reasonable pricing,
+            and hassle-free ownership. From buying to selling to servicing, we
+            ensure all our bikes are safe and enjoyable to ride.
+          </p>
           <div class="footer-stars" style="margin: 10px 0">
             <span class="star" style="color: gold; font-size: 1.5em"
               ><i class="fa fa-star"></i
@@ -409,16 +420,6 @@
               ><i class="fa fa-star"></i
             ></span>
           </div>
-          <div class="logo">
-            <img
-              src="./assets/logo2.svg"
-              style="width: 50px"
-              alt="Bike Builders Logo"
-            />
-          </div>
-          <p data-translate="Bringing the future of bike riding to you today.">
-            Bringing the future of bike riding to you today.
-          </p>
           <div class="social-icons">
             <a href="https://www.facebook.com/share/1Ao18FYX8e/"
               ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
@@ -429,17 +430,9 @@
               ><img
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                 style="width: 20px"
-                alt="Instagram — Bike Builders"
             /></a>
-            <a
-              href="https://wa.me/918210283582"
-              aria-label="Chat with us on WhatsApp"
+            <a href="https://wa.me/918210283582"
               ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
-            ></a>
-            <a
-              href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
-              aria-label="Watch on Youtube"
-              ><i class="fa-brands fa-youtube" style="color: #fa0000"></i
             ></a>
           </div>
         </div>
@@ -517,6 +510,62 @@
           </ul>
         </div>
         <div class="footer-section">
+          <h3>Brands</h3>
+          <ul>
+            <li><a href="https://www.bikebuilders.in/">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/">KTM</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Patna</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Gaya</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Bhagalpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Muzaffarpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Darbhanga</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Purnia</a
+              >
+            </li>
+            <li></li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Hajipur</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
           <h3 data-translate="Contact Us">Contact Us</h3>
           <p
             data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
@@ -533,7 +582,7 @@
           &copy; 2023 Bike Builders. All rights reserved.
         </p>
         <a
-          href="www.https://www.pixelatenest.com/"
+          href="https://www.pixelatenest.com/"
           style="color: #a9a9a9"
           data-translate="Designed By Pixelate Nest"
           >Designed By Pixelate Nest</a
@@ -541,7 +590,6 @@
       </div>
     </footer>
     <script>
-      // Dynamic testimonials fetch
       document.addEventListener("DOMContentLoaded", function () {
         function getInitials(name) {
           if (!name) return "U";
@@ -552,10 +600,9 @@
             .slice(0, 2);
         }
         function randomAvatar(name) {
-          // Use dicebear for demo, fallback to initials
           const seed = name ? name.replace(/\s/g, "") : "user";
           return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
-            seed
+            seed,
           )}`;
         }
         function renderTestimonials(reviews) {
@@ -574,14 +621,14 @@
                 </div>
                 <div class="testimonial-header">
                   <img src="${randomAvatar(r.name)}" alt="${
-                r.name
-              }" class="user-avatar" width="60" height="60" loading="lazy" />
+                    r.name
+                  }" class="user-avatar" width="60" height="60" loading="lazy" />
                   <div class="user-info">
                     <h4 class="user-name" itemprop="author">${r.name}</h4>
                     <div class="rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
                       <meta itemprop="ratingValue" content="${r.rating}" />
                       ${'<i class="fas fa-star"></i>'.repeat(
-                        r.rating
+                        r.rating,
                       )}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
                     </div>
                   </div>
@@ -589,12 +636,12 @@
                 <div class="quote" itemprop="reviewBody">${r.message}</div>
                 <div class="testimonial-footer">
                   <span class="testimonial-date">${new Date(
-                    r.date
+                    r.date,
                   ).toLocaleDateString()}</span>
                 </div>
                 <meta itemprop="itemReviewed" content="Bike Builders" />
               </div>
-            `
+            `,
             )
             .join("");
         }
@@ -613,8 +660,6 @@
             });
         }
         fetchTestimonials();
-
-        // Review Modal logic
         const reviewModal = document.getElementById("reviewModal");
         const closeReviewModalBtn = reviewModal.querySelector(".close");
         closeReviewModalBtn.addEventListener("click", () => {
@@ -625,7 +670,6 @@
             reviewModal.style.display = "none";
           }
         });
-        // Star rating logic
         const stars = reviewModal.querySelectorAll(".star");
         const ratingInput = document.getElementById("reviewRating");
         stars.forEach((star) => {
@@ -637,7 +681,6 @@
             });
           });
         });
-        // Submit review
         const reviewForm = document.getElementById("reviewForm");
         reviewForm.addEventListener("submit", function (e) {
           e.preventDefault();
@@ -667,14 +710,12 @@
             })
             .catch(() => alert("Failed to submit review."));
         });
-        // Open modal button (add anywhere you want, e.g. after testimonials)
         const openBtn = document.createElement("button");
         openBtn.className = "review-btn";
         openBtn.onclick = () => {
           reviewModal.style.display = "block";
         };
         document.querySelector(".testimonials-section").appendChild(openBtn);
-        // Make footer stars open the review modal and pre-select rating
         const footerStars = document.querySelectorAll(".footer-stars .star");
         footerStars.forEach((fs, idx) => {
           fs.addEventListener("click", () => {
@@ -684,7 +725,7 @@
             const val = idx + 1;
             if (ratingInput) ratingInput.value = val;
             modalStars.forEach((s, i) =>
-              s.classList.toggle("selected", i < val)
+              s.classList.toggle("selected", i < val),
             );
           });
         });
@@ -750,8 +791,8 @@
             "12+": "12+",
             "1500+": "1500+",
             "98%": "98%",
-            "Bringing the future of bike riding to you today.":
-              "Bringing the future of bike riding to you today.",
+            "Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride.":
+              "Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride.",
           },
           hi: {
             Home: "होम",
@@ -813,7 +854,7 @@
             "12+": "12+",
             "1500+": "1500+",
             "98%": "98%",
-            "Bringing the future of bike riding to you today.":
+            "Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride.":
               "आज हमारे बाइक सवारी का भविष्य आपको लाने के लिए।",
           },
         };
@@ -937,7 +978,7 @@
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.1 },
         );
 
         timelineItems.forEach((item) => {
@@ -963,7 +1004,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const darkModeToggle = document.getElementById("darkModeToggle");
         const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle"
+          "mobileDarkModeToggle",
         );
         function checkDarkModePreference() {
           const savedTheme = localStorage.getItem("theme");

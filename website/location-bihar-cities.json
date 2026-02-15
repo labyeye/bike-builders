@@ -4,6 +4,36 @@
     "slug": "muzaffarpur",
     "description": "Find verified second-hand bikes in Muzaffarpur — inspected pre-owned bikes, transparent history reports, local financing and doorstep delivery.",
     "keywords": "second hand bike in Muzaffarpur, used bike Muzaffarpur, buy used bike Muzaffarpur, pre-owned bike Muzaffarpur, bike finance Muzaffarpur"
+    ,
+    "listings": [
+      {
+        "id": "mb-001",
+        "title": "Royal Enfield Classic 350 - 2018",
+        "price": 135000,
+        "year": 2018,
+        "km": 22000,
+        "image": "./assets/gallery/enfield-classic-350.jpg",
+        "short": "Well maintained, single-owner, recent service and new tyre."
+      },
+      {
+        "id": "mb-002",
+        "title": "Bajaj Pulsar 150 - 2016",
+        "price": 42000,
+        "year": 2016,
+        "km": 38000,
+        "image": "./assets/gallery/pulsar-150.jpg",
+        "short": "City-friendly commuter with low running cost."
+      },
+      {
+        "id": "mb-003",
+        "title": "Honda CB Shine - 2019",
+        "price": 58000,
+        "year": 2019,
+        "km": 15000,
+        "image": "./assets/gallery/honda-cb-shine.jpg",
+        "short": "Good condition, useful for daily commute."
+      }
+    ]
   },
   {
     "name": "Darbhanga",
@@ -58,12 +88,45 @@
     "slug": "patna",
     "description": "Patna's largest selection of certified pre-owned bikes — test rides, finance options and transparent pricing.",
     "keywords": "second hand bike in Patna, used bike Patna, buy used bike Patna, pre-owned bike Patna, bike finance Patna"
+    ,
+    "listings": [
+      {
+        "id": "pt-101",
+        "title": "Yamaha FZ-S - 2017",
+        "price": 76000,
+        "year": 2017,
+        "km": 27000,
+        "image": "./assets/gallery/fz-s.jpg",
+        "short": "Sporty handling, recent full service."
+      },
+      {
+        "id": "pt-102",
+        "title": "TVS Apache RTR 160 - 2018",
+        "price": 68000,
+        "year": 2018,
+        "km": 21000,
+        "image": "./assets/gallery/apache-rtr.jpg",
+        "short": "Single-owner, great performance."
+      }
+    ]
   },
   {
     "name": "Gaya",
     "slug": "gaya",
     "description": "Find verified used bikes in Gaya with local inspections and quick finance approvals.",
     "keywords": "second hand bike in Gaya, used bike Gaya, buy used bike Gaya"
+    ,
+    "listings": [
+      {
+        "id": "gy-201",
+        "title": "Hero Splendor Plus - 2015",
+        "price": 32000,
+        "year": 2015,
+        "km": 42000,
+        "image": "./assets/gallery/splendor.jpg",
+        "short": "Reliable, low maintenance commuter."
+      }
+    ]
   },
   {
     "name": "Ara",
@@ -130,6 +193,8 @@
     "slug": "madhepura",
     "description": "Madhepura's pre-owned bike selection — inspected, priced fairly, and available with financing.",
     "keywords": "second hand bike in Madhepura, used bike Madhepura, buy used bike Madhepura"
+    ,
+    "listings": []
   },
   {
     "name": "Munger",

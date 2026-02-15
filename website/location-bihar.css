@@ -89,12 +89,12 @@ p.lead {
 }
 .city-link {
   display: inline-block;
-  padding: 6px 10px;
-  border-radius: 6px;
-  background: #fff;
+  padding: 6px 6px 10px 6px;
+  border-radius: 60px;
+  background: #a52c19;
   border: 1px solid #eee;
   text-decoration: none;
-  color: #111;
+  color: #ffffff;
   font-size: 0.95rem;
 }
 .city-link:hover {
@@ -140,7 +140,9 @@ p.lead {
   text-decoration: none;
   font-weight: 700;
   box-shadow: 0 8px 20px rgba(165, 44, 25, 0.12);
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
 }
 .btn:hover {
   transform: translateY(-3px);
@@ -180,4 +182,26 @@ p.lead {
   .wrap {
     padding: 16px;
   }
+}
+
+/* City listings slider styles (moved from inline in the HTML) */
+.city-listings { margin: 20px 0; }
+.listings-slider { position: relative; display: flex; align-items: center; gap: 8px; }
+.listings-track { display: flex; gap: 12px; overflow-x: auto; scroll-behavior: smooth; padding: 8px 4px; }
+.listings-track::-webkit-scrollbar { height: 8px; }
+.listings-track::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 6px; }
+.listing-card { min-width: 220px; max-width: 320px; background: #fff; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.06); overflow: hidden; display: flex; flex-direction: column; }
+.listing-link { color: inherit; text-decoration: none; display: flex; flex-direction: column; height: 100%; }
+.listing-image-wrap { width: 100%; aspect-ratio: 16/9; overflow: hidden; background: #f6f6f6; }
+.listing-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.listing-body { padding: 10px; flex: 1 1 auto; display: flex; flex-direction: column; }
+.listing-title { font-size: 1rem; margin: 0 0 6px 0; }
+.listing-meta { color: #666; font-size: 0.9rem; margin-bottom: 6px; }
+.listing-price { color: #111; font-weight: 700; margin-top: auto; }
+.listing-short { color: #444; font-size: 0.9rem; margin-top: 6px; }
+.slider-nav { background: #fff; border: 1px solid #eee; border-radius: 6px; width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+.listings-note { color: #666; font-size: 0.95rem; margin-top: 8px; }
+@media (max-width: 700px) {
+  .listing-card { min-width: 80%; }
+  .slider-nav { display: none; }
 }

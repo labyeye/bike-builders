@@ -1,8 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <meta property="og:site_name" content="Bike Builders" />
+    <meta name="application-name" content="Bike Builders" />
+    <meta name="apple-mobile-web-app-title" content="Bike Builders" />
     <title>Inventory | Bike Builders — Second hand bikes in Muzaffarpur</title>
     <meta
       name="description"
@@ -41,7 +46,6 @@
         "keywords": "second hand bike in muzaffarpur, used bikes muzaffarpur, pre-owned motorcycles"
       }
     </script>
-    <!-- LocalBusiness JSON-LD -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -64,8 +68,6 @@
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="preconnect" href="https://code.jquery.com" crossorigin />
     <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="inventory.css" />
@@ -74,16 +76,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
   </head>
 
   <body>
@@ -105,12 +97,22 @@
           </div>
         </a>
         <ul class="nav-links">
-          <li><a href="https://www.bikebuilders.in/" data-translate="Home">Home</a></li>
           <li>
-            <a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a>
+            <a href="https://www.bikebuilders.in/" data-translate="Home"
+              >Home</a
+            >
           </li>
           <li>
-            <a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike"
+            <a
+              href="https://www.bikebuilders.in/inventory.html"
+              data-translate="Buy Bike"
+              >Buy Bike</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.bikebuilders.in/sell.html"
+              data-translate="Sell Your Bike"
               >Sell Your Bike</a
             >
           </li>
@@ -138,8 +140,20 @@
               >Bike Finance</a
             >
           </li>
-          <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
-          <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
+          <li>
+            <a
+              href="https://www.bikebuilders.in/updates.html"
+              data-translate="Updates"
+              >Updates</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.bikebuilders.in/contact.html"
+              data-translate="Contact"
+              >Contact</a
+            >
+          </li>
         </ul>
 
         <div class="theme-toggle">
@@ -239,18 +253,6 @@
                     </button>
                     <button class="filter-option" data-brand="Suzuki">
                       Suzuki
-                    </button>
-                    <button class="filter-option" data-brand="Jawa">
-                      Jawa
-                    </button>
-                    <button class="filter-option" data-brand="BMW Motorrad">
-                      BMW
-                    </button>
-                    <button class="filter-option" data-brand="Harley-Davidson">
-                      Harley
-                    </button>
-                    <button class="filter-option" data-brand="Kawasaki">
-                      Kawasaki
                     </button>
                   </div>
                 </div>
@@ -436,16 +438,6 @@
                   </button>
                   <button class="filter-option" data-brand="Suzuki">
                     Suzuki
-                  </button>
-                  <button class="filter-option" data-brand="Jawa">Jawa</button>
-                  <button class="filter-option" data-brand="BMW Motorrad">
-                    BMW
-                  </button>
-                  <button class="filter-option" data-brand="Harley-Davidson">
-                    Harley
-                  </button>
-                  <button class="filter-option" data-brand="Kawasaki">
-                    Kawasaki
                   </button>
                 </div>
               </div>
@@ -639,31 +631,6 @@
                     alt="Suzuki"
                   />
                 </div>
-                <div class="brand-logo" data-brand="Jawa">
-                  <img
-                    src="https://1000logos.net/wp-content/uploads/2021/04/Jawa-logo.png"
-                    alt="Jawa"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="BMW Motorrad">
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/BMW.svg/1200px-BMW.svg.png"
-                    alt="BMW"
-                  />
-                </div>
-                <div class="brand-logo" data-brand="Harley-Davidson">
-                  <img
-                    src="https://images.seeklogo.com/logo-png/21/2/harley-davidson-logo-png_seeklogo-216797.png"
-                    alt="Harley"
-                  />
-                </div>
-
-                <div class="brand-logo" data-brand="Kawasaki">
-                  <img
-                    src="https://animationvisarts.com/wp-content/uploads/2023/11/image-16-1030x521.png"
-                    alt="Kawasaki"
-                  />
-                </div>
               </div>
             </div>
             <div class="bike-grid"></div>
@@ -671,14 +638,7 @@
         </div>
       </section>
     </div>
-    <!-- Review Section -->
-    <section class="testimonials-section">
-      <h2>What Our Riders Say</h2>
-      <div class="testimonials-container" id="dynamic-testimonials">
-        <div class="loading">Loading reviews...</div>
-      </div>
-    </section>
-    <!-- Review Modal -->
+
     <div id="reviewModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -706,6 +666,22 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Bike Builders Logo"
+            />
+          </div>
+          <p
+            data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride."
+          >
+            Bike Builder is bringing you the future of bike riding today. We are
+            providing best second-hand bikes, and easy buying and selling
+            experience. Find the best second-hand bikes at reasonable pricing,
+            and hassle-free ownership. From buying to selling to servicing, we
+            ensure all our bikes are safe and enjoyable to ride.
+          </p>
           <div class="footer-stars" style="margin: 10px 0">
             <span class="star" style="color: gold; font-size: 1.5em"
               ><i class="fa fa-star"></i
@@ -723,14 +699,6 @@
               ><i class="fa fa-star"></i
             ></span>
           </div>
-          <div class="logo">
-            <img
-              src="./assets/logo2.svg"
-              style="width: 50px"
-              alt="Bike Builders Logo"
-            />
-          </div>
-          <p>Bringing the future of bike riding to you today.</p>
           <div class="social-icons">
             <a href="https://www.facebook.com/share/1Ao18FYX8e/"
               ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
@@ -742,27 +710,30 @@
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                 style="width: 20px"
             /></a>
-            <a
-              href="https://wa.me/918210283582"
-              aria-label="Chat with us on WhatsApp"
+            <a href="https://wa.me/918210283582"
               ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
-            ></a>
-            <a
-              href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
-              aria-label="Watch on Youtube"
-              ><i class="fa-brands fa-youtube" style="color: #fa0000"></i
             ></a>
           </div>
         </div>
         <div class="footer-section">
           <h3 data-translate="Quick Links">Quick Links</h3>
           <ul>
-            <li><a href="https://www.bikebuilders.in/" data-translate="Home">Home</a></li>
             <li>
-              <a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a>
+              <a href="https://www.bikebuilders.in/" data-translate="Home"
+                >Home</a
+              >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike"
+              <a
+                href="https://www.bikebuilders.in/inventory.html"
+                data-translate="Buy Bike"
+                >Buy Bike</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/sell.html"
+                data-translate="Sell Your Bike"
                 >Sell Your Bike</a
               >
             </li>
@@ -783,29 +754,101 @@
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a>
+              <a
+                href="https://www.bikebuilders.in/updates.html"
+                data-translate="Updates"
+                >Updates</a
+              >
             </li>
-            <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
+            <li>
+              <a
+                href="https://www.bikebuilders.in/contact.html"
+                data-translate="Contact"
+                >Contact</a
+              >
+            </li>
           </ul>
         </div>
         <div class="footer-section">
           <h3 data-translate="Resources">Resources</h3>
           <ul>
             <li>
-              <a href="https://www.bikebuilders.in/finance.html" data-translate="Bike Finance"
+              <a
+                href="https://www.bikebuilders.in/finance.html"
+                data-translate="Bike Finance"
                 >Bike Finance</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html" data-translate="Locations"
+              <a
+                href="https://www.bikebuilders.in/locations-bihar.html"
+                data-translate="Locations"
                 >Locations</a
               >
             </li>
           </ul>
         </div>
         <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>
+          <h3>Brands</h3>
+          <ul>
+            <li><a href="https://www.bikebuilders.in/">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/">KTM</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Patna</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Gaya</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Bhagalpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Muzaffarpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Darbhanga</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Purnia</a
+              >
+            </li>
+            <li></li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Hajipur</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Contact Us">Contact Us</h3>
+          <p
+            data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
+          >
             <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
             Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
             842002
@@ -814,8 +857,13 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 Bike Builders. All rights reserved.</p>
-        <a href="www.https://www.pixelatenest.com/" style="color: #a9a9a9"
+        <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
+          &copy; 2023 Bike Builders. All rights reserved.
+        </p>
+        <a
+          href="https://www.pixelatenest.com/"
+          style="color: #a9a9a9"
+          data-translate="Designed By Pixelate Nest"
           >Designed By Pixelate Nest</a
         >
       </div>
@@ -963,6 +1011,72 @@
           } catch (e) {}
           return "https://bike-builders-backend.vercel.app";
         })();
+
+        (function applyPriceFromUrl() {
+          try {
+            const params = new URLSearchParams(window.location.search);
+            if (params.has("price")) {
+              const v = params.get("price");
+              let min = null;
+              let max = null;
+              let label = "";
+
+              if (!v) return;
+
+              if (v === "under-50000" || /^under-?50?k$/i.test(v)) {
+                min = 0;
+                max = 50000;
+                label = "Under 50K";
+              } else if (v === "50000-100000" || /^50000-100000$/.test(v)) {
+                min = 50000;
+                max = 100000;
+                label = "50K-1L";
+              } else if (v === "100000-200000" || /^100000-200000$/.test(v)) {
+                min = 100000;
+                max = 200000;
+                label = "1L-2L";
+              } else if (
+                v === "200000-plus" ||
+                v === "200000_plus" ||
+                v === "200000+" ||
+                /^(\d+)\+$/i.test(v)
+              ) {
+                min = 200000;
+                max = null;
+                label = "2L+";
+              } else {
+                // support numeric ranges like 50000-100000
+                const m = v.match(/^(\d+)-(\d+)$/);
+                if (m) {
+                  min = Number(m[1]);
+                  max = Number(m[2]);
+                  label = `${m[1]}-${m[2]}`;
+                }
+              }
+
+              if (min !== null) currentFilters.minPrice = Number(min);
+              if (max !== null) currentFilters.maxPrice = Number(max);
+
+              // Update price button text
+              const priceBtn = document.querySelector('[data-filter="price"]');
+              if (priceBtn) {
+                const text = label || v.replace(/[-_]/g, " ");
+                priceBtn.innerHTML = `${text} <i class="fas fa-chevron-down"></i>`;
+              }
+
+              // Highlight matching preset if present
+              document.querySelectorAll(".price-preset").forEach((btn) => {
+                const bmin = btn.dataset.min ? Number(btn.dataset.min) : null;
+                const bmax = btn.dataset.max ? Number(btn.dataset.max) : null;
+                const matchesMin = bmin === (min === null ? null : Number(min));
+                const matchesMax = (bmax === null && max === null) || bmax === Number(max);
+                btn.classList.toggle("active", matchesMin && matchesMax);
+              });
+            }
+          } catch (e) {
+            console.warn("Failed to read price from URL", e);
+          }
+        })();
         (function applyBrandFromUrl() {
           try {
             const params = new URLSearchParams(window.location.search);
@@ -973,7 +1087,7 @@
                 currentFilters.brand = decoded;
 
                 const brandBtn = document.querySelector(
-                  '[data-filter="brand"]'
+                  '[data-filter="brand"]',
                 );
                 if (brandBtn) {
                   brandBtn.innerHTML = `${decoded} <i class="fas fa-chevron-down"></i>`;
@@ -1184,9 +1298,8 @@
               currentSort = sortType; // This now references the top-level variable
 
               // Update the sort button text
-              document.getElementById(
-                "sort-text"
-              ).textContent = `Sort: ${this.textContent}`;
+              document.getElementById("sort-text").textContent =
+                `Sort: ${this.textContent}`;
 
               // Close the dropdown
               sortOptions.style.display = "none";
@@ -1211,19 +1324,8 @@
             bikeGrid.appendChild(bikeCard);
           });
 
-          if (typeof $ !== "undefined") {
-            document.querySelectorAll(".bike-slider").forEach((slider) => {
-              $(slider).slick({
-                dots: true,
-                arrows: true,
-                infinite: true,
-                speed: 300,
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                adaptiveHeight: true,
-              });
-            });
-          }
+          // Initialize car image sliders
+          initImageSliders();
 
           addBikeCardClickListeners();
         }
@@ -1249,14 +1351,14 @@
             bike.status === "Available"
               ? "status-available"
               : bike.status === "Sold Out"
-              ? "status-sold"
-              : bike.status === "Coming Soon"
-              ? "status-coming-soon"
-              : "status-available";
+                ? "status-sold"
+                : bike.status === "Coming Soon"
+                  ? "status-coming-soon"
+                  : "status-available";
 
           // Get non-empty image URLs
           const images = (bike.imageUrl || []).filter(
-            (url) => url && url.trim() !== ""
+            (url) => url && url.trim() !== "",
           );
           if (images.length === 0) {
             images.push("https://via.placeholder.com/300?text=No+Image");
@@ -1266,15 +1368,47 @@
     <div class="image-container">
       <div class="status-badge ${statusClass}">${bike.status}</div>
       <div class="bike-slider">
-        ${images
-          .map(
-            (img) => `
-          <div class="slide">
+        <div class="slider-images">
+          ${images
+            .map(
+              (img) => `
             <img src="${img}" alt="${bike.brand} ${bike.model}" loading="lazy">
-          </div>
+          `,
+            )
+            .join("")}
+        </div>
+        ${
+          images.length > 1
+            ? `
+        <div class="slider-dots">
+          ${images
+            .map(
+              (_, index) => `
+            <span class="dot" data-index="${index}"></span>
+          `,
+            )
+            .join("")}
+        </div>
+        ${
+          images.length > 1
+            ? `
+  <div class="slider-dots">
+    ${images
+      .map(
+        (_, index) => `
+      <span class="dot" data-index="${index}"></span>
+    `,
+      )
+      .join("")}
+  </div>
+  <button class="slider-prev"><i class="fas fa-chevron-left"></i></button>
+  <button class="slider-next"><i class="fas fa-chevron-right"></i></button>
+`
+            : ""
+        }
         `
-          )
-          .join("")}
+            : ""
+        }
       </div>
       
     </div>
@@ -1304,8 +1438,8 @@
         <div class="emi">Down: ₹${(
           bike.downPayment || 0
         ).toLocaleString()} | EMI: ₹${(
-            bike.emiAmount || 0
-          ).toLocaleString()}/month</div>
+          bike.emiAmount || 0
+        ).toLocaleString()}/month</div>
         <div class="button-group">
           <button class="contact-btn" ${
             bike.status !== "Available" ? "disabled" : ""
@@ -1367,19 +1501,17 @@
 
           // Get non-empty image URLs
           const images = (bike.imageUrl || []).filter(
-            (url) => url && url.trim() !== ""
+            (url) => url && url.trim() !== "",
           );
           if (images.length === 0) {
             images.push("https://via.placeholder.com/600x400?text=No+Image");
           }
 
           // Populate popup with bike data
-          document.getElementById(
-            "popup-bike-title"
-          ).textContent = `${bike.brand} ${bike.model}`;
-          document.getElementById(
-            "popup-bike-model"
-          ).textContent = `${bike.modelYear} Model`;
+          document.getElementById("popup-bike-title").textContent =
+            `${bike.brand} ${bike.model}`;
+          document.getElementById("popup-bike-model").textContent =
+            `${bike.modelYear} Model`;
           document.getElementById("popup-bike-km").textContent = `${(
             bike.kmDriven || 0
           ).toLocaleString()} km`;
@@ -1388,7 +1520,7 @@
           document.getElementById("popup-bike-fuel").textContent =
             bike.fuelType || "Petrol";
           document.getElementById("popup-bike-age").textContent = formatAge(
-            bike.daysOld || 0
+            bike.daysOld || 0,
           );
           document.getElementById("popup-bike-price").textContent = `₹${(
             bike.price || 0
@@ -1396,12 +1528,12 @@
           document.getElementById("popup-bike-emi").textContent = `Down: ₹${(
             bike.downPayment || 0
           ).toLocaleString()} | EMI: ₹${Math.round(
-            ((bike.price || 0) - (bike.downPayment || 0)) / 36
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36,
           ).toLocaleString()}/month`;
 
           // Create slider HTML
           const sliderContainer = document.querySelector(
-            ".popup-image-container"
+            ".popup-image-container",
           );
           sliderContainer.innerHTML = `
     <div class="popup-slider">
@@ -1411,22 +1543,14 @@
         <div class="slide">
           <img src="${img}" alt="${bike.brand} ${bike.model}">
         </div>
-      `
+      `,
         )
         .join("")}
     </div>
   `;
 
-          // Initialize slider
-          $(".popup-slider").slick({
-            dots: true,
-            arrows: true,
-            infinite: true,
-            speed: 300,
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            adaptiveHeight: true,
-          });
+          // Initialize popup slider
+          initPopupSlider();
 
           // Show popup
           popup.classList.add("active");
@@ -1459,6 +1583,91 @@
           document.body.style.overflow = "";
         }
 
+        // Image slider function from reference
+        function initImageSliders() {
+          document
+            .querySelectorAll(".car-slider, .bike-slider")
+            .forEach((slider) => {
+              const images = slider.querySelector(".slider-images");
+              const dots = slider.querySelectorAll(".dot");
+              const prevBtn = slider.querySelector(".slider-prev");
+              const nextBtn = slider.querySelector(".slider-next");
+
+              if (!images || !prevBtn || !nextBtn) return;
+
+              let currentIndex = 0;
+
+              function showSlide(index) {
+                images.style.transform = `translateX(-${index * 100}%)`;
+                dots.forEach((dot) => dot.classList.remove("active"));
+                if (dots[index]) dots[index].classList.add("active");
+                currentIndex = index;
+              }
+
+              // Initialize first slide
+              showSlide(0);
+
+              dots.forEach((dot) => {
+                dot.addEventListener("click", () => {
+                  showSlide(parseInt(dot.dataset.index));
+                });
+              });
+
+              prevBtn.addEventListener("click", () => {
+                const newIndex = (currentIndex - 1 + dots.length) % dots.length;
+                showSlide(newIndex);
+              });
+
+              nextBtn.addEventListener("click", () => {
+                const newIndex = (currentIndex + 1) % dots.length;
+                showSlide(newIndex);
+              });
+            });
+        }
+
+        function initPopupSlider() {
+          const slider = document.querySelector(".popup-slider");
+          if (!slider) return;
+
+          const images = slider.querySelector(".popup-slider-images");
+          const dots = slider.querySelectorAll(".popup-dot");
+          const prevBtn = slider.querySelector(".popup-slider-prev");
+          const nextBtn = slider.querySelector(".popup-slider-next");
+
+          if (!images || !prevBtn || !nextBtn) return;
+
+          let currentIndex = 0;
+
+          function showSlide(index) {
+            images.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach((dot) => dot.classList.remove("active"));
+            if (dots[index]) dots[index].classList.add("active");
+            currentIndex = index;
+          }
+
+          // Initialize first slide
+          showSlide(0);
+
+          // Dot click event
+          dots.forEach((dot) => {
+            dot.addEventListener("click", () => {
+              showSlide(parseInt(dot.dataset.index));
+            });
+          });
+
+          // Previous button
+          prevBtn.addEventListener("click", () => {
+            const newIndex = (currentIndex - 1 + dots.length) % dots.length;
+            showSlide(newIndex);
+          });
+
+          // Next button
+          nextBtn.addEventListener("click", () => {
+            const newIndex = (currentIndex + 1) % dots.length;
+            showSlide(newIndex);
+          });
+        }
+
         // Show no bikes message
         function showNoBikesMessage() {
           const bikeGrid = document.querySelector(".bike-grid");
@@ -1488,9 +1697,26 @@
 
         // Update bike count
         function updateBikeCount(count) {
-          document.getElementById("filtered-count").textContent = `${count} ${
-            count === 1 ? "Bike" : "Bikes"
-          } Available`;
+          const rangeLabel = (function () {
+            try {
+              const min = currentFilters.minPrice;
+              const max = currentFilters.maxPrice;
+              if (min && max) {
+                return `₹${Number(min).toLocaleString()} — ₹${Number(max).toLocaleString()}`;
+              }
+              if (min && !max) {
+                return `₹${Number(min).toLocaleString()}+`;
+              }
+              if (!min && max) {
+                return `Under ₹${Number(max).toLocaleString()}`;
+              }
+            } catch (e) {}
+            return null;
+          })();
+
+          const noun = count === 1 ? "bike" : "bikes";
+          const rangePart = rangeLabel ? ` under ${rangeLabel}` : "";
+          document.getElementById("filtered-count").textContent = `${count} second hand ${noun} Available${rangePart}`;
         }
 
         // Filter functionality
@@ -1504,7 +1730,7 @@
               e.stopPropagation();
               const filterType = this.dataset.filter;
               const dropdown = document.getElementById(
-                `${filterType}-dropdown`
+                `${filterType}-dropdown`,
               );
 
               // Close all dropdowns first
@@ -1567,7 +1793,11 @@
 
               // Clear any existing search term from URL
               if (window.location.search.includes("search=")) {
-                window.history.pushState({}, "", "https://www.bikebuilders.in/inventory.html");
+                window.history.pushState(
+                  {},
+                  "",
+                  "https://www.bikebuilders.in/inventory.html",
+                );
               }
 
               applyAllFilters();
@@ -1655,7 +1885,7 @@
               window.history.pushState(
                 {},
                 "",
-                `inventory.html?search=${encodeURIComponent(searchTerm)}`
+                `inventory.html?search=${encodeURIComponent(searchTerm)}`,
               );
               applyAllFilters();
             }
@@ -1668,7 +1898,7 @@
                 window.history.pushState(
                   {},
                   "",
-                  `inventory.html?search=${encodeURIComponent(searchTerm)}`
+                  `inventory.html?search=${encodeURIComponent(searchTerm)}`,
                 );
                 applyAllFilters();
               }
@@ -1697,7 +1927,7 @@
 
           // Mobile filter toggle
           const mobileFiltersContainer = document.querySelector(
-            ".mobile-filters-container"
+            ".mobile-filters-container",
           );
           const closeFiltersBtn = document.querySelector(".close-filters-btn");
 
@@ -1779,14 +2009,14 @@
 
                 // Update button text
                 const brandBtn = document.querySelector(
-                  '[data-filter="brand"]'
+                  '[data-filter="brand"]',
                 );
                 brandBtn.innerHTML = currentFilters.brand
                   ? `${brand} <i class="fas fa-chevron-down"></i>`
                   : `Brand <i class="fas fa-chevron-down"></i>`;
 
                 document.querySelector(
-                  ".mobile-filters-container"
+                  ".mobile-filters-container",
                 ).style.display = "none";
                 document.body.style.overflow = "";
               });
@@ -1850,18 +2080,18 @@
 
                 // Update button text if needed
                 const ownerBtn = document.querySelector(
-                  '[data-filter="owner"]'
+                  '[data-filter="owner"]',
                 );
                 if (ownerBtn) {
                   ownerBtn.innerHTML = currentFilters.owner
                     ? `${formatOwnership(
-                        owner
+                        owner,
                       )} <i class="fas fa-chevron-down"></i>`
                     : `Ownership <i class="fas fa-chevron-down"></i>`;
                 }
 
                 document.querySelector(
-                  ".mobile-filters-container"
+                  ".mobile-filters-container",
                 ).style.display = "none";
                 document.body.style.overflow = "";
               });
@@ -1888,7 +2118,7 @@
                 }
 
                 document.querySelector(
-                  ".mobile-filters-container"
+                  ".mobile-filters-container",
                 ).style.display = "none";
                 document.body.style.overflow = "";
               });
@@ -1920,7 +2150,7 @@
 
                 // Update button text
                 const brandBtn = document.querySelector(
-                  '[data-filter="brand"]'
+                  '[data-filter="brand"]',
                 );
                 brandBtn.innerHTML = currentFilters.brand
                   ? `${brand} <i class="fas fa-chevron-down"></i>`
@@ -2002,12 +2232,12 @@
 
                 // Update button text if needed
                 const ownerBtn = document.querySelector(
-                  '[data-filter="owner"]'
+                  '[data-filter="owner"]',
                 );
                 if (ownerBtn) {
                   ownerBtn.innerHTML = currentFilters.owner
                     ? `${formatOwnership(
-                        owner
+                        owner,
                       )} <i class="fas fa-chevron-down"></i>`
                     : `Ownership <i class="fas fa-chevron-down"></i>`;
                 }
@@ -2053,7 +2283,7 @@
                 "allBikes is not an array. Type:",
                 typeof allBikes,
                 "Value:",
-                allBikes
+                allBikes,
               );
               if (
                 allBikes &&
@@ -2161,11 +2391,11 @@
               return [...bikes].sort((a, b) => (b.price || 0) - (a.price || 0));
             case "year-new":
               return [...bikes].sort(
-                (a, b) => (b.modelYear || 0) - (a.modelYear || 0)
+                (a, b) => (b.modelYear || 0) - (a.modelYear || 0),
               );
             case "year-old":
               return [...bikes].sort(
-                (a, b) => (a.modelYear || 0) - (b.modelYear || 0)
+                (a, b) => (a.modelYear || 0) - (b.modelYear || 0),
               );
             default:
               return bikes;
@@ -2174,7 +2404,7 @@
 
         function showSearchTerm(term) {
           const existingDisplay = document.querySelector(
-            ".search-term-display"
+            ".search-term-display",
           );
           if (existingDisplay) {
             existingDisplay.remove();
@@ -2202,7 +2432,7 @@
           if (sectionHeader) {
             sectionHeader.insertBefore(
               searchContainer,
-              sectionHeader.firstChild
+              sectionHeader.firstChild,
             );
           }
         }
@@ -2318,17 +2548,6 @@
           `;
 
         document.body.appendChild(mobileMenu);
-
-        // add bottom contact block to mobile menu
-        const contactBottom = document.createElement("div");
-        contactBottom.className = "contact-bottom";
-        contactBottom.innerHTML = `
-          <div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div>
-                    <div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>
-
-        `;
-        mobileMenu.appendChild(contactBottom);
-
         toggleBtn.addEventListener("click", function () {
           mobileMenu.classList.add("active");
         });
@@ -2356,7 +2575,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const darkModeToggle = document.getElementById("darkModeToggle");
         const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle"
+          "mobileDarkModeToggle",
         );
 
         // Check for saved user preference or system preference
@@ -2628,7 +2847,7 @@
         // Use dicebear for demo, fallback to initials
         const seed = name ? name.replace(/\s/g, "") : "user";
         return `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(
-          seed
+          seed,
         )}`;
       }
       function renderTestimonials(reviews) {
@@ -2646,14 +2865,14 @@
                 </div>
                 <div class="testimonial-header">
                   <img src="${randomAvatar(r.name)}" alt="${
-              r.name
-            }" class="user-avatar" width="60" height="60" loading="lazy" />
+                    r.name
+                  }" class="user-avatar" width="60" height="60" loading="lazy" />
                   <div class="user-info">
                     <h4 class="user-name" itemprop="author">${r.name}</h4>
                     <div class="rating" itemprop="reviewRating" itemscope itemtype="https://schema.org/Rating">
                       <meta itemprop="ratingValue" content="${r.rating}" />
                       ${'<i class="fas fa-star"></i>'.repeat(
-                        r.rating
+                        r.rating,
                       )}${'<i class="far fa-star"></i>'.repeat(5 - r.rating)}
                     </div>
                   </div>
@@ -2661,12 +2880,12 @@
                 <div class="quote" itemprop="reviewBody">${r.message}</div>
                 <div class="testimonial-footer">
                   <span class="testimonial-date">${new Date(
-                    r.date
+                    r.date,
                   ).toLocaleDateString()}</span>
                 </div>
                 <meta itemprop="itemReviewed" content="Bike Builders" />
               </div>
-            `
+            `,
           )
           .join("");
       }

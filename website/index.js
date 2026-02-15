@@ -108,22 +108,15 @@ function initMobileMenu() {
             <li><a href="https://www.bikebuilders.in/about.html" aria-label="About Bike Builders" data-translate="About Us">About Us</a></li>
             <li><a href="https://www.bikebuilders.in/book.html" aria-label="Book Bike" data-translate="Book Bike">Book Bike</a></li>
             <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
-            <li><a href="https://www.bikebuilders.in/contact.html" data-translate="Contact">Contact</a></li>
           </ul>
           <div class="login-btn"><button data-translate="Get the Quote">Get the Quote</button></div>`;
 
   document.body.appendChild(mobileMenu);
-
-  const contactBottom = document.createElement("div");
-  contactBottom.className = "contact-bottom";
-  contactBottom.innerHTML = `<div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div><div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>`;
-  mobileMenu.appendChild(contactBottom);
-
   toggleBtn.addEventListener("click", () => mobileMenu.classList.add("active"));
   const closeBtn = mobileMenu.querySelector(".close-btn");
   if (closeBtn)
     closeBtn.addEventListener("click", () =>
-      mobileMenu.classList.remove("active")
+      mobileMenu.classList.remove("active"),
     );
 }
 
@@ -161,10 +154,14 @@ function initPreconnect() {
 window.API_BASE = (function () {
   try {
     const host = window.location.hostname;
-    if (host === "localhost")
+    if (host === "localhost" || host === "127.0.0.1") {
       return `${window.location.protocol}//${host}:2500`;
-  } catch (e) {}
-  return "https://bike-builders-backend.vercel.app";
+    }
+    if (window.location.protocol === "file:") return "https://bike-builders-backend.vercel.app";
+    return window.location.origin;
+  } catch (e) {
+    return "https://bike-builders-backend.vercel.app";
+  }
 })();
 
 // Google Analytics
@@ -179,15 +176,24 @@ gtag("config", "G-ETL311CBE6");
 function animateStatsCounter() {
   const counters = document.querySelectorAll(".stat-number");
   counters.forEach((counter) => {
-    const target = parseInt(counter.getAttribute("data-count"), 10) || 0;
+    // Support both data-count and legacy data-target attributes
+    const targetAttr = counter.getAttribute("data-count") || counter.getAttribute("data-target");
+    if (!targetAttr) return; // nothing to animate for this element
+
+    // Remove non-digit characters (commas, plus signs, percent) before parsing
+    const numeric = String(targetAttr).replace(/[^0-9]/g, "");
+    const target = parseInt(numeric, 10) || 0;
     let current = 0;
-    const increment = target / 50;
+    const steps = 50;
+    const increment = target / steps;
     const timer = setInterval(() => {
       current += increment;
       if (current >= target) {
-        counter.textContent = target + "+";
+        counter.textContent = target.toLocaleString();
         clearInterval(timer);
-      } else counter.textContent = Math.floor(current);
+      } else {
+        counter.textContent = Math.floor(current).toLocaleString();
+      }
     }, 30);
   });
 }
@@ -204,7 +210,7 @@ function initStatsObserver() {
         }
       });
     },
-    { threshold: 0.5 }
+    { threshold: 0.5 },
   );
   observer.observe(target);
 }
@@ -481,11 +487,11 @@ function initFeaturedBikeSlider() {
   fetchFeaturedBikes();
   if (prevBtn && bikeSlider)
     prevBtn.addEventListener("click", () =>
-      bikeSlider.scrollBy({ left: -300, behavior: "smooth" })
+      bikeSlider.scrollBy({ left: -300, behavior: "smooth" }),
     );
   if (nextBtn && bikeSlider)
     nextBtn.addEventListener("click", () =>
-      bikeSlider.scrollBy({ left: 300, behavior: "smooth" })
+      bikeSlider.scrollBy({ left: 300, behavior: "smooth" }),
     );
   if (bikeSlider && prevBtn && nextBtn)
     bikeSlider.addEventListener("scroll", () => {
@@ -498,7 +504,8 @@ function initFeaturedBikeSlider() {
 
 function fetchFeaturedBikes() {
   const API_BASE =
-    window.API_BASE || "https://bike-builders-backend.vercel.app";
+    window.API_BASE || window.location.origin || "https://bike-builders-backend.vercel.app";
+
   function normalizeImageUrl(url) {
     if (!url) return url;
     if (
@@ -511,30 +518,40 @@ function fetchFeaturedBikes() {
     return API_BASE + "/" + url;
   }
 
-  fetch(API_BASE + "/api/config")
-    .then((r) => r.json())
-    .then((cfg) => {
-      const USE_CLOUDINARY = !!(cfg && cfg.success && cfg.cloudinary);
-      return fetch(API_BASE + "/api/featured-bikes").then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json().then((data) => ({ data, USE_CLOUDINARY }));
-      });
-    })
-    .catch(() =>
-      fetch(API_BASE + "/api/featured-bikes")
+  // Try multiple endpoints (absolute API_BASE then relative) to improve reliability
+  (async function () {
+    const candidates = [API_BASE + "/api/bikes", "/api/bikes"];
+    let USE_CLOUDINARY = false;
+
+    try {
+      // try to read config (best-effort)
+      const cfg = await fetch(API_BASE + "/api/config")
         .then((r) => r.json())
-        .then((data) => ({ data, USE_CLOUDINARY: false }))
-    )
-    .then(({ data, USE_CLOUDINARY }) => {
-      if (data.success && data.data) {
-        const bikes = data.data.map((b) => {
+        .catch(() => null);
+      USE_CLOUDINARY = !!(cfg && cfg.success && cfg.cloudinary);
+    } catch (e) {
+      USE_CLOUDINARY = false;
+    }
+
+    for (const url of candidates) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
+
+        let list = [];
+        if (Array.isArray(data)) list = data;
+        else if (data && Array.isArray(data.bikes)) list = data.bikes;
+        else if (data && Array.isArray(data.data)) list = data.data;
+
+        const bikes = list.slice(0, 8).map((b) => {
           const copy = Object.assign({}, b);
           try {
             if (Array.isArray(copy.imageUrl)) {
               copy.imageUrl = copy.imageUrl
                 .map((u) => normalizeImageUrl(u))
                 .filter(
-                  (u) => u && (!USE_CLOUDINARY || /^https?:\/\//i.test(u))
+                  (u) => u && (!USE_CLOUDINARY || /^https?:\/\//i.test(u)),
                 );
             } else if (
               typeof copy.imageUrl === "string" &&
@@ -549,13 +566,22 @@ function fetchFeaturedBikes() {
           }
           return copy;
         });
-        displayFeaturedBikes(bikes);
-      } else showFeaturedBikesError();
-    })
-    .catch((error) => {
-      console.error("Error fetching featured bikes:", error);
-      showFeaturedBikesError();
-    });
+
+        if (bikes.length > 0) {
+          displayFeaturedBikes(bikes);
+          return;
+        }
+      } catch (err) {
+        // try next candidate
+        console.warn("fetch failed for", url, err);
+      }
+    }
+
+    console.error(
+      "Error fetching bikes for featured section: all endpoints failed",
+    );
+    showFeaturedBikesError();
+  })();
 }
 
 function displayFeaturedBikes(bikes) {
@@ -633,8 +659,8 @@ function displayFeaturedBikes(bikes) {
           <div class="emi">Down: ₹${(
             bike.downPayment || 0
           ).toLocaleString()} | EMI: ₹${Math.round(
-      ((bike.price || 0) - (bike.downPayment || 0)) / 36
-    ).toLocaleString()}/month</div>
+            ((bike.price || 0) - (bike.downPayment || 0)) / 36,
+          ).toLocaleString()}/month</div>
           <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>
             ${isDisabled ? bike.status : "View Details"}
           </button>
@@ -697,7 +723,7 @@ function initModals() {
     button.addEventListener("click", () => {
       if (whatsappModal) whatsappModal.style.display = "none";
       if (callModal) callModal.style.display = "none";
-    })
+    }),
   );
 
   window.addEventListener("click", (event) => {
@@ -711,7 +737,7 @@ function initModals() {
       const number = this.getAttribute("data-number");
       if (number) window.open(`https://wa.me/${number}`, "_blank");
       whatsappModal.style.display = "none";
-    })
+    }),
   );
 
   const callOptions = callModal.querySelectorAll(".number-option");
@@ -720,8 +746,33 @@ function initModals() {
       const number = this.getAttribute("data-number");
       if (number) window.location.href = `tel:${number}`;
       callModal.style.display = "none";
-    })
+    }),
   );
+}
+
+// FAQ toggle behavior: toggle .open on .faq-item when its question is activated
+function initFaqToggle() {
+  const questions = document.querySelectorAll(".faq-question");
+  if (!questions || questions.length === 0) return;
+
+  questions.forEach((q) => {
+    // ensure keyboard accessibility
+    if (!q.getAttribute("tabindex")) q.setAttribute("tabindex", "0");
+
+    q.addEventListener("click", function () {
+      const item = this.closest(".faq-item");
+      if (!item) return;
+      item.classList.toggle("open");
+    });
+
+    q.addEventListener("keypress", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        const item = this.closest(".faq-item");
+        if (!item) return;
+        item.classList.toggle("open");
+      }
+    });
+  });
 }
 
 function initDarkMode() {
@@ -944,6 +995,7 @@ function init() {
   initPreconnect();
   initFeaturedBikeSlider();
   initStatsObserver();
+  initFaqToggle();
   initModals();
   initDarkMode();
   attachStyleCarouselResizeHandler();

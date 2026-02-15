@@ -1,8 +1,10 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <title>
       Book Your Bike | Bike Builders — Test rides & bookings in Muzaffarpur
     </title>
@@ -49,7 +51,7 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://code.jquery.com" crossorigin />
     <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
-    <link rel="stylesheet" href="./globals.css" />
+    <link rel="stylesheet" href="./global.css" />
     <link rel="stylesheet" href="./style.css" />
     <link rel="stylesheet" href="./book.css" />
 
@@ -57,7 +59,6 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <!-- LocalBusiness JSON-LD for structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -86,92 +87,87 @@
     </script>
   </head>
   <body>
-    <div class="book-hero-section book-hero">
-      <nav class="navbar">
-        <a href="https://www.bikebuilders.in/" class="logo-link"
-          ><div class="logo">
-            <img
-              src="./assets/logo2.svg"
-              class="logo-img"
-              alt="Bike Builders Logo"
-              itemprop="logo"
-            /></div
-        ></a>
-        <ul class="nav-links">
-          <li>
-            <a href="https://www.bikebuilders.in/" data-translate="Home"
-              >Home</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/inventory.html"
-              data-translate="Buy Bike"
-              >Buy Bike</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/sell.html"
-              data-translate="Sell Your Bike"
-              >Sell Your Bike</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/about.html"
-              aria-label="About Bike Builders"
-              data-translate="About Us"
-              >About Us</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/book.html"
-              aria-label="Book Bike"
-              data-translate="Book Bike"
-              class="active"
-              >Book Bike</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/finance.html"
-              aria-label="Bike Finance"
-              data-translate="Bike Finance"
-              >Bike Finance</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/updates.html"
-              data-translate="Updates"
-              >Updates</a
-            >
-          </li>
-          <li>
-            <a
-              href="https://www.bikebuilders.in/contact.html"
-              data-translate="Contact"
-              >Contact</a
-            >
-          </li>
-        </ul>
-
-        <div class="theme-toggle">
-          <input
-            type="checkbox"
-            id="darkModeToggle"
-            aria-label="Toggle dark mode"
-          />
-          <label for="darkModeToggle" class="toggle-label">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <span class="toggle-ball"></span>
-          </label>
-        </div>
-      </nav>
-    </div>
+    <nav class="navbar">
+      <a href="https://www.bikebuilders.in/" class="logo-link"
+        ><div class="logo">
+          <img
+            src="./assets/logo2.svg"
+            class="logo-img"
+            alt="Bike Builders Logo"
+            itemprop="logo"
+          /></div
+      ></a>
+      <ul class="nav-links">
+        <li>
+          <a href="https://www.bikebuilders.in/" data-translate="Home">Home</a>
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/inventory.html"
+            data-translate="Buy Bike"
+            >Buy Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/sell.html"
+            data-translate="Sell Your Bike"
+            >Sell Your Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/about.html"
+            aria-label="About Bike Builders"
+            data-translate="About Us"
+            >About Us</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/book.html"
+            aria-label="Book Bike"
+            data-translate="Book Bike"
+            class="active"
+            >Book Bike</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/finance.html"
+            aria-label="Bike Finance"
+            data-translate="Bike Finance"
+            >Bike Finance</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/updates.html"
+            data-translate="Updates"
+            >Updates</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://www.bikebuilders.in/contact.html"
+            data-translate="Contact"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <div class="theme-toggle">
+        <input
+          type="checkbox"
+          id="darkModeToggle"
+          aria-label="Toggle dark mode"
+        />
+        <label for="darkModeToggle" class="toggle-label">
+          <i class="fas fa-sun"></i>
+          <i class="fas fa-moon"></i>
+          <span class="toggle-ball"></span>
+        </label>
+      </div>
+    </nav>
     <section class="book-section">
       <div class="book-content">
         <h1 data-translate="Book Your Dream Bike">Book Your Dream Bike</h1>
@@ -179,9 +175,11 @@
           class="lead-keywords"
           data-translate="Book test rides and reserve pre-owned bikes in Muzaffarpur"
         >
-          Book test rides, reserve certified pre-owned bikes and secure your
-          booking online in Muzaffarpur. Fast booking, UPI payments, doorstep
-          test-rides, and verified second-hand bikes across Bihar.
+          Book test rides, reserve certified pre-owned bikes, and complete your
+          bike booking online in Muzaffarpur with ease. Choose from verified
+          second-hand bikes and quality used bikes across Bihar, enjoy fast
+          booking confirmation, secure UPI payments, doorstep test rides, and a
+          smooth, transparent buying experience you can trust.
         </p>
 
         <div class="book-steps">
@@ -219,7 +217,6 @@
           </div>
         </div>
       </div>
-
       <div class="book-form-container" id="book-form">
         <form id="book-bike-form" class="book-form">
           <h3 data-translate="Bike Booking Form">Bike Booking Form</h3>
@@ -236,7 +233,6 @@
               required
             />
           </div>
-
           <div class="form-group">
             <label for="book-email" data-translate="Email*">Email*</label>
             <input
@@ -247,7 +243,6 @@
               required
             />
           </div>
-
           <div class="form-group">
             <label for="book-phone" data-translate="Phone Number*"
               >Phone Number*</label
@@ -260,7 +255,6 @@
               required
             />
           </div>
-
           <div class="form-group">
             <label for="book-bike" data-translate="Select Bike*"
               >Select Bike*</label
@@ -269,7 +263,6 @@
               <option value="">Loading bikes...</option>
             </select>
           </div>
-
           <div class="form-group">
             <label data-translate="Payment Method*">Payment Method*</label>
             <div class="payment-methods">
@@ -285,7 +278,6 @@
               </label>
             </div>
           </div>
-
           <div class="form-group">
             <label data-translate="Payment QR Code">Payment QR Code</label>
             <div class="qr-code-container">
@@ -295,7 +287,6 @@
               </p>
             </div>
           </div>
-
           <div class="form-group">
             <label for="book-amount" data-translate="Amount Paid (₹)*"
               >Amount Paid (₹)*</label
@@ -308,7 +299,6 @@
               required
             />
           </div>
-
           <div class="form-group">
             <label for="book-transaction" data-translate="Transaction ID*"
               >Transaction ID*</label
@@ -321,21 +311,6 @@
               required
             />
           </div>
-
-          <div class="form-group checkbox-group">
-            <input
-              type="checkbox"
-              id="agree-terms-book"
-              name="agree-terms"
-              required
-            />
-            <label
-              for="agree-terms-book"
-              data-translate="I agree to the terms and conditions and privacy policy*"
-              >I agree to the terms and conditions and privacy policy*</label
-            >
-          </div>
-
           <button
             type="submit"
             class="submit-btn"
@@ -346,15 +321,184 @@
         </form>
       </div>
     </section>
-
-    <!-- Review Section -->
-    <section class="testimonials-section">
-      <h2>What Our Riders Say</h2>
-      <div class="testimonials-container" id="dynamic-testimonials">
-        <div class="loading">Loading reviews...</div>
+    <div class="stats-section" aria-label="Sales statistics">
+      <div class="stat-card">
+        <div class="stat-number" id="soldCount" data-target="1248">1,248</div>
+        <div class="stat-label">Bikes bought from customers</div>
+        <div class="stat-desc">
+          Verified purchases from our customers since 2020.
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Customer satisfaction</div>
+        <div class="stat-desc">
+          Average satisfaction score from verified feedback.
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">15+</div>
+        <div class="stat-label">Cities served</div>
+        <div class="stat-desc">
+          We buy and inspect bikes across Bihar and nearby regions.
+        </div>
+      </div>
+    </div>
+    <section class="container">
+      <div class="process-section buy-process">
+        <div class="process-header">
+          <h2 data-translate="HOW TO BUY YOUR USED BIKE">
+            HOW TO BUY YOUR USED BIKE
+          </h2>
+          <div class="divider"></div>
+        </div>
+        <div class="process-content">
+          <p
+            data-translate="At Bike Builders, we provide the quickest and most hassle-free bike selling service. Getting a great deal on your bike can be tricky, which is why we value your bike based on its condition and current market value."
+          >
+            At Bike Builders, buying a bike is simple, transparent, and
+            stress-free. We help you find the right bike at the right price by
+            evaluating every motorcycle based on its condition, service history,
+            and current market value. Our goal is to offer you a fair deal
+            without hidden charges, confusion, or unnecessary delays.
+          </p>
+          <div class="process-content">
+            <p
+              data-translate="At Bike Builders, we make buying your perfect bike simple and transparent. Our certified pre-owned bikes come with a comprehensive inspection report and warranty for complete peace of mind."
+            >
+              Every bike at Bike Builders goes through a detailed quality check
+              to ensure reliability and performance. Our certified pre-owned
+              bikes come with a complete inspection report, clear ownership
+              details, and added assurance — so you can buy with confidence and
+              complete peace of mind.
+            </p>
+            <div class="process-steps">
+              <div class="process-step">
+                <div class="step-image">
+                  <img
+                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img1.png"
+                    alt="Browse Bike Inventory"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 data-translate="BROWSE INVENTORY">BROWSE INVENTORY</h3>
+                <p>
+                  Explore a wide range of verified second-hand bikes and choose
+                  the one that fits your style, budget, and riding needs.
+                </p>
+              </div>
+              <div class="process-step">
+                <div class="step-image">
+                  <img
+                    src="https://static.vecteezy.com/system/resources/thumbnails/049/503/011/small_2x/a-man-is-standing-next-to-a-motorcycle-with-a-clipboard-png.png"
+                    alt="Get to Know Your Ride"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 data-translate="GET TO KNOW YOUR RIDE">
+                  GET TO KNOW YOUR RIDE
+                </h3>
+                <p>
+                  Review detailed bike information, inspection reports, and
+                  condition insights to make an informed and confident decision.
+                </p>
+              </div>
+              <div class="process-step">
+                <div class="step-image">
+                  <img
+                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img3.png"
+                    alt="Pay and Book Bike"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 data-translate="PAY & BOOK ONLINE OR VISIT SHOWROOM">
+                  PAY & BOOK ONLINE OR VISIT SHOWROOM
+                </h3>
+                <p>
+                  Reserve your bike online or visit our showroom to complete the
+                  payment with full transparency and flexible options.
+                </p>
+              </div>
+              <div class="process-step">
+                <div class="step-image">
+                  <img
+                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img4.png"
+                    alt="Complete Bike Purchase"
+                    loading="lazy"
+                  />
+                </div>
+                <h3 data-translate="COMPLETE PURCHASE">COMPLETE PURCHASE</h3>
+                <p>
+                  Finish the purchase with ease as we assist with documentation,
+                  ownership transfer, and final delivery for a smooth handover.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
-    <!-- Review Modal -->
+    <section class="faq-section" aria-labelledby="faqHeading">
+      <div class="section-inner">
+        <h3 id="faqHeading">Frequently Asked Questions</h3>
+        <div class="faq-list">
+          <div class="faq-item">
+            <div class="faq-question">
+              How do I book a bike?
+              <span class="faq-toggle-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Browse our available bikes, choose the one you like, and book it
+              online by paying a small booking amount. You can also visit our
+              showroom to book the bike in person.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Is the booking amount refundable?
+              <span class="faq-toggle-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              The booking amount is generally refundable if the bike is
+              unavailable or does not match the listed details. Our team will
+              clearly explain the refund policy at the time of booking.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              Can I inspect or test ride the bike before final purchase?
+              <span class="faq-toggle-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Yes, you can inspect the bike and request a test ride at our
+              showroom before completing the final purchase.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              What documents are required to book a bike?
+              <span class="faq-toggle-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              To book a bike, you only need a valid ID proof. Additional
+              documents like address proof and RC transfer forms are required
+              during the final purchase.
+            </div>
+          </div>
+          <div class="faq-item">
+            <div class="faq-question">
+              How long is the bike reserved after booking?
+              <span class="faq-toggle-icon">+</span>
+            </div>
+            <div class="faq-answer">
+              Once booked, the bike is reserved for a limited period. Our team
+              will inform you about the reservation duration so you have enough
+              time to complete the inspection and purchase.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <div id="reviewModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -381,6 +525,22 @@
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
+          <div class="logo">
+            <img
+              src="./assets/logo2.svg"
+              style="width: 50px"
+              alt="Bike Builders Logo"
+            />
+          </div>
+          <p
+            data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride."
+          >
+            Bike Builder is bringing you the future of bike riding today. We are
+            providing best second-hand bikes, and easy buying and selling
+            experience. Find the best second-hand bikes at reasonable pricing,
+            and hassle-free ownership. From buying to selling to servicing, we
+            ensure all our bikes are safe and enjoyable to ride.
+          </p>
           <div class="footer-stars" style="margin: 10px 0">
             <span class="star" style="color: gold; font-size: 1.5em"
               ><i class="fa fa-star"></i
@@ -398,14 +558,6 @@
               ><i class="fa fa-star"></i
             ></span>
           </div>
-          <div class="logo">
-            <img
-              src="./assets/logo2.svg"
-              style="width: 50px"
-              alt="Bike Builders Logo"
-            />
-          </div>
-          <p>Bringing the future of bike riding to you today.</p>
           <div class="social-icons">
             <a href="https://www.facebook.com/share/1Ao18FYX8e/"
               ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
@@ -417,15 +569,8 @@
                 src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
                 style="width: 20px"
             /></a>
-            <a
-              href="https://wa.me/918210283582"
-              aria-label="Chat with us on WhatsApp"
+            <a href="https://wa.me/918210283582"
               ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
-            ></a>
-            <a
-              href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
-              aria-label="Watch on Youtube"
-              ><i class="fa-brands fa-youtube" style="color: #fa0000"></i
             ></a>
           </div>
         </div>
@@ -503,8 +648,66 @@
           </ul>
         </div>
         <div class="footer-section">
-          <h3>Contact Us</h3>
-          <p>
+          <h3>Brands</h3>
+          <ul>
+            <li><a href="https://www.bikebuilders.in/">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/">KTM</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+          <ul>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Patna</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Gaya</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Bhagalpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Muzaffarpur</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Darbhanga</a
+              >
+            </li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Purnia</a
+              >
+            </li>
+            <li></li>
+            <li>
+              <a href="https://www.bikebuilders.in/locations-bihar.html"
+                >Used Bike In Hajipur</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3 data-translate="Contact Us">Contact Us</h3>
+          <p
+            data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
+          >
             <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
             Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
             842002
@@ -513,8 +716,13 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; 2023 Bike Builders. All rights reserved.</p>
-        <a href="www.https://www.pixelatenest.com/" style="color: #a9a9a9"
+        <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
+          &copy; 2023 Bike Builders. All rights reserved.
+        </p>
+        <a
+          href="https://www.pixelatenest.com/"
+          style="color: #a9a9a9"
+          data-translate="Designed By Pixelate Nest"
           >Designed By Pixelate Nest</a
         >
       </div>
@@ -573,14 +781,12 @@
             })
             .catch(() => alert("Failed to submit review."));
         });
-        // Open modal button (add anywhere you want, e.g. after testimonials)
         const openBtn = document.createElement("button");
         openBtn.className = "review-btn";
         openBtn.onclick = () => {
           reviewModal.style.display = "block";
         };
         document.querySelector(".testimonials-section").appendChild(openBtn);
-        // Make footer stars open the review modal and pre-select rating
         const footerStars = document.querySelectorAll(".footer-stars .star");
         footerStars.forEach((fs, idx) => {
           fs.addEventListener("click", () => {
@@ -590,7 +796,7 @@
             const val = idx + 1;
             if (ratingInput) ratingInput.value = val;
             modalStars.forEach((s, i) =>
-              s.classList.toggle("selected", i < val)
+              s.classList.toggle("selected", i < val),
             );
           });
         });
@@ -612,7 +818,7 @@
                       bikeIdFromUrl === bike._id ? "selected" : ""
                     }>${bike.brand} ${bike.model} (${
                       bike.modelYear
-                    }) - ₹${bike.price.toLocaleString()}</option>`
+                    }) - ₹${bike.price.toLocaleString()}</option>`,
                 )
                 .join("");
             if (bikeIdFromUrl && bikes.some((b) => b._id === bikeIdFromUrl)) {
@@ -643,27 +849,24 @@
               jsonData[key] = value;
             });
 
-            const response = await fetch(
-              "https://bike-builders-backend.vercel.app/api/book-bike",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(jsonData),
-              }
-            );
+            const response = await fetch("https://bike-builders-backend.vercel.app/api/book-bike", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(jsonData),
+            });
 
             const result = await response.json();
 
             if (response.ok) {
               alert(
-                "Booking confirmed! We will contact you shortly to complete the process."
+                "Booking confirmed! We will contact you shortly to complete the process.",
               );
               this.reset();
             } else {
               alert(
-                result.error || "Failed to process booking. Please try again."
+                result.error || "Failed to process booking. Please try again.",
               );
             }
           } catch (err) {
@@ -770,7 +973,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const darkModeToggle = document.getElementById("darkModeToggle");
         const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle"
+          "mobileDarkModeToggle",
         );
 
         // Check for saved user preference or system preference
@@ -786,11 +989,7 @@
             if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
           }
         }
-
-        // Initialize dark mode
         checkDarkModePreference();
-
-        // Desktop toggle
         if (darkModeToggle) {
           darkModeToggle.addEventListener("change", function () {
             if (this.checked) {
@@ -800,14 +999,11 @@
               document.body.classList.remove("dark-mode");
               localStorage.setItem("theme", "light");
             }
-            // Sync mobile toggle
             if (mobileDarkModeToggle) {
               mobileDarkModeToggle.checked = this.checked;
             }
           });
         }
-
-        // Mobile toggle
         if (mobileDarkModeToggle) {
           mobileDarkModeToggle.addEventListener("change", function () {
             if (this.checked) {
@@ -817,20 +1013,16 @@
               document.body.classList.remove("dark-mode");
               localStorage.setItem("theme", "light");
             }
-            // Sync desktop toggle
             if (darkModeToggle) {
               darkModeToggle.checked = this.checked;
             }
           });
         }
-
-        // Watch for system theme changes
         window
           .matchMedia("(prefers-color-scheme: dark)")
           .addEventListener("change", (e) => {
             const newColorScheme = e.matches ? "dark" : "light";
             if (!localStorage.getItem("theme")) {
-              // Only if user hasn't set a preference
               if (newColorScheme === "dark") {
                 document.body.classList.add("dark-mode");
                 if (darkModeToggle) darkModeToggle.checked = true;
@@ -859,38 +1051,25 @@
     </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // Get modal elements
         const whatsappModal = document.getElementById("whatsappModal");
         const callModal = document.getElementById("callModal");
-
-        // Get trigger buttons
         const whatsappTrigger = document.getElementById("whatsappTrigger");
         const callTrigger = document.getElementById("callTrigger");
-
-        // Get close buttons
         const closeButtons = document.getElementsByClassName("close");
-
-        // When user clicks WhatsApp button
         whatsappTrigger.addEventListener("click", function (e) {
           e.preventDefault();
           whatsappModal.style.display = "block";
         });
-
-        // When user clicks Call button
         callTrigger.addEventListener("click", function (e) {
           e.preventDefault();
           callModal.style.display = "block";
         });
-
-        // When user clicks on close button
         Array.from(closeButtons).forEach((button) => {
           button.addEventListener("click", function () {
             whatsappModal.style.display = "none";
             callModal.style.display = "none";
           });
         });
-
-        // When user clicks outside the modal
         window.addEventListener("click", function (event) {
           if (event.target == whatsappModal) {
             whatsappModal.style.display = "none";
@@ -899,8 +1078,6 @@
             callModal.style.display = "none";
           }
         });
-
-        // Handle number selection for WhatsApp
         const whatsappOptions =
           whatsappModal.querySelectorAll(".number-option");
         whatsappOptions.forEach((option) => {
@@ -910,8 +1087,6 @@
             whatsappModal.style.display = "none";
           });
         });
-
-        // Handle number selection for Call
         const callOptions = callModal.querySelectorAll(".number-option");
         callOptions.forEach((option) => {
           option.addEventListener("click", function () {
@@ -932,8 +1107,6 @@
       >
         <i class="fa-brands fa-whatsapp fa-bounce"></i>
       </a>
-
-      <!-- YouTube Button (unchanged) -->
       <a
         href="https://youtube.com/@bikebuilders-vo2nm?feature=shared"
         class="floating-btn youtube-btn"
@@ -942,8 +1115,6 @@
       >
         <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
       </a>
-
-      <!-- Call Button -->
       <a
         href="#"
         class="floating-btn call-btn"

@@ -1,4 +1,3 @@
-
 .vehicle-main-section {
   width: 100%;
   max-width: 1400px; /* constrain content width for mobile friendliness */
@@ -115,7 +114,6 @@
   background: var(--surface);
   border: 1px solid var(--card-border);
   border-radius: 12px;
-  padding: 32px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   flex: 0 0 42%; /* occupy ~42% of row */
   max-width: 42%;
@@ -126,14 +124,12 @@
   font-size: 2.4rem;
   font-weight: 800;
   color: var(--text);
-  margin-bottom: 8px;
   line-height: 1.2;
 }
 
 .vehicle-model {
   font-size: 1.2rem;
   color: var(--muted);
-  margin-bottom: 24px;
   font-weight: 500;
 }
 
@@ -196,15 +192,14 @@
 .vehicle-emi {
   font-size: 1.1rem;
   color: var(--muted);
-  margin-bottom: 24px;
-  padding: 12px;
   background: var(--card-alt);
   border-radius: 8px;
   border-left: 4px solid var(--accent);
+  text-align: center;
 }
 
 .add-to-cart-btn {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+  background: #FF6B00;
   color: #000;
   border: none;
   border-radius: 12px;
@@ -275,6 +270,23 @@
 
 /* Responsive: stack column on smaller screens */
 @media (max-width: 900px) {
+  .vehicle-detail-item .detail-label {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: column;
+  }
+  .vehicle-detail-item .detail-value {
+    font-size: 0.85rem;
+    color: var(--text);
+    font-weight: 600;
+    text-align: center;
+  }
   .vehicle-content-row {
     flex-direction: column;
   }
@@ -441,20 +453,6 @@
   cursor: not-allowed;
 }
 
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  /* Use a dark default color so the icon is visible on light nav backgrounds */
-  color: #0f172a;
-  font-size: 2rem;
-  cursor: pointer;
-  z-index: 1001;
-  position: absolute;
-  right: 5%;
-  top: 25px;
-}
-
 /* hide desktop nav on small screens */
 @media (max-width: 900px) {
   .mobile-menu-toggle {
@@ -492,16 +490,17 @@
 
   .vehicle-image-block {
     order: 1;
-    padding: 20px;
+    padding: 10px;
   }
 
   .vehicle-details-block {
     order: 2;
-    padding: 24px;
+    padding: 0px;
   }
 
   .vehicle-details-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
   }
 
   .vehicle-thumbnails {
@@ -518,9 +517,6 @@
   .vehicle-image-block {
     width: 100%;
     background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border: 1px solid #e2e8f0;
   }
 
   .vehicle-thumbnails {
