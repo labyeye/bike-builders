@@ -503,8 +503,7 @@ function initFeaturedBikeSlider() {
 }
 
 function fetchFeaturedBikes() {
-  const API_BASE =
-    window.API_BASE || window.location.origin || "https://bike-builders-backend.vercel.app";
+  const API_BASE = "https://bike-builders-backend.vercel.app";
 
   function normalizeImageUrl(url) {
     if (!url) return url;
