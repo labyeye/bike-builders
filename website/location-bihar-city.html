@@ -99,10 +99,7 @@
             link.setAttribute("rel", "canonical");
             document.head.appendChild(link);
           }
-          link.setAttribute(
-            "href",
-            `https://www.bikebuilders.in/second-hand-bikes-${city.slug}.html`,
-          );
+          
           const container = document.getElementById("main");
           const keywordsText = (city.keywords || "")
             .split(",")
