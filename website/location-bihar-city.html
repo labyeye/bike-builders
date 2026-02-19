@@ -77,13 +77,13 @@
               '<p>City not found. <a href="https://www.bikebuilders.in/locations-bihar.html">Back to locations</a></p>';
             return;
           }
-          document.title = city.name + " — Second Hand Bikes | Bike Builders";
+          document.title = city.name + " — Second-Hand Bikes | Certified Used Bikes at Best Price | Bike Builders";
           const desc = document.querySelector('meta[name="description"]');
           if (desc)
             desc.setAttribute(
               "content",
               city.description ||
-                `Find second hand bikes in ${city.name}. Verified pre-owned bikes, local inspections and finance options.`,
+                `Buy certified second-hand bikes in ${city.name} at best price. Quality inspection, RTO transfer support, and easy finance options. Trusted by riders across ${city.name}.`,
             );
           let kw = document.querySelector('meta[name="keywords"]');
           if (!kw) {
@@ -109,12 +109,10 @@
             .map((k) => k.trim())
             .filter(Boolean);
           const seoExtra = keywordsText.length
-            ? `People often search for ${keywordsText
-                .slice(0, 5)
-                .join(", ")} and related terms when looking for bikes in ${
-                city.name
-              }. We list a wide range of models, from commuter bikes to touring motorcycles, all thoroughly inspected and available with flexible finance options.`
-            : `We list a wide range of inspected pre-owned bikes, with local inspections, transparent pricing and finance options.`;
+            ? `Looking for ${keywordsText
+                .slice(0, 3)
+                .join(", ")} or related options? We offer a wide range of models in ${city.name}. From daily commuter bikes to touring motorcycles, all bikes are thoroughly inspected. We provide quality checks, transparent pricing, and flexible finance options. Buy with confidence.`
+            : `We offer a wide range of inspected pre-owned bikes with local support, transparent pricing and easy financing.`;
 
           const descriptionHtml = `<p class="city-description">${
             city.description || ""
@@ -122,12 +120,12 @@
 
           container.innerHTML = `
             <header class="city-header">
-              <h1>Second Hand Bikes in ${city.name}</h1>
+              <h1>Second-Hand Bikes in ${city.name} – Certified Used Bikes at Best Price</h1>
               ${descriptionHtml}
             </header>
             <section class="city-actions">
-              <a href="./inventory.html" class="btn">Want a bike? View inventory</a>
-              <a href="./contact.html" class="btn-outline">Contact us for ${city.name}</a>
+              <a href="./inventory.html" class="btn">Browse Second-Hand Bikes in ${city.name}</a>
+              <a href="./contact.html" class="btn-outline">Visit ${city.name} Showroom</a>
             </section>
             
           `;
@@ -140,7 +138,7 @@
           const listingsSection = document.createElement("section");
           listingsSection.className = "city-listings wrap";
           listingsSection.innerHTML = `
-                <h2>Available bikes near ${city.name}</h2>
+                <h2>Buy Certified Second-Hand Bikes in ${city.name}</h2>
                 <div class="listings-slider">
                   <button class="slider-nav prev" aria-label="Previous">&lt;</button>
                   <div class="listings-track" role="list"></div>
@@ -158,7 +156,7 @@
             card.innerHTML = `
                   <a class="listing-link" href="/inventory.html?city=${city.slug}&bike=${bike.id}">
                     <div class="listing-image-wrap">
-                      <img loading="lazy" src="${bike.image}" alt="${bike.title}" />
+                      <img loading="lazy" src="${bike.image}" alt="${bike.title} - Used bike showroom in ${city.name}" />
                     </div>
                     <div class="listing-body">
                       <h3 class="listing-title">${bike.title}</h3>
@@ -210,12 +208,13 @@
 
         // append additional tips / SEO content
         const additionalTips = `
-              <h2>Buying tips for ${city.name}</h2>
+              <h2>Tips for Buying Used Bikes in ${city.name}</h2>
               <ul>
-                <li>Check the service history and ownership documents before purchase.</li>
-                <li>Always take a short test ride to assess engine and brake behaviour.</li>
-                <li>Compare similar models in our inventory to ensure fair pricing.</li>
-                <li>Ask about available finance, warranty and transfer assistance.</li>
+                <li>Check service history and ownership papers before buying.</li>
+                <li>Take a test ride at our showroom to check engine and brakes.</li>
+                <li>Compare prices of similar bikes in our inventory.</li>
+                <li>Ask about finance options and RTO transfer support in ${city.name}.</li>
+                <li>Visit us in Motijheel or request home delivery to your area.</li>
               </ul>
             `;
         const seoSection = document.createElement("section");
@@ -223,8 +222,9 @@
         seoSection.innerHTML =
           additionalTips +
           `
-              <h2>Why buy from Bike Builders in ${city.name}?</h2>
-              <p>We inspect each bike thoroughly, verify legal documents, and offer transparent pricing. Our team helps with test rides, easy financing and transfer support so you can complete the purchase with confidence.</p>
+              <h2>Why Buy Second-Hand Bikes from Bike Builders in ${city.name}?</h2>
+              <p>We inspect every bike thoroughly before sale. All legal documents are verified. Prices are transparent with no hidden charges. Our team assists with test rides and RTO documentation. We offer easy bike finance options. Our ${city.name} showroom serves riders across Motijheel, Ahiyapur, Kankarbagh, and Mithanpura. Trusted by hundreds of riders in ${city.name}.</p>
+              <p><strong>Sell your bike too!</strong> Get the best price for your used bike. We handle all paperwork and RTO transfer. Visit our showroom or call us for a quick quote.</p>
             `;
         container.appendChild(seoSection);
       }
@@ -485,7 +485,7 @@
             </li>
             <li>
               <a href="https://www.bikebuilders.in/locations-bihar.html"
-                >Used Bike In Muzaffarpur</a
+                >Second-Hand Bikes in Muzaffarpur</a
               >
             </li>
             <li>

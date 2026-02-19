@@ -837,10 +837,12 @@ body.dark-mode .featured-bikes-section {
 
 .slider-nav.prev {
   left: 0;
+  display: none;
 }
 
 .slider-nav.next {
   right: 0;
+  display: none;
 }
 
 .slider-nav:disabled {
@@ -2098,11 +2100,7 @@ body.dark-mode .service-card p {
   left: -50%;
   width: 80%;
   height: 200%;
-  background: radial-gradient(
-    circle,
-    rgba(163, 41, 25, 0.1) 0%,
-    transparent 70%
-  );
+  
   z-index: 0;
 }
 
@@ -3054,7 +3052,6 @@ body.dark-mode .section-header h2 {
 
 .footer-section {
   flex: 1;
-  min-width: 250px;
 }
 
 .footer-section h3 {
@@ -3307,7 +3304,6 @@ body:not(.index-page) .navbar {
 @media only screen and (max-width: 768px) {
   .hero-section {
     height: 0vh;
-    min-height: 80vh;
     padding-bottom: 50px;
   }
 
@@ -3708,3 +3704,81 @@ body:not(.index-page) .navbar {
 .dark-mode .faq-item h4 {
   color: #e6f2f8;
 }
+
+/* FAQ styles */
+.faq-section {
+  padding: 48px 5%;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
+}
+.faq-section .section-header h2 {
+  margin-bottom: 8px;
+}
+.faq-list {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
+  gap: 12px 20px;
+}
+.faq-item {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 8px 22px rgba(16, 15, 15, 0.04);
+  transition: box-shadow 180ms ease, transform 180ms ease;
+  overflow: hidden;
+}
+.faq-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 36px rgba(16, 15, 15, 0.06);
+}
+.faq-question {
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color:var(--secondary-color)
+}
+.faq-question::after {
+  content: '\25BE';
+  font-size: 14px;
+  transition: transform 200ms ease;
+  color: var(--dark-gray, #464646);
+}
+.faq-item.open .faq-question::after {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  margin-top: 8px;
+  color: #444;
+  line-height: 1.45;
+  display: block;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease, opacity 200ms ease;
+  opacity: 0;
+}
+.faq-item.open .faq-answer {
+  max-height: 420px; /* large enough for content */
+  opacity: 1;
+}
+
+@media (max-width: 720px) {
+  .faq-list {
+    grid-template-columns: 1fr;
+  }
+  .faq-section {
+    padding: 28px 6%;
+  }
+}
+
+.dark-mode .faq-item {
+  background: #0f1720;
+  color: #dfe6ea;
+}
+.dark-mode .faq-answer {
+  color: #cfe6ea;
+}
+

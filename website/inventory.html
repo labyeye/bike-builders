@@ -1718,9 +1718,9 @@
           })();
 
           const noun = count === 1 ? "bike" : "bikes";
-          const rangePart = rangeLabel ? ` under ${rangeLabel}` : "";
+          const rangePart = rangeLabel ? ` ${rangeLabel}` : "";
           document.getElementById("filtered-count").textContent =
-            `${count} second hand ${noun} Available${rangePart}`;
+            `${count} second hand ${noun}${rangePart} in Muzaffarpur`;
         }
 
         // Filter functionality
