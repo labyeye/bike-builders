@@ -16,12 +16,7 @@
     />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.bikebuilders.in/finance.html" />
-    <link
-      rel="sitemap"
-      type="application/xml"
-      title="Sitemap"
-      href="/sitemap.xml"
-    />
+    <link rel="sitemap" href="https://www.bikebuilders.in/sitemap.xml" type="application/xml" />
     <link
       rel="preconnect"
       href="https://bike-builders-backend.vercel.app"
@@ -637,14 +632,7 @@
           `;
 
         document.body.appendChild(mobileMenu);
-        const contactBottom = document.createElement("div");
-        contactBottom.className = "contact-bottom";
-        contactBottom.innerHTML = `
-          <div class="phone"><i class="fas fa-phone"></i><span>(+91) 98358 44897</span></div>
-                    <div class="phone"><i class="fas fa-phone"></i><span>(+91) 82102 83582</span></div>
-
-        `;
-        mobileMenu.appendChild(contactBottom);
+        
 
         toggleBtn.addEventListener("click", function () {
           mobileMenu.classList.add("active");
