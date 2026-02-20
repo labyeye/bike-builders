@@ -3,16 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <link rel="icon" type="image/png" href="./assets/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-<link rel="shortcut icon" href="./assets/favicon.ico" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" />
 
-    
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#000000">
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./assets/apple-touch-icon.png"
+    />
+
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#000000" />
     <meta property="og:site_name" content="Bike Builders" />
     <meta name="application-name" content="Bike Builders" />
     <meta name="apple-mobile-web-app-title" content="Bike Builders" />
@@ -26,8 +34,15 @@
       content="second hand bikes, used bikes, pre-owned motorcycles, buy used bike, used bike Muzaffarpur, used bike Patna, buy used bike near me, inspected used bikes"
     />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.bikebuilders.in/location-bihar-city.html" />
-    <link rel="sitemap" href="https://www.bikebuilders.in/sitemap.xml" type="application/xml" />
+    <link
+      rel="canonical"
+      href="https://www.bikebuilders.in/location-bihar-city.html"
+    />
+    <link
+      rel="sitemap"
+      href="https://www.bikebuilders.in/sitemap.xml"
+      type="application/xml"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Second Hand Bikes — Bike Builders" />
     <meta
@@ -85,7 +100,9 @@
               '<p>City not found. <a href="https://www.bikebuilders.in/locations-bihar.html">Back to locations</a></p>';
             return;
           }
-          document.title = city.name + " — Second-Hand Bikes | Certified Used Bikes at Best Price | Bike Builders";
+          document.title =
+            city.name +
+            " — Second-Hand Bikes | Certified Used Bikes at Best Price | Bike Builders";
           const desc = document.querySelector('meta[name="description"]');
           if (desc)
             desc.setAttribute(
@@ -110,7 +127,7 @@
             link.setAttribute("rel", "canonical");
             document.head.appendChild(link);
           }
-          
+
           const container = document.getElementById("main");
           const keywordsText = (city.keywords || "")
             .split(",")
@@ -119,7 +136,9 @@
           const seoExtra = keywordsText.length
             ? `Looking for ${keywordsText
                 .slice(0, 3)
-                .join(", ")} or related options? We offer a wide range of models in ${city.name}. From daily commuter bikes to touring motorcycles, all bikes are thoroughly inspected. We provide quality checks, transparent pricing, and flexible finance options. Buy with confidence.`
+                .join(
+                  ", ",
+                )} or related options? We offer a wide range of models in ${city.name}. From daily commuter bikes to touring motorcycles, all bikes are thoroughly inspected. We provide quality checks, transparent pricing, and flexible finance options. Buy with confidence.`
             : `We offer a wide range of inspected pre-owned bikes with local support, transparent pricing and easy financing.`;
 
           const descriptionHtml = `<p class="city-description">${
