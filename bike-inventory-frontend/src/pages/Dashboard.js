@@ -252,7 +252,6 @@ const Dashboard = ({ user }) => {
                   <th>Brand</th>
                   <th>Price</th>
                   <th>Status</th>
-                  <th>Stock</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -268,7 +267,6 @@ const Dashboard = ({ user }) => {
                           {bike.status}
                         </span>
                       </td>
-                      <td data-label="Stock">{bike.stock}</td>
                       <td data-label="Actions">
                         <div className="action-buttons">
                           <button

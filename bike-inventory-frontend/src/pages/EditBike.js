@@ -234,12 +234,6 @@ const EditBike = ({ user }) => {
         <div className="card">
           <div className="card-header">
             <h2>Edit Bike</h2>
-            <button
-              className="btn icon-btn"
-              onClick={() => navigate("/admin/dashboard")}
-            >
-              <Close />
-            </button>
           </div>
 
           <div className="card-body">
@@ -250,8 +244,8 @@ const EditBike = ({ user }) => {
                   display: "flex",
                   alignItems: "center",
                   padding: "0.75rem 1rem",
-                  backgroundColor: "#fff5f5",
-                  color: "#e53e3e",
+                  backgroundColor: "#EEEEEE",
+                  color: "#393E46",
                   borderRadius: "8px",
                   marginBottom: "1.5rem",
                 }}
@@ -261,25 +255,18 @@ const EditBike = ({ user }) => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit}>
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "1.5rem",
-                  marginBottom: "1.5rem",
-                }}
-              >
+            <form id="editBikeForm" onSubmit={handleSubmit}>
+              <div className="form-grid">
                 <div className="form-group">
                   <label
                     style={{
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    Brand <span style={{ color: "#e53e3e" }}>*</span>
+                    Brand <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <input
                     type="text"
@@ -287,7 +274,7 @@ const EditBike = ({ user }) => {
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
@@ -304,10 +291,10 @@ const EditBike = ({ user }) => {
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    Model <span style={{ color: "#e53e3e" }}>*</span>
+                    Model <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <input
                     type="text"
@@ -315,7 +302,7 @@ const EditBike = ({ user }) => {
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
@@ -332,10 +319,10 @@ const EditBike = ({ user }) => {
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    Model Year <span style={{ color: "#e53e3e" }}>*</span>
+                    Model Year <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <input
                     type="number"
@@ -343,7 +330,7 @@ const EditBike = ({ user }) => {
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
@@ -362,10 +349,10 @@ const EditBike = ({ user }) => {
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    KM Driven <span style={{ color: "#e53e3e" }}>*</span>
+                    KM Driven <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <input
                     type="number"
@@ -373,7 +360,7 @@ const EditBike = ({ user }) => {
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
@@ -391,21 +378,21 @@ const EditBike = ({ user }) => {
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    Ownership <span style={{ color: "#e53e3e" }}>*</span>
+                    Ownership <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <select
                     name="ownership"
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
-                      backgroundColor: "white",
+                      backgroundColor: "#F7F7F7",
                       appearance: "none",
                       backgroundImage:
                         'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131A20%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
@@ -430,21 +417,21 @@ const EditBike = ({ user }) => {
                       display: "block",
                       marginBottom: "0.5rem",
                       fontWeight: "500",
-                      color: "#2d3748",
+                      color: "#393E46",
                     }}
                   >
-                    Fuel Type <span style={{ color: "#e53e3e" }}>*</span>
+                    Fuel Type <span style={{ color: "#393E46" }}>*</span>
                   </label>
                   <select
                     name="fuelType"
                     style={{
                       width: "100%",
                       padding: "0.75rem",
-                      border: "1px solid #e2e8f0",
+                      border: "1px solid #EEEEEE",
                       borderRadius: "8px",
                       fontSize: "1rem",
                       transition: "border-color 0.2s",
-                      backgroundColor: "white",
+                      backgroundColor: "#F7F7F7",
                       appearance: "none",
                       backgroundImage:
                         'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23131A20%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
@@ -481,22 +468,16 @@ const EditBike = ({ user }) => {
     />
     
     {/* Unit Selector Buttons */}
-    <div style={{ display: "flex" }}>
+    <div className="age-unit-buttons">
       {["days", "months", "years"].map((unit) => (
         <button
           key={unit}
           type="button"
+          className={bike.ageUnit === unit ? "active" : ""}
           onClick={() => setBike({
             ...bike,
             ageUnit: unit
           })}
-          style={{
-            padding: "0 1rem",
-            border: "1px solid #e2e8f0",
-            backgroundColor: bike.ageUnit === unit ? "#4299e1" : "white",
-            color: bike.ageUnit === unit ? "white" : "#4a5568",
-            cursor: "pointer"
-          }}
         >
           {unit.charAt(0).toUpperCase() + unit.slice(1)}
         </button>
@@ -618,7 +599,7 @@ const EditBike = ({ user }) => {
 
                   {/* Existing images list with reorder/remove */}
                   {existingImages.length > 0 && (
-                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                    <div className="file-previews" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
                       {existingImages.map((url, idx) => (
                         <div key={url} style={{ position: "relative", width: 120 }}>
                           <img
@@ -645,7 +626,7 @@ const EditBike = ({ user }) => {
 
                   {/* New files preview */}
                   {newFiles.length > 0 && (
-                    <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                    <div className="file-previews" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
                       {newFiles.map((file, idx) => (
                         <div key={idx} style={{ position: "relative", width: 120 }}>
                           <img
@@ -670,7 +651,7 @@ const EditBike = ({ user }) => {
                       multiple
                       onChange={handleNewFilesChange}
                     />
-                    <small style={{ color: "#718096" }}>
+                    <small style={{ color: "#929AAB" }}>
                       {existingImages.length + newFiles.length} / 5 images used
                     </small>
                   </div>
@@ -679,7 +660,7 @@ const EditBike = ({ user }) => {
                     style={{
                       display: "block",
                       marginTop: "0.5rem",
-                      color: "#718096",
+                      color: "#929AAB",
                       fontSize: "0.875rem",
                     }}
                   >
@@ -726,22 +707,13 @@ const EditBike = ({ user }) => {
                 </div>
               </div>
 
-              <div
-                className="form-actions"
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  gap: "1rem",
-                  paddingTop: "1.5rem",
-                  borderTop: "1px solid #edf2f7",
-                }}
-              >
+              <div className="card-footer" style={{ display: "flex", justifyContent: "flex-end", gap: "1rem", paddingTop: "1.5rem", borderTop: "1px solid #EEEEEE" }}>
                 <button
                   type="button"
                   className="btn"
                   style={{
                     backgroundColor: "transparent",
-                    color: "#4a5568",
+                    color: "#393E46",
                     border: "1px solid #e2e8f0",
                   }}
                   onClick={() => navigate("/admin/dashboard")}
@@ -751,10 +723,11 @@ const EditBike = ({ user }) => {
                 </button>
                 <button
                   type="submit"
+                  form="editBikeForm"
                   className="btn primary"
-                  style={{
-                    backgroundColor: "#4299e1",
-                    color: "white",
+                    style={{
+                    backgroundColor: "#393E46",
+                    color: "#F7F7F7",
                     border: "none",
                   }}
                 >

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Lock, User, Eye, EyeOff } from "lucide-react";
+import { User, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/Logo.png";
 const AdminLogin = ({ setUser }) => {
   const navigate = useNavigate();
 
@@ -52,11 +53,13 @@ const AdminLogin = ({ setUser }) => {
       setIsLoading(false);
     }
   };
-
-  // Styles
   const containerStyle = {
     minHeight: "100vh",
-    backgroundColor: "#f5f5f5",
+    backgroundImage:
+      'url("https://wallpapers.com/images/hd/yamaha-yzf-4k-bike-4ex5oityodxw1tdv.jpg")',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -66,10 +69,12 @@ const AdminLogin = ({ setUser }) => {
 
   const cardStyle = {
     width: "100%",
-    maxWidth: "400px",
-    backgroundColor: "#ffffff",
-    borderRadius: "8px",
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+    maxWidth: "420px",
+    background: "rgba(247,247,247,0.2)",
+    borderRadius: "12px",
+    boxShadow: "0 8px 30px rgba(57,62,70,0.08), inset 0 1px 0 rgba(247,247,247,0.12)",
+    backdropFilter: "blur(5px) saturate(120%)",
+    WebkitBackdropFilter: "blur(10px) saturate(120%)",
     overflow: "hidden",
   };
 
@@ -82,23 +87,23 @@ const AdminLogin = ({ setUser }) => {
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: "48px",
-    height: "48px",
-    backgroundColor: "#1976d2",
+    width: "64px",
+    height: "64px",
+    backgroundColor: "transparent",
     borderRadius: "50%",
-    marginBottom: "16px",
+    marginBottom: "12px",
   };
 
   const titleStyle = {
     fontSize: "24px",
     fontWeight: "400",
-    color: "#212121",
+    color: "#F7F7F7",
     margin: "0 0 4px 0",
   };
 
   const subtitleStyle = {
     fontSize: "14px",
-    color: "#757575",
+    color: "#F7F7F7",
     margin: "0",
   };
 
@@ -109,13 +114,13 @@ const AdminLogin = ({ setUser }) => {
   const errorStyle = {
     marginBottom: "16px",
     padding: "12px",
-    backgroundColor: "#ffebee",
-    borderLeft: "4px solid #f44336",
+    backgroundColor: "#EEEEEE",
+    borderLeft: "4px solid #929AAB",
     borderRadius: "4px",
   };
 
   const errorTextStyle = {
-    color: "#c62828",
+    color: "#393E46",
     fontSize: "14px",
     margin: "0",
   };
@@ -130,9 +135,9 @@ const AdminLogin = ({ setUser }) => {
     padding: "20px 12px 8px",
     borderStyle: "solid",
     borderWidth: "1px",
-    borderColor: "#e0e0e0",
+    borderColor: "#EEEEEE",
     borderRadius: "4px 4px 0 0",
-    backgroundColor: "#fafafa",
+    backgroundColor: "#F7F7F7",
     fontSize: "16px",
     outline: "none",
     transition: "all 0.2s ease",
@@ -141,8 +146,8 @@ const AdminLogin = ({ setUser }) => {
 
   const inputFocusStyle = {
     ...inputStyle,
-    backgroundColor: "#ffffff",
-    borderColor: "#1976d2",
+    backgroundColor: "#F7F7F7",
+    borderColor: "#393E46",
     borderWidth: "2px",
   };
 
@@ -151,14 +156,14 @@ const AdminLogin = ({ setUser }) => {
     left: "12px",
     transition: "all 0.2s ease",
     pointerEvents: "none",
-    color: "#757575",
+    color: "#929AAB",
   };
 
   const labelFloatStyle = {
     ...labelStyle,
     top: "8px",
     fontSize: "12px",
-    color: "#1976d2",
+    color: "#393E46",
   };
 
   const labelNormalStyle = {
@@ -171,105 +176,56 @@ const AdminLogin = ({ setUser }) => {
     position: "absolute",
     right: "12px",
     top: "16px",
-    color: "#9e9e9e",
+    color: "#929AAB",
   };
 
   const eyeIconStyle = {
     position: "absolute",
     right: "12px",
     top: "16px",
-    color: "#9e9e9e",
+    color: "#929AAB",
     background: "none",
     border: "none",
     cursor: "pointer",
     padding: "0",
     transition: "color 0.2s ease",
   };
-
-  const forgotPasswordStyle = {
-    textAlign: "right",
-    marginBottom: "24px",
-  };
-
-  const linkStyle = {
-    fontSize: "14px",
-    color: "#1976d2",
-    textDecoration: "none",
-    fontWeight: "500",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    transition: "color 0.2s ease",
-  };
-
   const buttonContainerStyle = {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "center",
     alignItems: "center",
     paddingTop: "16px",
   };
 
-  const createAccountButtonStyle = {
-    padding: "8px 24px",
-    color: "#1976d2",
-    fontWeight: "500",
-    backgroundColor: "transparent",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    fontSize: "14px",
-    transition: "background-color 0.2s ease",
-  };
 
   const submitButtonStyle = {
-    padding: "8px 24px",
-    backgroundColor: "#1976d2",
-    color: "#ffffff",
+    padding: "8px 64px",
+    backgroundColor: "#393E46",
+    color: "#F7F7F7",
     fontWeight: "500",
     border: "none",
     borderRadius: "4px",
     cursor: "pointer",
     fontSize: "14px",
     transition: "all 0.2s ease",
-    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+    boxShadow: "0 2px 4px rgba(57,62,70,0.2)",
     opacity: isLoading ? 0.6 : 1,
   };
 
   const submitButtonHoverStyle = {
     ...submitButtonStyle,
-    backgroundColor: "#1565c0",
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.3)",
+    backgroundColor: "#393E46",
+    boxShadow: "0 4px 8px rgba(57,62,70,0.3)",
   };
 
   const loadingSpinnerStyle = {
     width: "16px",
     height: "16px",
-    border: "2px solid #ffffff",
+    border: "2px solid #F7F7F7",
     borderTop: "2px solid transparent",
     borderRadius: "50%",
     animation: "spin 1s linear infinite",
     marginRight: "8px",
-  };
-
-  const footerStyle = {
-    textAlign: "center",
-    marginTop: "24px",
-  };
-
-  const footerLinksStyle = {
-    display: "flex",
-    justifyContent: "center",
-    gap: "16px",
-  };
-
-  const footerLinkStyle = {
-    fontSize: "12px",
-    color: "#757575",
-    textDecoration: "none",
-    background: "none",
-    border: "none",
-    cursor: "pointer",
-    transition: "color 0.2s ease",
   };
 
   return (
@@ -287,7 +243,11 @@ const AdminLogin = ({ setUser }) => {
         {/* Header */}
         <div style={headerStyle}>
           <div style={logoStyle}>
-            <Lock size={24} color="#ffffff" />
+            <img
+              src={logo}
+              alt="Bike Builders"
+              style={{ width: "56px", height: "56px", objectFit: "contain" }}
+            />
           </div>
           <h1 style={titleStyle}>Sign in</h1>
           <p style={subtitleStyle}>to continue to Admin Panel</p>
@@ -363,8 +323,8 @@ const AdminLogin = ({ setUser }) => {
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 style={eyeIconStyle}
-                onMouseEnter={(e) => (e.target.style.color = "#616161")}
-                onMouseLeave={(e) => (e.target.style.color = "#9e9e9e")}
+                onMouseEnter={(e) => (e.target.style.color = "#393E46")}
+                onMouseLeave={(e) => (e.target.style.color = "#929AAB")}
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -389,7 +349,7 @@ const AdminLogin = ({ setUser }) => {
                     Signing in
                   </div>
                 ) : (
-                  "Next"
+                  "Log In"
                 )}
               </button>
             </div>
