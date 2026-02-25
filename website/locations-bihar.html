@@ -187,6 +187,22 @@
       name="twitter:image"
       content="https://www.bikebuilders.in/assets/social-preview.jpg"
     />
+    <script>
+      // Redirect non-www to www
+      (function () {
+        if (
+          window.location.hostname === "bikebuilders.in" &&
+          window.location.protocol === "https:"
+        ) {
+          window.location.replace(
+            "https://www.bikebuilders.in" +
+              window.location.pathname +
+              window.location.search +
+              window.location.hash
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <div class="wrap">

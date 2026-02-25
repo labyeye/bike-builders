@@ -8,3 +8,4 @@ Disallow: /search/
 Disallow: /?s=
 
 Sitemap: https://www.bikebuilders.in/sitemap.xml
+Sitemap: https://www.bikebuilders.in/sitemap-locations-bihar.xml

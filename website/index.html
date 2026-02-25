@@ -59,6 +59,22 @@
     <meta name="application-name" content="Bike Builders" />
     <meta name="apple-mobile-web-app-title" content="Bike Builders" />
     <script>
+      // Redirect non-www to www for canonical consistency
+      (function () {
+        if (
+          window.location.hostname === "bikebuilders.in" &&
+          window.location.protocol === "https:"
+        ) {
+          window.location.replace(
+            "https://www.bikebuilders.in" +
+              window.location.pathname +
+              window.location.search +
+              window.location.hash
+          );
+        }
+      })();
+    </script>
+    <script>
       (function () {
         function debounce(fn, wait) {
           let t;

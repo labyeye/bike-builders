@@ -125,6 +125,22 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
+    <script>
+      // Redirect non-www to www
+      (function () {
+        if (
+          window.location.hostname === "bikebuilders.in" &&
+          window.location.protocol === "https:"
+        ) {
+          window.location.replace(
+            "https://www.bikebuilders.in" +
+              window.location.pathname +
+              window.location.search +
+              window.location.hash
+          );
+        }
+      })();
+    </script>
   </head>
   <body>
     <nav class="navbar">

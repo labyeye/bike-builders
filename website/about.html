@@ -102,6 +102,22 @@
         "areaServed": ["Muzaffarpur", "Bihar"]
       }
     </script>
+    <script>
+      // Redirect non-www to www
+      (function () {
+        if (
+          window.location.hostname === "bikebuilders.in" &&
+          window.location.protocol === "https:"
+        ) {
+          window.location.replace(
+            "https://www.bikebuilders.in" +
+              window.location.pathname +
+              window.location.search +
+              window.location.hash
+          );
+        }
+      })();
+    </script>
   </head>
 
   <body>
