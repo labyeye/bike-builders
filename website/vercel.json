@@ -1,0 +1,26 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "bikebuilders.in"
+        }
+      ],
+      "destination": "https://www.bikebuilders.in/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "http://bikebuilders.in"
+        }
+      ],
+      "destination": "https://www.bikebuilders.in/$1",
+      "permanent": true
+    }
+  ]
+}
