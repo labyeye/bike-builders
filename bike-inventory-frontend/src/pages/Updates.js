@@ -50,7 +50,7 @@ const Updates = ({ user }) => {
       }
     };
     fetchUpdates();
-  }, [normalizeImageUrl]);
+  }, [API_BASE, normalizeImageUrl]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files && e.target.files[0]);
