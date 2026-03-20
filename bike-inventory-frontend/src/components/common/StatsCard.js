@@ -31,26 +31,11 @@ const IconWrapper = styled(Box)(({ theme, color = "primary" }) => ({
   },
 }));
 
-const ChangeIndicator = styled(Box)(({ theme, ispositive }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(0.5),
-  color:
-    ispositive === "true"
-      ? theme.palette.success.main
-      : theme.palette.error.main,
-  fontSize: "0.8125rem",
-  fontWeight: 500,
-  marginTop: theme.spacing(0.5),
-}));
-
 const StatsCard = ({
   title,
   value,
   icon,
   color = "primary",
-  change,
-  isPositive,
 }) => {
   return (
     <CardContainer color={color}>

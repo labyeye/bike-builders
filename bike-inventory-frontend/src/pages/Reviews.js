@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Sidebar from "../components/Layout/Sidebar";
 import { useNavigate } from "react-router-dom";
 import "../css/Dashboard.css";
@@ -11,11 +11,7 @@ const Reviews = ({ user }) => {
   const [editing, setEditing] = useState(null); // review object being edited
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchReviews();
-  }, []);
-
-  async function fetchReviews() {
+  const fetchReviews = useCallback(async () => {
     try {
       setLoading(true);
       const res = await fetch(`${API_BASE}/api/reviews`);
@@ -28,7 +24,11 @@ const Reviews = ({ user }) => {
     } finally {
       setLoading(false);
     }
-  }
+  }, [API_BASE]);
+
+  useEffect(() => {
+    fetchReviews();
+  }, [fetchReviews]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this review?")) return;

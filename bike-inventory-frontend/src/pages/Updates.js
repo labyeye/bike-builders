@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Layout/Sidebar";
 import "../css/Dashboard.css";
@@ -12,6 +12,21 @@ const Updates = ({ user }) => {
   const [updates, setUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const normalizeImageUrl = useCallback(
+    (url) => {
+      if (!url) return url || "";
+      if (
+        /^https?:\/\//i.test(url) ||
+        url.startsWith("data:") ||
+        url.startsWith("//")
+      )
+        return url;
+      if (url.startsWith("/")) return API_BASE + url;
+      return API_BASE + "/" + url;
+    },
+    [API_BASE],
+  );
 
   useEffect(() => {
     const fetchUpdates = async () => {
@@ -35,7 +50,7 @@ const Updates = ({ user }) => {
       }
     };
     fetchUpdates();
-  }, []);
+  }, [normalizeImageUrl]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files && e.target.files[0]);
@@ -70,14 +85,6 @@ const Updates = ({ user }) => {
       setError(err.message);
     }
   };
-
-  // Normalize image/poster URLs to absolute paths using API base.
-  function normalizeImageUrl(url) {
-    if (!url) return url || "";
-    if (/^https?:\/\//i.test(url) || url.startsWith("data:") || url.startsWith("//")) return url;
-    if (url.startsWith("/")) return API_BASE + url;
-    return API_BASE + "/" + url;
-  }
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this update?")) return;
