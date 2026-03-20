@@ -290,7 +290,13 @@
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Bike Builders",
-        "url": "https://www.bikebuilders.in/"
+        "alternateName": "bikebuilders.in",
+        "url": "https://www.bikebuilders.in/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.bikebuilders.in/inventory.html?search={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
       }
     </script>
     <link rel="stylesheet" href="style.css" />
@@ -500,43 +506,6 @@
           </form>
         </div>
       </div>
-      <section
-        class="stats-section"
-        style="
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          bottom: -70px;
-          width: calc(100% - 40px);
-          z-index: 20;
-          margin-bottom: 60px;
-        "
-      >
-        <div class="stats-container">
-          <div class="stat-card">
-            <div class="stat-number" data-count="2000">0+</div>
-            <div class="stat-label" data-translate="Bikes Sold">Bikes Sold</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count="40">0+</div>
-            <div class="stat-label" data-translate="Bikes Available">
-              Bikes Available
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count="1500">0+</div>
-            <div class="stat-label" data-translate="Happy Customers">
-              Happy Customers
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-number" data-count="8">0+</div>
-            <div class="stat-label" data-translate="Years Experience">
-              Years Experience
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
     <section class="featured-bikes-section">
       <section class="range-section">
@@ -550,16 +519,18 @@
               href="inventory.html?price=under-50000"
               aria-label="Under 50,000"
             >
+              <img class="range-image" src="./assets/images/range/4.png" />
               <div class="range-title">Under ₹50,000</div>
-              <div class="range-sub">
-                Find best <b>second hand bikes under 50000 in Muzaffarpur</b>
-              </div>
+                <div class="range-sub">
+                  Find best <b>second hand bikes under 50000 in Muzaffarpur</b>
+                </div>
             </a>
             <a
               class="range-card"
               href="inventory.html?price=50000-100000"
               aria-label="50,000 to 1,00,000"
             >
+              <img class="range-image" src="./assets/images/range/3.png" />
               <div class="range-title">₹50,000 — ₹1,00,000</div>
               <div class="range-sub">
                 Find best <b>second hand bikes under 100000 in Muzaffarpur</b>
@@ -570,6 +541,7 @@
               href="inventory.html?price=100000-200000"
               aria-label="1,00,000 to 2,00,000"
             >
+              <img class="range-image" src="./assets/images/range/2.png" />
               <div class="range-title">₹1,00,000 — ₹2,00,000</div>
               <div class="range-sub">
                 Find best <b>second hand bikes under 200000 in Muzaffarpur</b>
@@ -580,6 +552,7 @@
               href="inventory.html?price=200000-plus"
               aria-label="Above 2,00,000"
             >
+              <img class="range-image" src="./assets/images/range/1.png" />
               <div class="range-title">Premium ₹2,00,000+</div>
               <div class="range-sub">
                 Find best <b>second hand bikes above 200000 in Muzaffarpur</b>
@@ -590,17 +563,7 @@
       </section>
       <div class="section-header">
         <h2 data-translate="Second Hand Bikes">Second Hand Bikes</h2>
-        <span
-          class="section-subtitle"
-          data-translate="Showcasing to you best second hand bikes in muzaffarpur. The vehicles presented here are very good in terms for value, performance, and quality. Every second hand bikes on this list went through full inspections and are ready for a ride. Find a bike which suits your needs and brings satisfaction to your ride."
-          >Showcasing to you best second hand bikes in muzaffarpur. The vehicles
-          presented here are very good in terms for value, performance, and
-          quality. Every second hand bikes on this list went through full
-          inspections and are ready for a ride. Find a bike which suits your
-          needs and brings satisfaction to your ride.</span
-        >
       </div>
-
       <div class="bike-slider-container">
         <button class="slider-nav prev" aria-label="Previous bikes">
           <i class="fas fa-chevron-left"></i>
@@ -876,7 +839,7 @@
         >
           <div class="brand-logo">
             <img
-              src="https://brandeps.com/logo-download/H/Hero-MotoCorp-logo-01.png"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Hero_MotoCorp.svg/1280px-Hero_MotoCorp.svg.png"
               alt="Hero logo"
               loading="lazy"
             />
@@ -1647,11 +1610,10 @@
     <script src="./index.js"></script>
     <div class="floating-buttons">
       <a
-        href="#"
+        href="https://wa.me/918210283582"
         class="floating-btn whatsapp-btn"
         data-tooltip="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
-        id="whatsappTrigger"
       >
         <i class="fa-brands fa-whatsapp fa-bounce"></i>
       </a>
@@ -1668,7 +1630,7 @@
 
       <!-- Call Button -->
       <a
-        href="#"
+        href="tel:+918210283582"
         class="floating-btn call-btn"
         data-tooltip="Call Us"
         aria-label="Call Us"
@@ -1685,21 +1647,6 @@
         <i class="fa-solid fa-motorcycle fa-shake"></i>
       </a>
     </div>
-
-    <div id="whatsappModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose WhatsApp Number</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
-      </div>
-    </div>
-
-    <!-- Review Modal (used on several pages; added to index for footer star clicks) -->
     <div id="reviewModal" class="modal">
       <div class="modal-content">
         <span class="close" id="closeReviewModal">&times;</span>
@@ -1742,19 +1689,6 @@
             Thanks for your feedback!
           </div>
         </form>
-      </div>
-    </div>
-
-    <div id="callModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose Number to Call</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
       </div>
     </div>
     <script>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { DirectionsBike, Close, Error as ErrorIcon } from "@mui/icons-material";
+import { Close, Error as ErrorIcon } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
 import "../css/Dashboard.css";
 

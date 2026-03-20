@@ -32,7 +32,7 @@ body {
 
 .main-content {
   flex: 1;
-  padding: 28px;
+  padding: 28px 0px;
   overflow-y: auto;
 }
 
@@ -517,6 +517,7 @@ body {
   }
   .card {
     padding: 12px;
+    margin-top: 50px;
   }
   .card .card-footer {
     flex-direction: column-reverse;

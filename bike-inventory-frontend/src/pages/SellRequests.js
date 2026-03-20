@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Check, Close, Visibility, Sell } from "@mui/icons-material";
+import { Check, Close, Visibility } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
 import "../css/Dashboard.css";
 

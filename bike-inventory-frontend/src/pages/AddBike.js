@@ -27,14 +27,6 @@ const AddBike = ({ user }) => {
   const [imageFiles, setImageFiles] = useState([]);
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState(null);
-  const handleImageUrlChange = (index, value) => {
-    const newImageUrls = [...formData.imageUrl];
-    newImageUrls[index] = value;
-    setFormData((prev) => ({
-      ...prev,
-      imageUrl: newImageUrls,
-    }));
-  };
   const handleFilesChange = (e) => {
     const MAX_FILE_SIZE = 2.5 * 1024 * 1024; // 2.5 MB per file
     const MAX_TOTAL_SIZE = 8 * 1024 * 1024; // 8 MB total payload heuristic

@@ -505,57 +505,49 @@
       </div>
     </div>
     <section class="faq-section" aria-labelledby="faqHeading">
-      <div class="section-inner">
-        <h3 id="faqHeading">Frequently Asked Questions</h3>
-        <div class="faq-list">
-          <div class="faq-item">
-            <div class="faq-question">
-              How do I get an instant valuation?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Fill the form with bike details and images, submit and our team
-              will provide an instant market valuation within 24 hours.
-            </div>
+      <div class="section-header">
+        <h2 id="faqHeading">Frequently Asked Questions</h2>
+        <span class="section-subtitle"
+          >Answers to common questions about selling your bike</span
+        >
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How do I get an instant valuation?</div>
+          <div class="faq-answer">
+            Fill the form with bike details and images, submit and our team
+            will provide an instant market valuation within 24 hours.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              Do you pick up the bike from my location?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Yes — we offer free pickup for accepted offers within our service
-              area. We'll coordinate timing after valuation.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Do you pick up the bike from my location?</div>
+          <div class="faq-answer">
+            Yes — we offer free pickup for accepted offers within our service
+            area. We'll coordinate timing after valuation.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              What documents are required to sell my bike?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              You'll typically need the RC book, valid ID, and service records
-              if available. Our team will guide you through paperwork.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            What documents are required to sell my bike?
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              How soon will I receive payment?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Payment is made on the day of pickup/inspection once paperwork is
-              complete — usually the same day or within 24 hours.
-            </div>
+          <div class="faq-answer">
+            You'll typically need the RC book, valid ID, and service records
+            if available. Our team will guide you through paperwork.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              Can I negotiate the offer? <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Yes — offers are negotiable during inspection. We strive for fair
-              pricing based on condition and market demand.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How soon will I receive payment?</div>
+          <div class="faq-answer">
+            Payment is made on the day of pickup/inspection once paperwork is
+            complete — usually the same day or within 24 hours.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Can I negotiate the offer?</div>
+          <div class="faq-answer">
+            Yes — offers are negotiable during inspection. We strive for fair
+            pricing based on condition and market demand.
           </div>
         </div>
       </div>
@@ -1342,11 +1334,10 @@
     </script>
     <div class="floating-buttons">
       <a
-        href="#"
+        href="https://wa.me/918210283582"
         class="floating-btn whatsapp-btn"
         data-tooltip="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
-        id="whatsappTrigger"
       >
         <i class="fa-brands fa-whatsapp fa-bounce"></i>
       </a>
@@ -1359,7 +1350,7 @@
         <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
       </a>
       <a
-        href="#"
+        href="tel:+918210283582"
         class="floating-btn call-btn"
         data-tooltip="Call Us"
         aria-label="Call Us"
@@ -1377,31 +1368,9 @@
       </a>
     </div>
 
-    <div id="whatsappModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose WhatsApp Number</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
-      </div>
-    </div>
+    
 
-    <div id="callModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose Number to Call</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
-      </div>
-    </div>
+    
     <script>
       // Count animation for sold bikes
       (function () {
@@ -1435,10 +1404,14 @@
           document.querySelectorAll(".faq-question").forEach((q) => {
             q.addEventListener("click", function () {
               const item = this.parentElement;
-              item.classList.toggle("open");
-              const icon = this.querySelector(".faq-toggle-icon");
-              if (icon)
-                icon.textContent = item.classList.contains("open") ? "−" : "+";
+              const answer = item.querySelector(".faq-answer");
+              const isOpen = item.classList.toggle("open");
+              if (!answer) return;
+              if (isOpen) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+              } else {
+                answer.style.maxHeight = null;
+              }
             });
           });
         });

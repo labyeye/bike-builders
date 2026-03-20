@@ -460,66 +460,82 @@
       </div>
     </section>
     <section class="faq-section" aria-labelledby="faqHeading">
-      <div class="section-inner">
-        <h3 id="faqHeading">Frequently Asked Questions</h3>
-        <div class="faq-list">
-          <div class="faq-item">
-            <div class="faq-question">
-              How do I book a bike?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Browse our available bikes, choose the one you like, and book it
-              online by paying a small booking amount. You can also visit our
-              showroom to book the bike in person.
-            </div>
+      <div class="section-header">
+        <h2 id="faqHeading">Frequently Asked Questions</h2>
+        <span class="section-subtitle"
+          >Answers to common questions about booking, payments, and delivery</span
+        >
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">How do I book a bike?</div>
+          <div class="faq-answer">
+            Browse our available bikes, choose the one you like, and book it
+            online by paying a small booking amount. You can also visit our
+            showroom to book the bike in person.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              Is the booking amount refundable?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              The booking amount is generally refundable if the bike is
-              unavailable or does not match the listed details. Our team will
-              clearly explain the refund policy at the time of booking.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">Is the booking amount refundable?</div>
+          <div class="faq-answer">
+            The booking amount is generally refundable if the bike is
+            unavailable or does not match the listed details. Our team will
+            clearly explain the refund policy at the time of booking.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              Can I inspect or test ride the bike before final purchase?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Yes, you can inspect the bike and request a test ride at our
-              showroom before completing the final purchase.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            Can I inspect or test ride the bike before final purchase?
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              What documents are required to book a bike?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              To book a bike, you only need a valid ID proof. Additional
-              documents like address proof and RC transfer forms are required
-              during the final purchase.
-            </div>
+          <div class="faq-answer">
+            Yes, you can inspect the bike and request a test ride at our
+            showroom before completing the final purchase.
           </div>
-          <div class="faq-item">
-            <div class="faq-question">
-              How long is the bike reserved after booking?
-              <span class="faq-toggle-icon">+</span>
-            </div>
-            <div class="faq-answer">
-              Once booked, the bike is reserved for a limited period. Our team
-              will inform you about the reservation duration so you have enough
-              time to complete the inspection and purchase.
-            </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">What documents are required to book a bike?</div>
+          <div class="faq-answer">
+            To book a bike, you only need a valid ID proof. Additional
+            documents like address proof and RC transfer forms are required
+            during the final purchase.
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">How long is the bike reserved after booking?</div>
+          <div class="faq-answer">
+            Once booked, the bike is reserved for a limited period. Our team
+            will inform you about the reservation duration so you have enough
+            time to complete the inspection and purchase.
           </div>
         </div>
       </div>
     </section>
+
+    <script>
+      (function () {
+        function initFaq() {
+          const faqItems = document.querySelectorAll(".faq-item");
+          if (!faqItems || faqItems.length === 0) return;
+          faqItems.forEach((item) => {
+            const question = item.querySelector(".faq-question");
+            const answer = item.querySelector(".faq-answer");
+            if (!question || !answer) return;
+            question.addEventListener("click", () => {
+              const isOpen = item.classList.toggle("open");
+              if (isOpen) answer.style.maxHeight = answer.scrollHeight + "px";
+              else answer.style.maxHeight = null;
+            });
+          });
+        }
+
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initFaq);
+        } else {
+          initFaq();
+        }
+      })();
+    </script>
     <div id="reviewModal" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
@@ -1124,11 +1140,10 @@
     </script>
     <div class="floating-buttons">
       <a
-        href="#"
+        href="https://wa.me/918210283582"
         class="floating-btn whatsapp-btn"
         data-tooltip="Chat on WhatsApp"
         aria-label="Chat on WhatsApp"
-        id="whatsappTrigger"
       >
         <i class="fa-brands fa-whatsapp fa-bounce"></i>
       </a>
@@ -1141,7 +1156,7 @@
         <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
       </a>
       <a
-        href="#"
+        href="tel:+918210283582"
         class="floating-btn call-btn"
         data-tooltip="Call Us"
         aria-label="Call Us"
@@ -1159,30 +1174,8 @@
       </a>
     </div>
 
-    <div id="whatsappModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose WhatsApp Number</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
-      </div>
-    </div>
+    
 
-    <div id="callModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Choose Number to Call</h3>
-        <button class="number-option" data-number="918210283582">
-          +91 82102 83582
-        </button>
-        <button class="number-option" data-number="919876543210">
-          +91 98358 44897
-        </button>
-      </div>
-    </div>
+    
   </body>
 </html>

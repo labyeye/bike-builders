@@ -260,7 +260,7 @@ body.dark-mode {
 .range-card {
   background: #a32919;
   border-radius: 10px;
-  padding: 18px;
+  padding: 18px 20px 20px;
   box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
   text-align: center;
   display: flex;
@@ -294,6 +294,8 @@ body.dark-mode {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
   text-decoration: none;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 @media (max-width: 720px) {
   .range-inner {
@@ -790,6 +792,13 @@ body.dark-mode .featured-bikes-section {
   color: #e05d00;
 }
 
+.range-image {
+  width: 100%;
+  height: 70%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 .bike-slider-container {
   position: relative;
   max-width: 1200px;
@@ -1269,7 +1278,6 @@ body {
   color: white;
   text-decoration: none;
   font-family: "Sansation", sans-serif;
-  font-weight: 700;
   font-size: 18px;
   transition: color 0.3s;
   padding: 5px 0;
@@ -2352,14 +2360,15 @@ body.dark-mode .service-card p {
   justify-content: space-between;
   align-items: center;
   color: var(--text-color);
-  margin-bottom: 40px;
+  margin-bottom: 0px;
 }
 .section-subtitle {
   font-size: 1rem;
   color: black;
-  margin-top: -15px;
+  margin-bottom: 50px;
   max-width: 900px;
   z-index: 1;
+  text-align: center;
 }
 .dark-mode .section-subtitle {
   font-size: 1rem;

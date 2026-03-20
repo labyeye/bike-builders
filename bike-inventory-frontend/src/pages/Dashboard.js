@@ -8,7 +8,6 @@ import {
   Edit,
   Delete,
   MoreVert,
-  Image as ImageIcon,
 } from "@mui/icons-material";
 import StatsCard from "../components/common/StatsCard";
 import Sidebar from "../components/Layout/Sidebar";
@@ -178,13 +177,6 @@ const Dashboard = ({ user }) => {
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(price);
-  };
-
-  const handleImageError = (e) => {
-    e.target.onerror = null;
-    e.target.style.display = "none";
-    const parent = e.target.parentElement;
-    parent.innerHTML = '<div class="no-image">No Image</div>';
   };
 
   if (!authChecked || loading) return <div className="loading">Loading...</div>;
