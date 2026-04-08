@@ -1,0 +1,894 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+
+  <link rel="icon" type="image/png" href="../assets/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg" />
+  <link rel="shortcut icon" href="../assets/icons/favicon.ico" />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon.png" />
+
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:site_name" content="Bike Builders" />
+  <meta name="application-name" content="Bike Builders" />
+  <meta name="apple-mobile-web-app-title" content="Bike Builders" />
+  <title>Updates | Bike Builders — News & Announcements (Muzaffarpur)</title>
+  <meta name="description"
+    content="Latest updates, offers and announcements from Bike Builders in Muzaffarpur. Stay tuned for new inventory, events and promotions on second hand bikes." />
+  <meta name="keywords"
+    content="updates Bike Builders, second hand bike in Muzaffarpur, used bikes Muzaffarpur, bike offers Muzaffarpur, bike promotions Bihar, used bike discounts, pre-owned bike sale, latest inventory updates, bike events Muzaffarpur, used motorcycle offers, new arrivals used bikes, pre-owned bike deals, limited time offers bike builders" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.bikebuilders.in/pages/latest-updates.html" />
+  <link rel="sitemap" href="https://www.bikebuilders.in/sitemap.xml" type="application/xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Updates | Bike Builders — News & Announcements" />
+  <meta property="og:description"
+    content="Latest updates and offers from Bike Builders — your trusted destination for second hand bikes in Muzaffarpur." />
+  <meta property="og:url" content="https://www.bikebuilders.in/pages/latest-updates.html" />
+  <meta property="og:image" content="https://www.bikebuilders.in/assets/social-preview.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Updates — Bike Builders",
+        "description": "Latest updates, offers and announcements from Bike Builders in Muzaffarpur.",
+        "keywords": "updates Bike Builders, second hand bike in muzaffarpur, bike offers Muzaffarpur"
+      }
+    </script>
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Review",
+        "itemReviewed": {
+          "@type": "LocalBusiness",
+          "name": "Bike Builders",
+          "url": "https://www.bikebuilders.in/"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Customer"
+        },
+        "reviewBody": "Trusted service and fair valuation from Bike Builders.",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        }
+      }
+    </script>
+  <meta name="twitter:title" content="Latest Offers & Updates — Bike Builders (Muzaffarpur)" />
+  <meta name="twitter:description"
+    content="See the newest arrivals, offers and events from Bike Builders. Get updates on pre-owned bikes, discounts and test ride events in Muzaffarpur." />
+  <meta name="twitter:image" content="https://www.bikebuilders.in/assets/social-preview.jpg" />
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Bike Builders",
+        "url": "https://www.bikebuilders.in/pages/latest-updates.html",
+        "telephone": "+918210283582",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Rambag Chowk, Rambag Road, Gaushala Chowk",
+          "addressLocality": "Muzaffarpur",
+          "addressRegion": "Bihar",
+          "postalCode": "842002",
+          "addressCountry": "IN"
+        },
+        "description": "Updates, offers and news from Bike Builders — pre-owned bikes and events in Muzaffarpur.",
+        "areaServed": ["Muzaffarpur", "Bihar"]
+      }
+    </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://code.jquery.com" crossorigin />
+  <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
+  <link rel="stylesheet" href="./globals.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/latest-updates.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    /* Loading and error states */
+    .loading-spinner {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #4caf50;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 2rem auto;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .error-message,
+    .no-offers {
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255, 0, 0, 0.2);
+      border-radius: 8px;
+      width: 100%;
+    }
+
+    .no-offers {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Offer type indicators */
+    .offer-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .offer-type-new {
+      background: #00bcd4;
+      color: white;
+    }
+
+    .offer-type-sale {
+      background: #2196f3;
+      color: white;
+    }
+
+    .offer-type-event {
+      background: #9c27b0;
+      color: white;
+    }
+
+    .offer-type-festival {
+      background: #ff5722;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="logo-link">
+      <div class="logo">
+        <img src="../assets/logos/logo.svg" class="logo-img" alt="Bike Builders Logo" itemprop="logo" />
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="../index.html" data-translate="Home">Home</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your
+          Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/about-us.html" aria-label="About Bike Builders"
+          data-translate="About Us">About Us</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/book-a-bike.html" aria-label="Book Bike"
+          data-translate="Book Bike">Book Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/bike-finance.html" aria-label="Bike Finance"
+          data-translate="Bike Finance">Bike
+          Finance</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/latest-updates.html" data-translate="Updates"
+          class="active">Updates</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/contact-us.html" data-translate="Contact">Contact</a>
+      </li>
+    </ul>
+
+    <div class="theme-toggle">
+      <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode" />
+      <label for="darkModeToggle" class="toggle-label">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+        <span class="toggle-ball"></span>
+      </label>
+    </div>
+  </nav>
+  <section class="container">
+    <section class="updates-section">
+      <div class="updates-content">
+        <h2 data-translate="Latest Updates">Latest Updates</h2>
+        <p data-translate="Stay informed with the latest news, offers, and announcements from Bike Builders.">
+          Stay informed with the latest news, offers, and announcements from
+          Bike Builders.
+        </p>
+      </div>
+
+      <div class="updates-container" id="updates-container">
+        <div class="loading-spinner"></div>
+      </div>
+    </section>
+  </section>
+
+  <div id="reviewModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Leave a Review</h3>
+      <form id="reviewForm">
+        <input type="text" id="reviewName" placeholder="Your Name" required />
+        <textarea id="reviewMessage" placeholder="Your Review" required></textarea>
+        <div class="star-rating">
+          <span class="star" data-value="1"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="2"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="3"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="4"><i class="fa fa-star"></i></span>
+          <span class="star" data-value="5"><i class="fa fa-star"></i></span>
+        </div>
+        <input type="hidden" id="reviewRating" value="0" required />
+        <button type="submit" class="submit-btn">Submit</button>
+      </form>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="logo">
+          <img src="../assets/logos/logo.svg" style="width: 50px" alt="Bike Builders Logo" />
+        </div>
+        <p
+          data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride.">
+          Bike Builder is bringing you the future of bike riding today. We are
+          providing best second-hand bikes, and easy buying and selling
+          experience. Find the best second-hand bikes at reasonable pricing,
+          and hassle-free ownership. From buying to selling to servicing, we
+          ensure all our bikes are safe and enjoyable to ride.
+        </p>
+        <div class="footer-stars" style="margin: 10px 0">
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+        </div>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/share/1Ao18FYX8e/"><i class="fa-brands fa-facebook-f"
+              style="color: #0400ff"></i></a>
+          <a href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+            aria-label="Visit our Instagram profile"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" style="width: 20px"
+              alt="Instagram icon" /></a>
+          <a href="https://wa.me/918210283582"><i class="fa-brands fa-whatsapp" style="color: #00a841"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="Quick Links">Quick Links</h3>
+        <ul>
+          <li>
+            <a href="../index.html" data-translate="Home">Home</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your
+              Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/about-us.html" aria-label="About Bike Builders"
+              data-translate="About Us">About Us</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/book-a-bike.html" aria-label="Book Bike"
+              data-translate="Book Bike">Book
+              Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/latest-updates.html" data-translate="Updates">Updates</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/contact-us.html" data-translate="Contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="Resources">Resources</h3>
+        <ul>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/bike-finance.html" data-translate="Bike Finance">Bike Finance</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html" data-translate="Locations">Locations</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Brands</h3>
+        <ul>
+          <li><a href="../index.html">Hero</a></li>
+          <li><a href="../index.html">Bajaj</a></li>
+          <li><a href="../index.html">TVS</a></li>
+          <li><a href="../index.html">Royal Enfield</a></li>
+          <li><a href="../index.html">Honda</a></li>
+          <li><a href="../index.html">Yamaha</a></li>
+          <li><a href="../index.html">Suzuki</a></li>
+          <li><a href="../index.html">KTM</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+        <ul>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Patna</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Gaya</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Bhagalpur</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Muzaffarpur</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Darbhanga</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Purnia</a>
+          </li>
+          <li></li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Hajipur</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 data-translate="Contact Us">Contact Us</h3>
+        <p
+          data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002">
+          <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
+          Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
+          842002
+        </p>
+        <span itemprop="telephone">+91 8210283582 / 9835844897</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
+        &copy; 2023 Bike Builders. All rights reserved.
+      </p>
+      <a href="https://www.pixelatenest.com/" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed
+        By Pixelate Nest</a>
+    </div>
+  </footer>
+  <script src="../js/testimonials.js"></script>
+  <script>
+    // Dynamic testimonials fetch
+    document.addEventListener("DOMContentLoaded", function () {
+      const reviewModal = document.getElementById("reviewModal");
+      const closeReviewModalBtn = reviewModal.querySelector(".close");
+      closeReviewModalBtn.addEventListener("click", () => {
+        reviewModal.style.display = "none";
+      });
+      window.addEventListener("click", function (event) {
+        if (event.target == reviewModal) {
+          reviewModal.style.display = "none";
+        }
+      });
+      // Star rating logic
+      const stars = reviewModal.querySelectorAll(".star");
+      const ratingInput = document.getElementById("reviewRating");
+      stars.forEach((star) => {
+        star.addEventListener("click", function () {
+          const val = this.getAttribute("data-value");
+          ratingInput.value = val;
+          stars.forEach((s, i) => {
+            s.classList.toggle("selected", i < val);
+          });
+        });
+      });
+      // Submit review
+      const reviewForm = document.getElementById("reviewForm");
+      reviewForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("reviewName").value.trim();
+        const message = document.getElementById("reviewMessage").value.trim();
+        const rating = Number(document.getElementById("reviewRating").value);
+        if (!name || !message || !rating) {
+          alert("Please fill all fields and select a rating.");
+          return;
+        }
+        fetch("https://bike-builders-backend.vercel.app/api/reviews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, message, rating }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              reviewModal.style.display = "none";
+              reviewForm.reset();
+              ratingInput.value = 0;
+              stars.forEach((s) => s.classList.remove("selected"));
+              fetchTestimonials();
+            } else {
+              alert("Failed to submit review.");
+            }
+          })
+          .catch(() => alert("Failed to submit review."));
+      });
+      // Open modal button (add anywhere you want, e.g. after testimonials)
+      const openBtn = document.createElement("button");
+      openBtn.className = "review-btn";
+      openBtn.onclick = () => {
+        reviewModal.style.display = "block";
+      };
+      document.querySelector(".testimonials-section").appendChild(openBtn);
+      // Make footer stars open the review modal and pre-select rating
+      const footerStars = document.querySelectorAll(".footer-stars .star");
+      footerStars.forEach((fs, idx) => {
+        fs.addEventListener("click", () => {
+          reviewModal.style.display = "block";
+          const ratingInput = document.getElementById("reviewRating");
+          const modalStars = reviewModal.querySelectorAll(".star");
+          const val = idx + 1;
+          if (ratingInput) ratingInput.value = val;
+          modalStars.forEach((s, i) =>
+            s.classList.toggle("selected", i < val),
+          );
+        });
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.createElement("button");
+      toggleBtn.className = "mobile-menu-toggle";
+      toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
+
+      const navbar = document.querySelector(".navbar");
+      navbar.appendChild(toggleBtn);
+
+      const mobileMenu = document.createElement("div");
+      mobileMenu.className = "mobile-menu";
+      mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
+          <ul class="nav-links">
+            <li><a href="../index.html" data-translate="Home">Home</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li>
+                  <a
+                    href="https://www.bikebuilders.in/pages/about-us.html"
+                    aria-label="About Bike Builders"
+                    data-translate="About Us"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a
+                    href="https://www.bikebuilders.in/pages/book-a-bike.html"
+                    aria-label="Book Bike"
+                    data-translate="Book Bike"
+                    >Book Bike</a
+                  >
+                </li>
+                      <li><a href="https://www.bikebuilders.in/pages/latest-updates.html" class="active" data-translate="Updates">Updates</a></li>
+              <li><a href="https://www.bikebuilders.in/pages/contact-us.html" data-translate="Contact">Contact</a></li>
+          </ul>
+          <div class="login-btn">
+            <button data-translate="Get the Quote">Get the Quote</button>
+          </div>
+          
+          `;
+
+      document.body.appendChild(mobileMenu);
+
+      // add bottom contact block to mobile menu
+
+      toggleBtn.addEventListener("click", function () {
+        mobileMenu.classList.add("active");
+      });
+
+      mobileMenu
+        .querySelector(".close-btn")
+        .addEventListener("click", function () {
+          mobileMenu.classList.remove("active");
+        });
+      const translations = {
+        en: {
+          "Latest Updates": "Latest Updates",
+          "Stay informed with the latest news, offers, and announcements from Bike Builders.":
+            "Stay informed with the latest news, offers, and announcements from Bike Builders.",
+          "View Offer": "View Offer",
+          "Learn More": "Learn More",
+          New: "New",
+          Sale: "Sale",
+          Event: "Event",
+          Festival: "Festival",
+          "No current offers available. Check back later!":
+            "Stay tuned for updates.",
+          "Stay tuned for updates.": "Stay tuned for updates.",
+          "Failed to load updates. Please try again later.":
+            "Failed to load updates. Please try again later.",
+        },
+        hi: {
+          "Latest Updates": "नवीनतम अपडेट",
+          "Stay informed with the latest news, offers, and announcements from Bike Builders.":
+            "Bike Builders के नवीनतम समाचार, ऑफ़र और घोषणाओं के बारे में जानकारी रखें।",
+          "View Offer": "ऑफ़र देखें",
+          "Learn More": "और जानें",
+          New: "नया",
+          Sale: "बिक्री",
+          Event: "कार्यक्रम",
+          Festival: "त्योहार",
+          "No current offers available. Check back later!":
+            "जल्द ही अपडेट के लिए बने रहें।",
+          "Stay tuned for updates.": "जल्द ही अपडेट के लिए बने रहें।",
+          "Failed to load updates. Please try again later.":
+            "अपडेट लोड करने में विफल। कृपया बाद में पुनः प्रयास करें।",
+        },
+      };
+
+      const preferredLanguage =
+        localStorage.getItem("preferredLanguage") || "en";
+
+      function translateText() {
+        if (preferredLanguage !== "en") {
+          document.body.classList.add("hindi-font");
+          const elements = document.querySelectorAll("[data-translate]");
+          elements.forEach((element) => {
+            const key = element.getAttribute("data-translate");
+            if (
+              translations[preferredLanguage] &&
+              translations[preferredLanguage][key]
+            ) {
+              element.textContent = translations[preferredLanguage][key];
+            }
+          });
+        }
+      }
+
+      translateText();
+
+      // Determine API base dynamically (same logic as other pages)
+      const API_BASE = (function () {
+        try {
+          const host = window.location.hostname;
+          if (host === "localhost") {
+            return `${window.location.protocol}//${host}:2500`;
+          }
+        } catch (e) {
+          // ignore
+        }
+        return "https://bike-builders-backend.vercel.app";
+      })();
+
+      function normalizeImageUrl(url) {
+        if (!url) return url;
+        if (
+          /^https?:\/\//i.test(url) ||
+          url.startsWith("data:") ||
+          url.startsWith("//")
+        )
+          return url;
+        if (url.startsWith("/")) return API_BASE + url;
+        return API_BASE + "/uploads/" + url.replace(/^\/+/, "");
+      }
+
+      // Fetch backend config first to determine whether Cloudinary is enabled.
+      fetch(API_BASE + "/api/config")
+        .then((r) => r.json())
+        .then((cfg) => {
+          const USE_CLOUDINARY = cfg && cfg.success && cfg.cloudinary;
+          return fetch(API_BASE + "/api/updates")
+            .then((res) => {
+              if (!res.ok) throw new Error("Network response was not ok");
+              return res.json();
+            })
+            .then((updates) => ({ updates, USE_CLOUDINARY }));
+        })
+        .catch((cfgErr) => {
+          // On config failure, fetch updates without cloud filtering
+          return fetch(API_BASE + "/api/updates")
+            .then((res) => {
+              if (!res.ok) throw new Error("Network response was not ok");
+              return res.json();
+            })
+            .then((updates) => ({ updates, USE_CLOUDINARY: false }));
+        })
+        .then(({ updates, USE_CLOUDINARY }) => {
+          const container = document.getElementById("updates-container");
+          container.innerHTML = "";
+
+          if (!updates || updates.length === 0) {
+            container.innerHTML = `
+                <p class="no-offers" data-translate="No current offers available. Check back later!">
+                  ${translations[preferredLanguage]["No current offers available. Check back later!"]}
+                </p>
+              `;
+            return;
+          }
+
+          // Render updates, skipping local posters if cloud is enabled
+          const visibleUpdates = updates.filter((u) => {
+            const posterUrl = normalizeImageUrl(u.poster);
+            if (!posterUrl) return false;
+            if (USE_CLOUDINARY) return /^https?:\/\//i.test(posterUrl);
+            return true;
+          });
+
+          if (visibleUpdates.length === 0) {
+            container.innerHTML = `
+                <p class="no-offers" data-translate="No current offers available. Check back later!">
+                  ${translations[preferredLanguage]["No current offers available. Check back later!"]}
+                </p>
+              `;
+            return;
+          }
+
+          visibleUpdates.forEach((u, index) => {
+            const date = new Date(u.createdAt).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            });
+
+            const card = document.createElement("div");
+            card.className = "update-card";
+            card.style.animationDelay = `${index * 0.05}s`;
+            card.innerHTML = `
+                <img src="${normalizeImageUrl(u.poster)}" alt="${u.title
+              }" class="update-poster" />
+                <div class="update-meta">
+                  <div class="update-date">${date}</div>
+                  <h3 class="update-title">${u.title}</h3>
+                  ${u.link
+                ? `<a href="${u.link}" class="update-link">Learn more</a>`
+                : ""
+              }
+                </div>
+              `;
+            container.appendChild(card);
+          });
+        })
+        .catch((error) => {
+          console.error("Error fetching updates:", error);
+          const container = document.getElementById("updates-container");
+          container.innerHTML = `
+              <p class="error-message" data-translate="Failed to load updates. Please try again later.">
+                ${translations[preferredLanguage]["Failed to load updates. Please try again later."]}
+              </p>
+            `;
+        });
+    });
+    // Dark / Light theme toggle initialization
+    (function () {
+      const toggle = document.getElementById("darkModeToggle");
+      if (!toggle) return;
+      const THEME_KEY = "bb_theme";
+      const apply = (theme) => {
+        const isDark = theme === "dark";
+        document.documentElement.classList.toggle("dark-theme", isDark);
+        document.documentElement.setAttribute("data-theme", theme);
+        toggle.checked = isDark;
+      };
+
+      const stored = localStorage.getItem(THEME_KEY);
+      if (stored) apply(stored);
+      else {
+        const prefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+        apply(prefersDark ? "dark" : "light");
+      }
+
+      toggle.addEventListener("change", () => {
+        const newTheme = toggle.checked ? "dark" : "light";
+        apply(newTheme);
+        localStorage.setItem(THEME_KEY, newTheme);
+      });
+
+      // If user hasn't selected a preference, follow system changes
+      try {
+        const mql = window.matchMedia("(prefers-color-scheme: dark)");
+        mql.addEventListener &&
+          mql.addEventListener("change", (e) => {
+            if (!localStorage.getItem(THEME_KEY))
+              apply(e.matches ? "dark" : "light");
+          });
+      } catch (e) {
+        /* ignore */
+      }
+    })();
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const darkModeToggle = document.getElementById("darkModeToggle");
+      const mobileDarkModeToggle = document.getElementById(
+        "mobileDarkModeToggle",
+      );
+
+      // Check for saved user preference or system preference
+      function checkDarkModePreference() {
+        const savedTheme = localStorage.getItem("theme");
+        const systemPrefersDark =
+          window.matchMedia &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+        if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
+          document.body.classList.add("dark-mode");
+          if (darkModeToggle) darkModeToggle.checked = true;
+          if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+        }
+      }
+
+      // Initialize dark mode
+      checkDarkModePreference();
+
+      // Desktop toggle
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener("change", function () {
+          if (this.checked) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+          } else {
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("theme", "light");
+          }
+          // Sync mobile toggle
+          if (mobileDarkModeToggle) {
+            mobileDarkModeToggle.checked = this.checked;
+          }
+        });
+      }
+
+      // Mobile toggle
+      if (mobileDarkModeToggle) {
+        mobileDarkModeToggle.addEventListener("change", function () {
+          if (this.checked) {
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+          } else {
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("theme", "light");
+          }
+          // Sync desktop toggle
+          if (darkModeToggle) {
+            darkModeToggle.checked = this.checked;
+          }
+        });
+      }
+
+      // Watch for system theme changes
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (e) => {
+          const newColorScheme = e.matches ? "dark" : "light";
+          if (!localStorage.getItem("theme")) {
+            // Only if user hasn't set a preference
+            if (newColorScheme === "dark") {
+              document.body.classList.add("dark-mode");
+              if (darkModeToggle) darkModeToggle.checked = true;
+              if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
+            } else {
+              document.body.classList.remove("dark-mode");
+              if (darkModeToggle) darkModeToggle.checked = false;
+              if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
+            }
+          }
+        });
+    });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Get modal elements
+      const whatsappModal = document.getElementById("whatsappModal");
+      const callModal = document.getElementById("callModal");
+
+      // Get trigger buttons
+      const whatsappTrigger = document.getElementById("whatsappTrigger");
+      const callTrigger = document.getElementById("callTrigger");
+
+      // Get close buttons
+      const closeButtons = document.getElementsByClassName("close");
+
+      // When user clicks WhatsApp button
+      whatsappTrigger.addEventListener("click", function (e) {
+        e.preventDefault();
+        whatsappModal.style.display = "block";
+      });
+
+      // When user clicks Call button
+      callTrigger.addEventListener("click", function (e) {
+        e.preventDefault();
+        callModal.style.display = "block";
+      });
+
+      // When user clicks on close button
+      Array.from(closeButtons).forEach((button) => {
+        button.addEventListener("click", function () {
+          whatsappModal.style.display = "none";
+          callModal.style.display = "none";
+        });
+      });
+
+      // When user clicks outside the modal
+      window.addEventListener("click", function (event) {
+        if (event.target == whatsappModal) {
+          whatsappModal.style.display = "none";
+        }
+        if (event.target == callModal) {
+          callModal.style.display = "none";
+        }
+      });
+
+      // Handle number selection for WhatsApp
+      const whatsappOptions =
+        whatsappModal.querySelectorAll(".number-option");
+      whatsappOptions.forEach((option) => {
+        option.addEventListener("click", function () {
+          const number = this.getAttribute("data-number");
+          window.open(`https://wa.me/${number}`, "_blank");
+          whatsappModal.style.display = "none";
+        });
+      });
+
+      // Handle number selection for Call
+      const callOptions = callModal.querySelectorAll(".number-option");
+      callOptions.forEach((option) => {
+        option.addEventListener("click", function () {
+          const number = this.getAttribute("data-number");
+          window.location.href = `tel:${number}`;
+          callModal.style.display = "none";
+        });
+      });
+    });
+  </script>
+
+  <div class="floating-buttons">
+    <a href="https://wa.me/918210283582" class="floating-btn whatsapp-btn" data-tooltip="Chat on WhatsApp"
+      aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp fa-bounce"></i>
+    </a>
+
+    <!-- YouTube Button (unchanged) -->
+    <a href="https://youtube.com/@bikebuilders-vo2nm?feature=shared" class="floating-btn youtube-btn"
+      data-tooltip="Watch on YouTube" aria-label="Watch on YouTube">
+      <i class="fa-brands fa-youtube fa-beat-fade" style="color: #ff0000"></i>
+    </a>
+
+    <!-- Call Button -->
+    <a href="tel:+918210283582" class="floating-btn call-btn" data-tooltip="Call Us" aria-label="Call Us"
+      id="callTrigger">
+      <i class="fa-solid fa-phone-volume fa-shake"></i>
+    </a>
+    <a href="https://www.google.com/maps/place/Bike+builders/@26.1159711,85.3999381,17z/data=!3m1!4b1!4m6!3m5!1s0x39ed11b964ff11bf:0x188a2d7e1473af0b!8m2!3d26.1159664!4d85.404809!16s%2Fg%2F11wftsdzy6?entry=ttu&g_ep=EgoyMDI1MDUyMS4wIKXMDSoASAFQAw%3D%3D"
+      class="floating-btn call-btn" data-tooltip="Visit Us" aria-label="Visit Us">
+      <i class="fa-solid fa-motorcycle fa-shake"></i>
+    </a>
+  </div>
+
+
+
+
+</body>
+
+</html>

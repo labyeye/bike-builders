@@ -7,16 +7,16 @@
     <link
       rel="icon"
       type="image/png"
-      href="./assets/favicon-96x96.png"
+      href="../../assets/icons/favicon-96x96.png"
       sizes="96x96"
     />
-    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
-    <link rel="shortcut icon" href="./assets/favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg" />
+    <link rel="shortcut icon" href="../../assets/icons/favicon.ico" />
 
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="./assets/apple-touch-icon.png"
+      href="../../assets/icons/apple-touch-icon.png"
     />
 
     <link rel="manifest" href="/site.webmanifest" />
@@ -36,7 +36,7 @@
     <meta name="robots" content="index, follow" />
     <link
       rel="canonical"
-      href="https://www.bikebuilders.in/location-bihar-city.html"
+      href="https://www.bikebuilders.in/pages/locations/city-detail.html"
     />
     <link
       rel="sitemap"
@@ -58,7 +58,7 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Bike Builders",
-        "url": "https://www.bikebuilders.in/locations-bihar.html",
+        "url": "https://www.bikebuilders.in/pages/locations/bihar.html",
         "telephone": "+918210283582",
         "address": {
           "@type": "PostalAddress",
@@ -71,8 +71,8 @@
         "areaServed": ["Muzaffarpur", "Bihar"]
       }
     </script>
-    <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./location-bihar.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="../../css/locations-bihar.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -87,7 +87,7 @@
       }
       async function renderCity() {
         const slug = getQueryParam("city");
-        const dataUrl = "./location-bihar-cities.json";
+        const dataUrl = "./../../data/bihar-cities.json";
         try {
           const res = await fetch(dataUrl);
           const cities = await res.json();
@@ -97,7 +97,7 @@
           if (!city) {
             document.title = "City not found — Bike Builders";
             document.getElementById("main").innerHTML =
-              '<p>City not found. <a href="https://www.bikebuilders.in/locations-bihar.html">Back to locations</a></p>';
+              '<p>City not found. <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Back to locations</a></p>';
             return;
           }
           document.title =
@@ -151,8 +151,8 @@
               ${descriptionHtml}
             </header>
             <section class="city-actions">
-              <a href="./inventory.html" class="btn">Browse Second-Hand Bikes in ${city.name}</a>
-              <a href="./contact.html" class="btn-outline">Visit ${city.name} Showroom</a>
+              <a href="bike-inventory.html" class="btn">Browse Second-Hand Bikes in ${city.name}</a>
+              <a href="contact-us.html" class="btn-outline">Visit ${city.name} Showroom</a>
             </section>
             
           `;
@@ -261,10 +261,10 @@
   </head>
   <body>
     <nav class="navbar" aria-label="Main navigation">
-      <a href="https://www.bikebuilders.in/" class="logo-link"
+      <a href="../../index.html" class="logo-link"
         ><div class="logo">
           <img
-            src="./assets/logo2.svg"
+            src="../../assets/logos/logo.svg"
             class="logo-img"
             alt="Bike Builders Logo"
             itemprop="logo"
@@ -273,7 +273,7 @@
       <ul class="nav-links">
         <li>
           <a
-            href="https://www.bikebuilders.in/"
+            href="../../index.html"
             class="active"
             aria-current="page"
             data-translate="Home"
@@ -282,21 +282,21 @@
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/inventory.html"
+            href="https://www.bikebuilders.in/pages/bike-inventory.html"
             data-translate="Buy Bike"
             >Buy Bike</a
           >
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/sell.html"
+            href="https://www.bikebuilders.in/pages/sell-your-bike.html"
             data-translate="Sell Your Bike"
             >Sell Your Bike</a
           >
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/about.html"
+            href="https://www.bikebuilders.in/pages/about-us.html"
             aria-label="About Bike Builders"
             data-translate="About Us"
             >About Us</a
@@ -304,7 +304,7 @@
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/book.html"
+            href="https://www.bikebuilders.in/pages/book-a-bike.html"
             aria-label="Book Bike"
             data-translate="Book Bike"
             >Book Bike</a
@@ -312,7 +312,7 @@
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/finance.html"
+            href="https://www.bikebuilders.in/pages/bike-finance.html"
             aria-label="Bike Finance"
             data-translate="Bike Finance"
             >Bike Finance</a
@@ -320,14 +320,14 @@
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/updates.html"
+            href="https://www.bikebuilders.in/pages/latest-updates.html"
             data-translate="Updates"
             >Updates</a
           >
         </li>
         <li>
           <a
-            href="https://www.bikebuilders.in/contact.html"
+            href="https://www.bikebuilders.in/pages/contact-us.html"
             data-translate="Contact"
             >Contact</a
           >
@@ -357,7 +357,7 @@
         <div class="footer-section">
           <div class="logo">
             <img
-              src="./assets/logo2.svg"
+              src="../../assets/logos/logo.svg"
               style="width: 50px"
               alt="Bike Builders Logo"
             />
@@ -409,27 +409,27 @@
           <h3 data-translate="Quick Links">Quick Links</h3>
           <ul>
             <li>
-              <a href="https://www.bikebuilders.in/" data-translate="Home"
+              <a href="../../index.html" data-translate="Home"
                 >Home</a
               >
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/inventory.html"
+                href="https://www.bikebuilders.in/pages/bike-inventory.html"
                 data-translate="Buy Bike"
                 >Buy Bike</a
               >
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/sell.html"
+                href="https://www.bikebuilders.in/pages/sell-your-bike.html"
                 data-translate="Sell Your Bike"
                 >Sell Your Bike</a
               >
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/about.html"
+                href="https://www.bikebuilders.in/pages/about-us.html"
                 aria-label="About Bike Builders"
                 data-translate="About Us"
                 >About Us</a
@@ -437,7 +437,7 @@
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/book.html"
+                href="https://www.bikebuilders.in/pages/book-a-bike.html"
                 aria-label="Book Bike"
                 data-translate="Book Bike"
                 >Book Bike</a
@@ -445,14 +445,14 @@
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/updates.html"
+                href="https://www.bikebuilders.in/pages/latest-updates.html"
                 data-translate="Updates"
                 >Updates</a
               >
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/contact.html"
+                href="https://www.bikebuilders.in/pages/contact-us.html"
                 data-translate="Contact"
                 >Contact</a
               >
@@ -464,14 +464,14 @@
           <ul>
             <li>
               <a
-                href="https://www.bikebuilders.in/finance.html"
+                href="https://www.bikebuilders.in/pages/bike-finance.html"
                 data-translate="Bike Finance"
                 >Bike Finance</a
               >
             </li>
             <li>
               <a
-                href="https://www.bikebuilders.in/locations-bihar.html"
+                href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 data-translate="Locations"
                 >Locations</a
               >
@@ -481,14 +481,14 @@
         <div class="footer-section">
           <h3>Brands</h3>
           <ul>
-            <li><a href="https://www.bikebuilders.in/">Hero</a></li>
-            <li><a href="https://www.bikebuilders.in/">Bajaj</a></li>
-            <li><a href="https://www.bikebuilders.in/">TVS</a></li>
-            <li><a href="https://www.bikebuilders.in/">Royal Enfield</a></li>
-            <li><a href="https://www.bikebuilders.in/">Honda</a></li>
-            <li><a href="https://www.bikebuilders.in/">Yamaha</a></li>
-            <li><a href="https://www.bikebuilders.in/">Suzuki</a></li>
-            <li><a href="https://www.bikebuilders.in/">KTM</a></li>
+            <li><a href="../../index.html">Hero</a></li>
+            <li><a href="../../index.html">Bajaj</a></li>
+            <li><a href="../../index.html">TVS</a></li>
+            <li><a href="../../index.html">Royal Enfield</a></li>
+            <li><a href="../../index.html">Honda</a></li>
+            <li><a href="../../index.html">Yamaha</a></li>
+            <li><a href="../../index.html">Suzuki</a></li>
+            <li><a href="../../index.html">KTM</a></li>
           </ul>
         </div>
 
@@ -496,38 +496,38 @@
           <h3 data-translate="Locations We Serve">Locations We Serve</h3>
           <ul>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Patna</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Gaya</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Bhagalpur</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Second-Hand Bikes in Muzaffarpur</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Darbhanga</a
               >
             </li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Purnia</a
               >
             </li>
             <li></li>
             <li>
-              <a href="https://www.bikebuilders.in/locations-bihar.html"
+              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
                 >Used Bike In Hajipur</a
               >
             </li>

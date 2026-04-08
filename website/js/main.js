@@ -102,12 +102,12 @@ function initMobileMenu() {
   mobileMenu.className = "mobile-menu";
   mobileMenu.innerHTML = `<button class="close-btn"><i class="fas fa-times"></i></button>
           <ul class="nav-links">
-            <li><a href="https://www.bikebuilders.in/" class="active" data-translate="Home">Home</a></li>
-            <li><a href="https://www.bikebuilders.in/inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
-            <li><a href="https://www.bikebuilders.in/sell.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
-            <li><a href="https://www.bikebuilders.in/about.html" aria-label="About Bike Builders" data-translate="About Us">About Us</a></li>
-            <li><a href="https://www.bikebuilders.in/book.html" aria-label="Book Bike" data-translate="Book Bike">Book Bike</a></li>
-            <li><a href="https://www.bikebuilders.in/updates.html" data-translate="Updates">Updates</a></li>
+            <li><a href="./index.html" class="active" data-translate="Home">Home</a></li>
+            <li><a href="./index.htmlpages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a></li>
+            <li><a href="./index.htmlpages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your Bike</a></li>
+            <li><a href="./index.htmlpages/about-us.html" aria-label="About Bike Builders" data-translate="About Us">About Us</a></li>
+            <li><a href="./index.htmlpages/book-a-bike.html" aria-label="Book Bike" data-translate="Book Bike">Book Bike</a></li>
+            <li><a href="./index.htmlpages/latest-updates.html" data-translate="Updates">Updates</a></li>
           </ul>
           <div class="login-btn"><button data-translate="Get the Quote">Get the Quote</button></div>`;
 
@@ -693,7 +693,7 @@ function displayFeaturedBikes(bikes) {
       bikeCard
         .querySelector(".view-details-btn")
         .addEventListener("click", () => {
-          window.location.href = `inventory.html#${bike._id || ""}`;
+          window.location.href = `bike-inventory.html#${bike._id || ""}`;
         });
     }
   });

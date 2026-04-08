@@ -200,14 +200,14 @@ function carIdFromQuery() {
           const main = document.querySelector(".vehicle-main-section");
           if (main)
             main.innerHTML =
-              '<div style="padding:40px;text-align:center;"><h2>Vehicle not found</h2><p>The requested vehicle could not be loaded.</p><a href="inventory.html" class="add-to-cart-btn" style="display:inline-block;max-width:240px;margin-top:12px;">Back to inventory</a></div>';
+              '<div style="padding:40px;text-align:center;"><h2>Vehicle not found</h2><p>The requested vehicle could not be loaded.</p><a href="bike-inventory.html" class="add-to-cart-btn" style="display:inline-block;max-width:240px;margin-top:12px;">Back to inventory</a></div>';
         }
       })
       .catch(() => {
         const main = document.querySelector(".vehicle-main-section");
         if (main)
           main.innerHTML =
-            '<div style="padding:40px;text-align:center;"><h2>Unable to load vehicle</h2><p>Please check your internet connection or try again later.</p><a href="inventory.html" class="add-to-cart-btn" style="display:inline-block;max-width:240px;margin-top:12px;">Back to inventory</a></div>';
+            '<div style="padding:40px;text-align:center;"><h2>Unable to load vehicle</h2><p>Please check your internet connection or try again later.</p><a href="bike-inventory.html" class="add-to-cart-btn" style="display:inline-block;max-width:240px;margin-top:12px;">Back to inventory</a></div>';
       });
   }
 })();
@@ -302,14 +302,14 @@ fetch(`${API_BASE_URL}/api/bikes`)
             viewDetailsBtn.onclick = (e) => {
               e.stopPropagation();
               const carQuery = encodeURIComponent(JSON.stringify(car));
-              window.location.href = `vehicledetail.html?car=${carQuery}`;
+              window.location.href = `vehicle-details.html?car=${carQuery}`;
             };
           }
 
           if (contactBtn && !contactBtn.disabled) {
             contactBtn.onclick = (e) => {
               e.stopPropagation();
-              window.location.href = "contact.html";
+              window.location.href = "contact-us.html";
             };
           }
         }, 0);
@@ -496,19 +496,19 @@ function initializeMobileMenu() {
         </a>
       </li>
       <li>
-        <a href="inventory.html">
+        <a href="bike-inventory.html">
           <i class="fas fa-motorcycle"></i> 
           <span data-translate="Buy Car">Buy Car</span>
         </a>
       </li>
       <li>
-        <a href="sell.html">
+        <a href="sell-your-bike.html">
           <i class="fas fa-dollar-sign"></i>
           <span data-translate="Sell Your Car">Sell Your Car</span>
         </a>
       </li>
       <li>
-        <a href="about.html">
+        <a href="about-us.html">
           <i class="fas fa-info-circle"></i>
           <span data-translate="About Us">About Us</span>
         </a>
@@ -520,7 +520,7 @@ function initializeMobileMenu() {
         </a>
       </li>
       <li>
-        <a href="contact.html">
+        <a href="contact-us.html">
           <i class="fas fa-envelope"></i>
           <span data-translate="Contact">Contact</span>
         </a>
