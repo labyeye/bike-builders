@@ -1,0 +1,17 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "**Bike Builder** is an interactive web application that allows users to visually customize and build their dream motorcycle. Built using HTML, CSS, and JavaScript, this project is designed to be responsive, user-friendly, and visually engaging.",
+  "main": "convert-to-webp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "path": "^0.12.7",
+    "sharp": "^0.34.5"
+  }
+}

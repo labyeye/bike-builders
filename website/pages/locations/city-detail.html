@@ -1,59 +1,34 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link
-      rel="icon"
-      type="image/png"
-      href="../../assets/icons/favicon-96x96.png"
-      sizes="96x96"
-    />
-    <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg" />
-    <link rel="shortcut icon" href="../../assets/icons/favicon.ico" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="../../assets/icons/apple-touch-icon.png"
-    />
+  <link rel="icon" type="image/png" href="../../assets/icons/favicon-96x96.webp" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="../../assets/icons/favicon.svg" />
+  <link rel="shortcut icon" href="../../assets/icons/favicon.ico" />
 
-    <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#000000" />
-    <meta property="og:site_name" content="Bike Builders" />
-    <meta name="application-name" content="Bike Builders" />
-    <meta name="apple-mobile-web-app-title" content="Bike Builders" />
-    <title>City — Bike Builders</title>
-    <meta
-      name="description"
-      content="Bike Builders — city listings for second hand bikes."
-    />
-    <meta
-      name="keywords"
-      content="second hand bikes, used bikes, pre-owned motorcycles, buy used bike, used bike Muzaffarpur, used bike Patna, buy used bike near me, inspected used bikes"
-    />
-    <meta name="robots" content="index, follow" />
-    <link
-      rel="canonical"
-      href="https://www.bikebuilders.in/pages/locations/city-detail.html"
-    />
-    <link
-      rel="sitemap"
-      href="https://www.bikebuilders.in/sitemap.xml"
-      type="application/xml"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Second Hand Bikes — Bike Builders" />
-    <meta
-      name="twitter:description"
-      content="Find second hand bikes in your city with Bike Builders — verified pre-owned motorcycles, inspections and local support."
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.bikebuilders.in/assets/social-preview.jpg"
-    />
-    <script type="application/ld+json">
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/icons/apple-touch-icon.webp" />
+
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#000000" />
+  <meta property="og:site_name" content="Bike Builders" />
+  <meta name="application-name" content="Bike Builders" />
+  <meta name="apple-mobile-web-app-title" content="Bike Builders" />
+  <title>City — Bike Builders</title>
+  <meta name="description" content="Bike Builders — city listings for second hand bikes." />
+  <meta name="keywords"
+    content="second hand bikes, used bikes, pre-owned motorcycles, buy used bike, used bike Muzaffarpur, used bike Patna, buy used bike near me, inspected used bikes" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.bikebuilders.in/pages/locations/city-detail.html" />
+  <link rel="sitemap" href="https://www.bikebuilders.in/sitemap.xml" type="application/xml" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Second Hand Bikes — Bike Builders" />
+  <meta name="twitter:description"
+    content="Find second hand bikes in your city with Bike Builders — verified pre-owned motorcycles, inspections and local support." />
+  <meta name="twitter:image" content="https://www.bikebuilders.in/assets/social-preview.webp" />
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
@@ -71,81 +46,77 @@
         "areaServed": ["Muzaffarpur", "Bihar"]
       }
     </script>
-    <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="../../css/locations-bihar.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/locations-bihar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- slider styles moved to location-bihar.css -->
+  <!-- slider styles moved to location-bihar.css -->
 
-    <script>
-      function getQueryParam(name) {
-        const params = new URLSearchParams(window.location.search);
-        return params.get(name);
-      }
-      async function renderCity() {
-        const slug = getQueryParam("city");
-        const dataUrl = "./../../data/bihar-cities.json";
-        try {
-          const res = await fetch(dataUrl);
-          const cities = await res.json();
-          const city = cities.find(
-            (c) => c.slug === slug || c.slug === (slug || "").toLowerCase(),
-          );
-          if (!city) {
-            document.title = "City not found — Bike Builders";
-            document.getElementById("main").innerHTML =
-              '<p>City not found. <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Back to locations</a></p>';
-            return;
-          }
-          document.title =
-            city.name +
-            " — Second-Hand Bikes | Certified Used Bikes at Best Price | Bike Builders";
-          const desc = document.querySelector('meta[name="description"]');
-          if (desc)
-            desc.setAttribute(
-              "content",
-              city.description ||
-                `Buy certified second-hand bikes in ${city.name} at best price. Quality inspection, RTO transfer support, and easy finance options. Trusted by riders across ${city.name}.`,
-            );
-          let kw = document.querySelector('meta[name="keywords"]');
-          if (!kw) {
-            kw = document.createElement("meta");
-            kw.setAttribute("name", "keywords");
-            document.head.appendChild(kw);
-          }
-          kw.setAttribute(
+  <script>
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name);
+    }
+    async function renderCity() {
+      const slug = getQueryParam("city");
+      const dataUrl = "./../../data/bihar-cities.json";
+      try {
+        const res = await fetch(dataUrl);
+        const cities = await res.json();
+        const city = cities.find(
+          (c) => c.slug === slug || c.slug === (slug || "").toLowerCase(),
+        );
+        if (!city) {
+          document.title = "City not found — Bike Builders";
+          document.getElementById("main").innerHTML =
+            '<p>City not found. <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Back to locations</a></p>';
+          return;
+        }
+        document.title =
+          city.name +
+          " — Second-Hand Bikes | Certified Used Bikes at Best Price | Bike Builders";
+        const desc = document.querySelector('meta[name="description"]');
+        if (desc)
+          desc.setAttribute(
             "content",
-            city.keywords ||
-              `second hand bike in ${city.name}, used bike ${city.name}`,
+            city.description ||
+            `Buy certified second-hand bikes in ${city.name} at best price. Quality inspection, RTO transfer support, and easy finance options. Trusted by riders across ${city.name}.`,
           );
-          let link = document.querySelector('link[rel="canonical"]');
-          if (!link) {
-            link = document.createElement("link");
-            link.setAttribute("rel", "canonical");
-            document.head.appendChild(link);
-          }
+        let kw = document.querySelector('meta[name="keywords"]');
+        if (!kw) {
+          kw = document.createElement("meta");
+          kw.setAttribute("name", "keywords");
+          document.head.appendChild(kw);
+        }
+        kw.setAttribute(
+          "content",
+          city.keywords ||
+          `second hand bike in ${city.name}, used bike ${city.name}`,
+        );
+        let link = document.querySelector('link[rel="canonical"]');
+        if (!link) {
+          link = document.createElement("link");
+          link.setAttribute("rel", "canonical");
+          document.head.appendChild(link);
+        }
 
-          const container = document.getElementById("main");
-          const keywordsText = (city.keywords || "")
-            .split(",")
-            .map((k) => k.trim())
-            .filter(Boolean);
-          const seoExtra = keywordsText.length
-            ? `Looking for ${keywordsText
-                .slice(0, 3)
-                .join(
-                  ", ",
-                )} or related options? We offer a wide range of models in ${city.name}. From daily commuter bikes to touring motorcycles, all bikes are thoroughly inspected. We provide quality checks, transparent pricing, and flexible finance options. Buy with confidence.`
-            : `We offer a wide range of inspected pre-owned bikes with local support, transparent pricing and easy financing.`;
+        const container = document.getElementById("main");
+        const keywordsText = (city.keywords || "")
+          .split(",")
+          .map((k) => k.trim())
+          .filter(Boolean);
+        const seoExtra = keywordsText.length
+          ? `Looking for ${keywordsText
+            .slice(0, 3)
+            .join(
+              ", ",
+            )} or related options? We offer a wide range of models in ${city.name}. From daily commuter bikes to touring motorcycles, all bikes are thoroughly inspected. We provide quality checks, transparent pricing, and flexible finance options. Buy with confidence.`
+          : `We offer a wide range of inspected pre-owned bikes with local support, transparent pricing and easy financing.`;
 
-          const descriptionHtml = `<p class="city-description">${
-            city.description || ""
+        const descriptionHtml = `<p class="city-description">${city.description || ""
           }</p><p class="city-description-more">${seoExtra}</p>`;
 
-          container.innerHTML = `
+        container.innerHTML = `
             <header class="city-header">
               <h1>Second-Hand Bikes in ${city.name} – Certified Used Bikes at Best Price</h1>
               ${descriptionHtml}
@@ -156,15 +127,15 @@
             </section>
             
           `;
-        } catch (err) {
-          document.getElementById("main").innerHTML =
-            "<p>Failed to load city data. Please try again later.</p>";
-        }
-        // If listings are present, render a responsive slider similar to the index page
-        if (city.listings && city.listings.length) {
-          const listingsSection = document.createElement("section");
-          listingsSection.className = "city-listings wrap";
-          listingsSection.innerHTML = `
+      } catch (err) {
+        document.getElementById("main").innerHTML =
+          "<p>Failed to load city data. Please try again later.</p>";
+      }
+      // If listings are present, render a responsive slider similar to the index page
+      if (city.listings && city.listings.length) {
+        const listingsSection = document.createElement("section");
+        listingsSection.className = "city-listings wrap";
+        listingsSection.innerHTML = `
                 <h2>Buy Certified Second-Hand Bikes in ${city.name}</h2>
                 <div class="listings-slider">
                   <button class="slider-nav prev" aria-label="Previous">&lt;</button>
@@ -173,14 +144,14 @@
                 </div>
                 <div class="listings-note">Prices shown are indicative and may vary after inspection. Contact us to confirm availability.</div>
               `;
-          container.appendChild(listingsSection);
+        container.appendChild(listingsSection);
 
-          const track = listingsSection.querySelector(".listings-track");
-          city.listings.forEach((bike) => {
-            const card = document.createElement("article");
-            card.className = "listing-card";
-            card.setAttribute("role", "listitem");
-            card.innerHTML = `
+        const track = listingsSection.querySelector(".listings-track");
+        city.listings.forEach((bike) => {
+          const card = document.createElement("article");
+          card.className = "listing-card";
+          card.setAttribute("role", "listitem");
+          card.innerHTML = `
                   <a class="listing-link" href="/inventory.html?city=${city.slug}&bike=${bike.id}">
                     <div class="listing-image-wrap">
                       <img loading="lazy" src="${bike.image}" alt="${bike.title} - Used bike showroom in ${city.name}" />
@@ -193,48 +164,48 @@
                     </div>
                   </a>
                 `;
-            track.appendChild(card);
-          });
+          track.appendChild(card);
+        });
 
-          // slider behaviour
-          const prev = listingsSection.querySelector(".slider-nav.prev");
-          const next = listingsSection.querySelector(".slider-nav.next");
-          function scrollByWidth() {
-            return Math.round(track.clientWidth * 0.9);
-          }
-          prev.addEventListener("click", () => {
-            track.scrollBy({ left: -scrollByWidth(), behavior: "smooth" });
-          });
-          next.addEventListener("click", () => {
-            track.scrollBy({ left: scrollByWidth(), behavior: "smooth" });
-          });
-
-          // touch drag for track
-          let isDown = false;
-          let startX;
-          let scrollLeft;
-          track.addEventListener("pointerdown", (e) => {
-            isDown = true;
-            startX = e.pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
-            track.setPointerCapture(e.pointerId);
-          });
-          track.addEventListener("pointermove", (e) => {
-            if (!isDown) return;
-            const x = e.pageX - track.offsetLeft;
-            const walk = x - startX;
-            track.scrollLeft = scrollLeft - walk;
-          });
-          track.addEventListener("pointerup", () => {
-            isDown = false;
-          });
-          track.addEventListener("pointerleave", () => {
-            isDown = false;
-          });
+        // slider behaviour
+        const prev = listingsSection.querySelector(".slider-nav.prev");
+        const next = listingsSection.querySelector(".slider-nav.next");
+        function scrollByWidth() {
+          return Math.round(track.clientWidth * 0.9);
         }
+        prev.addEventListener("click", () => {
+          track.scrollBy({ left: -scrollByWidth(), behavior: "smooth" });
+        });
+        next.addEventListener("click", () => {
+          track.scrollBy({ left: scrollByWidth(), behavior: "smooth" });
+        });
 
-        // append additional tips / SEO content
-        const additionalTips = `
+        // touch drag for track
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        track.addEventListener("pointerdown", (e) => {
+          isDown = true;
+          startX = e.pageX - track.offsetLeft;
+          scrollLeft = track.scrollLeft;
+          track.setPointerCapture(e.pointerId);
+        });
+        track.addEventListener("pointermove", (e) => {
+          if (!isDown) return;
+          const x = e.pageX - track.offsetLeft;
+          const walk = x - startX;
+          track.scrollLeft = scrollLeft - walk;
+        });
+        track.addEventListener("pointerup", () => {
+          isDown = false;
+        });
+        track.addEventListener("pointerleave", () => {
+          isDown = false;
+        });
+      }
+
+      // append additional tips / SEO content
+      const additionalTips = `
               <h2>Tips for Buying Used Bikes in ${city.name}</h2>
               <ul>
                 <li>Check service history and ownership papers before buying.</li>
@@ -244,319 +215,206 @@
                 <li>Visit us in Motijheel or request home delivery to your area.</li>
               </ul>
             `;
-        const seoSection = document.createElement("section");
-        seoSection.className = "city-seo wrap";
-        seoSection.innerHTML =
-          additionalTips +
-          `
+      const seoSection = document.createElement("section");
+      seoSection.className = "city-seo wrap";
+      seoSection.innerHTML =
+        additionalTips +
+        `
               <h2>Why Buy Second-Hand Bikes from Bike Builders in ${city.name}?</h2>
               <p>We inspect every bike thoroughly before sale. All legal documents are verified. Prices are transparent with no hidden charges. Our team assists with test rides and RTO documentation. We offer easy bike finance options. Our ${city.name} showroom serves riders across Motijheel, Ahiyapur, Kankarbagh, and Mithanpura. Trusted by hundreds of riders in ${city.name}.</p>
               <p><strong>Sell your bike too!</strong> Get the best price for your used bike. We handle all paperwork and RTO transfer. Visit our showroom or call us for a quick quote.</p>
             `;
-        container.appendChild(seoSection);
-      }
+      container.appendChild(seoSection);
+    }
 
-      document.addEventListener("DOMContentLoaded", renderCity);
-    </script>
-  </head>
-  <body>
-    <nav class="navbar" aria-label="Main navigation">
-      <a href="../../index.html" class="logo-link"
-        ><div class="logo">
-          <img
-            src="../../assets/logos/logo.svg"
-            class="logo-img"
-            alt="Bike Builders Logo"
-            itemprop="logo"
-          /></div
-      ></a>
-      <ul class="nav-links">
-        <li>
-          <a
-            href="../../index.html"
-            class="active"
-            aria-current="page"
-            data-translate="Home"
-            >Home</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/bike-inventory.html"
-            data-translate="Buy Bike"
-            >Buy Bike</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/sell-your-bike.html"
-            data-translate="Sell Your Bike"
-            >Sell Your Bike</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/about-us.html"
-            aria-label="About Bike Builders"
-            data-translate="About Us"
-            >About Us</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/book-a-bike.html"
-            aria-label="Book Bike"
-            data-translate="Book Bike"
-            >Book Bike</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/bike-finance.html"
-            aria-label="Bike Finance"
-            data-translate="Bike Finance"
-            >Bike Finance</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/latest-updates.html"
-            data-translate="Updates"
-            >Updates</a
-          >
-        </li>
-        <li>
-          <a
-            href="https://www.bikebuilders.in/pages/contact-us.html"
-            data-translate="Contact"
-            >Contact</a
-          >
-        </li>
-      </ul>
+    document.addEventListener("DOMContentLoaded", renderCity);
+  </script>
+</head>
 
-      <div class="theme-toggle">
-        <input
-          type="checkbox"
-          id="darkModeToggle"
-          aria-label="Toggle dark mode"
-        />
-        <label for="darkModeToggle" class="toggle-label">
-          <i class="fas fa-sun"></i>
-          <i class="fas fa-moon"></i>
-          <span class="toggle-ball"></span>
-        </label>
+<body>
+  <nav class="navbar" aria-label="Main navigation">
+    <a href="../../index.html" class="logo-link">
+      <div class="logo">
+        <img src="../../assets/logos/logo.svg" class="logo-img" alt="Bike Builders Logo" itemprop="logo" />
       </div>
-    </nav>
+    </a>
+    <ul class="nav-links">
+      <li>
+        <a href="../../index.html" class="active" aria-current="page" data-translate="Home">Home</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your
+          Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/about-us.html" aria-label="About Bike Builders"
+          data-translate="About Us">About Us</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/book-a-bike.html" aria-label="Book Bike"
+          data-translate="Book Bike">Book Bike</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/bike-finance.html" aria-label="Bike Finance"
+          data-translate="Bike Finance">Bike Finance</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/latest-updates.html" data-translate="Updates">Updates</a>
+      </li>
+      <li>
+        <a href="https://www.bikebuilders.in/pages/contact-us.html" data-translate="Contact">Contact</a>
+      </li>
+    </ul>
 
-    <main id="main" class="wrap">
-      <div class="loading">Loading...</div>
-    </main>
+    <div class="theme-toggle">
+      <input type="checkbox" id="darkModeToggle" aria-label="Toggle dark mode" />
+      <label for="darkModeToggle" class="toggle-label">
+        <i class="fas fa-sun"></i>
+        <i class="fas fa-moon"></i>
+        <span class="toggle-ball"></span>
+      </label>
+    </div>
+  </nav>
 
-    <footer class="footer">
-      <div class="footer-content">
-        <div class="footer-section">
-          <div class="logo">
-            <img
-              src="../../assets/logos/logo.svg"
-              style="width: 50px"
-              alt="Bike Builders Logo"
-            />
-          </div>
-          <p
-            data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride."
-          >
-            Bike Builder is bringing you the future of bike riding today. We are
-            providing best second-hand bikes, and easy buying and selling
-            experience. Find the best second-hand bikes at reasonable pricing,
-            and hassle-free ownership. From buying to selling to servicing, we
-            ensure all our bikes are safe and enjoyable to ride.
-          </p>
-          <div class="footer-stars" style="margin: 10px 0">
-            <span class="star" style="color: gold; font-size: 1.5em"
-              ><i class="fa fa-star"></i
-            ></span>
-            <span class="star" style="color: gold; font-size: 1.5em"
-              ><i class="fa fa-star"></i
-            ></span>
-            <span class="star" style="color: gold; font-size: 1.5em"
-              ><i class="fa fa-star"></i
-            ></span>
-            <span class="star" style="color: gold; font-size: 1.5em"
-              ><i class="fa fa-star"></i
-            ></span>
-            <span class="star" style="color: gold; font-size: 1.5em"
-              ><i class="fa fa-star"></i
-            ></span>
-          </div>
-          <div class="social-icons">
-            <a href="https://www.facebook.com/share/1Ao18FYX8e/"
-              ><i class="fa-brands fa-facebook-f" style="color: #0400ff"></i
-            ></a>
-            <a
-              href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
-              aria-label="Visit our Instagram profile"
-              ><img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
-                style="width: 20px"
-                alt="Instagram icon"
-            /></a>
-            <a href="https://wa.me/918210283582"
-              ><i class="fa-brands fa-whatsapp" style="color: #00a841"></i
-            ></a>
-          </div>
-        </div>
-        <div class="footer-section">
-          <h3 data-translate="Quick Links">Quick Links</h3>
-          <ul>
-            <li>
-              <a href="../../index.html" data-translate="Home"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/bike-inventory.html"
-                data-translate="Buy Bike"
-                >Buy Bike</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/sell-your-bike.html"
-                data-translate="Sell Your Bike"
-                >Sell Your Bike</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/about-us.html"
-                aria-label="About Bike Builders"
-                data-translate="About Us"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/book-a-bike.html"
-                aria-label="Book Bike"
-                data-translate="Book Bike"
-                >Book Bike</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/latest-updates.html"
-                data-translate="Updates"
-                >Updates</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/contact-us.html"
-                data-translate="Contact"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3 data-translate="Resources">Resources</h3>
-          <ul>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/bike-finance.html"
-                data-translate="Bike Finance"
-                >Bike Finance</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                data-translate="Locations"
-                >Locations</a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="footer-section">
-          <h3>Brands</h3>
-          <ul>
-            <li><a href="../../index.html">Hero</a></li>
-            <li><a href="../../index.html">Bajaj</a></li>
-            <li><a href="../../index.html">TVS</a></li>
-            <li><a href="../../index.html">Royal Enfield</a></li>
-            <li><a href="../../index.html">Honda</a></li>
-            <li><a href="../../index.html">Yamaha</a></li>
-            <li><a href="../../index.html">Suzuki</a></li>
-            <li><a href="../../index.html">KTM</a></li>
-          </ul>
-        </div>
+  <main id="main" class="wrap">
+    <div class="loading">Loading...</div>
+  </main>
 
-        <div class="footer-section">
-          <h3 data-translate="Locations We Serve">Locations We Serve</h3>
-          <ul>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Patna</a
-              >
-            </li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Gaya</a
-              >
-            </li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Bhagalpur</a
-              >
-            </li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Second-Hand Bikes in Muzaffarpur</a
-              >
-            </li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Darbhanga</a
-              >
-            </li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Purnia</a
-              >
-            </li>
-            <li></li>
-            <li>
-              <a href="https://www.bikebuilders.in/pages/locations/bihar.html"
-                >Used Bike In Hajipur</a
-              >
-            </li>
-          </ul>
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="logo">
+          <img src="../../assets/logos/logo.svg" style="width: 50px" alt="Bike Builders Logo" />
         </div>
-
-        <div class="footer-section">
-          <h3 data-translate="Contact Us">Contact Us</h3>
-          <p
-            data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002"
-          >
-            <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
-            Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
-            842002
-          </p>
-          <span itemprop="telephone">+91 8210283582 / 9835844897</span>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
-          &copy; 2023 Bike Builders. All rights reserved.
+        <p
+          data-translate="Bike Builder is bringing you the future of bike riding today. We are providing best second-hand bikes, and easy buying and selling experience. Find the best second-hand bikes at reasonable pricing, and hassle-free ownership. From buying to selling to servicing, we ensure all our bikes are safe and enjoyable to ride.">
+          Bike Builder is bringing you the future of bike riding today. We are
+          providing best second-hand bikes, and easy buying and selling
+          experience. Find the best second-hand bikes at reasonable pricing,
+          and hassle-free ownership. From buying to selling to servicing, we
+          ensure all our bikes are safe and enjoyable to ride.
         </p>
-        <a
-          href="https://www.pixelatenest.com/"
-          style="color: #a9a9a9"
-          data-translate="Designed By Pixelate Nest"
-          >Designed By Pixelate Nest</a
-        >
+        <div class="footer-stars" style="margin: 10px 0">
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+          <span class="star" style="color: gold; font-size: 1.5em"><i class="fa fa-star"></i></span>
+        </div>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/share/1Ao18FYX8e/"><i class="fa-brands fa-facebook-f"
+              style="color: #0400ff"></i></a>
+          <a href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
+            aria-label="Visit our Instagram profile"><img
+              src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.webp" style="width: 20px"
+              alt="Instagram icon" /></a>
+          <a href="https://wa.me/918210283582"><i class="fa-brands fa-whatsapp" style="color: #00a841"></i></a>
+        </div>
       </div>
-    </footer>
-  </body>
+      <div class="footer-section">
+        <h3 data-translate="Quick Links">Quick Links</h3>
+        <ul>
+          <li>
+            <a href="../../index.html" data-translate="Home">Home</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/bike-inventory.html" data-translate="Buy Bike">Buy Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/sell-your-bike.html" data-translate="Sell Your Bike">Sell Your
+              Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/about-us.html" aria-label="About Bike Builders"
+              data-translate="About Us">About Us</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/book-a-bike.html" aria-label="Book Bike"
+              data-translate="Book Bike">Book Bike</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/latest-updates.html" data-translate="Updates">Updates</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/contact-us.html" data-translate="Contact">Contact</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3 data-translate="Resources">Resources</h3>
+        <ul>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/bike-finance.html" data-translate="Bike Finance">Bike Finance</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html" data-translate="Locations">Locations</a>
+          </li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Brands</h3>
+        <ul>
+          <li><a href="../../index.html">Hero</a></li>
+          <li><a href="../../index.html">Bajaj</a></li>
+          <li><a href="../../index.html">TVS</a></li>
+          <li><a href="../../index.html">Royal Enfield</a></li>
+          <li><a href="../../index.html">Honda</a></li>
+          <li><a href="../../index.html">Yamaha</a></li>
+          <li><a href="../../index.html">Suzuki</a></li>
+          <li><a href="../../index.html">KTM</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 data-translate="Locations We Serve">Locations We Serve</h3>
+        <ul>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Patna</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Gaya</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Bhagalpur</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Second-Hand Bikes in Muzaffarpur</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Darbhanga</a>
+          </li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Purnia</a>
+          </li>
+          <li></li>
+          <li>
+            <a href="https://www.bikebuilders.in/pages/locations/bihar.html">Used Bike In Hajipur</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3 data-translate="Contact Us">Contact Us</h3>
+        <p
+          data-translate="Rambag Chowk, Rambag Road Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar 842002">
+          <i class="fas fa-map-marker-alt"></i> Rambag Chowk, Rambag Road
+          Kabristaan k bagal me, Gaushala Chowk Mandir , Muzaffarpur, Bihar
+          842002
+        </p>
+        <span itemprop="telephone">+91 8210283582 / 9835844897</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-translate="&copy; 2023 Bike Builders. All rights reserved.">
+        &copy; 2023 Bike Builders. All rights reserved.
+      </p>
+      <a href="https://www.pixelatenest.com/" style="color: #a9a9a9" data-translate="Designed By Pixelate Nest">Designed
+        By Pixelate Nest</a>
+    </div>
+  </footer>
+</body>
+
 </html>

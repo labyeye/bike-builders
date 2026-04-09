@@ -7,7 +7,7 @@ const API_BASE_URL =
 
 // Helper function to get the correct image URL
 function getImageUrl(imagePath) {
-  if (!imagePath) return "assets/placeholder.png";
+  if (!imagePath) return "assets/placeholder.webp";
 
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
     return imagePath;
@@ -69,12 +69,10 @@ function carIdFromQuery() {
 
   function populateCar(car) {
     if (!car) return;
-    document.getElementById("vehicleTitle").textContent = `${
-      car.brand || car.make || ""
-    } ${car.model || ""}`;
-    document.getElementById("vehicleModel").textContent = `${
-      car.modelYear || ""
-    } Model`;
+    document.getElementById("vehicleTitle").textContent = `${car.brand || car.make || ""
+      } ${car.model || ""}`;
+    document.getElementById("vehicleModel").textContent = `${car.modelYear || ""
+      } Model`;
     document.getElementById("vehicleKm").textContent = `${(
       car.kmDriven || 0
     ).toLocaleString()} km`;
@@ -95,7 +93,7 @@ function carIdFromQuery() {
       car.downPayment || 0
     ).toLocaleString()} | EMI: ₹${Math.round(
       ((car.sellingPrice || car.price || 0) - (car.downPayment || 0)) /
-        36,
+      36,
     ).toLocaleString()}/month`;
 
     let images = [];
@@ -111,7 +109,7 @@ function carIdFromQuery() {
       images = car.images.slice();
     else if (car.image)
       images = Array.isArray(car.image) ? car.image.slice() : [car.image];
-    if (!images || images.length === 0) images = ["assets/owner.png"];
+    if (!images || images.length === 0) images = ["assets/owner.webp"];
     const mainImg = document.getElementById("mainVehicleImg");
     const thumbnails = document.getElementById("vehicleThumbnails");
     thumbnails.innerHTML = "";
@@ -226,7 +224,7 @@ fetch(`${API_BASE_URL}/api/bikes`)
       cars.forEach((car) => {
         if (car._id && car._id === (carIdFromQuery() || "")) return;
 
-        let imgSrc = "assets/owner.png";
+        let imgSrc = "assets/owner.webp";
         const candidate =
           (car.photos && car.photos[0]) ||
           (car.imageUrl && car.imageUrl[0]);
@@ -255,40 +253,34 @@ fetch(`${API_BASE_URL}/api/bikes`)
         card.className = "other-car-card";
         card.innerHTML = `
                 <div class="image-container">
-                  <img src="${imgSrc}" alt="${car.brand || car.make || ""} ${
-          car.model || ""
-        }" class="other-car-img" />
-                  <div class="status-badge ${statusClass}" data-translate="${
-          car.status || "Available"
-        }">${car.status || "Available"}</div>
+                  <img src="${imgSrc}" alt="${car.brand || car.make || ""} ${car.model || ""
+          }" class="other-car-img" />
+                  <div class="status-badge ${statusClass}" data-translate="${car.status || "Available"
+          }">${car.status || "Available"}</div>
                 </div>
                 <div class="card-content">
-                  <h3>${car.brand || car.make || "Unknown Brand"} ${
-          car.model || "Unknown Model"
-        }</h3>
+                  <h3>${car.brand || car.make || "Unknown Brand"} ${car.model || "Unknown Model"
+          }</h3>
                   <span class="model">${car.modelYear || "-"} Model</span>
                   <div class="details">
                     <div class="detail-item"><i class="fas fa-tachometer-alt"></i> <span>${(
-                      car.kmDriven || 0
-                    ).toLocaleString()} km</span></div>
+            car.kmDriven || 0
+          ).toLocaleString()} km</span></div>
                     <div class="detail-item"><i class="fas fa-user"></i> <span>${ownerText}</span></div>
-                    <div class="detail-item"><i class="fas fa-gas-pump"></i> <span>${
-                      car.fuelType || "Petrol"
-                    }</span></div>
+                    <div class="detail-item"><i class="fas fa-gas-pump"></i> <span>${car.fuelType || "Petrol"
+          }</span></div>
                   </div>
                   <div class="price-container">
                     <div class="price">₹${(
-                      car.sellingPrice ||
-                      car.price ||
-                      0
-                    ).toLocaleString()}</div>
+            car.sellingPrice ||
+            car.price ||
+            0
+          ).toLocaleString()}</div>
                     <div class="button-group">
-                      <button class="contact-btn" data-translate="Contact Seller" ${
-                        car.status !== "Available" ? "disabled" : ""
-                      }>Contact Seller</button>
-                      <button class="view-details-btn" data-translate="View Details" ${
-                        car.status !== "Available" ? "disabled" : ""
-                      }>View Details</button>
+                      <button class="contact-btn" data-translate="Contact Seller" ${car.status !== "Available" ? "disabled" : ""
+          }>Contact Seller</button>
+                      <button class="view-details-btn" data-translate="View Details" ${car.status !== "Available" ? "disabled" : ""
+          }>View Details</button>
                     </div>
                   </div>
                 </div>
@@ -334,7 +326,7 @@ fetch(`${API_BASE_URL}/api/bikes`)
             }
           });
         }
-      } catch (e) {}
+      } catch (e) { }
     }
   });
 

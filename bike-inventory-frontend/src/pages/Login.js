@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { User, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/Logo.png";
+import logo from "../assets/Logo.webp";
 const AdminLogin = ({ setUser }) => {
   const navigate = useNavigate();
 
@@ -56,7 +56,7 @@ const AdminLogin = ({ setUser }) => {
   const containerStyle = {
     minHeight: "100vh",
     backgroundImage:
-      'url("https://wallpapers.com/images/hd/yamaha-yzf-4k-bike-4ex5oityodxw1tdv.jpg")',
+      'url("https://wallpapers.com/images/hd/yamaha-yzf-4k-bike-4ex5oityodxw1tdv.webp")',
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
@@ -330,7 +330,7 @@ const AdminLogin = ({ setUser }) => {
               </button>
             </div>
             <div style={buttonContainerStyle}>
-              
+
               <button
                 type="submit"
                 disabled={isLoading}

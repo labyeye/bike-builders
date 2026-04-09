@@ -1,5 +1,5 @@
 .updates-hero {
-  background-image: url("../assets/updates-bg.jpg");
+  background-image: url("../assets/updates-bg.webp");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
@@ -135,6 +135,7 @@
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

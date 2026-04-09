@@ -61,19 +61,19 @@ body {
   display: none;
 }
 
-#darkModeToggle:checked + .toggle-label {
+#darkModeToggle:checked+.toggle-label {
   background-color: #333;
 }
 
-#darkModeToggle:checked + .toggle-label .toggle-ball {
+#darkModeToggle:checked+.toggle-label .toggle-ball {
   transform: translateX(30px);
 }
 
-#darkModeToggle:checked + .toggle-label .fa-sun {
+#darkModeToggle:checked+.toggle-label .fa-sun {
   color: #ffcc00;
 }
 
-#darkModeToggle:checked + .toggle-label .fa-moon {
+#darkModeToggle:checked+.toggle-label .fa-moon {
   color: #fff;
 }
 
@@ -237,12 +237,11 @@ body.dark-mode {
 /* Choose Your Range styles (moved from index.html) */
 .range-section {
   padding: 36px 10px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0)
-  );
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0));
 }
+
 .range-inner {
   max-width: 1100px;
   margin: 0 auto;
@@ -251,12 +250,14 @@ body.dark-mode {
   gap: 18px;
   align-items: center;
 }
+
 .range-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 16px;
   width: 100%;
 }
+
 .range-card {
   background: #a32919;
   border-radius: 10px;
@@ -271,10 +272,12 @@ body.dark-mode {
     box-shadow 0.18s ease;
   text-decoration: none;
 }
+
 .range-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
 }
+
 .range-card,
 .range-card:link,
 .range-card:visited,
@@ -284,12 +287,14 @@ body.dark-mode {
   color: inherit !important;
   display: block;
 }
+
 .range-title {
   font-size: 1.1rem;
   font-weight: 700;
   color: #fff;
   text-decoration: none;
 }
+
 .range-sub {
   color: rgba(255, 255, 255, 0.8);
   font-size: 0.95rem;
@@ -297,6 +302,7 @@ body.dark-mode {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+
 @media (max-width: 720px) {
   .range-inner {
     padding: 0 6px;
@@ -323,9 +329,11 @@ body.dark-mode {
     .masonry-grid {
       display: none !important;
     }
+
     .gallery-slider {
       display: block;
     }
+
     .gallery-track {
       gap: 12px;
       display: flex;
@@ -333,12 +341,14 @@ body.dark-mode {
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x mandatory;
     }
+
     .gallery-track img {
       flex: 0 0 auto;
       scroll-snap-align: start;
       width: 240px;
       height: 160px;
     }
+
     .gallery-slider .slider-nav {
       display: flex;
       position: absolute;
@@ -355,9 +365,11 @@ body.dark-mode {
       z-index: 3;
       cursor: pointer;
     }
+
     .gallery-slider .slider-nav.prev {
       left: 8px;
     }
+
     .gallery-slider .slider-nav.next {
       right: 8px;
     }
@@ -387,6 +399,7 @@ body.dark-mode {
     margin: 0 auto;
     min-height: 320px;
   }
+
   .services-nav-btn {
     display: none;
     position: absolute;
@@ -411,6 +424,7 @@ body.dark-mode {
   .services-nav-btn.prev {
     left: 8px;
   }
+
   .services-nav-btn.next {
     right: 8px;
   }
@@ -991,9 +1005,11 @@ body.dark-mode .bike-slider .bike-card h3 {
 .status-available {
   background-color: #28a745;
 }
+
 .status-sold {
   background-color: #dc3545;
 }
+
 .status-coming-soon {
   background-color: #ffc107;
   color: #000;
@@ -1090,16 +1106,14 @@ body.dark-mode .bike-slider .bike-card h3 {
 
 .search-button {
   position: absolute;
-  right: 220px;
+  left: auto;
   top: 75px;
   background: var(--primary-color);
   border: none;
   border-radius: 50%;
   width: 40px;
   height: 40px;
-  display: flex;
   align-items: center;
-  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -1119,13 +1133,11 @@ body.dark-mode .bike-slider .bike-card h3 {
   width: 100%;
   height: 100%;
   background-image:
-    radial-gradient(
-      circle at center,
+    radial-gradient(circle at center,
       rgba(0, 0, 0, 0.7) 0%,
       rgba(0, 0, 0, 0.85) 60%,
-      rgba(0, 0, 0, 0.95) 100%
-    ),
-    url("https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG");
+      rgba(0, 0, 0, 0.95) 100%),
+    url("https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.avif");
   background-size: cover;
   background-position: center;
   z-index: 1;
@@ -1191,11 +1203,13 @@ body {
     transform 120ms ease,
     box-shadow 120ms ease;
 }
+
 .btn:hover,
 .btn:focus {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
 }
+
 .btn.secondary {
   background: #f5f7fb;
   color: #222;
@@ -1246,20 +1260,42 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: radial-gradient(
-    50% 50% at 77% 49%,
-    rgba(48, 46, 46, 1) 0%,
-    rgba(1, 1, 1, 0) 100%
-  );
+  background: radial-gradient(50% 50% at 77% 49%,
+      rgba(48, 46, 46, 1) 0%,
+      rgba(1, 1, 1, 0) 100%);
 }
 
 .navbar {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 5%;
-  z-index: 10;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 15px 5%;
+}
+
+body.dark-mode .navbar.scrolled {
+  background-color: var(--secondary-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.navbar.scrolled .nav-links a {
+  color: black;
+}
+
+body.dark-mode .navbar.scrolled .nav-links a {
+  color: white;
 }
 
 .nav-links {
@@ -1333,12 +1369,10 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.7s ease;
   z-index: -1;
 }
@@ -1360,6 +1394,11 @@ body {
   margin-left: 90px;
   margin-right: auto;
   text-align: left;
+  height: 100%;
+  align-items: start;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-content h1 {
@@ -1373,11 +1412,9 @@ body {
 
 .hero-line {
   display: block;
-  background: linear-gradient(
-    188deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0.7) 100%
-  );
+  background: linear-gradient(188deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.7) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1413,11 +1450,9 @@ body {
 @media only screen and (max-width: 768px) {
   .hero-line {
     display: block;
-    background: linear-gradient(
-      188deg,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 255, 255, 0.7) 100%
-    );
+    background: linear-gradient(188deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0.7) 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -2108,7 +2143,7 @@ body.dark-mode .service-card p {
   left: -50%;
   width: 80%;
   height: 200%;
-  
+
   z-index: 0;
 }
 
@@ -2190,9 +2225,11 @@ body.dark-mode .service-card p {
   .stats-container {
     display: none;
   }
+
   .view-btn {
     text-align: center;
   }
+
   .styles-container {
     position: relative;
     overflow: hidden;
@@ -2362,6 +2399,7 @@ body.dark-mode .service-card p {
   color: var(--text-color);
   margin-bottom: 0px;
 }
+
 .section-subtitle {
   font-size: 1rem;
   color: black;
@@ -2370,6 +2408,7 @@ body.dark-mode .service-card p {
   z-index: 1;
   text-align: center;
 }
+
 .dark-mode .section-subtitle {
   font-size: 1rem;
   color: white;
@@ -2463,11 +2502,9 @@ body.dark-mode .service-card p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.03) 0%,
-    rgba(255, 255, 255, 0) 50%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0) 50%);
   z-index: -1;
 }
 
@@ -2891,6 +2928,7 @@ body.dark-mode .section-header h2 {
     align-items: center;
     gap: 15px;
   }
+
   .section-subtitle {
     text-align: justify;
     color: black;
@@ -3135,12 +3173,10 @@ body.dark-mode .section-header h2 {
   position: absolute;
   width: 100%;
   height: 100%;
-  background-image: radial-gradient(
-    circle at center,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.85) 60%,
-    rgba(0, 0, 0, 0.95) 100%
-  );
+  background-image: radial-gradient(circle at center,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.85) 60%,
+      rgba(0, 0, 0, 0.95) 100%);
 }
 
 .social-icons {
@@ -3264,7 +3300,8 @@ body.dark-mode .section-header h2 {
 }
 
 body:not(.index-page) .navbar {
-  background-color: #ff6b00; /* same color on desktop */
+  background-color: #ff6b00;
+  /* same color on desktop */
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.06);
   z-index: 1000;
 }
@@ -3616,11 +3653,9 @@ body:not(.index-page) .navbar {
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
-  background: linear-gradient(
-    180deg,
-    rgba(162, 41, 27, 0.08),
-    rgba(162, 41, 27, 0.04)
-  );
+  background: linear-gradient(180deg,
+      rgba(162, 41, 27, 0.08),
+      rgba(162, 41, 27, 0.04));
   color: var(--primary-color, #a32919);
   font-size: 22px;
   transition:
@@ -3702,11 +3737,9 @@ body:not(.index-page) .navbar {
 }
 
 .dark-mode .why-card .why-icon {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.02),
-    rgba(255, 255, 255, 0.01)
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.02),
+      rgba(255, 255, 255, 0.01));
   color: #ffbfa8;
 }
 
@@ -3719,9 +3752,11 @@ body:not(.index-page) .navbar {
   padding: 48px 5%;
   background: linear-gradient(180deg, #ffffff 0%, #fbfbfb 100%);
 }
+
 .faq-section .section-header h2 {
   margin-bottom: 8px;
 }
+
 .faq-list {
   max-width: 1100px;
   margin: 20px auto 0;
@@ -3729,6 +3764,7 @@ body:not(.index-page) .navbar {
   grid-template-columns: repeat(auto-fit, minmax(900px, 1fr));
   gap: 12px 20px;
 }
+
 .faq-item {
   background: #ffffff;
   border-radius: 10px;
@@ -3737,10 +3773,12 @@ body:not(.index-page) .navbar {
   transition: box-shadow 180ms ease, transform 180ms ease;
   overflow: hidden;
 }
+
 .faq-item:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 36px rgba(16, 15, 15, 0.06);
 }
+
 .faq-question {
   font-weight: 700;
   cursor: pointer;
@@ -3748,17 +3786,20 @@ body:not(.index-page) .navbar {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color:var(--secondary-color)
+  color: var(--secondary-color)
 }
+
 .faq-question::after {
   content: '\25BE';
   font-size: 14px;
   transition: transform 200ms ease;
   color: var(--dark-gray, #464646);
 }
+
 .faq-item.open .faq-question::after {
   transform: rotate(180deg);
 }
+
 .faq-answer {
   margin-top: 8px;
   color: #444;
@@ -3769,8 +3810,10 @@ body:not(.index-page) .navbar {
   transition: max-height 260ms ease, opacity 200ms ease;
   opacity: 0;
 }
+
 .faq-item.open .faq-answer {
-  max-height: 420px; /* large enough for content */
+  max-height: 420px;
+  /* large enough for content */
   opacity: 1;
 }
 
@@ -3778,6 +3821,7 @@ body:not(.index-page) .navbar {
   .faq-list {
     grid-template-columns: 1fr;
   }
+
   .faq-section {
     padding: 28px 6%;
   }
@@ -3787,7 +3831,7 @@ body:not(.index-page) .navbar {
   background: #0f1720;
   color: #dfe6ea;
 }
+
 .dark-mode .faq-answer {
   color: #cfe6ea;
 }
-

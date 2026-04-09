@@ -3,8 +3,7 @@
     "name": "Muzaffarpur",
     "slug": "muzaffarpur",
     "description": "Looking for second-hand bikes in Muzaffarpur? We offer certified used bikes at the best price. Every bike goes through quality inspection. We help with RTO transfer and documentation. Buy or sell used bikes with confidence. Visit our Muzaffarpur showroom in Motijheel area or get doorstep delivery across Ahiyapur, Kankarbagh, and Mithanpura.",
-    "keywords": "second-hand bikes in Muzaffarpur, used bikes in Muzaffarpur, buy second-hand bikes Muzaffarpur, certified used bikes Muzaffarpur, pre-owned bikes Muzaffarpur, bike showroom Motijheel, RTO transfer Muzaffarpur"
-    ,
+    "keywords": "second-hand bikes in Muzaffarpur, used bikes in Muzaffarpur, buy second-hand bikes Muzaffarpur, certified used bikes Muzaffarpur, pre-owned bikes Muzaffarpur, bike showroom Motijheel, RTO transfer Muzaffarpur",
     "listings": [
       {
         "id": "mb-001",
@@ -12,7 +11,7 @@
         "price": 135000,
         "year": 2018,
         "km": 22000,
-        "image": "./assets/gallery/enfield-classic-350.jpg",
+        "image": "./assets/gallery/enfield-classic-350.webp",
         "short": "Well maintained, single-owner, recent service and new tyre."
       },
       {
@@ -21,7 +20,7 @@
         "price": 42000,
         "year": 2016,
         "km": 38000,
-        "image": "./assets/gallery/pulsar-150.jpg",
+        "image": "./assets/gallery/pulsar-150.webp",
         "short": "City-friendly commuter with low running cost."
       },
       {
@@ -30,7 +29,7 @@
         "price": 58000,
         "year": 2019,
         "km": 15000,
-        "image": "./assets/gallery/honda-cb-shine.jpg",
+        "image": "./assets/gallery/honda-cb-shine.webp",
         "short": "Good condition, useful for daily commute."
       }
     ]
@@ -87,8 +86,7 @@
     "name": "Patna",
     "slug": "patna",
     "description": "Patna's largest selection of certified pre-owned bikes — test rides, finance options and transparent pricing.",
-    "keywords": "second hand bike in Patna, used bike Patna, buy used bike Patna, pre-owned bike Patna, bike finance Patna"
-    ,
+    "keywords": "second hand bike in Patna, used bike Patna, buy used bike Patna, pre-owned bike Patna, bike finance Patna",
     "listings": [
       {
         "id": "pt-101",
@@ -96,7 +94,7 @@
         "price": 76000,
         "year": 2017,
         "km": 27000,
-        "image": "./assets/gallery/fz-s.jpg",
+        "image": "./assets/gallery/fz-s.webp",
         "short": "Sporty handling, recent full service."
       },
       {
@@ -105,7 +103,7 @@
         "price": 68000,
         "year": 2018,
         "km": 21000,
-        "image": "./assets/gallery/apache-rtr.jpg",
+        "image": "./assets/gallery/apache-rtr.webp",
         "short": "Single-owner, great performance."
       }
     ]
@@ -114,8 +112,7 @@
     "name": "Gaya",
     "slug": "gaya",
     "description": "Find verified used bikes in Gaya with local inspections and quick finance approvals.",
-    "keywords": "second hand bike in Gaya, used bike Gaya, buy used bike Gaya"
-    ,
+    "keywords": "second hand bike in Gaya, used bike Gaya, buy used bike Gaya",
     "listings": [
       {
         "id": "gy-201",
@@ -123,7 +120,7 @@
         "price": 32000,
         "year": 2015,
         "km": 42000,
-        "image": "./assets/gallery/splendor.jpg",
+        "image": "./assets/gallery/splendor.webp",
         "short": "Reliable, low maintenance commuter."
       }
     ]
@@ -192,8 +189,7 @@
     "name": "Madhepura",
     "slug": "madhepura",
     "description": "Madhepura's pre-owned bike selection — inspected, priced fairly, and available with financing.",
-    "keywords": "second hand bike in Madhepura, used bike Madhepura, buy used bike Madhepura"
-    ,
+    "keywords": "second hand bike in Madhepura, used bike Madhepura, buy used bike Madhepura",
     "listings": []
   },
   {

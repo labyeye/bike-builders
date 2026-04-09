@@ -38,23 +38,23 @@ bike-builders/
 │   ├── sitemap-locations-bihar.xml
 │   ├── site.webmanifest
 │   ├── vercel.json
-│   ├── web-app-manifest-192x192.png
-│   ├── web-app-manifest-512x512.png
+│   ├── web-app-manifest-192x192.webp
+│   ├── web-app-manifest-512x512.webp
 │   ├── scripts/
 │   │   └── remove_comments.js
 │   └── assets/
 │       ├── favicon.ico
 │       ├── favicon.svg
-│       ├── favicon-96x96.png
-│       ├── apple-touch-icon.png
+│       ├── favicon-96x96.webp
+│       ├── apple-touch-icon.webp
 │       ├── logo2.svg
 │       ├── back.svg
-│       ├── own.jpg
-│       ├── owner.png
+│       ├── own.webp
+│       ├── owner.webp
 │       ├── qe.jpeg
 │       ├── images/
 │       │   ├── 1.svg, 2.svg, 3.svg, 4.svg
-│       │   ├── relogo.png
+│       │   ├── relogo.webp
 │       │   ├── locations.webp
 │       │   ├── financing/
 │       │   ├── gallery/
@@ -136,13 +136,13 @@ bike-builders/
 │   │   ├── icons/                  # Favicons & app icons
 │   │   │   ├── favicon.ico
 │   │   │   ├── favicon.svg
-│   │   │   ├── favicon-96x96.png
-│   │   │   ├── apple-touch-icon.png
-│   │   │   ├── manifest-192x192.png
-│   │   │   └── manifest-512x512.png
+│   │   │   ├── favicon-96x96.webp
+│   │   │   ├── apple-touch-icon.webp
+│   │   │   ├── manifest-192x192.webp
+│   │   │   └── manifest-512x512.webp
 │   │   ├── logos/                   # Brand logos
 │   │   │   ├── logo.svg
-│   │   │   └── logo.png
+│   │   │   └── logo.webp
 │   │   └── images/                 # All images organized
 │   │       ├── hero/
 │   │       ├── gallery/

@@ -13,7 +13,7 @@ import {
 } from "@mui/icons-material";
 import { RateReview } from "@mui/icons-material";
 import "../../css/Sidebar.css";
-import logo from "../../assets/Logo.png";
+import logo from "../../assets/Logo.webp";
 const DashSidebar = ({ user }) => {
   const [open, setOpen] = useState(false);
 

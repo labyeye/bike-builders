@@ -30,11 +30,11 @@ function initHeroSlider() {
   const heroSlider = document.createElement("div");
   heroSlider.className = "hero-slider";
   const slides = [
-    "https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.JPG",
+    "https://images.overdrive.in/wp-content/odgallery/2018/06/42636_2018%20Ducati%20Panigale%20V4-2018-022.webp",
     "https://images.unsplash.com/photo-1662788019531-89849ebb754a?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8Y29udGluZW50YWwlMjBndCUyMDY1MHxlbnwwfHwwfHx8MA%3D%3D",
     "https://wallpapercg.com/media/ts_orig/18582.webp",
     "https://images.pexels.com/photos/17227166/pexels-photo-17227166.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
-    "https://c4.wallpaperflare.com/wallpaper/780/625/239/motorcycles-other-wallpaper-preview.jpg",
+    "https://c4.wallpaperflare.com/wallpaper/780/625/239/motorcycles-other-wallpaper-preview.webp",
   ];
 
   slides.forEach((slide, index) => {
@@ -676,10 +676,10 @@ function displayFeaturedBikes(bikes) {
         <div class="price-container">
           <div class="price">₹${(bike.price || 0).toLocaleString()}</div>
           <div class="emi">Down: ₹${(
-            bike.downPayment || 0
-          ).toLocaleString()} | EMI: ₹${Math.round(
-            ((bike.price || 0) - (bike.downPayment || 0)) / 36,
-          ).toLocaleString()}/month</div>
+        bike.downPayment || 0
+      ).toLocaleString()} | EMI: ₹${Math.round(
+        ((bike.price || 0) - (bike.downPayment || 0)) / 36,
+      ).toLocaleString()}/month</div>
           <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>
             ${isDisabled ? bike.status : "View Details"}
           </button>
@@ -1033,6 +1033,25 @@ function init() {
   initModals();
   initDarkMode();
   attachStyleCarouselResizeHandler();
+  initStickyNavbar();
+}
+
+function initStickyNavbar() {
+  const navbar = document.querySelector(".navbar");
+  if (!navbar) return;
+
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+
+  // Check initial scroll position
+  if (window.scrollY > 50) {
+    navbar.classList.add("scrolled");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", init);
