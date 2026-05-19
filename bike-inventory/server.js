@@ -15,7 +15,7 @@ const cloudinary = require("cloudinary");
 const app = express();
 const port = process.env.PORT || 5000;
 
-// Environment check logging
+
 console.log("Environment check:");
 console.log("NODE_ENV:", process.env.NODE_ENV);
 console.log("SESSION_SECRET exists:", !!process.env.SESSION_SECRET);
@@ -32,8 +32,8 @@ mongoose
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// If the app is behind a proxy (Render, Heroku, etc.) allow Express to
-// trust the proxy so secure cookies and req.protocol are handled correctly.
+
+
 app.set("trust proxy", 1);
 const allowedOrigins = [
   "http://localhost:3000",
@@ -114,7 +114,7 @@ async function uploadFileToCloudinary(source, options = {}) {
     }
   }
 
-  // If source is an object with a buffer (multer memoryStorage), upload via stream
+  
   if (source && source.buffer) {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
@@ -138,7 +138,7 @@ async function uploadFileToCloudinary(source, options = {}) {
   return null;
 }
 
-// Attempt to extract Cloudinary public_id from a hosted URL.
+
 function extractCloudinaryPublicId(url) {
   try {
     const u = new URL(url);
@@ -146,9 +146,6 @@ function extractCloudinaryPublicId(url) {
     const uploadIndex = parts.findIndex((p) => p === "upload");
     if (uploadIndex === -1) return null;
     let publicPath = parts.slice(uploadIndex + 1).join("/");
-    // remove version prefix like v123456
-    publicPath = publicPath.replace(/^v\d+\//, "");
-    // strip extension
     publicPath = publicPath.replace(/\.[a-zA-Z0-9]+$/, "");
     return publicPath;
   } catch (e) {
@@ -156,24 +153,24 @@ function extractCloudinaryPublicId(url) {
   }
 }
 
-// Updated session configuration
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET || "rgesda543",
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 3600000, // 1 hour
+      maxAge: 3600000, 
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production" ? true : false,
-      httpOnly: true, // Add this for security
-      // Don't set domain unless absolutely necessary
+      httpOnly: true, 
+      
     },
     proxy: process.env.NODE_ENV === "production",
   })
 );
 
-// Mongoose schemas
+
 const bookingSchema = new mongoose.Schema({
   name: String,
   email: String,
@@ -276,10 +273,10 @@ const offerSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
-// Updates (for site updates/posters)
+
 const updateSchema = new mongoose.Schema({
   title: { type: String, required: true },
-  poster: { type: String, required: true }, // stored as /uploads/<filename>
+  poster: { type: String, required: true }, 
   link: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
@@ -293,7 +290,7 @@ const reviewSchema = new mongoose.Schema({
   date: { type: Date, default: Date.now },
 });
 
-// Models
+
 const Bike = mongoose.model("Bike", bikeSchema);
 const User = mongoose.model("User", userSchema);
 const SellRequest = mongoose.model("SellRequest", sellRequestSchema);
@@ -302,7 +299,7 @@ const Booking = mongoose.model("Booking", bookingSchema);
 const Offer = mongoose.model("Offer", offerSchema);
 const Review = mongoose.model("Review", reviewSchema);
 
-// Create default admin user
+
 (async function () {
   const existing = await User.findOne({ username: "admin" });
   if (!existing) {
@@ -312,9 +309,9 @@ const Review = mongoose.model("Review", reviewSchema);
   }
 })();
 
-// Middleware
+
 function isAuthenticated(req, res, next) {
-  console.log("Auth check:", req.session.isAuthenticated, req.session.user); // Add logging
+  console.log("Auth check:", req.session.isAuthenticated, req.session.user); 
   if (req.session.isAuthenticated) return next();
   res.status(401).json({ success: false, error: "Unauthorized" });
 }
@@ -324,14 +321,14 @@ function isAdmin(req, res, next) {
   res.status(403).json({ success: false, error: "Access denied" });
 }
 
-// Routes
+
 app.get("/", (req, res) => {
   res.json({ message: "Bike Inventory System API" });
 });
 
-// Login route with improved logging
+
 app.post("/api/admin/login", async (req, res) => {
-  console.log("Login attempt:", req.body.username); // Add logging
+  console.log("Login attempt:", req.body.username); 
 
   try {
     const user = await User.findOne({ username: req.body.username });
@@ -339,7 +336,7 @@ app.post("/api/admin/login", async (req, res) => {
       user && (await bcrypt.compare(req.body.password, user.password));
 
     if (!valid) {
-      console.log("Invalid credentials for:", req.body.username); // Add logging
+      console.log("Invalid credentials for:", req.body.username); 
       return res
         .status(401)
         .json({ success: false, message: "Invalid credentials" });
@@ -352,17 +349,17 @@ app.post("/api/admin/login", async (req, res) => {
       role: user.role,
     };
 
-    // Update last login
+    
     await User.findByIdAndUpdate(user._id, { lastLogin: new Date() });
 
-    // Ensure the session is saved before sending the response. Some stores
-    // or environments may not persist the session immediately which can
-    // cause subsequent requests (from the client) to arrive without the
-    // session cookie/session data available.
+    
+    
+    
+    
     req.session.save((err) => {
       if (err) {
         console.error("Session save error after login:", err);
-        // Still respond, but log the problem for diagnostics.
+        
         return res
           .status(500)
           .json({ success: false, message: "Server error" });
@@ -376,11 +373,11 @@ app.post("/api/admin/login", async (req, res) => {
         "SessionID:",
         req.sessionID
       );
-      // In development return the sessionID in the JSON to help debug mobile cookie issues.
+      
       const resp = { success: true, user: req.session.user };
       if (process.env.NODE_ENV !== "production")
         resp._sessionID = req.sessionID;
-      // Also expose a simple header that clients can read if needed.
+      
       res.set("Access-Control-Expose-Headers", "X-Session-ID");
       res.set("X-Session-ID", req.sessionID);
       res.json(resp);
@@ -391,7 +388,7 @@ app.post("/api/admin/login", async (req, res) => {
   }
 });
 
-// Check auth route with better caching headers
+
 app.get("/api/admin/check-auth", (req, res) => {
   res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
   res.set("Pragma", "no-cache");
@@ -401,18 +398,18 @@ app.get("/api/admin/check-auth", (req, res) => {
     "Auth check request:",
     req.session.isAuthenticated,
     req.session.user
-  ); // Add logging
+  ); 
 
-  // Helpful debug output: show incoming Cookie header and current session id.
-  // This will help determine whether the browser sent the cookie with the request.
+  
+  
   try {
     console.log("Request cookies:", req.headers.cookie);
     console.log("Current sessionID:", req.sessionID);
   } catch (e) {}
 
-  // Expose session id for debugging in non-production so the client can confirm
-  // whether the same session is maintained across requests. We still send the
-  // normal JSON shape expected by clients.
+  
+  
+  
   const responsePayload =
     req.session.isAuthenticated && req.session.user
       ? { isAuthenticated: true, user: req.session.user }
@@ -440,7 +437,7 @@ app.get("/api/admin/logout", (req, res) => {
   });
 });
 
-// Public routes
+
 app.get("/api/bikes", async (req, res) => {
   try {
     const bikes = await Bike.find();
@@ -473,7 +470,7 @@ app.get("/api/available-bikes", async (req, res) => {
   }
 });
 
-// Protected routes
+
 app.get("/api/stats", isAuthenticated, async (req, res) => {
   try {
     const stats = {
@@ -505,7 +502,7 @@ app.get("/api/admin/dashboard", isAuthenticated, async (req, res) => {
   }
 });
 
-// Public config endpoint so frontends can detect whether Cloudinary is enabled
+
 app.get("/api/config", (req, res) => {
   try {
     res.json({ success: true, cloudinary: CLOUDINARY_ENABLED });
@@ -540,14 +537,14 @@ app.put(
           .json({ success: false, error: "Bike not found" });
       }
 
-      // Parse fields that may come as strings
-      // removeImages can be sent as multiple fields (removeImages[]) or a single string
+      
+      
       let removeImages = [];
       if (req.body.removeImages) {
         if (Array.isArray(req.body.removeImages))
           removeImages = req.body.removeImages;
         else {
-          // It may be a JSON string or a single value
+          
           try {
             removeImages = JSON.parse(req.body.removeImages);
             if (!Array.isArray(removeImages)) removeImages = [removeImages];
@@ -557,7 +554,7 @@ app.put(
         }
       }
 
-      // existingOrder is expected to be a JSON stringified array of existing image URLs
+      
       let existingOrder = null;
       if (req.body.existingOrder) {
         try {
@@ -567,7 +564,7 @@ app.put(
         }
       }
 
-      // Normalize removal list to full paths (if filenames provided, convert to /uploads/filename)
+      
       const normalizeToUrl = (val) => {
         if (!val) return val;
         if (val.startsWith("/uploads/")) return val;
@@ -578,7 +575,7 @@ app.put(
 
       const removeUrls = removeImages.map(normalizeToUrl);
 
-      // Delete files from disk for any removed images, and attempt Cloudinary deletion when configured
+      
       for (const url of removeUrls) {
         try {
           if (url && url.startsWith("/uploads/")) {
@@ -588,7 +585,7 @@ app.put(
               fs.unlinkSync(filepath);
             }
           } else if (url && url.startsWith("http") && CLOUDINARY_ENABLED) {
-            // Try to derive public_id and remove from Cloudinary
+            
             const publicId = extractCloudinaryPublicId(url);
             if (publicId) {
               try {
@@ -607,27 +604,27 @@ app.put(
         }
       }
 
-      // Filter out removed images from current list
+      
       let existingImages = Array.isArray(bike.imageUrl)
         ? bike.imageUrl.slice()
         : [];
       existingImages = existingImages.filter((u) => !removeUrls.includes(u));
 
-      // Reorder existing images if an order was provided
+      
       if (existingOrder && Array.isArray(existingOrder)) {
         const ordered = [];
         for (const u of existingOrder) {
           const nu = normalizeToUrl(u);
           if (existingImages.includes(nu)) ordered.push(nu);
         }
-        // append any remaining existing images that weren't included in the order
+        
         for (const u of existingImages) {
           if (!ordered.includes(u)) ordered.push(u);
         }
         existingImages = ordered;
       }
 
-      // Handle newly uploaded files (upload to Cloudinary when configured)
+      
       let uploadedUrls = [];
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
@@ -647,18 +644,18 @@ app.put(
               file.path,
               e.message || e
             );
-            // still include local path as fallback
+            
             uploadedUrls.push(`/uploads/${file.filename}`);
           } finally {
-            // ensure temp file removed when Cloudinary used; uploadFileToCloudinary removes it; otherwise keep file on disk for static serving
+            
           }
         }
       }
 
-      // Build the final image array and cap to 5
+      
       let finalImages = [...existingImages, ...uploadedUrls].slice(0, 5);
 
-      // Update bike fields from body (allow both multipart/form-data and JSON)
+      
       const updated = {
         brand: req.body.brand || bike.brand,
         model: req.body.model || bike.model,
@@ -686,7 +683,7 @@ app.put(
         status: req.body.status || bike.status,
       };
 
-      // Assign and save
+      
       Object.assign(bike, updated);
       await bike.save();
 
@@ -718,7 +715,7 @@ app.delete(
   }
 );
 
-// Staff management routes
+
 app.get("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
   try {
     const staff = await User.find().select("-password").sort({ role: 1 });
@@ -739,7 +736,7 @@ app.post("/api/admin/staff", isAuthenticated, isAdmin, async (req, res) => {
       role: req.body.role,
     });
 
-    // Don't send password back
+    
     const userResponse = { ...user.toObject() };
     delete userResponse.password;
 
@@ -787,7 +784,7 @@ app.delete(
   }
 );
 
-// Sell request routes
+
 app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
   try {
     const { brand, model, year, price, name, email, phone } = req.body;
@@ -798,7 +795,7 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
         .json({ success: false, error: "Missing required fields" });
     }
 
-    // Upload files to Cloudinary when available, otherwise store local filenames
+    
     const images = [];
     if (req.files && req.files.length > 0) {
       for (const file of req.files) {
@@ -844,14 +841,14 @@ app.post("/api/sell-request", upload.array("images", 5), async (req, res) => {
   }
 });
 
-// Accept multipart/form-data for image uploads
+
 app.post(
   "/api/admin/bike",
   isAuthenticated,
   upload.array("images", 5),
   async (req, res) => {
     try {
-      // Build imageUrl array from uploaded files (if any). Upload to Cloudinary when configured.
+      
       let imageUrls = [];
       if (req.files && req.files.length > 0) {
         for (const file of req.files) {
@@ -875,7 +872,7 @@ app.post(
           }
         }
       } else if (req.body.imageUrls) {
-        // fallback to any imageUrls provided in body
+        
         imageUrls = Array.isArray(req.body.imageUrls)
           ? req.body.imageUrls
           : [req.body.imageUrls];
@@ -900,7 +897,7 @@ app.post(
         stock: req.body.stock ? Number(req.body.stock) : 1,
       };
 
-      // Validation
+      
       if (
         !bikeData.brand ||
         !bikeData.model ||
@@ -963,7 +960,7 @@ app.put("/api/admin/quote-request/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-// Booking routes
+
 app.post("/api/book-bike", async (req, res) => {
   try {
     const { name, email, phone, bikeId, paymentMethod, amount, transactionId } =
@@ -1065,7 +1062,7 @@ app.delete("/api/admin/booking/:id", isAuthenticated, async (req, res) => {
   }
 });
 
-// Offer routes
+
 app.get("/api/offers", async (req, res) => {
   try {
     const currentDate = new Date();
@@ -1082,11 +1079,11 @@ app.get("/api/offers", async (req, res) => {
   }
 });
 
-// Public updates endpoint for website
+
 app.get("/api/updates", async (req, res) => {
   try {
     const updates = await Update.find().sort({ createdAt: -1 });
-    // Return array directly for older static pages expecting an array
+    
     res.json(updates);
   } catch (err) {
     console.error("Error fetching updates:", err);
@@ -1094,7 +1091,7 @@ app.get("/api/updates", async (req, res) => {
   }
 });
 
-// Admin: create an update (title + poster)
+
 app.post(
   "/api/admin/updates",
   isAuthenticated,
@@ -1135,7 +1132,7 @@ app.post(
   }
 );
 
-// Admin: delete update
+
 app.delete(
   "/api/admin/updates/:id",
   isAuthenticated,
@@ -1147,7 +1144,7 @@ app.delete(
         return res
           .status(404)
           .json({ success: false, error: "Update not found" });
-      // delete poster resource (local file or Cloudinary) if possible
+      
       try {
         if (upd.poster && upd.poster.startsWith("/uploads/")) {
           const filename = upd.poster.split("/").pop();
@@ -1262,7 +1259,7 @@ app.delete(
   }
 );
 
-// Review routes
+
 app.post("/api/reviews", async (req, res) => {
   try {
     const { name, message, rating } = req.body;
@@ -1289,7 +1286,7 @@ app.get("/api/reviews", async (req, res) => {
   }
 });
 
-// Admin: update a review
+
 app.put(
   "/api/admin/reviews/:id",
   isAuthenticated,
@@ -1322,7 +1319,7 @@ app.put(
   }
 );
 
-// Admin: delete a review
+
 app.delete(
   "/api/admin/reviews/:id",
   isAuthenticated,
@@ -1345,13 +1342,13 @@ app.delete(
   }
 );
 
-// Error handling middleware
+
 app.use((err, req, res, next) => {
   console.error("Unhandled error:", err);
   res.status(500).json({ success: false, error: "Internal server error" });
 });
 
-// 404 handler
+
 app.use((req, res) => {
   res.status(404).json({ success: false, error: "Route not found" });
 });

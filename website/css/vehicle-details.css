@@ -1,6 +1,6 @@
 .vehicle-main-section {
   width: 100%;
-  max-width: 1400px; /* constrain content width for mobile friendliness */
+  max-width: 1400px;
   margin: 24px auto;
   background-color: var(--surface);
   box-shadow: var(--shadow);
@@ -11,7 +11,7 @@
 
 .vehicle-content-row {
   display: flex;
-  flex-direction: row; /* image left, details right on desktop */
+  flex-direction: row;
   gap: 32px;
   width: 100%;
   align-items: flex-start;
@@ -25,16 +25,15 @@
   background: var(--card-alt);
   border-radius: 12px;
   padding: 24px;
-  flex: 0 0 58%; /* occupy ~58% of row */
+  flex: 0 0 58%;
   max-width: 58%;
   order: 1;
 }
 
 .vehicle-main-img {
-  /* Enforce a consistent visual size while allowing scaling on very small viewports */
   width: 100%;
-  aspect-ratio: 5 / 3; /* Keep main image in a stable 5:3 ratio (width:height = 5:3). */
-  max-width: 100%; /* allows shrinking on small screens */
+  aspect-ratio: 5 / 3;
+  max-width: 100%;
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
@@ -59,7 +58,6 @@
 }
 
 .vehicle-thumbnails img {
-  /* Keep thumbnails a uniform fixed size */
   width: 120px;
   height: 90px;
   object-fit: cover;
@@ -115,7 +113,7 @@
   border: 1px solid var(--card-border);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  flex: 0 0 42%; /* occupy ~42% of row */
+  flex: 0 0 42%;
   max-width: 42%;
   order: 2;
 }
@@ -199,7 +197,7 @@
 }
 
 .add-to-cart-btn {
-  background: #FF6B00;
+  background: #ff6b00;
   color: #000;
   border: none;
   border-radius: 12px;
@@ -268,7 +266,6 @@
   order: 3;
 }
 
-/* Responsive: stack column on smaller screens */
 @media (max-width: 900px) {
   .vehicle-detail-item .detail-label {
     font-size: 0.85rem;
@@ -355,13 +352,13 @@
 .vehicle-thumbnails,
 .mobile-thumbnails,
 .other-cars-row {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 .vehicle-thumbnails::-webkit-scrollbar,
 .mobile-thumbnails::-webkit-scrollbar,
 .other-cars-row::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
   width: 0;
   height: 0;
 }
@@ -453,18 +450,14 @@
   cursor: not-allowed;
 }
 
-/* hide desktop nav on small screens */
 @media (max-width: 900px) {
   .mobile-menu-toggle {
     display: block;
   }
 
-  /* Ensure the hamburger is visible on this page even if other stylesheets
-     (e.g., inventory.css/style.css) are loaded after and override basic rules.
-     Use higher specificity and !important so the button shows on mobile. */
   .hero-section header .mobile-menu-toggle {
     display: block !important;
-    color: white !important; /* dark icon on light background */
+    color: white !important;
     right: 5% !important;
     top: 32px !important;
     z-index: 9999 !important;
@@ -477,7 +470,6 @@
   }
 }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .vehicle-main-section {
     padding: 24px;
@@ -513,7 +505,6 @@
     justify-content: flex-start;
   }
 
-  /* Improve mobile image block layout for horizontal thumbnails */
   .vehicle-image-block {
     width: 100%;
     background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
@@ -531,7 +522,6 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   }
 
-  /* Modern horizontal mobile thumbnails design */
   .mobile-thumbnails {
     display: flex;
     flex-direction: row !important;
@@ -552,8 +542,6 @@
     -webkit-overflow-scrolling: touch;
     position: relative;
   }
-
-  /* Remove duplicate mobile-thumbnails rule and the nested media query */
 
   .mobile-thumbnails img {
     flex: 0 0 auto;
@@ -580,7 +568,6 @@
     transform: translateY(-2px) scale(1.05);
   }
 
-  /* Hide scrollbar but keep functionality */
   .mobile-thumbnails::-webkit-scrollbar {
     display: none;
   }
@@ -591,7 +578,7 @@
   }
 
   .vehicle-thumbnails img {
-    width: 120px; /* Keep thumbnails a uniform fixed size */
+    width: 120px;
     height: 90px;
   }
 
@@ -685,7 +672,6 @@
     padding: 18px;
   }
 
-  /* Make CTA buttons easier to tap on mobile */
   .add-to-cart-btn,
   .contact-btn,
   .view-details-btn {
@@ -694,7 +680,6 @@
     font-size: 1rem;
   }
 
-  /* Make other-cars slider show one full card per swipe on small screens */
   .other-cars-row {
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
@@ -718,7 +703,6 @@
   }
 }
 
-/* Mobile slider styles */
 .mobile-slider {
   position: relative;
   width: 100%;
@@ -792,7 +776,6 @@
   border-color: #ff6b00;
 }
 
-/* Desktop: clear two-column layout using flex to keep image and details aligned */
 @media (min-width: 900px) {
   .vehicle-main-section {
     max-width: 1920px;
@@ -851,7 +834,6 @@
   }
 }
 
-/* Thumbnail scrolling improvements */
 .vehicle-thumbnails {
   scroll-snap-type: x mandatory;
 }

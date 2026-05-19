@@ -9,12 +9,12 @@
     },
     {
       "src": "logo192.webp",
-      "type": "image/png",
+      "type": "image/webp",
       "sizes": "192x192"
     },
     {
       "src": "logo512.webp",
-      "type": "image/png",
+      "type": "image/webp",
       "sizes": "512x512"
     }
   ],

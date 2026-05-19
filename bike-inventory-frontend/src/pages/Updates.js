@@ -1,175 +1,157 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Add, Delete, Link, Search } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
+import Topbar from "../components/Layout/Topbar";
 import "../css/Dashboard.css";
 
-const Updates = ({ user }) => {
-  const navigate = useNavigate();
-  const API_BASE = process.env.REACT_APP_API_BASE || "https://bike-builders-backend.vercel.app";
-  const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
-  const [file, setFile] = useState(null);
+const API = process.env.REACT_APP_API_BASE || "https://bike-builders-backend.vercel.app";
+
+export default function Updates({ user }) {
+  const [title,   setTitle]   = useState("");
+  const [link,    setLink]    = useState("");
+  const [file,    setFile]    = useState(null);
   const [updates, setUpdates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error,   setError]   = useState(null);
+  const [search,  setSearch]  = useState("");
 
-  const normalizeImageUrl = useCallback(
-    (url) => {
-      if (!url) return url || "";
-      if (
-        /^https?:\/\//i.test(url) ||
-        url.startsWith("data:") ||
-        url.startsWith("//")
-      )
-        return url;
-      if (url.startsWith("/")) return API_BASE + url;
-      return API_BASE + "/" + url;
-    },
-    [API_BASE],
-  );
+  const normalize = useCallback(url => {
+    if (!url) return "";
+    if (/^https?:\/\
+    return API + (url.startsWith("/") ? url : "/" + url);
+  }, []);
 
   useEffect(() => {
-    const fetchUpdates = async () => {
+    (async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE}/api/updates`);
-        const data = await res.json();
-        // data is expected as array
-        const list = Array.isArray(data) ? data : [];
-        // normalize poster urls
-        const normalized = list.map((u) => ({
-          ...u,
-          poster: normalizeImageUrl(u.poster),
-        }));
-        setUpdates(normalized);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load updates");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchUpdates();
-  }, [API_BASE, normalizeImageUrl]);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files && e.target.files[0]);
-  };
+        const r = await fetch(`${API}/api/updates`);
+        const d = await r.json();
+        setUpdates((Array.isArray(d) ? d : []).map(u => ({...u, poster: normalize(u.poster)})));
+      } catch { setError("Failed to load updates"); }
+      finally { setLoading(false); }
+    })();
+  }, [normalize]);
 
   const handleCreate = async (e) => {
     e.preventDefault();
-    if (!title || !file) return setError("Title and poster are required");
+    if (!title || !file) return setError("Title and poster image are required");
     try {
       const form = new FormData();
       form.append("title", title);
-      form.append("link", link);
+      form.append("link",  link);
       form.append("poster", file);
-      const res = await fetch(`${API_BASE}/api/admin/updates`, {
-        method: "POST",
-        credentials: "include",
-        body: form,
-      });
-      if (!res.ok) {
-        const d = await res.json();
-        throw new Error(d.error || "Failed to create update");
-      }
-      const d = await res.json();
-      const newUpdate = { ...d.update, poster: normalizeImageUrl(d.update.poster) };
-      setUpdates((prev) => [newUpdate, ...prev]);
-      setTitle("");
-      setLink("");
-      setFile(null);
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError(err.message);
-    }
+      const r = await fetch(`${API}/api/admin/updates`, { method:"POST", credentials:"include", body:form });
+      if (!r.ok) { const d = await r.json(); throw new Error(d.error || "Failed"); }
+      const d = await r.json();
+      setUpdates(p => [{ ...d.update, poster: normalize(d.update.poster) }, ...p]);
+      setTitle(""); setLink(""); setFile(null); setError(null);
+    } catch(e) { setError(e.message); }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this update?")) return;
     try {
-      const res = await fetch(`${API_BASE}/api/admin/updates/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-      });
-      if (!res.ok) throw new Error("Failed to delete update");
-      setUpdates((prev) => prev.filter((u) => u._id !== id));
-    } catch (err) {
-      console.error(err);
-      setError("Failed to delete");
-    }
+      const r = await fetch(`${API}/api/admin/updates/${id}`, { method:"DELETE", credentials:"include" });
+      if (!r.ok) throw new Error();
+      setUpdates(p => p.filter(u => u._id!==id));
+    } catch { setError("Failed to delete"); }
   };
 
+  const filtered = updates.filter(u => !search || u.title?.toLowerCase().includes(search.toLowerCase()));
+
   return (
-    <div className="app-container">
-      <Sidebar user={user || { role: "staff" }} />
+    <div className="app-bg"><div className="bg-circle-mid" /><div className="app-container">
+      <Sidebar user={user || { role:"staff" }} />
       <div className="main-content">
-        <div className="dashboard-header">
-          <div className="dashboard-title">
-            <h1>Updates</h1>
-            <div className="dashboard-subtitle">Create and manage site updates, offers and announcements.</div>
-          </div>
-          <div className="header-actions">
-            <button className="btn" onClick={() => navigate("/admin/dashboard")}>Back</button>
-          </div>
-        </div>
+        <Topbar user={user}/>
+        <div className="content-inner">
 
-        <div className="updates-layout">
-          <aside className="update-form-card card">
-            <h3 style={{ marginTop: 0 }}>Create Update</h3>
-            {error && <div style={{ color: "#e53e3e", marginBottom: 8 }}>{error}</div>}
-            <form onSubmit={handleCreate} className="update-form">
-              <label>Title</label>
-              <input value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Short headline" required />
-
-              <label>Link (optional)</label>
-              <input value={link} onChange={(e) => setLink(e.target.value)} placeholder="https://example.com" />
-
-              <label>Poster Image</label>
-              <input type="file" accept="image/*" onChange={handleFileChange} required />
-
-              <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", marginTop: 8 }}>
-                <button type="submit" className="btn primary">Create</button>
-              </div>
-            </form>
-          </aside>
-
-          <section className="updates-list">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <h2 style={{ margin: 0 }}>Existing Updates</h2>
+          <div className="page-header">
+            <div>
+              <h1>Updates</h1>
+              <div className="page-subtitle">Create and manage site announcements and offers</div>
             </div>
+          </div>
 
-            {loading ? (
-              <div className="loading">Loading...</div>
-            ) : updates.length === 0 ? (
-              <div className="no-data">No updates yet — create the first announcement.</div>
-            ) : (
-              <div className="updates-cards-grid">
-                {updates.map((u) => (
-                  <div key={u._id} className="update-card card">
-                    <div className="update-media">
-                      <img src={u.poster} alt={u.title} />
-                    </div>
-                    <div className="update-body">
-                      <div className="update-meta">
-                        <div className="update-date">{new Date(u.createdAt).toLocaleDateString()}</div>
-                      </div>
-                      <h3 className="update-title">{u.title}</h3>
-                      {u.link && <a href={u.link} target="_blank" rel="noreferrer" className="update-link">Visit</a>}
-                    </div>
-                    <div className="update-actions">
-                      <button className="btn" onClick={() => handleDelete(u._id)}>Delete</button>
-                    </div>
+          <div className="updates-layout">
+            {}
+            <aside className="update-form-sidebar">
+              <h3><Add style={{fontSize:18,verticalAlign:"middle",marginRight:4}}/>New Update</h3>
+              {error && <div style={{color:"var(--danger)",fontSize:12,marginBottom:10}}>{error}</div>}
+              <form onSubmit={handleCreate} style={{display:"flex",flexDirection:"column",gap:12}}>
+                <div className="form-group">
+                  <label>Title <span style={{color:"var(--danger)"}}>*</span></label>
+                  <input className="form-control" placeholder="Short headline" value={title} onChange={e=>setTitle(e.target.value)} required/>
+                </div>
+                <div className="form-group">
+                  <label>Link (optional)</label>
+                  <div className="input-group">
+                    <input className="form-control" placeholder="https://…" value={link} onChange={e=>setLink(e.target.value)}/>
+                    <div className="input-addon"><Link style={{fontSize:16}}/></div>
                   </div>
-                ))}
+                </div>
+                <div className="form-group">
+                  <label>Poster Image <span style={{color:"var(--danger)"}}>*</span></label>
+                  <div
+                    className="image-upload-box"
+                    onClick={()=>document.getElementById("poster-input").click()}
+                  >
+                    <input id="poster-input" type="file" accept="image/*" onChange={e=>setFile(e.target.files?.[0]||null)}/>
+                    {file
+                      ? <p style={{color:"var(--primary)",fontWeight:600}}>{file.name}</p>
+                      : <><div style={{fontSize:24,color:"var(--text-muted)"}}>📁</div><p>Click to upload image</p></>
+                    }
+                  </div>
+                </div>
+                <button type="submit" className="btn primary" style={{width:"100%",justifyContent:"center"}}>
+                  <Add style={{fontSize:18}}/> Create Update
+                </button>
+              </form>
+            </aside>
+
+            {}
+            <section>
+              <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+                <div className="filter-search" style={{flex:1}}>
+                  <Search/>
+                  <input placeholder="Search updates…" value={search} onChange={e=>setSearch(e.target.value)}/>
+                </div>
+                <span className="filter-count">{filtered.length} update{filtered.length!==1?"s":""}</span>
               </div>
-            )}
-          </section>
+
+              {loading ? (
+                <div className="loading">Loading updates…</div>
+              ) : filtered.length === 0 ? (
+                <div className="empty-state">
+                  <p>No updates yet</p>
+                  <span>Create the first announcement using the form</span>
+                </div>
+              ) : (
+                <div className="updates-grid">
+                  {filtered.map(u => (
+                    <div key={u._id} className="update-card">
+                      <img src={u.poster} alt={u.title} className="update-card-img"/>
+                      <div className="update-card-body">
+                        <div className="update-card-date">{new Date(u.createdAt).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})}</div>
+                        <div className="update-card-title">{u.title}</div>
+                        {u.link && <a href={u.link} target="_blank" rel="noreferrer" className="update-card-link">Visit link ↗</a>}
+                      </div>
+                      <div className="update-card-footer">
+                        <button className="btn btn-error btn-sm" onClick={()=>handleDelete(u._id)}>
+                          <Delete style={{fontSize:14}}/> Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+
         </div>
       </div>
     </div>
-  );
-};
-
-export default Updates;
+  </div>
+);
+}

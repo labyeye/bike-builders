@@ -1,23 +1,259 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Extralight.otf") format("opentype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Semibold.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Clash Display";
+  src: url("../assets/fonts/ClashDisplay-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-display:
+    "Clash Display", "Inter", system-ui, -apple-system, "Segoe UI";
+  --font-body:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial;
+
+  --fs-hero: clamp(2.75rem, 5.5vw + 1rem, 5rem);
+  --fs-display: clamp(2.25rem, 4vw + 0.5rem, 3.5rem);
+  --fs-h1: clamp(2rem, 3vw + 0.5rem, 3rem);
+  --fs-h2: clamp(1.625rem, 2.4vw + 0.5rem, 2.25rem);
+  --fs-h3: clamp(1.375rem, 1.5vw + 0.5rem, 1.75rem);
+  --fs-card-title: clamp(1.25rem, 1vw + 0.8rem, 1.5rem);
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-micro: 0.75rem;
+
+  --tracking-tight: -0.03em;
+  --tracking-display: -0.02em;
+  --tracking-body: 0;
+  --tracking-wide: 0.04em;
+  --tracking-eyebrow: 0.18em;
+}
 
 * {
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
 }
 
-button:focus-visible {
-    outline: 2px solid #4a90e2 !important;
-    outline: -webkit-focus-ring-color auto 5px !important;
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: var(--tracking-body);
+  color: inherit;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.hero-content h1,
+.section-title,
+.section-header h2,
+.display-text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.08;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+}
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+h4 {
+  font-size: var(--fs-card-title);
+  font-weight: 600;
+}
+h5 {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  letter-spacing: var(--tracking-body);
+}
+h6 {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  letter-spacing: var(--tracking-body);
+}
+
+.hero-content h1,
+.hero-line {
+  font-size: 4rem;
+  font-weight: 400;
+  letter-spacing: var(--tracking-tight);
+  line-height: 1.02;
+}
+
+.bike-card h3,
+.bike-name,
+.price,
+.price-large,
+.cta-headline,
+.section-title {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  font-weight: 600;
+}
+
+.price,
+.price-large {
+  font-weight: 700;
+  letter-spacing: var(--tracking-tight);
+}
+
+.eyebrow,
+.section-eyebrow,
+.section-header span {
+  font-family: var(--font-body);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+p,
+li,
+td,
+th,
+label,
+input,
+select,
+textarea,
+.card p,
+.description,
+.meta,
+.text {
+  font-family: var(--font-body);
+  letter-spacing: var(--tracking-body);
+}
+
+p {
+  line-height: 1.65;
+}
+
+.lead {
+  font-size: var(--fs-body-lg);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+small,
+.text-small {
+  font-size: var(--fs-small);
+}
+
+.navbar,
+.nav-links,
+.nav-links a,
+.login-btn button,
+.btn,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-body) !important;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.nav-links a {
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.01em;
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.btn,
+button {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: all 0.25s ease;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+button:focus-visible {
+  outline: 2px solid #4a90e2 !important;
+  outline: -webkit-focus-ring-color auto 5px !important;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+  }
+  .hero-content h1,
+  .hero-line {
+    line-height: 1.06;
+  }
+  h1 {
+    letter-spacing: -0.025em;
+  }
 }

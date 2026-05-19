@@ -20,9 +20,9 @@ const EditBike = ({ user }) => {
     imageUrl: ["", "", "", "", ""],
     status: "Available",
   });
-  const [existingImages, setExistingImages] = useState([]); // URLs currently saved on server
-  const [removedImages, setRemovedImages] = useState([]); // URLs marked for removal
-  const [newFiles, setNewFiles] = useState([]); // Files selected to upload
+  const [existingImages, setExistingImages] = useState([]);
+  const [removedImages, setRemovedImages] = useState([]);
+  const [newFiles, setNewFiles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -33,7 +33,7 @@ const EditBike = ({ user }) => {
           `https://bike-builders-backend.vercel.app/api/admin/bike/${id}`,
           {
             credentials: "include",
-          }
+          },
         );
 
         if (!response.ok) {
@@ -43,7 +43,6 @@ const EditBike = ({ user }) => {
         const data = await response.json();
 
         if (data.success && data.bike) {
-          // Convert numeric fields to strings for the form inputs
           const formattedBike = {
             ...data.bike,
             modelYear: data.bike.modelYear.toString(),
@@ -55,7 +54,7 @@ const EditBike = ({ user }) => {
             ageUnit: "days",
             price: data.bike.price.toString(),
             downPayment: data.bike.downPayment.toString(),
-            // Ensure imageUrl is an array with 5 elements
+
             imageUrl: Array.isArray(data.bike.imageUrl)
               ? [
                   ...data.bike.imageUrl,
@@ -64,12 +63,12 @@ const EditBike = ({ user }) => {
               : [data.bike.imageUrl || "", "", "", "", ""].slice(0, 5),
           };
           setBike(formattedBike);
-          // keep a separate list of actual existing image URLs (non-empty)
+
           const existing = Array.isArray(data.bike.imageUrl)
             ? data.bike.imageUrl.filter((u) => u && u.trim() !== "")
             : data.bike.imageUrl
-            ? [data.bike.imageUrl]
-            : [];
+              ? [data.bike.imageUrl]
+              : [];
           setExistingImages(existing);
         } else {
           throw new Error("Bike not found");
@@ -93,7 +92,7 @@ const EditBike = ({ user }) => {
       [name]: newVal,
     }));
   };
-  // image management helpers
+
   const handleRemoveExisting = (index) => {
     const url = existingImages[index];
     setRemovedImages((prev) => [...prev, url]);
@@ -114,11 +113,11 @@ const EditBike = ({ user }) => {
 
   const handleNewFilesChange = (e) => {
     const files = Array.from(e.target.files || []);
-    // limit total images to 5
+
     const slots = Math.max(0, 5 - existingImages.length - newFiles.length);
     const toAdd = files.slice(0, slots);
     setNewFiles((prev) => [...prev, ...toAdd]);
-    // clear input
+
     e.target.value = null;
   };
 
@@ -130,13 +129,12 @@ const EditBike = ({ user }) => {
     setError(null);
 
     try {
-      // Check authentication first
       const authResponse = await fetch(
         "https://bike-builders-backend.vercel.app/api/admin/check-auth",
         {
           method: "GET",
           credentials: "include",
-        }
+        },
       );
 
       if (!authResponse.ok) {
@@ -152,7 +150,6 @@ const EditBike = ({ user }) => {
         return;
       }
 
-      // Build FormData to allow file uploads and removal instructions
       const formData = new FormData();
       formData.append("brand", bike.brand);
       formData.append("model", bike.model);
@@ -163,26 +160,29 @@ const EditBike = ({ user }) => {
       formData.append("daysOld", Number(bike.daysOld));
       formData.append("price", Number(bike.price));
       formData.append("downPayment", Number(bike.downPayment));
-      formData.append("emiAvailable", bike.emiAvailable === true ? "true" : "false");
+      formData.append(
+        "emiAvailable",
+        bike.emiAvailable === true ? "true" : "false",
+      );
       if (bike.emiAmount) formData.append("emiAmount", Number(bike.emiAmount));
       formData.append("status", bike.status);
 
-      // Send existing image order so server can reorder existing images
       formData.append("existingOrder", JSON.stringify(existingImages));
 
-      // Send removed images list (URLs)
       removedImages.forEach((u) => formData.append("removeImages[]", u));
 
-      // Append new files
       newFiles.forEach((file) => {
         formData.append("images", file);
       });
 
-      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/bike/${id}`, {
-        method: "PUT",
-        credentials: "include",
-        body: formData,
-      });
+      const response = await fetch(
+        `https://bike-builders-backend.vercel.app/api/admin/bike/${id}`,
+        {
+          method: "PUT",
+          credentials: "include",
+          body: formData,
+        },
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -450,41 +450,43 @@ const EditBike = ({ user }) => {
                 </div>
 
                 <div className="form-group">
-  <label>Age</label>
-  <div style={{ display: "flex", gap: "0.5rem" }}>
-    {/* Numeric Input */}
-    <input
-      type="number"
-      name="ageValue"
-      min="0"
-      value={bike.ageValue}
-      onChange={handleChange}
-      style={{
-        flex: 1,
-        padding: "0.75rem",
-        border: "1px solid #e2e8f0",
-        borderRadius: "8px"
-      }}
-    />
-    
-    {/* Unit Selector Buttons */}
-    <div className="age-unit-buttons">
-      {["days", "months", "years"].map((unit) => (
-        <button
-          key={unit}
-          type="button"
-          className={bike.ageUnit === unit ? "active" : ""}
-          onClick={() => setBike({
-            ...bike,
-            ageUnit: unit
-          })}
-        >
-          {unit.charAt(0).toUpperCase() + unit.slice(1)}
-        </button>
-      ))}
-    </div>
-  </div>
-</div>
+                  <label>Age</label>
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    {}
+                    <input
+                      type="number"
+                      name="ageValue"
+                      min="0"
+                      value={bike.ageValue}
+                      onChange={handleChange}
+                      style={{
+                        flex: 1,
+                        padding: "0.75rem",
+                        border: "1px solid #e2e8f0",
+                        borderRadius: "8px",
+                      }}
+                    />
+
+                    {}
+                    <div className="age-unit-buttons">
+                      {["days", "months", "years"].map((unit) => (
+                        <button
+                          key={unit}
+                          type="button"
+                          className={bike.ageUnit === unit ? "active" : ""}
+                          onClick={() =>
+                            setBike({
+                              ...bike,
+                              ageUnit: unit,
+                            })
+                          }
+                        >
+                          {unit.charAt(0).toUpperCase() + unit.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
 
                 <div className="form-group">
                   <label
@@ -543,7 +545,7 @@ const EditBike = ({ user }) => {
                     onChange={handleChange}
                   />
                 </div>
-                {/* EMI Availability */}
+                {}
                 <div className="form-group" style={{ marginBottom: "1.5rem" }}>
                   <label
                     style={{
@@ -562,7 +564,7 @@ const EditBike = ({ user }) => {
                   </label>
                 </div>
 
-                {/* EMI Amount (shown only when EMI is available) */}
+                {}
                 {bike.emiAvailable && (
                   <div
                     className="form-group"
@@ -597,25 +599,60 @@ const EditBike = ({ user }) => {
                     Images (up to 5)
                   </label>
 
-                  {/* Existing images list with reorder/remove */}
+                  {}
                   {existingImages.length > 0 && (
-                    <div className="file-previews" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                    <div
+                      className="file-previews"
+                      style={{
+                        display: "flex",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                        marginBottom: "0.75rem",
+                      }}
+                    >
                       {existingImages.map((url, idx) => (
-                        <div key={url} style={{ position: "relative", width: 120 }}>
+                        <div
+                          key={url}
+                          style={{ position: "relative", width: 120 }}
+                        >
                           <img
                             src={url}
                             alt={`img-${idx}`}
-                            style={{ width: 120, height: 90, objectFit: "cover", borderRadius: 8, border: "1px solid #e2e8f0" }}
-                            onError={(e) => { e.target.src = "https://via.placeholder.com/150" }}
+                            style={{
+                              width: 120,
+                              height: 90,
+                              objectFit: "cover",
+                              borderRadius: 8,
+                              border: "1px solid #e2e8f0",
+                            }}
+                            onError={(e) => {
+                              e.target.src = "https://via.placeholder.com/150";
+                            }}
                           />
-                          <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-                            <button type="button" className="btn" onClick={() => moveExisting(idx, -1)} disabled={idx === 0}>
+                          <div
+                            style={{ display: "flex", gap: 6, marginTop: 6 }}
+                          >
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => moveExisting(idx, -1)}
+                              disabled={idx === 0}
+                            >
                               ←
                             </button>
-                            <button type="button" className="btn" onClick={() => moveExisting(idx, 1)} disabled={idx === existingImages.length - 1}>
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => moveExisting(idx, 1)}
+                              disabled={idx === existingImages.length - 1}
+                            >
                               →
                             </button>
-                            <button type="button" className="btn" onClick={() => handleRemoveExisting(idx)}>
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => handleRemoveExisting(idx)}
+                            >
                               <Close />
                             </button>
                           </div>
@@ -624,18 +661,41 @@ const EditBike = ({ user }) => {
                     </div>
                   )}
 
-                  {/* New files preview */}
+                  {}
                   {newFiles.length > 0 && (
-                    <div className="file-previews" style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.75rem" }}>
+                    <div
+                      className="file-previews"
+                      style={{
+                        display: "flex",
+                        gap: "0.5rem",
+                        flexWrap: "wrap",
+                        marginBottom: "0.75rem",
+                      }}
+                    >
                       {newFiles.map((file, idx) => (
-                        <div key={idx} style={{ position: "relative", width: 120 }}>
+                        <div
+                          key={idx}
+                          style={{ position: "relative", width: 120 }}
+                        >
                           <img
                             src={URL.createObjectURL(file)}
                             alt={file.name}
-                            style={{ width: 120, height: 90, objectFit: "cover", borderRadius: 8, border: "1px solid #e2e8f0" }}
+                            style={{
+                              width: 120,
+                              height: 90,
+                              objectFit: "cover",
+                              borderRadius: 8,
+                              border: "1px solid #e2e8f0",
+                            }}
                           />
-                          <div style={{ display: "flex", gap: 6, marginTop: 6 }}>
-                            <button type="button" className="btn" onClick={() => removeNewFile(idx)}>
+                          <div
+                            style={{ display: "flex", gap: 6, marginTop: 6 }}
+                          >
+                            <button
+                              type="button"
+                              className="btn"
+                              onClick={() => removeNewFile(idx)}
+                            >
                               <Close />
                             </button>
                           </div>
@@ -644,7 +704,14 @@ const EditBike = ({ user }) => {
                     </div>
                   )}
 
-                  <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 6 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      alignItems: "center",
+                      marginBottom: 6,
+                    }}
+                  >
                     <input
                       type="file"
                       accept="image/*"
@@ -664,7 +731,8 @@ const EditBike = ({ user }) => {
                       fontSize: "0.875rem",
                     }}
                   >
-                    You can remove or reorder existing images. New files will be uploaded on save.
+                    You can remove or reorder existing images. New files will be
+                    uploaded on save.
                   </small>
                 </div>
 
@@ -707,7 +775,16 @@ const EditBike = ({ user }) => {
                 </div>
               </div>
 
-              <div className="card-footer" style={{ display: "flex", justifyContent: "flex-end", gap: "1rem", paddingTop: "1.5rem", borderTop: "1px solid #EEEEEE" }}>
+              <div
+                className="card-footer"
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  gap: "1rem",
+                  paddingTop: "1.5rem",
+                  borderTop: "1px solid #EEEEEE",
+                }}
+              >
                 <button
                   type="button"
                   className="btn"
@@ -725,7 +802,7 @@ const EditBike = ({ user }) => {
                   type="submit"
                   form="editBikeForm"
                   className="btn primary"
-                    style={{
+                  style={{
                     backgroundColor: "#393E46",
                     color: "#F7F7F7",
                     border: "none",

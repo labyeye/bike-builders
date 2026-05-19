@@ -28,11 +28,10 @@ const AddBike = ({ user }) => {
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState(null);
   const handleFilesChange = (e) => {
-    const MAX_FILE_SIZE = 2.5 * 1024 * 1024; // 2.5 MB per file
-    const MAX_TOTAL_SIZE = 8 * 1024 * 1024; // 8 MB total payload heuristic
+    const MAX_FILE_SIZE = 2.5 * 1024 * 1024;
+    const MAX_TOTAL_SIZE = 8 * 1024 * 1024;
     const files = Array.from(e.target.files).slice(0, 5);
 
-    // Per-file size check
     const tooLarge = files.filter((f) => f.size > MAX_FILE_SIZE);
     if (tooLarge.length > 0) {
       setError(
@@ -41,7 +40,6 @@ const AddBike = ({ user }) => {
       return;
     }
 
-    // Total size check (simple heuristic to avoid 413 from serverless limits)
     const totalSize = files.reduce((s, f) => s + f.size, 0);
     if (totalSize > MAX_TOTAL_SIZE) {
       setError(
@@ -95,12 +93,12 @@ const AddBike = ({ user }) => {
       if (formData.ageValue) {
         switch (formData.ageUnit) {
           case "months":
-            daysOld = Math.round(formData.ageValue * 30.44); // Average days in month
+            daysOld = Math.round(formData.ageValue * 30.44);
             break;
           case "years":
-            daysOld = Math.round(formData.ageValue * 365.25); // Account for leap years
+            daysOld = Math.round(formData.ageValue * 365.25);
             break;
-          default: // days
+          default:
             daysOld = formData.ageValue;
         }
       }
@@ -118,18 +116,21 @@ const AddBike = ({ user }) => {
       form.append("emiAmount", formData.emiAmount);
       form.append("status", formData.status);
       form.append("stock", formData.stock || 1);
-      // include any filtered image URLs (fallback)
+
       filteredImageUrls.forEach((url) => form.append("imageUrls", url));
-      // append files
+
       imageFiles.slice(0, 5).forEach((file) => {
         form.append("images", file);
       });
 
-      const response = await fetch("https://bike-builders-backend.vercel.app/api/admin/bike", {
-        method: "POST",
-        credentials: "include",
-        body: form,
-      });
+      const response = await fetch(
+        "https://bike-builders-backend.vercel.app/api/admin/bike",
+        {
+          method: "POST",
+          credentials: "include",
+          body: form,
+        },
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -380,7 +381,7 @@ const AddBike = ({ user }) => {
                 <div className="form-group">
                   <label>Age</label>
                   <div style={{ display: "flex", gap: "0.5rem" }}>
-                    {/* Numeric Input */}
+                    {}
                     <input
                       type="number"
                       min="0"
@@ -399,7 +400,7 @@ const AddBike = ({ user }) => {
                       }}
                     />
 
-                    {/* Unit Selector Buttons */}
+                    {}
                     <div className="age-unit-buttons">
                       {["days", "months", "years"].map((unit) => (
                         <button
@@ -487,7 +488,7 @@ const AddBike = ({ user }) => {
                   />
                 </div>
               </div>
-              {/* EMI Availability */}
+              {}
               <div className="form-group" style={{ marginBottom: "1.5rem" }}>
                 <label
                   style={{
@@ -510,7 +511,7 @@ const AddBike = ({ user }) => {
                 </label>
               </div>
 
-              {/* EMI Amount (shown only when EMI is available) */}
+              {}
               {formData.emiAvailable && (
                 <div className="form-group" style={{ marginBottom: "1.5rem" }}>
                   <label>Monthly EMI Amount (₹)</label>

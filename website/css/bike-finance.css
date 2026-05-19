@@ -1,4 +1,3 @@
-
 .finance-hero {
   padding: 48px 16px;
   text-align: center;
@@ -71,15 +70,14 @@
   font-weight: 700;
 }
 
-/* Step description styling */
 .step-desc {
-  color: #333333; /* darker description color for readability */
+  color: #333333;
   font-size: 1rem;
   line-height: 1.6;
   margin-top: 2px;
 }
 .dark-mode .step-desc {
-  color: white; /* darker description color for readability */
+  color: white;
   font-size: 1rem;
   line-height: 1.6;
   margin-top: 2px;
@@ -89,15 +87,14 @@
   font-size: 1.05rem;
 }
 
-/* New card-based layout for the financing process - single horizontal row */
 .process-cards {
   display: flex;
   flex-direction: row;
   gap: 16px;
   margin-top: 16px;
-  /* ensure cards always fit the container: no horizontal scroll */
+
   overflow-x: hidden;
-  padding-bottom: 6px; /* give space for shadows on small screens */
+  padding-bottom: 6px;
   align-items: stretch;
   justify-content: stretch;
   width: 100%;
@@ -114,9 +111,12 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
-  flex: 1 1 0; /* allow cards to shrink/grow and evenly distribute across full width */
-  min-width: 0; /* allow content to shrink inside card */
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+  flex: 1 1 0;
+  min-width: 0;
   box-sizing: border-box;
 }
 .process-card:hover {
@@ -153,9 +153,8 @@
   color: #333;
 }
 
-/* Dark mode variants using .dark-mode (finance.html uses body.dark-mode) */
 .dark-mode .process-card {
-  background: #c65a18; /* dark card background */
+  background: #c65a18;
   border: 1px solid rgba(255, 255, 255, 0.06);
   box-shadow: none;
 }
@@ -171,7 +170,6 @@
   color: #cbd5e1;
 }
 
-/* Also provide compatibility for .dark-theme class used on other pages */
 .dark-theme .process-card {
   background: #0f1724;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -196,7 +194,6 @@
   }
 }
 
-/* Responsive tweaks specific to finance page */
 @media (max-width: 992px) {
   .finance-hero {
     padding: 32px 12px;
@@ -230,13 +227,13 @@
     font-size: 1rem;
   }
   .step-desc {
-    color: #333333; /* darker description color for readability */
+    color: #333333;
     font-size: 1rem;
     line-height: 1.6;
     margin-top: 2px;
     text-align: center;
   }
-  /* Ensure the content container spans full width so headings center properly */
+
   .step > div {
     width: 100%;
     font-weight: bold;
@@ -299,7 +296,6 @@
   }
 }
 
-/* Stack process cards vertically on small devices for better readability */
 @media (max-width: 640px) {
   .process-cards {
     flex-direction: column;

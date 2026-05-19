@@ -1,17 +1,16 @@
-import React from 'react';
-import { Person } from '@mui/icons-material';
+import React from "react";
+import { Person } from "@mui/icons-material";
 
-const Topbar = ({ user }) => {
-  return (
-    <div className="topbar">
-      <div className="user-menu">
-        <span className="user-name">{user.username}</span>
-        <div className="user-avatar">
-          <Person />
-        </div>
+const Topbar = ({ user }) => (
+  <div className="topbar">
+    <div className="topbar-user">
+      <div className="topbar-avatar"><Person /></div>
+      <div>
+        <div className="topbar-name">{user?.username || "Admin"}</div>
+        <div className="topbar-role">{user?.role || "staff"}</div>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Topbar;

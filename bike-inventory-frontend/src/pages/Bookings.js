@@ -1,29 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Check, Close, Edit, Delete } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import Sidebar from '../components/Layout/Sidebar';
-import '../css/Dashboard.css';
+﻿import React, { useState, useEffect, useMemo } from "react";
+import { Check, Close, Delete, Search, FilterList } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Layout/Sidebar";
+import Topbar from "../components/Layout/Topbar";
+import "../css/Dashboard.css";
 
-const Bookings = ({ user }) => {
+const API = "https://bike-builders-backend.vercel.app";
+const STATUSES = ["All","Pending","Approved","Rejected"];
+
+export default function Bookings({ user }) {
   const navigate = useNavigate();
-  const [bookings, setBookings] = useState([]);
+  const [bookings, setBookings]   = useState([]);
   const [authChecked, setAuthChecked] = useState(false);
+  const [loading, setLoading]     = useState(true);
+
+  
+  const [search,    setSearch]   = useState("");
+  const [status,    setStatus]   = useState("All");
+  const [dateFrom,  setDateFrom] = useState("");
+  const [dateTo,    setDateTo]   = useState("");
 
   useEffect(() => {
-    const checkAuth = async () => {
+    (async () => {
       try {
-        const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/check-auth', {
-          credentials: 'include',
-        });
-        if (!response.ok) return navigate('/login');
-        const data = await response.json();
-        if (!data.isAuthenticated) return navigate('/login');
+        const r = await fetch(`${API}/api/admin/check-auth`, { credentials:"include" });
+        if (!r.ok) return navigate("/login");
+        const d = await r.json();
+        if (!d.isAuthenticated) return navigate("/login");
         setAuthChecked(true);
-      } catch {
-        navigate('/login');
-      }
-    };
-    checkAuth();
+      } catch { navigate("/login"); }
+    })();
   }, [navigate]);
 
   useEffect(() => {
@@ -33,109 +39,143 @@ const Bookings = ({ user }) => {
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('https://bike-builders-backend.vercel.app/api/admin/bookings', {
-        credentials: 'include',
-      });
-      const data = await response.json();
-      setBookings(data.bookings || []);
-    } catch (error) {
-      console.error('Error fetching bookings:', error);
-    }
+      setLoading(true);
+      const r = await fetch(`${API}/api/admin/bookings`, { credentials:"include" });
+      const d = await r.json();
+      setBookings(d.bookings || []);
+    } catch(e) { console.error(e); }
+    finally { setLoading(false); }
   };
 
-  const updateBookingStatus = async (id, status) => {
+  const updateStatus = async (id, s) => {
     try {
-      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/booking/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify({ status })
+      const r = await fetch(`${API}/api/admin/booking/${id}`, {
+        method:"PUT", headers:{"Content-Type":"application/json"},
+        credentials:"include", body: JSON.stringify({ status: s }),
       });
-      if (!response.ok) throw new Error('Failed to update booking');
+      if (!r.ok) throw new Error();
       fetchBookings();
-    } catch (error) {
-      alert('Error updating booking status');
-    }
+    } catch { alert("Error updating booking"); }
   };
 
   const deleteBooking = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this booking?')) return;
+    if (!window.confirm("Delete this booking?")) return;
     try {
-      const response = await fetch(`https://bike-builders-backend.vercel.app/api/admin/booking/${id}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-      if (!response.ok) throw new Error('Failed to delete booking');
+      await fetch(`${API}/api/admin/booking/${id}`, { method:"DELETE", credentials:"include" });
       fetchBookings();
-    } catch (error) {
-      alert('Error deleting booking');
-    }
+    } catch { alert("Error deleting booking"); }
   };
 
-  const editBooking = (booking) => {
-    // You can implement a modal or redirect to an edit page
-    alert('Edit booking feature coming soon!');
-  };
+  const filtered = useMemo(() => {
+    let list = [...bookings];
+    if (search) {
+      const q = search.toLowerCase();
+      list = list.filter(b => b.name?.toLowerCase().includes(q) || b.phone?.includes(q) || b.email?.toLowerCase().includes(q));
+    }
+    if (status !== "All") list = list.filter(b => b.status === status);
+    if (dateFrom) list = list.filter(b => new Date(b.createdAt) >= new Date(dateFrom));
+    if (dateTo)   list = list.filter(b => new Date(b.createdAt) <= new Date(dateTo + "T23:59:59"));
+    return list;
+  }, [bookings, search, status, dateFrom, dateTo]);
+
+  const badgeClass = (s) => s==="Approved"?"badge-green":s==="Rejected"?"badge-red":"badge-yellow";
 
   return (
-    <div className="app-container">
+    <div className="app-bg"><div className="bg-circle-mid" /><div className="app-container">
       <Sidebar user={user} />
       <div className="main-content">
-        <div className="dashboard-header">
-          <h1>Bike Bookings</h1>
-        </div>
-        <div className="table-body">
-          <table className="modern-table">
-            <thead>
-              <tr>
-                <th>Customer</th>
-                <th>Bike</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Payment</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {bookings.map((booking, idx) => (
-                <tr key={booking._id} className={idx % 2 === 0 ? 'table-row-striped' : ''}>
-                  <td>{booking.name}</td>
-                  <td>{booking.bikeId?.brand} {booking.bikeId?.model}</td>
-                  <td>{booking.phone}</td>
-                  <td>{booking.email}</td>
-                  <td>{booking.paymentMethod} <br />₹{booking.amount?.toLocaleString()}</td>
-                  <td>{booking.status}</td>
-                  <td>{booking.createdAt ? new Date(booking.createdAt).toLocaleDateString() : ''}</td>
-                  <td>
-                    <div className="action-buttons">
-                      {booking.status === 'Pending' && (
-                        <>
-                          <button className="btn btn-success btn-sm" style={{ borderRadius: '6px' }} onClick={() => updateBookingStatus(booking._id, 'Approved')}>
-                            <Check className="btn-icon" /> Approve
-                          </button>
-                          <button className="btn btn-error btn-sm" style={{ borderRadius: '6px' }} onClick={() => updateBookingStatus(booking._id, 'Rejected')}>
-                            <Close className="btn-icon" /> Reject
-                          </button>
-                        </>
-                      )}
-                      <button className="btn btn-primary btn-sm" style={{ borderRadius: '6px' }} onClick={() => editBooking(booking)}>
-                        <Edit className="btn-icon" /> Edit
-                      </button>
-                      <button className="btn btn-error btn-sm" style={{ borderRadius: '6px' }} onClick={() => deleteBooking(booking._id)}>
-                        <Delete className="btn-icon" /> Delete
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <Topbar user={user}/>
+        <div className="content-inner">
+
+          <div className="page-header">
+            <div>
+              <h1>Bookings</h1>
+              <div className="page-subtitle">Manage test-ride and purchase bookings</div>
+            </div>
+          </div>
+
+          <div className="filter-bar">
+            <FilterList style={{color:"var(--text-muted)",fontSize:18,flexShrink:0}}/>
+            <div className="filter-search">
+              <Search/>
+              <input placeholder="Search by name, phone, email…" value={search} onChange={e=>setSearch(e.target.value)}/>
+            </div>
+            <select className="filter-select" value={status} onChange={e=>setStatus(e.target.value)}>
+              {STATUSES.map(s=><option key={s}>{s}</option>)}
+            </select>
+            <div style={{display:"flex",gap:6,alignItems:"center"}}>
+              <span className="filter-label">From</span>
+              <input type="date" className="filter-input" style={{width:140}} value={dateFrom} onChange={e=>setDateFrom(e.target.value)}/>
+              <span className="filter-label">To</span>
+              <input type="date" className="filter-input" style={{width:140}} value={dateTo}   onChange={e=>setDateTo(e.target.value)}/>
+            </div>
+            <button className="filter-reset" onClick={()=>{setSearch("");setStatus("All");setDateFrom("");setDateTo("");}}>Reset</button>
+            <span className="filter-count">{filtered.length} of {bookings.length}</span>
+          </div>
+
+          {loading ? (
+            <div className="loading">Loading bookings…</div>
+          ) : (
+            <div className="card">
+              <div className="table-wrap">
+                <table className="data-table">
+                  <thead>
+                    <tr>
+                      <th>Customer</th>
+                      <th>Bike</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Payment</th>
+                      <th>Status</th>
+                      <th>Date</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filtered.length === 0 ? (
+                      <tr><td colSpan="8" style={{textAlign:"center",padding:32,color:"var(--text-muted)"}}>No bookings found</td></tr>
+                    ) : filtered.map(b => (
+                      <tr key={b._id}>
+                        <td data-label="Customer"><div className="cell-main">{b.name}</div></td>
+                        <td data-label="Bike">{b.bikeId?.brand} {b.bikeId?.model}</td>
+                        <td data-label="Phone">{b.phone}</td>
+                        <td data-label="Email" style={{fontSize:12}}>{b.email}</td>
+                        <td data-label="Payment">
+                          <div>{b.paymentMethod}</div>
+                          <div className="cell-sub">₹{b.amount?.toLocaleString()}</div>
+                        </td>
+                        <td data-label="Status">
+                          <span className={`badge ${badgeClass(b.status)}`}>{b.status}</span>
+                        </td>
+                        <td data-label="Date">{b.createdAt ? new Date(b.createdAt).toLocaleDateString() : "—"}</td>
+                        <td data-label="Actions">
+                          <div className="action-buttons">
+                            {b.status === "Pending" && (
+                              <>
+                                <button className="btn btn-success btn-sm" onClick={()=>updateStatus(b._id,"Approved")}>
+                                  <Check style={{fontSize:14}}/> Approve
+                                </button>
+                                <button className="btn btn-error btn-sm" onClick={()=>updateStatus(b._id,"Rejected")}>
+                                  <Close style={{fontSize:14}}/> Reject
+                                </button>
+                              </>
+                            )}
+                            <button className="btn-icon-only danger" onClick={()=>deleteBooking(b._id)} title="Delete">
+                              <Delete style={{fontSize:16}}/>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </div>
-  );
-};
-
-export default Bookings;
+  </div>
+);
+}

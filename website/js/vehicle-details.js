@@ -1,11 +1,8 @@
-// Moved from vehicledetail.html to keep HTML light
-// API Configuration
 const API_BASE_URL =
   window.location.hostname === "localhost"
     ? "https://bike-builders-backend.vercel.app"
-    : "https://bike-builders-backend.vercel.app"; // Replace with your Vercel backend URL
+    : "https://bike-builders-backend.vercel.app";
 
-// Helper function to get the correct image URL
 function getImageUrl(imagePath) {
   if (!imagePath) return "assets/placeholder.webp";
 
@@ -24,7 +21,6 @@ function getImageUrl(imagePath) {
   return `${API_BASE_URL}/carimages/${filename}`;
 }
 
-// Helper Functions
 function formatOwnership(owner) {
   if (owner === "1" || owner.includes("1st")) return "1st Owner";
   if (owner === "2" || owner.includes("2nd")) return "2nd Owner";
@@ -56,7 +52,6 @@ function carIdFromQuery() {
   }
 }
 
-// Load Car Data — support both full object in ?car=... and id in ?id=...
 (function () {
   const params = new URLSearchParams(window.location.search);
   const carFromQuery = (function () {
@@ -69,10 +64,12 @@ function carIdFromQuery() {
 
   function populateCar(car) {
     if (!car) return;
-    document.getElementById("vehicleTitle").textContent = `${car.brand || car.make || ""
-      } ${car.model || ""}`;
-    document.getElementById("vehicleModel").textContent = `${car.modelYear || ""
-      } Model`;
+    document.getElementById("vehicleTitle").textContent = `${
+      car.brand || car.make || ""
+    } ${car.model || ""}`;
+    document.getElementById("vehicleModel").textContent = `${
+      car.modelYear || ""
+    } Model`;
     document.getElementById("vehicleKm").textContent = `${(
       car.kmDriven || 0
     ).toLocaleString()} km`;
@@ -92,18 +89,13 @@ function carIdFromQuery() {
     document.getElementById("vehicleEmi").textContent = `Down: ₹${(
       car.downPayment || 0
     ).toLocaleString()} | EMI: ₹${Math.round(
-      ((car.sellingPrice || car.price || 0) - (car.downPayment || 0)) /
-      36,
+      ((car.sellingPrice || car.price || 0) - (car.downPayment || 0)) / 36,
     ).toLocaleString()}/month`;
 
     let images = [];
     if (car.photos && Array.isArray(car.photos) && car.photos.length)
       images = car.photos.slice();
-    else if (
-      car.imageUrl &&
-      Array.isArray(car.imageUrl) &&
-      car.imageUrl.length
-    )
+    else if (car.imageUrl && Array.isArray(car.imageUrl) && car.imageUrl.length)
       images = car.imageUrl.slice();
     else if (car.images && Array.isArray(car.images) && car.images.length)
       images = car.images.slice();
@@ -138,9 +130,7 @@ function carIdFromQuery() {
           mainImgMobile.src = normalizeImagePath(img);
           Array.from(thumbRow.children).forEach((t, i) => {
             t.style.border =
-              i === idx
-                ? "2px solid var(--accent)"
-                : "2px solid transparent";
+              i === idx ? "2px solid var(--accent)" : "2px solid transparent";
           });
         };
         thumbRow.appendChild(thumb);
@@ -190,9 +180,7 @@ function carIdFromQuery() {
         const bikes = Array.isArray(list)
           ? list
           : list.bikes || list.data || [];
-        const found = bikes.find(
-          (b) => b._id == id || (b.id && b.id == id),
-        );
+        const found = bikes.find((b) => b._id == id || (b.id && b.id == id));
         if (found) populateCar(found);
         else {
           const main = document.querySelector(".vehicle-main-section");
@@ -210,13 +198,10 @@ function carIdFromQuery() {
   }
 })();
 
-// Fetch other cars from backend and show in slider (robust to different API shapes)
 fetch(`${API_BASE_URL}/api/bikes`)
   .then((response) => response.json())
   .then((data) => {
-    const cars = Array.isArray(data)
-      ? data
-      : data.bikes || data.data || [];
+    const cars = Array.isArray(data) ? data : data.bikes || data.data || [];
     if (Array.isArray(cars)) {
       const otherCarsRow = document.getElementById("otherCarsRow");
       otherCarsRow.innerHTML = "";
@@ -226,8 +211,7 @@ fetch(`${API_BASE_URL}/api/bikes`)
 
         let imgSrc = "assets/owner.webp";
         const candidate =
-          (car.photos && car.photos[0]) ||
-          (car.imageUrl && car.imageUrl[0]);
+          (car.photos && car.photos[0]) || (car.imageUrl && car.imageUrl[0]);
         if (candidate) {
           if (
             candidate.startsWith("http://") ||
@@ -253,34 +237,40 @@ fetch(`${API_BASE_URL}/api/bikes`)
         card.className = "other-car-card";
         card.innerHTML = `
                 <div class="image-container">
-                  <img src="${imgSrc}" alt="${car.brand || car.make || ""} ${car.model || ""
-          }" class="other-car-img" />
-                  <div class="status-badge ${statusClass}" data-translate="${car.status || "Available"
-          }">${car.status || "Available"}</div>
+                  <img src="${imgSrc}" alt="${car.brand || car.make || ""} ${
+                    car.model || ""
+                  }" class="other-car-img" />
+                  <div class="status-badge ${statusClass}" data-translate="${
+                    car.status || "Available"
+                  }">${car.status || "Available"}</div>
                 </div>
                 <div class="card-content">
-                  <h3>${car.brand || car.make || "Unknown Brand"} ${car.model || "Unknown Model"
-          }</h3>
+                  <h3>${car.brand || car.make || "Unknown Brand"} ${
+                    car.model || "Unknown Model"
+                  }</h3>
                   <span class="model">${car.modelYear || "-"} Model</span>
                   <div class="details">
                     <div class="detail-item"><i class="fas fa-tachometer-alt"></i> <span>${(
-            car.kmDriven || 0
-          ).toLocaleString()} km</span></div>
+                      car.kmDriven || 0
+                    ).toLocaleString()} km</span></div>
                     <div class="detail-item"><i class="fas fa-user"></i> <span>${ownerText}</span></div>
-                    <div class="detail-item"><i class="fas fa-gas-pump"></i> <span>${car.fuelType || "Petrol"
-          }</span></div>
+                    <div class="detail-item"><i class="fas fa-gas-pump"></i> <span>${
+                      car.fuelType || "Petrol"
+                    }</span></div>
                   </div>
                   <div class="price-container">
                     <div class="price">₹${(
-            car.sellingPrice ||
-            car.price ||
-            0
-          ).toLocaleString()}</div>
+                      car.sellingPrice ||
+                      car.price ||
+                      0
+                    ).toLocaleString()}</div>
                     <div class="button-group">
-                      <button class="contact-btn" data-translate="Contact Seller" ${car.status !== "Available" ? "disabled" : ""
-          }>Contact Seller</button>
-                      <button class="view-details-btn" data-translate="View Details" ${car.status !== "Available" ? "disabled" : ""
-          }>View Details</button>
+                      <button class="contact-btn" data-translate="Contact Seller" ${
+                        car.status !== "Available" ? "disabled" : ""
+                      }>Contact Seller</button>
+                      <button class="view-details-btn" data-translate="View Details" ${
+                        car.status !== "Available" ? "disabled" : ""
+                      }>View Details</button>
                     </div>
                   </div>
                 </div>
@@ -310,27 +300,9 @@ fetch(`${API_BASE_URL}/api/bikes`)
       });
 
       enableAutoSlider();
-      try {
-        const preferred = localStorage.getItem("preferredLanguage") || "en";
-        if (preferred && typeof translatePage === "function") {
-          const dynamicElems =
-            otherCarsRow.querySelectorAll("[data-translate]");
-          dynamicElems.forEach((el) => {
-            const key = el.getAttribute("data-translate");
-            if (
-              translations &&
-              translations[preferred] &&
-              translations[preferred][key]
-            ) {
-              el.textContent = translations[preferred][key];
-            }
-          });
-        }
-      } catch (e) { }
     }
   });
 
-// Auto-scroll functionality
 function enableAutoSlider() {
   const row = document.getElementById("otherCarsRow");
   if (!row) return;
@@ -369,7 +341,6 @@ function enableAutoSlider() {
   });
 }
 
-// --- THUMBNAIL SLIDER LOGIC ---
 (function () {
   const mainImg = document.getElementById("mainVehicleImg");
   const thumbnails = document.getElementById("vehicleThumbnails");
@@ -415,8 +386,7 @@ function enableAutoSlider() {
       if (thumbLeft < visibleStart) {
         scrollContainer.scrollLeft = thumbLeft;
       } else if (thumbRight > visibleEnd) {
-        scrollContainer.scrollLeft =
-          thumbRight - scrollContainer.offsetWidth;
+        scrollContainer.scrollLeft = thumbRight - scrollContainer.offsetWidth;
       }
     }
     updateThumbs();
@@ -464,7 +434,6 @@ function enableAutoSlider() {
   }, 500);
 })();
 
-// Mobile menu initializer
 function initializeMobileMenu() {
   const toggleBtn = document.createElement("button");
   toggleBtn.className = "mobile-menu-toggle";
@@ -534,10 +503,8 @@ function initializeMobileMenu() {
     document.body.style.overflow = "hidden";
   });
 
-  mobileMenu
-    .querySelector(".close-btn")
-    .addEventListener("click", function () {
-      mobileMenu.classList.remove("active");
-      document.body.style.overflow = "auto";
-    });
+  mobileMenu.querySelector(".close-btn").addEventListener("click", function () {
+    mobileMenu.classList.remove("active");
+    document.body.style.overflow = "auto";
+  });
 }

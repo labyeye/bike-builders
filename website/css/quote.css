@@ -41,7 +41,7 @@
 }
 
 .quote-form h3::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -64,7 +64,6 @@
 .form-group label span {
   color: var(--primary-color);
 }
-
 
 .form-group input,
 .form-group select,
@@ -242,7 +241,6 @@
   box-shadow: 0 8px 20px rgba(163, 41, 25, 0.4);
 }
 
-/* Testimonials Section */
 .testimonials-section {
   padding: 80px 20px;
   background: #1a1a1a;
@@ -363,7 +361,6 @@
   background: var(--primary-color);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .quote-section {
     padding: 60px 20px;

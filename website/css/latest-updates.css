@@ -146,7 +146,6 @@
   animation: fadeInUp 0.5s ease forwards;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .updates-section {
     padding: 3rem 1rem;
