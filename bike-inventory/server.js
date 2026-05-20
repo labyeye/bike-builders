@@ -51,7 +51,7 @@ if (process.env.NODE_ENV !== "production") {
       origin: true,
       credentials: true,
       optionsSuccessStatus: 200,
-      allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+      allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With","Control-Allow-Credentials", "Access-Control-Allow-Origin"],
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     })
   );
