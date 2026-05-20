@@ -654,17 +654,7 @@
             mobileMenu.classList.remove("active");
           });
         // Determine API base dynamically (same logic as other pages)
-        const API_BASE = (function () {
-          try {
-            const host = window.location.hostname;
-            if (host === "localhost") {
-              return `${window.location.protocol}//${host}:2500`;
-            }
-          } catch (e) {
-            // ignore
-          }
-          return "https://bike-builders-backend.vercel.app";
-        })();
+        const API_BASE = "https://bike-builders-backend.vercel.app";
 
         function normalizeImageUrl(url) {
           if (!url) return url;

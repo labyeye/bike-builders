@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Check, Close, Search, FilterList } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
@@ -144,7 +144,7 @@ export default function SellRequests({ user }) {
                           {req.images?.length > 0 ? (
                             <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
                               {req.images.slice(0,3).map((img,i) => {
-                                const src = /^https?:\/\
+                                const src = /^https?:\/\//i.test(img) ? img : `${API}/uploads/${img}`;
                                 return (
                                   <img key={i} src={src} alt={`img-${i}`}
                                     style={{width:44,height:36,objectFit:"cover",borderRadius:4,border:"1px solid var(--border)",cursor:"pointer"}}

@@ -123,18 +123,7 @@ function initPreconnect() {
   });
 }
 
-window.API_BASE = (function () {
-  try {
-    const host = window.location.hostname;
-    if (host === "localhost" || host === "127.0.0.1") {
-      return `${window.location.protocol}//${host}:2500`;
-    }
-    if (window.location.protocol === "file:") return "https://bike-builders-backend.vercel.app";
-    return window.location.origin;
-  } catch (e) {
-    return "https://bike-builders-backend.vercel.app";
-  }
-})();
+window.API_BASE =  "https://bike-builders-backend.vercel.app";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {

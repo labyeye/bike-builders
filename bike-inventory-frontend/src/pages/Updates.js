@@ -17,7 +17,7 @@ export default function Updates({ user }) {
 
   const normalize = useCallback(url => {
     if (!url) return "";
-    if (/^https?:\/\
+    if (/^https?:\/\//i.test(url)) return url;
     return API + (url.startsWith("/") ? url : "/" + url);
   }, []);
 

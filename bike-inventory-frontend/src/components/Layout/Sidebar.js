@@ -6,7 +6,7 @@ import {
   Notifications, People, RateReview, Logout, Menu,
 } from "@mui/icons-material";
 import "../../css/Sidebar.css";
-import logo from "../../assets/Logo.webp";
+import logo from "../../assets/Logo.png";
 
 export default function DashSidebar({ user }) {
   const [open, setOpen] = useState(false);

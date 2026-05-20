@@ -1117,15 +1117,7 @@
         };
         let currentSort = "default";
 
-        const API_BASE = (function () {
-          try {
-            const host = window.location.hostname;
-            if (host === "localhost" || host === "127.0.0.1") {
-              return `${window.location.protocol}//${host}:2500`;
-            }
-          } catch (e) {}
-          return "https://bike-builders-backend.vercel.app";
-        })();
+        const API_BASE = "https://bike-builders-backend.vercel.app";
 
         (function applyPriceFromUrl() {
           try {
