@@ -40,7 +40,7 @@ const allowedOrigins = [
   "http://127.0.0.1:5500",
   "http://localhost:5500",
   "https://www.bikebuilders.in",
-  "https://bike-builders-ii74.vercel.app",
+  "https://bikebuilders-backend.vercel.app",
   "https://bike-builders-lfn5tcmcq-labyeyes-projects.vercel.app",
 ];
 
