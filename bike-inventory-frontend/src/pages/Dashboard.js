@@ -30,6 +30,7 @@ export default function Dashboard({ user }) {
   const [bookingCount, setBookingCount] = useState(null);
   const [loading, setLoading]         = useState(true);
   const [authChecked, setAuthChecked] = useState(false);
+  const [authError, setAuthError]     = useState("");
 
   
   const [search, setSearch]   = useState("");
@@ -67,15 +68,35 @@ export default function Dashboard({ user }) {
   };
 
   useEffect(() => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000);
+
     (async () => {
       try {
-        const r = await fetch(`${API}/api/admin/check-auth`, { credentials: "include" });
+        const r = await fetch(`${API}/api/admin/check-auth`, {
+          credentials: "include",
+          signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
         if (!r.ok) return navigate("/login");
         const d = await r.json();
         if (!d.isAuthenticated) return navigate("/login");
         setAuthChecked(true);
-      } catch { navigate("/login"); }
+      } catch (err) {
+        clearTimeout(timeoutId);
+        if (err.name === "AbortError") {
+          setAuthError("Server is taking too long to respond. Please check your connection and try again.");
+          setLoading(false);
+        } else {
+          navigate("/login");
+        }
+      }
     })();
+
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
   }, [navigate]);
 
   useEffect(() => {
@@ -141,6 +162,19 @@ export default function Dashboard({ user }) {
   const fmt = (p) => new Intl.NumberFormat("en-IN",{style:"currency",currency:"INR",minimumFractionDigits:0}).format(p);
   const badgeClass = (s) => s==="Available"?"badge-green":s==="Coming Soon"?"badge-yellow":"badge-red";
 
+  if (authError) {
+    return (
+      <div className="loading" style={{ flexDirection: "column", gap: 16, padding: 24, textAlign: "center" }}>
+        <div style={{ color: "#d32f2f", fontSize: 15, maxWidth: 380 }}>{authError}</div>
+        <button
+          onClick={() => window.location.reload()}
+          style={{ padding: "10px 22px", background: "#a32919", color: "#fff", border: "none", borderRadius: 6, fontWeight: 600, cursor: "pointer" }}
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
   if (!authChecked || loading) return <div className="loading">Loading dashboard…</div>;
 
   return (

@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 const cors = require("cors");
@@ -159,12 +160,19 @@ app.use(
     secret: process.env.SESSION_SECRET || "rgesda543",
     resave: false,
     saveUninitialized: false,
+    rolling: true,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+      collectionName: "sessions",
+      ttl: 30 * 24 * 60 * 60,
+      autoRemove: "native",
+      touchAfter: 24 * 60 * 60,
+    }),
     cookie: {
-      maxAge: 3600000, 
+      maxAge: 30 * 24 * 60 * 60 * 1000,
       sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       secure: process.env.NODE_ENV === "production" ? true : false,
-      httpOnly: true, 
-      
+      httpOnly: true,
     },
     proxy: process.env.NODE_ENV === "production",
   })
