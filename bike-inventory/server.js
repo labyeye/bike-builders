@@ -15,7 +15,6 @@ const bookingRoutes = require("./routes/bookings");
 const offerRoutes = require("./routes/offers");
 const updateRoutes = require("./routes/updates");
 const reviewRoutes = require("./routes/reviews");
-
 const app = express();
 const port = process.env.PORT || 5000;
 
