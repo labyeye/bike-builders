@@ -32,7 +32,7 @@ export default function Dashboard({ user }) {
   const [authChecked, setAuthChecked] = useState(false);
   const [authError, setAuthError]     = useState("");
 
-  
+
   const [search, setSearch]   = useState("");
   const [brand,  setBrand]    = useState("All Brands");
   const [fuel,   setFuel]     = useState("All Fuel");
@@ -43,7 +43,7 @@ export default function Dashboard({ user }) {
   const [minYear,  setMinYear]  = useState("");
   const [maxYear,  setMaxYear]  = useState("");
 
-  
+
   const [modalOpen, setModalOpen]   = useState(false);
   const [editingBike, setEditingBike] = useState(null);
 
@@ -68,6 +68,12 @@ export default function Dashboard({ user }) {
   };
 
   useEffect(() => {
+    // If user is passed from App.js (restored from localStorage), trust it immediately
+    if (user) {
+      setAuthChecked(true);
+      return;
+    }
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
 
@@ -84,6 +90,14 @@ export default function Dashboard({ user }) {
         setAuthChecked(true);
       } catch (err) {
         clearTimeout(timeoutId);
+        // On timeout, check localStorage before giving up
+        try {
+          const stored = localStorage.getItem("bb_user");
+          if (stored && JSON.parse(stored)) {
+            setAuthChecked(true);
+            return;
+          }
+        } catch (e) {}
         if (err.name === "AbortError") {
           setAuthError("Server is taking too long to respond. Please check your connection and try again.");
           setLoading(false);
@@ -97,7 +111,7 @@ export default function Dashboard({ user }) {
       clearTimeout(timeoutId);
       controller.abort();
     };
-  }, [navigate]);
+  }, [navigate, user]);
 
   useEffect(() => {
     if (!authChecked) return;

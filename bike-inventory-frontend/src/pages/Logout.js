@@ -21,6 +21,7 @@ const Logout = ({ setUser }) => {
 
         try {
           localStorage.removeItem("selectedLanguage");
+          localStorage.removeItem("bb_user");
         } catch (e) {}
         navigate("/login");
       }

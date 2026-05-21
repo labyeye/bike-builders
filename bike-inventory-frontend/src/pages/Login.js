@@ -29,7 +29,10 @@ export default function AdminLogin({ setUser }) {
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.message || "Login failed");
-      if (setUser && data.user) setUser(data.user);
+      if (setUser && data.user) {
+        try { localStorage.setItem("bb_user", JSON.stringify(data.user)); } catch (e) {}
+        setUser(data.user);
+      }
       navigate("/admin/dashboard");
     } catch(err) {
       setError(err.message || "An error occurred");

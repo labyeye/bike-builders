@@ -22,6 +22,7 @@ export default function BuyRequests({ user }) {
   const [maxBudget, setMaxBudget] = useState("");
 
   useEffect(() => {
+    if (user) { setAuthChecked(true); return; }
     (async () => {
       try {
         const r = await fetch(`${API}/api/admin/check-auth`, { credentials:"include" });
@@ -29,9 +30,15 @@ export default function BuyRequests({ user }) {
         const d = await r.json();
         if (!d.isAuthenticated) return navigate("/login");
         setAuthChecked(true);
-      } catch { navigate("/login"); }
+      } catch {
+        try {
+          const stored = localStorage.getItem("bb_user");
+          if (stored && JSON.parse(stored)) { setAuthChecked(true); return; }
+        } catch(e) {}
+        navigate("/login");
+      }
     })();
-  }, [navigate]);
+  }, [navigate, user]);
 
   useEffect(() => {
     if (!authChecked) return;
