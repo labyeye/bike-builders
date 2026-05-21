@@ -113,7 +113,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://code.jquery.com" crossorigin />
-    <link rel="preconnect" href="https://bike-builders-backend.vercel.app" />
+    <link rel="preconnect" href="https://backend.bikebuilders.in" />
     <link href="../css/global.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="./globals.css" />
     <link rel="stylesheet" href="../css/style.css" />
@@ -559,7 +559,7 @@
             alert("Please fill all fields and select a rating.");
             return;
           }
-          fetch("https://bike-builders-backend.vercel.app/api/reviews", {
+          fetch("https://backend.bikebuilders.in/api/reviews", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ name, message, rating }),
@@ -654,7 +654,7 @@
             mobileMenu.classList.remove("active");
           });
         // Determine API base dynamically (same logic as other pages)
-        const API_BASE = "https://bike-builders-backend.vercel.app";
+        const API_BASE = "https://backend.bikebuilders.in";
 
         function normalizeImageUrl(url) {
           if (!url) return url;

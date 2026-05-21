@@ -9,7 +9,7 @@
         return `${window.location.protocol}//${host}:2500`;
       }
     } catch (e) {}
-    return "https://bike-builders-backend.vercel.app";
+    return "https://backend.bikebuilders.in";
   }
 
   const API_BASE = computeApiBase();

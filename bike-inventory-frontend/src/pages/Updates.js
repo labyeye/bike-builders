@@ -4,7 +4,7 @@ import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import "../css/Dashboard.css";
 
-const API = process.env.REACT_APP_API_BASE || "https://bike-builders-backend.vercel.app";
+const API = process.env.REACT_APP_API_BASE || "https://backend.bikebuilders.in";
 
 export default function Updates({ user }) {
   const [title,   setTitle]   = useState("");

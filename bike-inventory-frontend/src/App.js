@@ -41,7 +41,7 @@ function App() {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 8000);
         const res = await fetch(
-          "https://bike-builders-backend.vercel.app/api/admin/check-auth",
+          "https://backend.bikebuilders.in/api/admin/check-auth",
           {
             credentials: "include",
             signal: controller.signal,

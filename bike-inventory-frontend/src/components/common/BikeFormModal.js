@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Close, Error as ErrorIcon, CloudUpload } from "@mui/icons-material";
 
-const API = "https://bike-builders-backend.vercel.app";
+const API = "https://backend.bikebuilders.in";
 
 const BRANDS = ["Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Other"];
 const FUEL_TYPES = ["Petrol","Electric"];

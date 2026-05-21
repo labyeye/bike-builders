@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff, Person, Lock } from "@mui/icons-material";
 import logo from "../assets/Logo.png";
 
-const API = "https://bike-builders-backend.vercel.app";
+const API = "https://backend.bikebuilders.in";
 
 export default function AdminLogin({ setUser }) {
   const navigate = useNavigate();

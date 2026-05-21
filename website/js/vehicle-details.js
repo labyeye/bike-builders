@@ -1,7 +1,7 @@
 const API_BASE_URL =
   window.location.hostname === "localhost"
-    ? "https://bike-builders-backend.vercel.app"
-    : "https://bike-builders-backend.vercel.app";
+    ? "https://backend.bikebuilders.in"
+    : "https://backend.bikebuilders.in";
 
 function getImageUrl(imagePath) {
   if (!imagePath) return "assets/placeholder.webp";

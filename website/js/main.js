@@ -123,7 +123,7 @@ function initPreconnect() {
   });
 }
 
-window.API_BASE =  "https://bike-builders-backend.vercel.app";
+window.API_BASE =  "https://backend.bikebuilders.in";
 
 window.dataLayer = window.dataLayer || [];
 function gtag() {
@@ -216,7 +216,7 @@ function initFeaturedBikeSlider() {
     });
 }
 function fetchFeaturedBikes() {
-  const API_BASE = "https://bike-builders-backend.vercel.app";
+  const API_BASE = "https://backend.bikebuilders.in";
 
   function normalizeImageUrl(url) {
     if (!url) return url;

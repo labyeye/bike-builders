@@ -8,7 +8,7 @@ const Logout = ({ setUser }) => {
     const doLogout = async () => {
       try {
         await fetch(
-          "https://bike-builders-backend.vercel.app/api/admin/logout",
+          "https://backend.bikebuilders.in/api/admin/logout",
           {
             method: "GET",
             credentials: "include",

@@ -10,7 +10,7 @@ import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import "../css/Dashboard.css";
 
-const API = "https://bike-builders-backend.vercel.app";
+const API = "https://backend.bikebuilders.in";
 
 const BRANDS = ["All Brands","Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Other"];
 const FUEL   = ["All Fuel","Petrol","Electric"];

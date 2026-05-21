@@ -5,7 +5,7 @@ import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
 import "../css/Dashboard.css";
 
-const API = "https://bike-builders-backend.vercel.app";
+const API = "https://backend.bikebuilders.in";
 const STATUSES = ["All","Pending","Contacted","Completed"];
 
 export default function BuyRequests({ user }) {
