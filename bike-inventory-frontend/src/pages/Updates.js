@@ -41,7 +41,12 @@ export default function Updates({ user }) {
       form.append("title", title);
       form.append("link",  link);
       form.append("poster", file);
-      const r = await fetch(`${API}/api/admin/updates`, { method:"POST", credentials:"include", body:form });
+      const r = await fetch(`${API}/api/admin/updates`, { 
+        method:"POST", 
+        credentials:"include",
+        headers: { "Accept": "application/json" },
+        body:form 
+      });
       if (!r.ok) { const d = await r.json(); throw new Error(d.error || "Failed"); }
       const d = await r.json();
       setUpdates(p => [{ ...d.update, poster: normalize(d.update.poster) }, ...p]);

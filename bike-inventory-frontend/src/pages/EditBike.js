@@ -180,6 +180,7 @@ const EditBike = ({ user }) => {
         {
           method: "PUT",
           credentials: "include",
+          headers: { "Accept": "application/json" },
           body: formData,
         },
       );

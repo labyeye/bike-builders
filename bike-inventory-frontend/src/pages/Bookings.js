@@ -47,7 +47,10 @@ export default function Bookings({ user }) {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const r = await fetch(`${API}/api/admin/bookings`, { credentials:"include" });
+      const r = await fetch(`${API}/api/admin/bookings`, { 
+        credentials:"include",
+        headers: { "Accept": "application/json" },
+      });
       const d = await r.json();
       setBookings(d.bookings || []);
     } catch(e) { console.error(e); }

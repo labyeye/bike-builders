@@ -129,6 +129,9 @@ const AddBike = ({ user }) => {
           method: "POST",
           credentials: "include",
           body: form,
+          headers: {
+            "Accept": "application/json",
+          },
         },
       );
 
