@@ -57,26 +57,26 @@ async function createBike(req, res) {
   try {
     let imageUrls = [];
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        try {
-          if (CLOUDINARY_ENABLED) {
-            const up = await uploadFileToCloudinary(file.path || file, {
-              folder: "bike-builders",
-            });
-            if (up && up.url) imageUrls.push(up.url);
-            else imageUrls.push(`/uploads/${file.filename}`);
-          } else {
-            imageUrls.push(`/uploads/${file.filename}`);
+      imageUrls = await Promise.all(
+        req.files.map(async (file) => {
+          try {
+            if (CLOUDINARY_ENABLED) {
+              const up = await uploadFileToCloudinary(file.path || file, {
+                folder: "bike-builders",
+              });
+              if (up && up.url) return up.url;
+            }
+            return `/uploads/${file.filename}`;
+          } catch (e) {
+            console.warn(
+              "Failed to handle uploaded bike image:",
+              file.path,
+              e.message || e
+            );
+            return `/uploads/${file.filename}`;
           }
-        } catch (e) {
-          console.warn(
-            "Failed to handle uploaded bike image:",
-            file.path,
-            e.message || e
-          );
-          imageUrls.push(`/uploads/${file.filename}`);
-        }
-      }
+        })
+      );
     } else if (req.body.imageUrls) {
       imageUrls = Array.isArray(req.body.imageUrls)
         ? req.body.imageUrls
@@ -213,26 +213,26 @@ async function updateBike(req, res) {
 
     let uploadedUrls = [];
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        try {
-          if (CLOUDINARY_ENABLED) {
-            const up = await uploadFileToCloudinary(file.path || file, {
-              folder: "bike-builders",
-            });
-            if (up && up.url) uploadedUrls.push(up.url);
-            else uploadedUrls.push(`/uploads/${file.filename}`);
-          } else {
-            uploadedUrls.push(`/uploads/${file.filename}`);
+      uploadedUrls = await Promise.all(
+        req.files.map(async (file) => {
+          try {
+            if (CLOUDINARY_ENABLED) {
+              const up = await uploadFileToCloudinary(file.path || file, {
+                folder: "bike-builders",
+              });
+              if (up && up.url) return up.url;
+            }
+            return `/uploads/${file.filename}`;
+          } catch (e) {
+            console.warn(
+              "Error handling uploaded file:",
+              file.path,
+              e.message || e
+            );
+            return `/uploads/${file.filename}`;
           }
-        } catch (e) {
-          console.warn(
-            "Error handling uploaded file:",
-            file.path,
-            e.message || e
-          );
-          uploadedUrls.push(`/uploads/${file.filename}`);
-        }
-      }
+        })
+      );
     }
 
     const finalImages = [...existingImages, ...uploadedUrls].slice(0, 5);

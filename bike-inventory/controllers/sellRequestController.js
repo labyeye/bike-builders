@@ -14,28 +14,28 @@ async function createSellRequest(req, res) {
         .json({ success: false, error: "Missing required fields" });
     }
 
-    const images = [];
+    let images = [];
     if (req.files && req.files.length > 0) {
-      for (const file of req.files) {
-        try {
-          if (CLOUDINARY_ENABLED) {
-            const up = await uploadFileToCloudinary(file.path || file, {
-              folder: "bike-builders/sell-requests",
-            });
-            if (up && up.url) images.push(up.url);
-            else images.push(file.filename);
-          } else {
-            images.push(file.filename);
+      images = await Promise.all(
+        req.files.map(async (file) => {
+          try {
+            if (CLOUDINARY_ENABLED) {
+              const up = await uploadFileToCloudinary(file.path || file, {
+                folder: "bike-builders/sell-requests",
+              });
+              if (up && up.url) return up.url;
+            }
+            return file.filename;
+          } catch (e) {
+            console.warn(
+              "Failed to process sell-request file:",
+              file.path,
+              e.message || e
+            );
+            return file.filename;
           }
-        } catch (e) {
-          console.warn(
-            "Failed to process sell-request file:",
-            file.path,
-            e.message || e
-          );
-          images.push(file.filename);
-        }
-      }
+        })
+      );
     }
 
     const sellRequest = new SellRequest({
