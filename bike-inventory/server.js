@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 
 const connectDB = require("./db");
 const buildCors = require("./middleware/cors");
+const requestLogger = require("./middleware/logger");
 const { ensureAdminUser } = require("./controllers/authController");
 
 const authRoutes = require("./routes/auth");
@@ -31,6 +32,7 @@ app.set("trust proxy", 1);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(buildCors());
+app.use(requestLogger);
 
 app.get("/", (req, res) => {
   res.json({ message: "Bike Inventory System API" });
@@ -47,11 +49,21 @@ app.use("/api", updateRoutes);
 app.use("/api", reviewRoutes);
 
 app.use((err, req, res, next) => {
-  console.error("Unhandled error:", err);
-  res.status(500).json({ success: false, error: "Internal server error" });
+  console.error(
+    `❌ Unhandled error on ${req.method} ${req.originalUrl}:`,
+    err.name,
+    err.message
+  );
+  if (err.stack) console.error(err.stack);
+  res.status(500).json({
+    success: false,
+    error: err.message || "Internal server error",
+    name: err.name,
+  });
 });
 
 app.use((req, res) => {
+  console.warn(`⚠️  404 — no route matched ${req.method} ${req.originalUrl}`);
   res.status(404).json({ success: false, error: "Route not found" });
 });
 

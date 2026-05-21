@@ -65,13 +65,10 @@ const AddBike = ({ user }) => {
     setError(null);
 
     try {
-      const authResponse = await fetch(
-        "https://backend.bikebuilders.in/api/check-auth",
-        {
-          method: "GET",
-          credentials: "include",
-        },
-      );
+      const authResponse = await fetch("https://backend.bikebuilders.in/api/check-auth", {
+        method: "GET",
+        credentials: "include",
+      });
 
       if (!authResponse.ok) {
         setError("Please login first");
@@ -123,17 +120,14 @@ const AddBike = ({ user }) => {
         form.append("images", file);
       });
 
-      const response = await fetch(
-        "https://backend.bikebuilders.in/api/bike",
-        {
-          method: "POST",
-          credentials: "include",
-          body: form,
-          headers: {
-            "Accept": "application/json",
-          },
+      const response = await fetch("https://backend.bikebuilders.in/api/bike", {
+        method: "POST",
+        credentials: "include",
+        body: form,
+        headers: {
+          Accept: "application/json",
         },
-      );
+      });
 
       if (!response.ok) {
         const errorData = await response.json();

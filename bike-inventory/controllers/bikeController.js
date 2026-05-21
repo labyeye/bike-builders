@@ -54,34 +54,40 @@ async function getBikeById(req, res) {
 }
 
 async function createBike(req, res) {
+  const t0 = Date.now();
+  console.log(`[createBike] start — files=${req.files?.length || 0}, body keys=${Object.keys(req.body).length}`);
   try {
     let imageUrls = [];
     if (req.files && req.files.length > 0) {
+      console.log(`[createBike] uploading ${req.files.length} images in parallel...`);
+      const uT0 = Date.now();
       imageUrls = await Promise.all(
-        req.files.map(async (file) => {
+        req.files.map(async (file, idx) => {
           try {
             if (CLOUDINARY_ENABLED) {
               const up = await uploadFileToCloudinary(file.path || file, {
                 folder: "bike-builders",
               });
               if (up && up.url) return up.url;
+              console.warn(`[createBike] image ${idx} upload returned null, falling back`);
             }
-            return `/uploads/${file.filename}`;
+            return `/uploads/${file.filename || file.originalname || `img-${idx}`}`;
           } catch (e) {
             console.warn(
-              "Failed to handle uploaded bike image:",
-              file.path,
+              `[createBike] image ${idx} exception:`,
               e.message || e
             );
-            return `/uploads/${file.filename}`;
+            return `/uploads/${file.filename || file.originalname || `img-${idx}`}`;
           }
         })
       );
+      console.log(`[createBike] all uploads done in ${Date.now() - uT0}ms, urls=${imageUrls.length}`);
     } else if (req.body.imageUrls) {
       imageUrls = Array.isArray(req.body.imageUrls)
         ? req.body.imageUrls
         : [req.body.imageUrls];
       imageUrls = imageUrls.filter((u) => u && u.trim() !== "");
+      console.log(`[createBike] using pre-supplied imageUrls: ${imageUrls.length}`);
     }
 
     const bikeData = {
@@ -122,13 +128,13 @@ async function createBike(req, res) {
       });
     }
 
-    console.log("createBike saving:", { ...bikeData, imageUrl: `[${imageUrls.length} urls]` });
+    console.log("[createBike] saving to mongo:", { ...bikeData, imageUrl: `[${imageUrls.length} urls]` });
     const bike = new Bike(bikeData);
     await bike.save();
-    console.log("createBike saved id:", bike._id);
+    console.log(`[createBike] ✅ saved id=${bike._id} total=${Date.now() - t0}ms`);
     res.json({ success: true, bike });
   } catch (err) {
-    console.error("Error adding bike:", err.name, err.message, err.errors || "");
+    console.error(`[createBike] ❌ error after ${Date.now() - t0}ms:`, err.name, err.message, err.errors || "");
     res.status(500).json({ success: false, error: err.message || "Failed to add bike" });
   }
 }

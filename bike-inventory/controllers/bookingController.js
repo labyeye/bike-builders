@@ -76,8 +76,9 @@ async function updateBooking(req, res) {
         .json({ success: false, error: "Booking not found" });
     }
 
-    if (status === "Confirmed" && booking.bikeId && booking.bikeId._id) {
+    if (status === "Approved" && booking.bikeId && booking.bikeId._id) {
       await Bike.findByIdAndUpdate(booking.bikeId._id, { status: "Sold Out" });
+      console.log(`[booking] approved ${booking._id} — bike ${booking.bikeId._id} marked Sold Out`);
     }
 
     res.json({ success: true, booking });
