@@ -6,7 +6,7 @@ const bikeSchema = new mongoose.Schema({
   modelYear: Number,
   kmDriven: Number,
   ownership: String,
-  fuelType: { type: String, enum: ["Petrol", "EV"] },
+  fuelType: { type: String, enum: ["Petrol", "Electric", "EV"] },
   daysOld: Number,
   price: Number,
   downPayment: Number,

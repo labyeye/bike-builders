@@ -102,30 +102,34 @@ async function createBike(req, res) {
       stock: req.body.stock ? Number(req.body.stock) : 1,
     };
 
-    if (
-      !bikeData.brand ||
-      !bikeData.model ||
-      isNaN(bikeData.modelYear) ||
-      isNaN(bikeData.kmDriven) ||
-      !bikeData.ownership ||
-      !bikeData.fuelType ||
-      isNaN(bikeData.daysOld) ||
-      isNaN(bikeData.price) ||
-      isNaN(bikeData.downPayment) ||
-      !bikeData.status
-    ) {
+    const missing = [];
+    if (!bikeData.brand) missing.push("brand");
+    if (!bikeData.model) missing.push("model");
+    if (isNaN(bikeData.modelYear)) missing.push("modelYear");
+    if (isNaN(bikeData.kmDriven)) missing.push("kmDriven");
+    if (!bikeData.ownership) missing.push("ownership");
+    if (!bikeData.fuelType) missing.push("fuelType");
+    if (isNaN(bikeData.daysOld)) missing.push("daysOld");
+    if (isNaN(bikeData.price)) missing.push("price");
+    if (isNaN(bikeData.downPayment)) missing.push("downPayment");
+    if (!bikeData.status) missing.push("status");
+
+    if (missing.length > 0) {
+      console.warn("createBike validation failed:", missing, "received:", req.body);
       return res.status(400).json({
         success: false,
-        error: "Invalid data. Please check all required fields.",
+        error: `Missing/invalid: ${missing.join(", ")}`,
       });
     }
 
+    console.log("createBike saving:", { ...bikeData, imageUrl: `[${imageUrls.length} urls]` });
     const bike = new Bike(bikeData);
     await bike.save();
+    console.log("createBike saved id:", bike._id);
     res.json({ success: true, bike });
   } catch (err) {
-    console.error("Error adding bike:", err);
-    res.status(500).json({ success: false, error: "Failed to add bike" });
+    console.error("Error adding bike:", err.name, err.message, err.errors || "");
+    res.status(500).json({ success: false, error: err.message || "Failed to add bike" });
   }
 }
 
