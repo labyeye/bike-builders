@@ -1,5 +1,5 @@
 const multer = require("multer");
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
 const upload = multer({ storage: multer.memoryStorage() });
@@ -14,10 +14,16 @@ if (CLOUDINARY_ENABLED) {
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true,
   });
-  console.log("Cloudinary configured:", process.env.CLOUDINARY_CLOUD_NAME);
+  console.log(
+    "[cloudinary] configured for cloud:",
+    process.env.CLOUDINARY_CLOUD_NAME,
+  );
 } else {
-  console.log("Cloudinary not configured — falling back to local uploads");
+  console.log(
+    "[cloudinary] NOT configured — uploads will fall back to local paths",
+  );
 }
 
 const UPLOAD_TIMEOUT_MS = 30000;
@@ -28,68 +34,84 @@ async function uploadFileToCloudinary(source, options = {}) {
     return null;
   }
 
-  if (typeof source === "string") {
-    try {
+  const origName =
+    (source && source.originalname) ||
+    (typeof source === "string" ? source : "unknown");
+  const t0 = Date.now();
+
+  try {
+    let uploadInput;
+
+    if (typeof source === "string") {
       console.log(`[cloudinary] uploading file path: ${source}`);
-      const res = await cloudinary.uploader.upload(source, options);
+      uploadInput = source;
+    } else if (source && source.buffer) {
+      const sizeKB = Math.round(source.buffer.length / 1024);
+      const mime = source.mimetype || "image/jpeg";
+      console.log(
+        `[cloudinary] uploading buffer: ${origName} mime=${mime} (${sizeKB}KB)`,
+      );
+      uploadInput = `data:${mime};base64,${source.buffer.toString("base64")}`;
+    } else {
+      console.warn("[cloudinary] unsupported source type:", typeof source);
+      return null;
+    }
+
+    const uploadPromise = cloudinary.uploader.upload(uploadInput, {
+      resource_type: "image",
+      ...options,
+    });
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(
+        () =>
+          reject(
+            new Error(
+              `Cloudinary timeout after ${UPLOAD_TIMEOUT_MS}ms for ${origName}`,
+            ),
+          ),
+        UPLOAD_TIMEOUT_MS,
+      ),
+    );
+
+    const result = await Promise.race([uploadPromise, timeoutPromise]);
+
+    const dt = Date.now() - t0;
+    const secureUrl = result?.secure_url || result?.url;
+
+    if (!secureUrl) {
+      console.error(
+        `[cloudinary] no URL in result for ${origName}:`,
+        JSON.stringify(result),
+      );
+      return null;
+    }
+
+    console.log(
+      `[cloudinary] ✅ upload OK: ${result.public_id} → ${secureUrl} (${dt}ms)`,
+    );
+
+    // Best-effort temp cleanup
+    if (typeof source === "string") {
       try {
         if (fs.existsSync(source)) fs.unlinkSync(source);
       } catch (e) {
-        console.warn("Could not remove temp file:", source, e.message);
-      }
-      console.log(`[cloudinary] upload OK: ${res.public_id}`);
-      return { url: res.secure_url, public_id: res.public_id };
-    } catch (err) {
-      console.error("[cloudinary] upload failed:", err.message || err);
-      return null;
-    }
-  }
-
-  if (source && source.buffer) {
-    const sizeKB = Math.round(source.buffer.length / 1024);
-    const origName = source.originalname || "unknown";
-    console.log(`[cloudinary] uploading buffer: ${origName} (${sizeKB}KB)`);
-    const t0 = Date.now();
-
-    return new Promise((resolve, reject) => {
-      let settled = false;
-      const settle = (fn, val) => {
-        if (settled) return;
-        settled = true;
-        clearTimeout(timer);
-        fn(val);
-      };
-
-      const timer = setTimeout(() => {
-        settle(reject, new Error(`Cloudinary upload timed out after ${UPLOAD_TIMEOUT_MS}ms for ${origName}`));
-      }, UPLOAD_TIMEOUT_MS);
-
-      try {
-        const stream = cloudinary.uploader.upload_stream(
-          options,
-          (error, result) => {
-            if (error) return settle(reject, error);
-            if (!result || !result.secure_url) {
-              return settle(reject, new Error("Cloudinary returned no result"));
-            }
-            const dt = Date.now() - t0;
-            console.log(`[cloudinary] upload OK: ${result.public_id} (${dt}ms)`);
-            settle(resolve, { url: result.secure_url, public_id: result.public_id });
-          }
+        console.warn(
+          "[cloudinary] temp file cleanup failed:",
+          source,
+          e.message,
         );
-        stream.on("error", (err) => settle(reject, err));
-        stream.end(source.buffer);
-      } catch (syncErr) {
-        settle(reject, syncErr);
       }
-    }).catch((err) => {
-      console.error(`[cloudinary] upload_stream failed for ${origName}:`, err.message || err);
-      return null;
-    });
-  }
+    }
 
-  console.warn("[cloudinary] unsupported source type:", typeof source, source && Object.keys(source));
-  return null;
+    return { url: secureUrl, public_id: result.public_id };
+  } catch (err) {
+    const dt = Date.now() - t0;
+    console.error(
+      `[cloudinary] ❌ upload failed for ${origName} after ${dt}ms:`,
+      err.message || err,
+    );
+    return null;
+  }
 }
 
 function extractCloudinaryPublicId(url) {

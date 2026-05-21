@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Close, Error as ErrorIcon, CloudUpload } from "@mui/icons-material";
 import { authHeaders } from "../../utils/auth";
+import UploadProgressModal from "./UploadProgressModal";
 
 const API = "https://backend.bikebuilders.in";
 
@@ -26,6 +27,12 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
   const [removedImages, setRemoved]= useState([]);
   const [error, setError]         = useState(null);
   const [submitting, setSubmit]   = useState(false);
+
+  // progress modal state
+  const [progressOpen, setProgressOpen] = useState(false);
+  const [progressStage, setStage]       = useState("uploading"); // uploading | urls | saving | done
+  const [uploadPct, setUploadPct]       = useState(0);
+  const [progressError, setProgressErr] = useState(null);
 
   useEffect(() => {
     if (!open) return;
@@ -83,50 +90,123 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null); setSubmit(true);
+    setError(null);
+    setSubmit(true);
+    setProgressErr(null);
+    setUploadPct(0);
+    setStage("uploading");
+    setProgressOpen(true);
 
-    try {
-      let daysOld = Number(form.ageValue) || 0;
-      if (form.ageUnit === "months") daysOld = Math.round(daysOld * 30.44);
-      else if (form.ageUnit === "years") daysOld = Math.round(daysOld * 365.25);
+    let daysOld = Number(form.ageValue) || 0;
+    if (form.ageUnit === "months") daysOld = Math.round(daysOld * 30.44);
+    else if (form.ageUnit === "years") daysOld = Math.round(daysOld * 365.25);
 
-      const fd = new FormData();
-      fd.append("brand", form.brand);
-      fd.append("model", form.model);
-      fd.append("modelYear", form.modelYear);
-      fd.append("kmDriven", form.kmDriven);
-      fd.append("ownership", form.ownership);
-      fd.append("fuelType", form.fuelType);
-      fd.append("daysOld", daysOld);
-      fd.append("price", form.price);
-      fd.append("downPayment", form.downPayment);
-      fd.append("emiAvailable", form.emiAvailable);
-      fd.append("emiAmount", form.emiAvailable ? form.emiAmount : 0);
-      fd.append("status", form.status);
-      fd.append("stock", form.stock || 1);
+    const fd = new FormData();
+    fd.append("brand", form.brand);
+    fd.append("model", form.model);
+    fd.append("modelYear", form.modelYear);
+    fd.append("kmDriven", form.kmDriven);
+    fd.append("ownership", form.ownership);
+    fd.append("fuelType", form.fuelType);
+    fd.append("daysOld", daysOld);
+    fd.append("price", form.price);
+    fd.append("downPayment", form.downPayment);
+    fd.append("emiAvailable", form.emiAvailable);
+    fd.append("emiAmount", form.emiAvailable ? form.emiAmount : 0);
+    fd.append("status", form.status);
+    fd.append("stock", form.stock || 1);
 
-      existingImages.forEach(url => fd.append("imageUrls", url));
-      imageFiles.forEach(file => fd.append("images", file));
-      removedImages.forEach(url => fd.append("removedImages", url));
+    existingImages.forEach(url => fd.append("imageUrls", url));
+    imageFiles.forEach(file => fd.append("images", file));
+    removedImages.forEach(url => fd.append("removedImages", url));
 
-      const url    = editingBike ? `${API}/api/bike/${editingBike._id}` : `${API}/api/bike`;
-      const method = editingBike ? "PUT" : "POST";
-      const r = await fetch(url, { method, headers: authHeaders(), body: fd });
-      if (!r.ok) {
-        const d = await r.json().catch(()=>({}));
-        throw new Error(d.error || "Save failed");
+    const url    = editingBike ? `${API}/api/bike/${editingBike._id}` : `${API}/api/bike`;
+    const method = editingBike ? "PUT" : "POST";
+
+    console.log(`[BikeFormModal] ${method} ${url}`);
+    console.log(`[BikeFormModal] files=${imageFiles.length}, existing=${existingImages.length}, removed=${removedImages.length}`);
+
+    const xhr = new XMLHttpRequest();
+    xhr.open(method, url);
+    const headers = authHeaders();
+    Object.entries(headers).forEach(([k, v]) => xhr.setRequestHeader(k, v));
+
+    // Stage 1 — real upload progress
+    xhr.upload.onprogress = (e) => {
+      if (e.lengthComputable) {
+        const pct = (e.loaded / e.total) * 100;
+        setUploadPct(pct);
+        if (pct >= 99.5) {
+          console.log("[BikeFormModal] upload done, server processing...");
+        }
       }
-      onSaved?.();
-      onClose();
-    } catch(err) {
-      setError(err.message || "An error occurred");
-    } finally { setSubmit(false); }
+    };
+
+    // When browser finishes sending, server takes over: cloudinary + mongo save
+    xhr.upload.onload = () => {
+      console.log("[BikeFormModal] xhr.upload.onload — body fully sent");
+      setUploadPct(100);
+      // walk through "urls" → "saving" while waiting for server response
+      setStage("urls");
+      setTimeout(() => setStage((s) => (s === "urls" ? "saving" : s)), 900);
+    };
+
+    xhr.onload = () => {
+      console.log(`[BikeFormModal] server responded ${xhr.status}`);
+      let payload = {};
+      try { payload = JSON.parse(xhr.responseText); } catch (e) {}
+      if (xhr.status >= 200 && xhr.status < 300 && payload.success !== false) {
+        setStage("done");
+        console.log("[BikeFormModal] ✅ saved bike id:", payload?.bike?._id);
+        // brief tick display, then close
+        setTimeout(() => {
+          setProgressOpen(false);
+          setSubmit(false);
+          onSaved?.();
+          onClose();
+        }, 1100);
+      } else {
+        const msg = payload?.error || `Save failed (HTTP ${xhr.status})`;
+        console.error("[BikeFormModal] save failed:", msg, payload);
+        setProgressErr(msg);
+        setError(msg);
+        setSubmit(false);
+        setTimeout(() => setProgressOpen(false), 2500);
+      }
+    };
+
+    xhr.onerror = () => {
+      const msg = "Network error — could not reach server";
+      console.error("[BikeFormModal] xhr.onerror");
+      setProgressErr(msg);
+      setError(msg);
+      setSubmit(false);
+      setTimeout(() => setProgressOpen(false), 2500);
+    };
+
+    xhr.ontimeout = () => {
+      const msg = "Request timed out";
+      console.error("[BikeFormModal] xhr.ontimeout");
+      setProgressErr(msg);
+      setError(msg);
+      setSubmit(false);
+      setTimeout(() => setProgressOpen(false), 2500);
+    };
+
+    xhr.send(fd);
   };
 
   if (!open) return null;
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <>
+    <UploadProgressModal
+      open={progressOpen}
+      stage={progressStage}
+      progress={uploadPct}
+      error={progressError}
+    />
+    <div className="modal-backdrop" onClick={submitting ? undefined : onClose}>
       <div className="modal-shell" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h2>{editingBike ? "Edit Bike" : "Add New Bike"}</h2>
@@ -249,7 +329,7 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
           )}
 
           <div className="form-actions">
-            <button type="button" className="btn secondary" onClick={onClose}>Cancel</button>
+            <button type="button" className="btn secondary" onClick={onClose} disabled={submitting}>Cancel</button>
             <button type="submit" className="btn primary" disabled={submitting}>
               {submitting ? "Saving…" : (editingBike ? "Update Bike" : "Add Bike")}
             </button>
@@ -257,5 +337,6 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
         </form>
       </div>
     </div>
+    </>
   );
 }
