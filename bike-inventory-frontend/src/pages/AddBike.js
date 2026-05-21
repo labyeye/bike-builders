@@ -66,7 +66,7 @@ const AddBike = ({ user }) => {
 
     try {
       const authResponse = await fetch(
-        "https://backend.bikebuilders.in/api/admin/check-auth",
+        "https://backend.bikebuilders.in/api/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -124,7 +124,7 @@ const AddBike = ({ user }) => {
       });
 
       const response = await fetch(
-        "https://backend.bikebuilders.in/api/admin/bike",
+        "https://backend.bikebuilders.in/api/bike",
         {
           method: "POST",
           credentials: "include",

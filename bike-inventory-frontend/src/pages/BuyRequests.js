@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Call, Check, Email, Search, FilterList } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { authHeaders } from "../utils/auth";
 import "../css/Dashboard.css";
 
 const API = "https://backend.bikebuilders.in";
@@ -25,7 +26,7 @@ export default function BuyRequests({ user }) {
     if (user) { setAuthChecked(true); return; }
     (async () => {
       try {
-        const r = await fetch(`${API}/api/admin/check-auth`, { credentials:"include" });
+        const r = await fetch(`${API}/api/check-auth`, { headers: authHeaders() });
         if (!r.ok) return navigate("/login");
         const d = await r.json();
         if (!d.isAuthenticated) return navigate("/login");
@@ -45,7 +46,7 @@ export default function BuyRequests({ user }) {
     (async () => {
       try {
         setLoading(true);
-        const r = await fetch(`${API}/api/admin/quote-requests`, { credentials:"include" });
+        const r = await fetch(`${API}/api/quote-requests`, { headers: authHeaders() });
         const d = await r.json();
         setRequests(d.requests || []);
       } catch(e) { console.error(e); }
@@ -55,9 +56,10 @@ export default function BuyRequests({ user }) {
 
   const updateStatus = async (id, s) => {
     try {
-      const r = await fetch(`${API}/api/admin/quote-request/${id}`, {
-        method:"PUT", headers:{"Content-Type":"application/json"},
-        credentials:"include", body: JSON.stringify({ status: s }),
+      const r = await fetch(`${API}/api/quote-request/${id}`, {
+        method:"PUT",
+        headers:{ ...authHeaders(), "Content-Type":"application/json" },
+        body: JSON.stringify({ status: s }),
       });
       if (!r.ok) throw new Error();
       setRequests(prev => prev.map(req => req._id===id ? {...req,status:s} : req));

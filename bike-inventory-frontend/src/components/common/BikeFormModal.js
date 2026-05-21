@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Close, Error as ErrorIcon, CloudUpload } from "@mui/icons-material";
+import { authHeaders } from "../../utils/auth";
 
 const API = "https://backend.bikebuilders.in";
 
@@ -108,9 +109,9 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
       imageFiles.forEach(file => fd.append("images", file));
       removedImages.forEach(url => fd.append("removedImages", url));
 
-      const url    = editingBike ? `${API}/api/admin/bike/${editingBike._id}` : `${API}/api/admin/bike`;
+      const url    = editingBike ? `${API}/api/bike/${editingBike._id}` : `${API}/api/bike`;
       const method = editingBike ? "PUT" : "POST";
-      const r = await fetch(url, { method, credentials:"include", body: fd });
+      const r = await fetch(url, { method, headers: authHeaders(), body: fd });
       if (!r.ok) {
         const d = await r.json().catch(()=>({}));
         throw new Error(d.error || "Save failed");

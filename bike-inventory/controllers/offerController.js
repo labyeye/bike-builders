@@ -1,28 +1,35 @@
+const jwt = require("jsonwebtoken");
 const Offer = require("../models/Offer");
 
-async function listActiveOffers(req, res) {
+const JWT_SECRET =
+  process.env.JWT_SECRET || process.env.SESSION_SECRET || "rgesda543";
+
+function tryGetUser(req) {
+  const header = req.headers.authorization || "";
+  if (!header.startsWith("Bearer ")) return null;
   try {
+    return jwt.verify(header.slice(7).trim(), JWT_SECRET);
+  } catch (e) {
+    return null;
+  }
+}
+
+async function listOffers(req, res) {
+  try {
+    if (tryGetUser(req)) {
+      const offers = await Offer.find().sort({ startDate: -1 });
+      return res.json({ success: true, offers });
+    }
     const now = new Date();
     const offers = await Offer.find({
       startDate: { $lte: now },
       endDate: { $gte: now },
       status: "active",
     }).sort({ createdAt: -1 });
-
     res.json({ success: true, offers });
   } catch (err) {
     console.error("Error fetching offers:", err);
     res.status(500).json({ success: false, error: "Failed to fetch offers" });
-  }
-}
-
-async function listAllOffers(req, res) {
-  try {
-    const offers = await Offer.find().sort({ startDate: -1 });
-    res.json({ success: true, offers });
-  } catch (err) {
-    console.error("Error loading offers:", err);
-    res.status(500).json({ success: false, error: "Error loading offers" });
   }
 }
 
@@ -88,8 +95,7 @@ async function deleteOffer(req, res) {
 }
 
 module.exports = {
-  listActiveOffers,
-  listAllOffers,
+  listOffers,
   createOffer,
   updateOffer,
   deleteOffer,

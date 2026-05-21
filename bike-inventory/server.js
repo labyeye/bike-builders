@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 
 const connectDB = require("./db");
 const buildCors = require("./middleware/cors");
-const buildSession = require("./middleware/session");
 const { ensureAdminUser } = require("./controllers/authController");
 
 const authRoutes = require("./routes/auth");
@@ -33,17 +32,16 @@ app.set("trust proxy", 1);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(buildCors());
-app.use(buildSession());
 
 app.get("/", (req, res) => {
   res.json({ message: "Bike Inventory System API" });
 });
 
-app.use("/api/admin", authRoutes);
+app.use("/api", authRoutes);
 app.use("/api", bikeRoutes);
-app.use("/api/admin/staff", staffRoutes);
-app.use("/api/sell-request", sellRequestRoutes);
-app.use("/api/admin", quoteRoutes);
+app.use("/api/staff", staffRoutes);
+app.use("/api", sellRequestRoutes);
+app.use("/api", quoteRoutes);
 app.use("/api", bookingRoutes);
 app.use("/api", offerRoutes);
 app.use("/api", updateRoutes);

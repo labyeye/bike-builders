@@ -10,20 +10,21 @@ router.get("/available-bikes", ctrl.availableBikes);
 router.get("/stats", isAuthenticated, ctrl.stats);
 router.get("/config", ctrl.config);
 
-router.get("/admin/dashboard", isAuthenticated, ctrl.dashboard);
-router.get("/admin/bike/:id", isAuthenticated, ctrl.getBikeById);
+router.get("/dashboard", isAuthenticated, ctrl.dashboard);
+router.get("/bike/:id", isAuthenticated, ctrl.getBikeById);
 router.post(
-  "/admin/bike",
+  "/bike",
   isAuthenticated,
   upload.array("images", 5),
   ctrl.createBike
 );
 router.put(
-  "/admin/bike/:id",
+  "/bike/:id",
   isAuthenticated,
+  isAdmin,
   upload.array("images", 5),
   ctrl.updateBike
 );
-router.delete("/admin/bike/:id", isAuthenticated, isAdmin, ctrl.deleteBike);
+router.delete("/bike/:id", isAuthenticated, isAdmin, ctrl.deleteBike);
 
 module.exports = router;

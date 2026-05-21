@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Add, Delete, Link, Search } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { authHeaders } from "../utils/auth";
 import "../css/Dashboard.css";
 
 const API = process.env.REACT_APP_API_BASE || "https://backend.bikebuilders.in";
@@ -41,11 +42,10 @@ export default function Updates({ user }) {
       form.append("title", title);
       form.append("link",  link);
       form.append("poster", file);
-      const r = await fetch(`${API}/api/admin/updates`, { 
-        method:"POST", 
-        credentials:"include",
-        headers: { "Accept": "application/json" },
-        body:form 
+      const r = await fetch(`${API}/api/updates`, {
+        method:"POST",
+        headers: { ...authHeaders(), "Accept": "application/json" },
+        body: form,
       });
       if (!r.ok) { const d = await r.json(); throw new Error(d.error || "Failed"); }
       const d = await r.json();
@@ -57,7 +57,7 @@ export default function Updates({ user }) {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this update?")) return;
     try {
-      const r = await fetch(`${API}/api/admin/updates/${id}`, { method:"DELETE", credentials:"include" });
+      const r = await fetch(`${API}/api/updates/${id}`, { method:"DELETE", headers: authHeaders() });
       if (!r.ok) throw new Error();
       setUpdates(p => p.filter(u => u._id!==id));
     } catch { setError("Failed to delete"); }

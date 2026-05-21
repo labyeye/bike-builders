@@ -9,6 +9,7 @@ import Bookings from "./pages/Bookings";
 import Updates from "./pages/Updates";
 import Reviews from "./pages/Reviews";
 import Logout from "./pages/Logout";
+import { authHeaders, clearToken } from "./utils/auth";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -19,6 +20,7 @@ function App() {
       try { localStorage.setItem("bb_user", JSON.stringify(u)); } catch (e) {}
     } else {
       try { localStorage.removeItem("bb_user"); } catch (e) {}
+      clearToken();
     }
     setUser(u);
   };
@@ -41,9 +43,9 @@ function App() {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 8000);
         const res = await fetch(
-          "https://backend.bikebuilders.in/api/admin/check-auth",
+          "https://backend.bikebuilders.in/api/check-auth",
           {
-            credentials: "include",
+            headers: authHeaders(),
             signal: controller.signal,
           },
         );

@@ -59,4 +59,42 @@ async function createSellRequest(req, res) {
   }
 }
 
-module.exports = { createSellRequest };
+async function listSellRequests(req, res) {
+  try {
+    const requests = await SellRequest.find().sort({ createdAt: -1 });
+    res.json({ success: true, requests });
+  } catch (err) {
+    console.error("Error loading sell requests:", err);
+    res
+      .status(500)
+      .json({ success: false, error: "Error loading sell requests" });
+  }
+}
+
+async function updateSellRequestStatus(req, res) {
+  try {
+    const { status } = req.body;
+    const updated = await SellRequest.findByIdAndUpdate(
+      req.params.id,
+      { status },
+      { new: true }
+    );
+    if (!updated) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Sell request not found" });
+    }
+    res.json({ success: true, request: updated });
+  } catch (err) {
+    console.error("Error updating sell request:", err);
+    res
+      .status(500)
+      .json({ success: false, error: "Error updating sell request" });
+  }
+}
+
+module.exports = {
+  createSellRequest,
+  listSellRequests,
+  updateSellRequestStatus,
+};

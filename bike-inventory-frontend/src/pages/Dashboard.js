@@ -8,6 +8,7 @@ import StatsCard from "../components/common/StatsCard";
 import BikeFormModal from "../components/common/BikeFormModal";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { authHeaders } from "../utils/auth";
 import "../css/Dashboard.css";
 
 const API = "https://backend.bikebuilders.in";
@@ -79,8 +80,8 @@ export default function Dashboard({ user }) {
 
     (async () => {
       try {
-        const r = await fetch(`${API}/api/admin/check-auth`, {
-          credentials: "include",
+        const r = await fetch(`${API}/api/check-auth`, {
+          headers: authHeaders(),
           signal: controller.signal,
         });
         clearTimeout(timeoutId);
@@ -120,7 +121,7 @@ export default function Dashboard({ user }) {
         setLoading(true);
         const [bikesRes, bookRes] = await Promise.allSettled([
           fetch(`${API}/api/bikes`),
-          fetch(`${API}/api/admin/bookings`, { credentials: "include" }),
+          fetch(`${API}/api/bookings`, { headers: authHeaders() }),
         ]);
         if (bikesRes.status === "fulfilled" && bikesRes.value.ok) {
           const data = await bikesRes.value.json();
@@ -143,7 +144,7 @@ export default function Dashboard({ user }) {
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this bike?")) return;
-    const r = await fetch(`${API}/api/admin/bike/${id}`, { method:"DELETE", credentials:"include" });
+    const r = await fetch(`${API}/api/bike/${id}`, { method:"DELETE", headers: authHeaders() });
     if (r.ok) setBikes(p => p.filter(b => b._id !== id));
   };
 
@@ -294,12 +295,18 @@ export default function Dashboard({ user }) {
                       </td>
                       <td data-label="Actions">
                         <div className="action-buttons">
-                          <button className="btn-icon-only" onClick={() => openEditModal(bike)} title="Edit">
-                            <Edit style={{fontSize:16}}/>
-                          </button>
-                          <button className="btn-icon-only danger" onClick={() => handleDelete(bike._id)} title="Delete">
-                            <Delete style={{fontSize:16}}/>
-                          </button>
+                          {user?.role === "admin" ? (
+                            <>
+                              <button className="btn-icon-only" onClick={() => openEditModal(bike)} title="Edit">
+                                <Edit style={{fontSize:16}}/>
+                              </button>
+                              <button className="btn-icon-only danger" onClick={() => handleDelete(bike._id)} title="Delete">
+                                <Delete style={{fontSize:16}}/>
+                              </button>
+                            </>
+                          ) : (
+                            <span style={{ color: "var(--text-muted)", fontSize: 13 }}>—</span>
+                          )}
                         </div>
                       </td>
                     </tr>

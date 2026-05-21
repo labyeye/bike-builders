@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState, useMemo } from "react";
 import { Edit, Delete, Search, Star, FilterList } from "@mui/icons-material";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { authHeaders } from "../utils/auth";
 import "../css/Dashboard.css";
 
 const API = process.env.REACT_APP_API_BASE || "https://backend.bikebuilders.in";
@@ -41,7 +42,7 @@ export default function Reviews({ user }) {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this review?")) return;
     try {
-      const r = await fetch(`${API}/api/admin/reviews/${id}`, { method:"DELETE", credentials:"include" });
+      const r = await fetch(`${API}/api/reviews/${id}`, { method:"DELETE", headers: authHeaders() });
       if (!r.ok) throw new Error();
       setReviews(p => p.filter(x => x._id!==id));
     } catch { setError("Failed to delete"); }
@@ -50,9 +51,9 @@ export default function Reviews({ user }) {
   const submitEdit = async (e) => {
     e.preventDefault();
     try {
-      const r = await fetch(`${API}/api/admin/reviews/${editing._id}`, {
-        method:"PUT", credentials:"include",
-        headers:{"Content-Type":"application/json"},
+      const r = await fetch(`${API}/api/reviews/${editing._id}`, {
+        method:"PUT",
+        headers:{ ...authHeaders(), "Content-Type":"application/json" },
         body: JSON.stringify({ name:editing.name, message:editing.message, rating:Number(editing.rating) }),
       });
       if (!r.ok) throw new Error((await r.json()).error || "Failed");

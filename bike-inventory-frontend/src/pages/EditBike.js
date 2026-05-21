@@ -30,7 +30,7 @@ const EditBike = ({ user }) => {
     const fetchBike = async () => {
       try {
         const response = await fetch(
-          `https://backend.bikebuilders.in/api/admin/bike/${id}`,
+          `https://backend.bikebuilders.in/api/bike/${id}`,
           {
             credentials: "include",
           },
@@ -130,7 +130,7 @@ const EditBike = ({ user }) => {
 
     try {
       const authResponse = await fetch(
-        "https://backend.bikebuilders.in/api/admin/check-auth",
+        "https://backend.bikebuilders.in/api/check-auth",
         {
           method: "GET",
           credentials: "include",
@@ -176,7 +176,7 @@ const EditBike = ({ user }) => {
       });
 
       const response = await fetch(
-        `https://backend.bikebuilders.in/api/admin/bike/${id}`,
+        `https://backend.bikebuilders.in/api/bike/${id}`,
         {
           method: "PUT",
           credentials: "include",

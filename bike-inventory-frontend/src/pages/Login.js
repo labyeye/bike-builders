@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Visibility, VisibilityOff, Person, Lock } from "@mui/icons-material";
 import logo from "../assets/Logo.png";
+import { setToken } from "../utils/auth";
 
 const API = "https://backend.bikebuilders.in";
 
@@ -21,14 +22,14 @@ export default function AdminLogin({ setUser }) {
     e.preventDefault();
     setLoading(true); setError("");
     try {
-      const r = await fetch(`${API}/api/admin/login`, {
+      const r = await fetch(`${API}/api/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include",
         body: JSON.stringify(form),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data.message || "Login failed");
+      if (data.token) setToken(data.token);
       if (setUser && data.user) {
         try { localStorage.setItem("bb_user", JSON.stringify(data.user)); } catch (e) {}
         setUser(data.user);

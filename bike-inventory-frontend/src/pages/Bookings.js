@@ -3,6 +3,7 @@ import { Check, Close, Delete, Search, FilterList } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Layout/Sidebar";
 import Topbar from "../components/Layout/Topbar";
+import { authHeaders } from "../utils/auth";
 import "../css/Dashboard.css";
 
 const API = "https://backend.bikebuilders.in";
@@ -24,7 +25,7 @@ export default function Bookings({ user }) {
     if (user) { setAuthChecked(true); return; }
     (async () => {
       try {
-        const r = await fetch(`${API}/api/admin/check-auth`, { credentials:"include" });
+        const r = await fetch(`${API}/api/check-auth`, { headers: authHeaders() });
         if (!r.ok) return navigate("/login");
         const d = await r.json();
         if (!d.isAuthenticated) return navigate("/login");
@@ -47,9 +48,8 @@ export default function Bookings({ user }) {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const r = await fetch(`${API}/api/admin/bookings`, { 
-        credentials:"include",
-        headers: { "Accept": "application/json" },
+      const r = await fetch(`${API}/api/bookings`, {
+        headers: { ...authHeaders(), "Accept": "application/json" },
       });
       const d = await r.json();
       setBookings(d.bookings || []);
@@ -59,9 +59,10 @@ export default function Bookings({ user }) {
 
   const updateStatus = async (id, s) => {
     try {
-      const r = await fetch(`${API}/api/admin/booking/${id}`, {
-        method:"PUT", headers:{"Content-Type":"application/json"},
-        credentials:"include", body: JSON.stringify({ status: s }),
+      const r = await fetch(`${API}/api/booking/${id}`, {
+        method:"PUT",
+        headers:{ ...authHeaders(), "Content-Type":"application/json" },
+        body: JSON.stringify({ status: s }),
       });
       if (!r.ok) throw new Error();
       fetchBookings();
@@ -71,7 +72,7 @@ export default function Bookings({ user }) {
   const deleteBooking = async (id) => {
     if (!window.confirm("Delete this booking?")) return;
     try {
-      await fetch(`${API}/api/admin/booking/${id}`, { method:"DELETE", credentials:"include" });
+      await fetch(`${API}/api/booking/${id}`, { method:"DELETE", headers: authHeaders() });
       fetchBookings();
     } catch { alert("Error deleting booking"); }
   };

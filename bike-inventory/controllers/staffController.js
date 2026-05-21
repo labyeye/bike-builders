@@ -40,7 +40,7 @@ async function createStaff(req, res) {
 
 async function deleteStaff(req, res) {
   try {
-    if (req.params.id === String(req.session.user.id)) {
+    if (req.params.id === String(req.user.id)) {
       return res
         .status(400)
         .json({ success: false, error: "Cannot delete your own account" });

@@ -1,51 +1,38 @@
-/**
- * API Client with proper credentials and headers for session-based auth
- * Ensures cookies are sent with all requests including FormData uploads
- */
+import { authHeaders, clearToken } from "./auth";
 
 const API_BASE = "https://backend.bikebuilders.in";
 
-/**
- * Make an API request with proper headers and credentials
- * @param {string} endpoint - API endpoint (e.g., "/api/admin/bike")
- * @param {object} options - Fetch options (method, body, etc.)
- * @returns {Promise<Response>}
- */
 export async function apiRequest(endpoint, options = {}) {
   const url = `${API_BASE}${endpoint}`;
-  
+
   const defaultOptions = {
-    credentials: "include", // Always include credentials for session cookies
     headers: {
       "Accept": "application/json",
-      ...options.headers, // Allow override
+      ...authHeaders(),
+      ...options.headers,
     },
   };
 
-  // Don't set Content-Type for FormData - let browser set it with boundary
   if (options.body instanceof FormData) {
     delete defaultOptions.headers["Content-Type"];
   } else if (!options.headers || !options.headers["Content-Type"]) {
-    // Set Content-Type for JSON requests
     if (options.body && typeof options.body === "string") {
       defaultOptions.headers["Content-Type"] = "application/json";
     }
   }
 
-  const finalOptions = { ...defaultOptions, ...options };
+  const finalOptions = { ...defaultOptions, ...options, headers: defaultOptions.headers };
 
   try {
     const response = await fetch(url, finalOptions);
-    
-    // Handle auth errors
+
     if (response.status === 401) {
       console.error("Authentication failed. Please login again.");
-      // Clear stored user and redirect to login
+      clearToken();
       try {
         localStorage.removeItem("bb_user");
       } catch (e) {}
-      // You might want to dispatch a logout action here if using state management
-      window.location.href = "/admin/login";
+      window.location.href = "/login";
     }
 
     return response;
@@ -101,7 +88,7 @@ export function apiDelete(endpoint, options = {}) {
  * Check authentication status
  */
 export async function checkAuth() {
-  const response = await apiGet("/api/admin/check-auth");
+  const response = await apiGet("/api/check-auth");
   if (!response.ok) {
     throw new Error("Authentication check failed");
   }

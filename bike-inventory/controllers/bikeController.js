@@ -314,7 +314,7 @@ async function dashboard(req, res) {
       success: true,
       bikes,
       stats: statsPayload,
-      user: req.session.user,
+      user: req.user,
     });
   } catch (err) {
     console.error("Error loading dashboard:", err);
