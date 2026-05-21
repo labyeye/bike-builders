@@ -3,7 +3,7 @@ const { MongoStore } = require("connect-mongo");
 
 function buildSession() {
   return session({
-    secret: process.env.SESSION_SECRET || "rgesda543",
+    secret: process.env.JWT_SECRET || "rgesda543",
     resave: false,
     saveUninitialized: false,
     rolling: true,

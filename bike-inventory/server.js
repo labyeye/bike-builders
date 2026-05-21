@@ -21,7 +21,7 @@ const port = process.env.PORT || 5000;
 
 console.log("Environment check:");
 console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("SESSION_SECRET exists:", !!process.env.SESSION_SECRET);
+console.log("JWT_SECRET exists:", !!process.env.JWT_SECRET);
 console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
 
 connectDB()

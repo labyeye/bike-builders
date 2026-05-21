@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = process.env.JWT_SECRET || process.env.SESSION_SECRET || "rgesda543";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 function getTokenFromReq(req) {
   const header = req.headers.authorization || "";

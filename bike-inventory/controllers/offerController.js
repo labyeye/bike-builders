@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const Offer = require("../models/Offer");
 
 const JWT_SECRET =
-  process.env.JWT_SECRET || process.env.SESSION_SECRET || "rgesda543";
+  process.env.JWT_SECRET;
 
 function tryGetUser(req) {
   const header = req.headers.authorization || "";

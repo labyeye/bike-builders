@@ -4,7 +4,7 @@ const User = require("../models/User");
 const { signToken } = require("../middleware/auth");
 
 const JWT_SECRET =
-  process.env.JWT_SECRET || process.env.SESSION_SECRET || "rgesda543";
+  process.env.JWT_SECRET;
 
 async function ensureAdminUser() {
   const existing = await User.findOne({ username: "admin" });
