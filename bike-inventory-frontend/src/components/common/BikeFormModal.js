@@ -128,6 +128,7 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
 
     const xhr = new XMLHttpRequest();
     xhr.open(method, url);
+    xhr.timeout = 120000; // 2 min — covers slow mobile uploads
     const headers = authHeaders();
     Object.entries(headers).forEach(([k, v]) => xhr.setRequestHeader(k, v));
 
@@ -176,21 +177,30 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
     };
 
     xhr.onerror = () => {
-      const msg = "Network error — could not reach server";
-      console.error("[BikeFormModal] xhr.onerror");
+      const online = navigator.onLine;
+      const msg = online
+        ? `Could not reach server. Check that ${API} is up, CORS headers are correct, and your network allows it.`
+        : "You appear to be offline. Reconnect and try again.";
+      console.error("[BikeFormModal] xhr.onerror — navigator.onLine:", online);
       setProgressErr(msg);
       setError(msg);
       setSubmit(false);
-      setTimeout(() => setProgressOpen(false), 2500);
+      setTimeout(() => setProgressOpen(false), 4000);
     };
 
     xhr.ontimeout = () => {
-      const msg = "Request timed out";
+      const msg = "Upload took too long (>2 min). Try smaller images or check your connection.";
       console.error("[BikeFormModal] xhr.ontimeout");
       setProgressErr(msg);
       setError(msg);
       setSubmit(false);
-      setTimeout(() => setProgressOpen(false), 2500);
+      setTimeout(() => setProgressOpen(false), 4000);
+    };
+
+    xhr.onabort = () => {
+      console.warn("[BikeFormModal] xhr.onabort");
+      setSubmit(false);
+      setProgressOpen(false);
     };
 
     xhr.send(fd);

@@ -140,25 +140,31 @@ async function createBike(req, res) {
 }
 
 async function updateBike(req, res) {
+  const t0 = Date.now();
+  console.log(`[updateBike] start id=${req.params.id} files=${req.files?.length || 0}`);
   try {
     const bike = await Bike.findById(req.params.id);
     if (!bike) {
+      console.warn(`[updateBike] bike ${req.params.id} not found`);
       return res.status(404).json({ success: false, error: "Bike not found" });
     }
 
+    // accept both `removedImages` (frontend) and `removeImages` (legacy)
+    const rawRemove = req.body.removedImages ?? req.body.removeImages;
     let removeImages = [];
-    if (req.body.removeImages) {
-      if (Array.isArray(req.body.removeImages)) {
-        removeImages = req.body.removeImages;
+    if (rawRemove) {
+      if (Array.isArray(rawRemove)) {
+        removeImages = rawRemove;
       } else {
         try {
-          removeImages = JSON.parse(req.body.removeImages);
-          if (!Array.isArray(removeImages)) removeImages = [removeImages];
+          const parsed = JSON.parse(rawRemove);
+          removeImages = Array.isArray(parsed) ? parsed : [parsed];
         } catch (e) {
-          removeImages = [req.body.removeImages];
+          removeImages = [rawRemove];
         }
       }
     }
+    console.log(`[updateBike] removing ${removeImages.length} images`);
 
     let existingOrder = null;
     if (req.body.existingOrder) {
@@ -171,6 +177,8 @@ async function updateBike(req, res) {
 
     const normalizeToUrl = (val) => {
       if (!val) return val;
+      // preserve full http(s) URLs (Cloudinary) as-is
+      if (/^https?:\/\//i.test(val)) return val;
       if (val.startsWith("/uploads/")) return val;
       if (val.includes("/uploads/"))
         return val.substring(val.indexOf("/uploads/"));

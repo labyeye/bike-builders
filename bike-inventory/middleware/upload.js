@@ -2,7 +2,20 @@ const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
 const fs = require("fs");
 
-const upload = multer({ storage: multer.memoryStorage() });
+const MAX_FILE_SIZE_MB = 5;
+const MAX_FILES = 5;
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: MAX_FILE_SIZE_MB * 1024 * 1024,
+    files: MAX_FILES,
+  },
+  fileFilter(req, file, cb) {
+    if (file.mimetype.startsWith("image/")) return cb(null, true);
+    return cb(new Error(`Invalid file type: ${file.mimetype}. Only images allowed.`));
+  },
+});
 
 const CLOUDINARY_ENABLED =
   !!process.env.CLOUDINARY_CLOUD_NAME &&
