@@ -1,6 +1,8 @@
 ﻿.filters-container {
   margin: 20px 0;
   padding: 0 20px;
+  /* align top of filters with the first row of bike-grid (skipping section-header + brand-logos row on the right) */
+  margin-top: 180px;
 }
 
 :root {
@@ -430,6 +432,7 @@ input[type="range"]::-webkit-slider-thumb {
 
   .filters-container {
     padding: 0 15px;
+    margin-top: 0; /* desktop-only alignment offset removed on mobile */
   }
 
   .bike-slider .slick-prev,
