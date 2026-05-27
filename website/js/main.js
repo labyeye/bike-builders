@@ -517,64 +517,10 @@ function initFaqToggle() {
 }
 
 function initDarkMode() {
-  const darkModeToggle = document.getElementById("darkModeToggle");
-  const mobileDarkModeToggle = document.getElementById("mobileDarkModeToggle");
-
-  function checkDarkModePreference() {
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark =
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
-      document.body.classList.add("dark-mode");
-      if (darkModeToggle) darkModeToggle.checked = true;
-      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-    }
-  }
-
-  checkDarkModePreference();
-
-  if (darkModeToggle)
-    darkModeToggle.addEventListener("change", function () {
-      if (this.checked) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.body.classList.remove("dark-mode");
-        localStorage.setItem("theme", "light");
-      }
-      if (mobileDarkModeToggle) mobileDarkModeToggle.checked = this.checked;
-    });
-
-  if (mobileDarkModeToggle)
-    mobileDarkModeToggle.addEventListener("change", function () {
-      if (this.checked) {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.body.classList.remove("dark-mode");
-        localStorage.setItem("theme", "light");
-      }
-      if (darkModeToggle) darkModeToggle.checked = this.checked;
-    });
-
-  const mql = window.matchMedia("(prefers-color-scheme: dark)");
-  if (mql && mql.addEventListener) {
-    mql.addEventListener("change", (e) => {
-      const newColorScheme = e.matches ? "dark" : "light";
-      if (!localStorage.getItem("theme")) {
-        if (newColorScheme === "dark") {
-          document.body.classList.add("dark-mode");
-          if (darkModeToggle) darkModeToggle.checked = true;
-          if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-        } else {
-          document.body.classList.remove("dark-mode");
-          if (darkModeToggle) darkModeToggle.checked = false;
-          if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
-        }
-      }
-    });
-  }
+  // Dark theme removed — site is light-only. Clear any stale preference
+  // and ensure the dark-mode class is never applied.
+  try { localStorage.removeItem("theme"); } catch (e) {}
+  document.body.classList.remove("dark-mode");
 }
 
 function initStyleCarousel() {

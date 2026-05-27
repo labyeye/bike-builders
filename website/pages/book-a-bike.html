@@ -204,18 +204,7 @@
           >
         </li>
       </ul>
-      <div class="theme-toggle">
-        <input
-          type="checkbox"
-          id="darkModeToggle"
-          aria-label="Toggle dark mode"
-        />
-        <label for="darkModeToggle" class="toggle-label">
-          <i class="fas fa-sun"></i>
-          <i class="fas fa-moon"></i>
-          <span class="toggle-ball"></span>
-        </label>
-      </div>
+      
     </nav>
     <section class="book-section">
       <div class="book-content">
@@ -423,12 +412,8 @@
             </p>
             <div class="process-steps">
               <div class="process-step">
-                <div class="step-image">
-                  <img
-                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img1.webp"
-                    alt="Browse Bike Inventory"
-                    loading="lazy"
-                  />
+                <div class="step-icon">
+                  <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
                 </div>
                 <h3 data-translate="BROWSE INVENTORY">BROWSE INVENTORY</h3>
                 <p>
@@ -437,12 +422,8 @@
                 </p>
               </div>
               <div class="process-step">
-                <div class="step-image">
-                  <img
-                    src="https://static.vecteezy.com/system/resources/thumbnails/049/503/011/small_2x/a-man-is-standing-next-to-a-motorcycle-with-a-clipboard-webp.webp"
-                    alt="Get to Know Your Ride"
-                    loading="lazy"
-                  />
+                <div class="step-icon">
+                  <i class="fas fa-clipboard-list" aria-hidden="true"></i>
                 </div>
                 <h3 data-translate="GET TO KNOW YOUR RIDE">
                   GET TO KNOW YOUR RIDE
@@ -453,12 +434,8 @@
                 </p>
               </div>
               <div class="process-step">
-                <div class="step-image">
-                  <img
-                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img3.webp"
-                    alt="Pay and Book Bike"
-                    loading="lazy"
-                  />
+                <div class="step-icon">
+                  <i class="fas fa-credit-card" aria-hidden="true"></i>
                 </div>
                 <h3 data-translate="PAY & BOOK ONLINE OR VISIT SHOWROOM">
                   PAY & BOOK ONLINE OR VISIT SHOWROOM
@@ -469,12 +446,8 @@
                 </p>
               </div>
               <div class="process-step">
-                <div class="step-image">
-                  <img
-                    src="https://cdn.bigboytoyz.com/new-version/assets/images/howitworks-img4.webp"
-                    alt="Complete Bike Purchase"
-                    loading="lazy"
-                  />
+                <div class="step-icon">
+                  <i class="fas fa-circle-check" aria-hidden="true"></i>
                 </div>
                 <h3 data-translate="COMPLETE PURCHASE">COMPLETE PURCHASE</h3>
                 <p>
@@ -636,7 +609,7 @@
               href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
               aria-label="Visit our Instagram profile"
               ><img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.webp"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1280px-Instagram_icon.png"
                 style="width: 20px"
                 alt="Instagram icon"
             /></a>
@@ -719,14 +692,14 @@
         <div class="footer-section">
           <h3>Brands</h3>
           <ul>
-            <li><a href="../index.html">Hero</a></li>
-            <li><a href="../index.html">Bajaj</a></li>
-            <li><a href="../index.html">TVS</a></li>
-            <li><a href="../index.html">Royal Enfield</a></li>
-            <li><a href="../index.html">Honda</a></li>
-            <li><a href="../index.html">Yamaha</a></li>
-            <li><a href="../index.html">Suzuki</a></li>
-            <li><a href="../index.html">KTM</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Hero">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Bajaj">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=TVS">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Royal%20Enfield">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Honda">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Yamaha">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Suzuki">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=KTM">KTM</a></li>
           </ul>
         </div>
 
@@ -953,73 +926,7 @@
 
     </script>
     <script src="../js/main.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle",
-        );
-
-        // Check for saved user preference or system preference
-        function checkDarkModePreference() {
-          const savedTheme = localStorage.getItem("theme");
-          const systemPrefersDark =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
-            document.body.classList.add("dark-mode");
-            if (darkModeToggle) darkModeToggle.checked = true;
-            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-          }
-        }
-        checkDarkModePreference();
-        if (darkModeToggle) {
-          darkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            if (mobileDarkModeToggle) {
-              mobileDarkModeToggle.checked = this.checked;
-            }
-          });
-        }
-        if (mobileDarkModeToggle) {
-          mobileDarkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            if (darkModeToggle) {
-              darkModeToggle.checked = this.checked;
-            }
-          });
-        }
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", (e) => {
-            const newColorScheme = e.matches ? "dark" : "light";
-            if (!localStorage.getItem("theme")) {
-              if (newColorScheme === "dark") {
-                document.body.classList.add("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = true;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-              } else {
-                document.body.classList.remove("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = false;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
-              }
-            }
-          });
-      });
-    </script>
+    
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-ETL311CBE6"

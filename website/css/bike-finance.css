@@ -6,17 +6,8 @@
   color: #111;
   font-size: 2.5rem;
 }
-.dark-mode .finance-hero h1 {
-  color: white;
-  font-size: 2.5rem;
-}
 .finance-hero p {
   color: #111;
-  margin-top: 15px;
-  font-size: 1.5rem;
-}
-.dark-mode .finance-hero p {
-  color: white;
   margin-top: 15px;
   font-size: 1.5rem;
 }
@@ -47,11 +38,6 @@
   margin-bottom: 32px;
   color: black;
 }
-.dark-mode .process h2 {
-  text-align: center;
-  margin-bottom: 32px;
-  color: white;
-}
 .step {
   display: flex;
   gap: 12px;
@@ -72,12 +58,6 @@
 
 .step-desc {
   color: #333333;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-top: 2px;
-}
-.dark-mode .step-desc {
-  color: white;
   font-size: 1rem;
   line-height: 1.6;
   margin-top: 2px;
@@ -151,39 +131,6 @@
 .process-note {
   margin-top: 16px;
   color: #333;
-}
-
-.dark-mode .process-card {
-  background: #c65a18;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  box-shadow: none;
-}
-.dark-mode .card-icon {
-  background: rgba(255, 255, 255, 0.04);
-  color: #f8fafc;
-}
-.dark-mode .card-title {
-  color: #f8fafc;
-}
-.dark-mode .card-desc,
-.dark-mode .process-note {
-  color: #cbd5e1;
-}
-
-.dark-theme .process-card {
-  background: #0f1724;
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-.dark-theme .card-icon {
-  background: rgba(255, 255, 255, 0.04);
-  color: #f8fafc;
-}
-.dark-theme .card-title {
-  color: #f8fafc;
-}
-.dark-theme .card-desc,
-.dark-theme .process-note {
-  color: #cbd5e1;
 }
 
 @media (max-width: 600px) {

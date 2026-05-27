@@ -19,20 +19,6 @@
   overflow: hidden;
   z-index: 1;
 }
-.dark-mode .login-btn button {
-  background-color: var(--secondary-color) !important;
-  color: white !important;
-  border: 1px solid var(--primary-color);
-  border-radius: 25px;
-  padding: 8px 25px;
-  font-family: var(--font-body);
-  font-size: 18px;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-}
 
 .about-hero .hero-content h1 {
   margin-bottom: 20px;
@@ -49,11 +35,6 @@
   background-color: white;
   position: relative;
 }
-.dark-mode .about-section {
-  padding: 100px 5%;
-  background-color: var(--secondary-color);
-  position: relative;
-}
 
 .about-container {
   max-width: 1200px;
@@ -61,10 +42,6 @@
 }
 .about-container h1 {
   color: black;
-  text-align: center;
-}
-.dark-mode .about-container h1 {
-  color: white;
   text-align: center;
 }
 .owner-message {
@@ -113,12 +90,6 @@
   color: black;
   position: relative;
 }
-.dark-mode .owner-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-  color: white;
-  position: relative;
-}
 
 .owner-content h2::after {
   content: "";
@@ -132,12 +103,6 @@
 
 .owner-content p {
   color: rgba(0, 0, 0, 0.8);
-  line-height: 1.8;
-  margin-bottom: 20px;
-  font-size: 1.1rem;
-}
-.dark-mode .owner-content p {
-  color: rgba(255, 255, 255, 0.8);
   line-height: 1.8;
   margin-bottom: 20px;
   font-size: 1.1rem;
@@ -177,11 +142,6 @@
   position: relative;
   min-height: auto;
 }
-.dark-mode .milestones-section {
-  padding: 80px 5%;
-  background: #100f0f;
-  position: relative;
-}
 
 .milestones-section .section-header {
   margin-bottom: 60px;
@@ -191,16 +151,9 @@
 .milestones-section .section-header h2 {
   color: black;
 }
-.dark-mode .milestones-section .section-header h2 {
-  color: white;
-}
 
 .milestones-section .section-header p {
   color: black;
-  font-size: 1.1rem;
-}
-.dark-mode .milestones-section .section-header p {
-  color: var(--light-gray);
   font-size: 1.1rem;
 }
 
@@ -280,21 +233,9 @@
   margin-bottom: 10px;
   font-size: 1.3rem;
 }
-.dark-mode .timeline-content h3 {
-  color: white;
-  margin-top: 0;
-  margin-bottom: 10px;
-  font-size: 1.3rem;
-}
 
 .timeline-content p {
   color: rgba(0, 0, 0, 0.7);
-  line-height: 1.6;
-  margin: 0;
-  font-size: 0.95rem;
-}
-.dark-mode .timeline-content p {
-  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
   margin: 0;
   font-size: 0.95rem;
@@ -303,11 +244,6 @@
 .values-section {
   padding: 100px 5%;
   background: white;
-  position: relative;
-}
-.dark-mode .values-section {
-  padding: 100px 5%;
-  background: #100f0f;
   position: relative;
 }
 
@@ -319,16 +255,9 @@
 .values-section .section-header h2 {
   color: black;
 }
-.dark-mode .values-section .section-header h2 {
-  color: white;
-}
 
 .values-section .section-header p {
   color: black;
-  font-size: 1.1rem;
-}
-.dark-mode .values-section .section-header p {
-  color: var(--light-gray);
   font-size: 1.1rem;
 }
 
@@ -389,13 +318,6 @@
   position: relative;
   display: inline-block;
 }
-.dark-mode .value-card h3 {
-  color: white;
-  margin-bottom: 15px;
-  font-size: 1.3rem;
-  position: relative;
-  display: inline-block;
-}
 
 .value-card h3::after {
   content: "";
@@ -415,13 +337,6 @@
 
 .value-card p {
   color: rgba(0, 0, 0, 0.7);
-  line-height: 1.6;
-  margin: 0;
-  font-size: 0.9rem;
-  transition: color 0.4s;
-}
-.dark-mode .value-card p {
-  color: rgba(255, 255, 255, 0.7);
   line-height: 1.6;
   margin: 0;
   font-size: 0.9rem;

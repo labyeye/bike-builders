@@ -188,18 +188,7 @@
           </li>
         </ul>
 
-        <div class="theme-toggle">
-          <input
-            type="checkbox"
-            id="darkModeToggle"
-            aria-label="Toggle dark mode"
-          />
-          <label for="darkModeToggle" class="toggle-label">
-            <i class="fas fa-sun"></i>
-            <i class="fas fa-moon"></i>
-            <span class="toggle-ball"></span>
-          </label>
-        </div>
+        
       </nav>
       <section class="inventory-section full-inventory">
         <div class="inventory-content">
@@ -1002,7 +991,7 @@
               href="https://www.instagram.com/bikebuilders41?igsh=ZDk5M3NxdmI1Ymhp"
               aria-label="Visit our Instagram profile"
               ><img
-                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.webp"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1280px-Instagram_icon.png"
                 style="width: 20px"
                 alt="Instagram icon"
             /></a>
@@ -1085,14 +1074,14 @@
         <div class="footer-section">
           <h3>Brands</h3>
           <ul>
-            <li><a href="../index.html">Hero</a></li>
-            <li><a href="../index.html">Bajaj</a></li>
-            <li><a href="../index.html">TVS</a></li>
-            <li><a href="../index.html">Royal Enfield</a></li>
-            <li><a href="../index.html">Honda</a></li>
-            <li><a href="../index.html">Yamaha</a></li>
-            <li><a href="../index.html">Suzuki</a></li>
-            <li><a href="../index.html">KTM</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Hero">Hero</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Bajaj">Bajaj</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=TVS">TVS</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Royal%20Enfield">Royal Enfield</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Honda">Honda</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Yamaha">Yamaha</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=Suzuki">Suzuki</a></li>
+            <li><a href="https://www.bikebuilders.in/pages/bike-inventory.html?brand=KTM">KTM</a></li>
           </ul>
         </div>
 
@@ -1182,10 +1171,15 @@
 
         const API_BASE = "https://backend.bikebuilders.in";
 
+        // Only show the "Under ₹X" range label in the heading when the user
+        // arrived via a homepage price-range card (i.e. ?price= in the URL).
+        let priceFromUrl = false;
+
         (function applyPriceFromUrl() {
           try {
             const params = new URLSearchParams(window.location.search);
             if (params.has("price")) {
+              priceFromUrl = true;
               const v = params.get("price");
               let min = null;
               let max = null;
@@ -1687,7 +1681,7 @@
                 const bikeData = JSON.parse(card.dataset.bikeData);
                 // Navigate to vehicle detail page by id
                 if (bikeData && bikeData._id) {
-                  window.location.href = `vehicledetail.html?id=${encodeURIComponent(bikeData._id)}`;
+                  window.location.href = `vehicle-details.html?id=${encodeURIComponent(bikeData._id)}`;
                 } else {
                   // fallback to popup if id missing
                   showBikePopup(bikeData);
@@ -1699,7 +1693,7 @@
               contactBtn.addEventListener("click", (e) => {
                 e.stopPropagation();
                 const bikeData = JSON.parse(card.dataset.bikeData);
-                window.location.href = `book.html?bikeId=${bikeData._id}`;
+                window.location.href = `book-a-bike.html?bikeId=${bikeData._id}`;
               });
             }
           });
@@ -1908,16 +1902,20 @@
         // Update bike count
         function updateBikeCount(count) {
           const rangeLabel = (function () {
+            // Show the price-range label only when it came from a homepage range card
+            if (!priceFromUrl) return null;
             try {
               const min = currentFilters.minPrice;
               const max = currentFilters.maxPrice;
-              if (min && max) {
+              const finiteMin = Number.isFinite(min) && min > 0;
+              const finiteMax = Number.isFinite(max) && max > 0;
+              if (finiteMin && finiteMax) {
                 return `₹${Number(min).toLocaleString()} — ₹${Number(max).toLocaleString()}`;
               }
-              if (min && !max) {
+              if (finiteMin && !finiteMax) {
                 return `₹${Number(min).toLocaleString()}+`;
               }
-              if (!min && max) {
+              if (!finiteMin && finiteMax) {
                 return `Under ₹${Number(max).toLocaleString()}`;
               }
             } catch (e) {}
@@ -2783,84 +2781,7 @@
         }
       }
     </script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const darkModeToggle = document.getElementById("darkModeToggle");
-        const mobileDarkModeToggle = document.getElementById(
-          "mobileDarkModeToggle",
-        );
-
-        // Check for saved user preference or system preference
-        function checkDarkModePreference() {
-          const savedTheme = localStorage.getItem("theme");
-          const systemPrefersDark =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-          if (savedTheme === "dark" || (!savedTheme && systemPrefersDark)) {
-            document.body.classList.add("dark-mode");
-            if (darkModeToggle) darkModeToggle.checked = true;
-            if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-          }
-        }
-
-        // Initialize dark mode
-        checkDarkModePreference();
-
-        // Desktop toggle
-        if (darkModeToggle) {
-          darkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            // Sync mobile toggle
-            if (mobileDarkModeToggle) {
-              mobileDarkModeToggle.checked = this.checked;
-            }
-          });
-        }
-
-        // Mobile toggle
-        if (mobileDarkModeToggle) {
-          mobileDarkModeToggle.addEventListener("change", function () {
-            if (this.checked) {
-              document.body.classList.add("dark-mode");
-              localStorage.setItem("theme", "dark");
-            } else {
-              document.body.classList.remove("dark-mode");
-              localStorage.setItem("theme", "light");
-            }
-            // Sync desktop toggle
-            if (darkModeToggle) {
-              darkModeToggle.checked = this.checked;
-            }
-          });
-        }
-
-        // Watch for system theme changes
-        window
-          .matchMedia("(prefers-color-scheme: dark)")
-          .addEventListener("change", (e) => {
-            const newColorScheme = e.matches ? "dark" : "light";
-            if (!localStorage.getItem("theme")) {
-              // Only if user hasn't set a preference
-              if (newColorScheme === "dark") {
-                document.body.classList.add("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = true;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = true;
-              } else {
-                document.body.classList.remove("dark-mode");
-                if (darkModeToggle) darkModeToggle.checked = false;
-                if (mobileDarkModeToggle) mobileDarkModeToggle.checked = false;
-              }
-            }
-          });
-      });
-    </script>
+    
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-ETL311CBE6"
