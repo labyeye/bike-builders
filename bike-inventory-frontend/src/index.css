@@ -1,7 +1,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  
+  /* Blue palette */
   --blue-950:  #0a1628;
   --blue-900:  #0f2044;
   --blue-800:  #1e3a8a;
@@ -14,39 +14,61 @@
   --blue-100:  #dbeafe;
   --blue-50:   #eff6ff;
 
-  
-  --glass-strong:  rgba(255,255,255,0.18);
-  --glass-medium:  rgba(255,255,255,0.12);
-  --glass-light:   rgba(255,255,255,0.07);
-  --glass-border:  rgba(255,255,255,0.22);
-  --glass-border-light: rgba(255,255,255,0.12);
+  /* Light theme — semantic */
+  --bg:           #f6f9ff;
+  --surface:      #ffffff;
+  --surface-2:    #f3f6fb;
+  --surface-3:    #eaf1fc;
+  --border:       #dde5f1;
+  --border-light: #ecf1f8;
+  --border-strong:#c5d3ea;
 
-  
-  --text-white:   #ffffff;
-  --text-light:   rgba(255,255,255,0.85);
-  --text-muted:   rgba(255,255,255,0.55);
-  --text-subtle:  rgba(255,255,255,0.35);
+  /* Legacy "glass" tokens now resolve to opaque surfaces */
+  --glass-strong:        #ffffff;
+  --glass-medium:        #ffffff;
+  --glass-light:         #f3f6fb;
+  --glass-border:        #c5d3ea;
+  --glass-border-light:  #ecf1f8;
 
-  
-  --success:       #4ade80;
-  --success-bg:    rgba(74,222,128,0.15);
-  --success-border:rgba(74,222,128,0.3);
-  --warning:       #fbbf24;
-  --warning-bg:    rgba(251,191,36,0.15);
-  --warning-border:rgba(251,191,36,0.3);
-  --danger:        #f87171;
-  --danger-bg:     rgba(248,113,113,0.15);
-  --danger-border: rgba(248,113,113,0.3);
-  --info-bg:       rgba(96,165,250,0.15);
-  --info-border:   rgba(96,165,250,0.3);
+  /* Text */
+  --text-primary:   #0f172a;
+  --text-secondary: #334155;
+  --text-muted:     #64748b;
+  --text-subtle:    #94a3b8;
+  /* Legacy alias used widely across components */
+  --text-white:     #0f172a;
+  --text-light:     #334155;
+
+  --primary:        #2563eb;
+  --primary-hover:  #1d4ed8;
+  --primary-soft:   #eff6ff;
+
+  --success:        #16a34a;
+  --success-bg:     #dcfce7;
+  --success-border: #bbf7d0;
+
+  --warning:        #d97706;
+  --warning-bg:     #fef3c7;
+  --warning-border: #fde68a;
+
+  --danger:         #dc2626;
+  --danger-bg:      #fee2e2;
+  --danger-border:  #fecaca;
+
+  --info-bg:        #dbeafe;
+  --info-border:    #bfdbfe;
+
+  --shadow-sm: 0 1px 2px rgba(15,23,42,.05);
+  --shadow:    0 4px 14px rgba(15,23,42,.06);
+  --shadow-lg: 0 12px 32px rgba(15,23,42,.10);
 
   --sidebar-w:   260px;
   --topbar-h:    60px;
   --radius:      10px;
   --radius-lg:   16px;
   --radius-xl:   20px;
-  --blur:        blur(20px);
-  --blur-sm:     blur(12px);
+  --blur:        blur(0);
+  --blur-sm:     blur(0);
 }
 
 html, body {
@@ -55,7 +77,8 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100%;
-  background: var(--blue-900);
+  background: var(--bg);
+  color: var(--text-primary);
 }
 
 a  { text-decoration: none; color: inherit; }
