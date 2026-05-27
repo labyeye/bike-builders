@@ -73,7 +73,7 @@ app.use((err, req, res, next) => {
   // multer-specific errors → 400
   if (err instanceof multer.MulterError) {
     const messages = {
-      LIMIT_FILE_SIZE: "Each image must be under 5 MB.",
+      LIMIT_FILE_SIZE: "Each image must be under 10 MB.",
       LIMIT_FILE_COUNT: "Too many files. Max 5 images per bike.",
       LIMIT_UNEXPECTED_FILE: `Unexpected file field: ${err.field}`,
     };

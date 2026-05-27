@@ -28,8 +28,8 @@ const AddBike = ({ user }) => {
   const [previews, setPreviews] = useState([]);
   const [error, setError] = useState(null);
   const handleFilesChange = (e) => {
-    const MAX_FILE_SIZE = 2.5 * 1024 * 1024;
-    const MAX_TOTAL_SIZE = 8 * 1024 * 1024;
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+    const MAX_TOTAL_SIZE = 50 * 1024 * 1024;
     const files = Array.from(e.target.files).slice(0, 5);
 
     const tooLarge = files.filter((f) => f.size > MAX_FILE_SIZE);

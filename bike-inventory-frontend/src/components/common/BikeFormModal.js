@@ -67,11 +67,11 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
   };
 
   const handleFilesChange = (e) => {
-    const MAX_FILE = 2.5*1024*1024, MAX_TOTAL = 8*1024*1024;
+    const MAX_FILE = 10*1024*1024, MAX_TOTAL = 50*1024*1024;
     const files = Array.from(e.target.files).slice(0, 5 - existingImages.length);
     const tooLarge = files.filter(f => f.size > MAX_FILE);
-    if (tooLarge.length) return setError("Each image must be under 2.5 MB");
-    if (files.reduce((s,f)=>s+f.size,0) > MAX_TOTAL) return setError("Total image size too large");
+    if (tooLarge.length) return setError("Each image must be under 10 MB");
+    if (files.reduce((s,f)=>s+f.size,0) > MAX_TOTAL) return setError("Total image size too large (max 50 MB combined)");
     setFiles(files);
     setPreviews(files.map(f => URL.createObjectURL(f)));
     setError(null);
@@ -334,7 +334,7 @@ export default function BikeFormModal({ open, onClose, onSaved, editingBike }) {
             <label className="image-upload-box">
               <input type="file" accept="image/*" multiple onChange={handleFilesChange}/>
               <CloudUpload style={{fontSize:32, color:"var(--text-muted)"}}/>
-              <p>Click to upload images · max 2.5 MB each, 5 total</p>
+              <p>Click to upload images · max 10 MB each, 5 total</p>
             </label>
           )}
 
