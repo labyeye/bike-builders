@@ -13,7 +13,7 @@ import "../css/Dashboard.css";
 
 const API = "https://backend.bikebuilders.in";
 
-const BRANDS = ["All Brands","Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Other"];
+const BRANDS = ["All Brands","Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Ola","Ather","Other"];
 const FUEL   = ["All Fuel","Petrol","Electric"];
 const STATUS = ["All Status","Available","Coming Soon","Sold Out"];
 const SORT   = [

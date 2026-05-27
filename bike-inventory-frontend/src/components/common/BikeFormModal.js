@@ -5,7 +5,7 @@ import UploadProgressModal from "./UploadProgressModal";
 
 const API = "https://backend.bikebuilders.in";
 
-const BRANDS = ["Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Other"];
+const BRANDS = ["Hero","Honda","Bajaj","Yamaha","TVS","Royal Enfield","KTM","Suzuki","Ola","Ather","Other"];
 const FUEL_TYPES = ["Petrol","Electric"];
 const OWNERSHIP = ["1st","2nd","3rd","4th+"];
 const STATUS_OPTIONS = ["Available","Coming Soon","Sold Out"];
