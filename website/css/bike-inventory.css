@@ -1179,11 +1179,7 @@ input[type="range"]::-webkit-slider-thumb {
   margin-top: 5px;
 }
 
-.sort-dropdown:hover .sort-options,
-.sort-dropdown:focus-within .sort-options {
-  display: block;
-  animation: fadeIn 0.2s ease-out forwards;
-}
+/* Sort dropdown open state is controlled entirely by JS click handlers */
 
 .sort-option {
   background: transparent;

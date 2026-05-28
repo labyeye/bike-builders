@@ -258,7 +258,7 @@
 
         
       </nav>
-      <div class="vehicle-main-section">
+      <div class="vehicle-main-section" style="padding-top: 80px;">
         <div class="vehicle-content-row">
           <div class="vehicle-image-block">
             <img
@@ -340,6 +340,19 @@
         </div>
       </div>
     </div>
+
+    <!-- More Bikes Section -->
+    <section class="more-bikes-section" style="padding: 60px 5%; background: #f9f9f9;">
+      <div class="section-header" style="text-align:center; margin-bottom: 30px;">
+        <h2 style="color: #111; font-size: 2rem;">More Bikes You May Like</h2>
+        <div class="divider" style="margin: 10px auto; width: 60px; height: 3px; background: linear-gradient(90deg, var(--primary-color), #ff6b4a);"></div>
+      </div>
+      <div class="bike-grid" id="moreBikesGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px;"></div>
+      <div style="text-align:center; margin-top: 30px;">
+        <a href="bike-inventory.html" class="cta-btn" style="display:inline-block; background: linear-gradient(90deg, var(--primary-color), #ff6b4a); color: white; padding: 14px 36px; border-radius: 30px; font-weight: 600; text-decoration: none;">View All Bikes</a>
+      </div>
+    </section>
+
     <footer class="footer">
       <div class="footer-content">
         <div class="footer-section">
@@ -547,5 +560,36 @@
     <script src="/i18n.js"></script>
     <script src="../js/main.js"></script>
     <script src="../js/vehicle-details.js"></script>
+    <script src="../js/scroll-anim.js"></script>
+    <script>
+      (function () {
+        var currentId = new URLSearchParams(window.location.search).get("id");
+        fetch("https://backend.bikebuilders.in/api/bikes")
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var bikes = (data.bikes || data).filter(function (b) {
+              return String(b._id || b.id) !== String(currentId) && b.status !== "sold";
+            }).slice(0, 8);
+            var grid = document.getElementById("moreBikesGrid");
+            if (!grid || !bikes.length) return;
+            grid.innerHTML = bikes.map(function (b) {
+              var img = (b.images && b.images[0]) ? b.images[0] : "../assets/owner.webp";
+              if (img.includes("cloudinary.com") && !img.includes("/upload/q_")) {
+                img = img.replace("/upload/", "/upload/q_auto,f_auto,w_400/");
+              }
+              var price = b.price ? "₹" + Number(b.price).toLocaleString("en-IN") : "Contact for price";
+              var id = b._id || b.id;
+              return '<a href="vehicle-details.html?id=' + id + '" class="bike-card" style="text-decoration:none; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 16px rgba(0,0,0,0.08); display:block; transition: transform 0.3s;">' +
+                '<img src="' + img + '" alt="' + (b.brand || "") + ' ' + (b.model || "") + '" style="width:100%; height:200px; object-fit:cover;" loading="lazy" />' +
+                '<div style="padding:16px;">' +
+                '<div style="font-weight:700; font-size:1.1rem; color:#111; margin-bottom:4px;">' + (b.brand || "") + " " + (b.model || "") + '</div>' +
+                '<div style="color:#666; font-size:0.9rem; margin-bottom:8px;">' + (b.year || "") + (b.km ? " · " + Number(b.km).toLocaleString("en-IN") + " km" : "") + '</div>' +
+                '<div style="color: var(--primary-color); font-weight:700; font-size:1.1rem;">' + price + '</div>' +
+                '</div></a>';
+            }).join("");
+          })
+          .catch(function () {});
+      })();
+    </script>
   </body>
 </html>

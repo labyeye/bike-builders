@@ -786,12 +786,12 @@ body {
 
 .slider-nav.prev {
   left: 0;
-  display: none;
+  display: flex;
 }
 
 .slider-nav.next {
   right: 0;
-  display: none;
+  display: flex;
 }
 
 .slider-nav:disabled {

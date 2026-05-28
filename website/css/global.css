@@ -257,3 +257,39 @@ button:focus-visible {
     letter-spacing: -0.025em;
   }
 }
+
+/* Scroll-triggered animations */
+.scroll-anim {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-anim.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.scroll-anim-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-anim-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.scroll-anim-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-anim-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-anim, .scroll-anim-left, .scroll-anim-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

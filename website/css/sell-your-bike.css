@@ -353,7 +353,7 @@
 .stat-number {
   font-size: 2.4rem;
   font-weight: 800;
-  color: var(--primary-color);
+  color: #ffffff;
   margin-bottom: 6px;
 }
 .stat-label {
@@ -375,6 +375,18 @@
     gap: 30px;
   }
 
+  .sell-form-container {
+    order: -1;
+    width: 90%;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .sell-content {
+    order: 1;
+  }
+
+  .sell-content h1,
   .sell-content h2 {
     text-align: center;
   }
@@ -385,11 +397,6 @@
 
   .sell-steps {
     align-items: center;
-  }
-
-  .sell-form-container {
-    width: 90%;
-    padding: 20px;
   }
 
   .stats-section {
