@@ -711,16 +711,14 @@ body {
 .featured-bikes-section h2 {
   color: #333;
 }
-
-.featured-bikes-section .view-all {
+.view-all {
+  display: inline-block;
+  margin-top: 12px;
+  margin-bottom: 20px;
   color: var(--primary-color);
-  text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s;
-}
-
-.featured-bikes-section .view-all:hover {
-  color: #e05d00;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .range-image {
