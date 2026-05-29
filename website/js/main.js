@@ -400,7 +400,8 @@ function displayFeaturedBikes(bikes) {
       bikeCard
         .querySelector(".view-details-btn")
         .addEventListener("click", () => {
-          window.location.href = `bike-inventory.html#${bike._id || ""}`;
+          const carQuery = encodeURIComponent(JSON.stringify(bike));
+          window.location.href = `pages/vehicle-details.html?car=${carQuery}`;
         });
     }
   });

@@ -202,109 +202,87 @@ fetch(`${API_BASE_URL}/api/bikes`)
   .then((response) => response.json())
   .then((data) => {
     const cars = Array.isArray(data) ? data : data.bikes || data.data || [];
-    if (Array.isArray(cars)) {
-      const otherCarsRow = document.getElementById("otherCarsRow");
-      otherCarsRow.innerHTML = "";
+    if (!Array.isArray(cars)) return;
 
-      cars.forEach((car) => {
-        if (car._id && car._id === (carIdFromQuery() || "")) return;
+    const row = document.getElementById("moreBikesGrid");
+    if (!row) return;
+    row.innerHTML = "";
 
-        let imgSrc = "assets/owner.webp";
-        const candidate =
-          (car.photos && car.photos[0]) || (car.imageUrl && car.imageUrl[0]);
-        if (candidate) {
-          if (
-            candidate.startsWith("http://") ||
-            candidate.startsWith("https://")
-          )
-            imgSrc = candidate;
-          else if (candidate.startsWith("assets/")) imgSrc = candidate;
-          else imgSrc = `${API_BASE_URL}/carimages/${candidate}`;
-        }
-
-        const statusClass =
-          car.status === "Available"
-            ? "status-available"
-            : car.status === "Sold Out"
-              ? "status-sold"
-              : car.status === "Coming Soon"
-                ? "status-coming-soon"
-                : "status-available";
-
-        const ownerText = formatOwnership(car.ownership || "1");
-
-        const card = document.createElement("div");
-        card.className = "other-car-card";
-        card.innerHTML = `
-                <div class="image-container">
-                  <img src="${imgSrc}" alt="${car.brand || car.make || ""} ${
-                    car.model || ""
-                  }" class="other-car-img" />
-                  <div class="status-badge ${statusClass}" data-translate="${
-                    car.status || "Available"
-                  }">${car.status || "Available"}</div>
-                </div>
-                <div class="card-content">
-                  <h3>${car.brand || car.make || "Unknown Brand"} ${
-                    car.model || "Unknown Model"
-                  }</h3>
-                  <span class="model">${car.modelYear || "-"} Model</span>
-                  <div class="details">
-                    <div class="detail-item"><i class="fas fa-tachometer-alt"></i> <span>${(
-                      car.kmDriven || 0
-                    ).toLocaleString()} km</span></div>
-                    <div class="detail-item"><i class="fas fa-user"></i> <span>${ownerText}</span></div>
-                    <div class="detail-item"><i class="fas fa-gas-pump"></i> <span>${
-                      car.fuelType || "Petrol"
-                    }</span></div>
-                  </div>
-                  <div class="price-container">
-                    <div class="price">₹${(
-                      car.sellingPrice ||
-                      car.price ||
-                      0
-                    ).toLocaleString()}</div>
-                    <div class="button-group">
-                      <button class="contact-btn" data-translate="Contact Seller" ${
-                        car.status !== "Available" ? "disabled" : ""
-                      }>Contact Seller</button>
-                      <button class="view-details-btn" data-translate="View Details" ${
-                        car.status !== "Available" ? "disabled" : ""
-                      }>View Details</button>
-                    </div>
-                  </div>
-                </div>
-              `;
-
-        setTimeout(() => {
-          const viewDetailsBtn = card.querySelector(".view-details-btn");
-          const contactBtn = card.querySelector(".contact-btn");
-
-          if (viewDetailsBtn && !viewDetailsBtn.disabled) {
-            viewDetailsBtn.onclick = (e) => {
-              e.stopPropagation();
-              const carQuery = encodeURIComponent(JSON.stringify(car));
-              window.location.href = `vehicle-details.html?car=${carQuery}`;
-            };
-          }
-
-          if (contactBtn && !contactBtn.disabled) {
-            contactBtn.onclick = (e) => {
-              e.stopPropagation();
-              window.location.href = "contact-us.html";
-            };
-          }
-        }, 0);
-
-        otherCarsRow.appendChild(card);
-      });
-
-      enableAutoSlider();
+    // exclude current bike using both ?id= and ?car= params
+    const currentId = carIdFromQuery();
+    const params = new URLSearchParams(window.location.search);
+    let currentCarId = currentId;
+    if (!currentCarId) {
+      try {
+        const carObj = JSON.parse(decodeURIComponent(params.get("car") || ""));
+        currentCarId = carObj && carObj._id;
+      } catch {}
     }
+
+    cars.forEach((car) => {
+      if (currentCarId && car._id === currentCarId) return;
+
+      const firstImg =
+        (car.photos && car.photos[0]) ||
+        (car.imageUrl && car.imageUrl[0]) ||
+        (car.images && car.images[0]) ||
+        (Array.isArray(car.image) ? car.image[0] : car.image) ||
+        null;
+      const imgSrc = getImageUrl(firstImg);
+
+      const statusClass =
+        car.status === "Available" ? "status-available" :
+        car.status === "Sold Out" ? "status-sold" :
+        car.status === "Coming Soon" ? "status-coming-soon" : "status-available";
+      const isDisabled = car.status !== "Available";
+
+      const card = document.createElement("div");
+      card.className = "bike-card";
+      card.innerHTML = `
+        <div class="image-container">
+          <div class="status-badge ${statusClass}">${car.status || "Available"}</div>
+          <img src="${imgSrc}" alt="${car.brand || ""} ${car.model || ""}" loading="lazy" style="width:100%;height:200px;object-fit:cover;">
+        </div>
+        <div class="card-content">
+          <h3>${car.brand || car.make || "Unknown"} ${car.model || ""}</h3>
+          <span class="model">${car.modelYear || "-"} Model</span>
+          <div class="details">
+            <div class="detail-item"><i class="fas fa-tachometer-alt"></i><span>${(car.kmDriven || 0).toLocaleString()} km</span></div>
+            <div class="detail-item"><i class="fas fa-user"></i><span>${formatOwnership(car.ownership || "1")}</span></div>
+            <div class="detail-item"><i class="fas fa-gas-pump"></i><span>${car.fuelType || "Petrol"}</span></div>
+          </div>
+          <div class="price-container">
+            <div class="price">₹${(car.sellingPrice || car.price || 0).toLocaleString()}</div>
+            <div class="emi">Down: ₹${(car.downPayment || 0).toLocaleString()} | EMI: ₹${Math.round(((car.sellingPrice || car.price || 0) - (car.downPayment || 0)) / 36).toLocaleString()}/month</div>
+            <div class="button-group">
+              <button class="contact-btn" ${isDisabled ? "disabled" : ""}>Book Now</button>
+              <button class="view-details-btn" ${isDisabled ? "disabled" : ""}>View Details</button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const viewBtn = card.querySelector(".view-details-btn");
+      const contactBtn = card.querySelector(".contact-btn");
+      if (viewBtn && !isDisabled) {
+        viewBtn.onclick = (e) => {
+          e.stopPropagation();
+          window.location.href = `vehicle-details.html?car=${encodeURIComponent(JSON.stringify(car))}`;
+        };
+      }
+      if (contactBtn && !isDisabled) {
+        contactBtn.onclick = (e) => {
+          e.stopPropagation();
+          window.location.href = `book-a-bike.html?bikeId=${car._id}`;
+        };
+      }
+
+      row.appendChild(card);
+    });
   });
 
 function enableAutoSlider() {
-  const row = document.getElementById("otherCarsRow");
+  const row = document.getElementById("moreBikesGrid");
   if (!row) return;
 
   let scrollAmount = 0;
